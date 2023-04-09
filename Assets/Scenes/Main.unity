@@ -2357,14 +2357,14 @@ MonoBehaviour:
   - {fileID: 4321068798391446461, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
   - {fileID: 1012180736909545073, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
   enemy_spawn_chances:
-  - 0.8
-  - 0.2
   - 0.5
+  - 0.2
+  - 0.3
   - 0.3
   spawn_wait_time: 1.5
   spawn_distance: 5
   spawn_tolerance: 1
-  is_spawning: 0
+  is_spawning: 1
   drops:
   - {fileID: 8690085992941070359, guid: 7e7d84c216ce5e844abb0f96c2d63765, type: 3}
   - {fileID: 3009070443102717148, guid: 04c4312b592dac94f8cd0788915fb605, type: 3}

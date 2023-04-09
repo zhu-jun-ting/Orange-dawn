@@ -70,7 +70,7 @@ public class CombatManager : MonoBehaviour
         player = GameObject.Find("Player");
         current_enemies = new List<GameObject>();
 
-        // SetSpawnActivity(is_spawning); // TODO: for debug only
+        SetSpawnActivity(is_spawning); // TODO: for debug only
         FRAME_COUNT = 0;
 
         instance = this;
