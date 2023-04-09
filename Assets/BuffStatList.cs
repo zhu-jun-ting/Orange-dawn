@@ -7,7 +7,7 @@ public class BuffStatList : MonoBehaviour
     public List<StatMaster> buffstats;
     public static BuffStatList instance;
 
-    void Start()
+    void Awake()
     {
         instance = this;
     }
