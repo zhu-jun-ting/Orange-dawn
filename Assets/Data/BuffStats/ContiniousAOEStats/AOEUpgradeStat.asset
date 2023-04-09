@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 601ab55ae47846c47b41bb1dfee6c4f0, type: 3}
+  m_Name: AOEUpgradeStat
+  m_EditorClassIdentifier: 
+  buff_icon: {fileID: 21300000, guid: e85a672609ad7be4ebedb27959e46b2d, type: 3}
+  buff_name: fire_aoe
+  buff_description: a fire aoe under player
+  buff_duration: 99999
+  additional_aoe_damage_per_tick: 1
+  additional_aoe_range: 1

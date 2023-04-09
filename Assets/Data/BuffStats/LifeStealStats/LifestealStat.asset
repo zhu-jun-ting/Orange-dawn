@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36c9d2124288a124e930e45a32731d3f, type: 3}
+  m_Name: LifestealStat
+  m_EditorClassIdentifier: 
+  buff_icon: {fileID: -1214939234, guid: 063567eca95d514478ea8bf722074110, type: 3}
+  buff_name: lifesteal
+  buff_description: recover from the damage you deal
+  buff_duration: 99999
+  additional_lifesteal_percent: 0.05

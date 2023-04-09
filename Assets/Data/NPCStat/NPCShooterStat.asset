@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1ca7e1819397245bea2d276fbe739b, type: 3}
+  m_Name: NPCShooterStat
+  m_EditorClassIdentifier: 
+  max_health: 200
+  move_speed: 1
+  melee_damage: 1
+  hurtDuration: 1
+  shoot_range: 2
+  shoot_interval: 0.5
+  bullet_prefab: {fileID: 4028690415889179283, guid: 6a77567889405c04bab756a2dedd6d88, type: 3}
