@@ -66,7 +66,7 @@ public class NPCShooter : NPCMaster, IDetectorHandler
         ChangeState(State.Attacking);
         target = collider.GetComponent<Detector>().GetRandomGameObjectInRange().transform;
         detector = collider.GetComponent<Detector>();
-        Debug.Log(target);
+        // Debug.Log(target);
     }
 
     public void HandleOnTriggerExit2D(int collider_id, GameObject collider, GameObject other) {
