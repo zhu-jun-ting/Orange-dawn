@@ -26,7 +26,7 @@ namespace BulletHell
             input.x = Input.GetAxisRaw("Horizontal");
             input.y = Input.GetAxisRaw("Vertical");
 
-            rigidbody.velocity = input.normalized * speed;
+            rigidbody.linearVelocity = input.normalized * speed;
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             if (mousePos.x > transform.position.x)

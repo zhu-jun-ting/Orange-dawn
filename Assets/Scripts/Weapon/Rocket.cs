@@ -30,7 +30,7 @@ public class Rocket : MonoBehaviour
         if (!arrived)
         {
             transform.right = Vector3.Slerp(transform.right, direction, lerp / Vector2.Distance(transform.position, targetPos));
-            rigidbody.velocity = transform.right * speed;
+            rigidbody.linearVelocity = transform.right * speed;
         }
         if (Vector2.Distance(transform.position, targetPos) < 1f && !arrived)
         {
@@ -43,7 +43,7 @@ public class Rocket : MonoBehaviour
         GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
         exp.transform.position = transform.position;
 
-        rigidbody.velocity = Vector2.zero;
+        rigidbody.linearVelocity = Vector2.zero;
         StartCoroutine(Push(gameObject, .3f));
     }
 

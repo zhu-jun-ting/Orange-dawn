@@ -21,7 +21,7 @@ public class BulletShell : MonoBehaviour
     private void OnEnable()
     {
         float angel = Random.Range(-30f, 30f);
-        rigidbody.velocity = Quaternion.AngleAxis(angel, Vector3.forward) * Vector3.up * speed;
+        rigidbody.linearVelocity = Quaternion.AngleAxis(angel, Vector3.forward) * Vector3.up * speed;
 
         sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
         rigidbody.gravityScale = 3;
@@ -32,7 +32,7 @@ public class BulletShell : MonoBehaviour
     IEnumerator Stop()
     {
         yield return new WaitForSeconds(stopTime);
-        rigidbody.velocity = Vector2.zero;
+        rigidbody.linearVelocity = Vector2.zero;
         rigidbody.gravityScale = 0;
 
         while (sprite.color.a > 0)

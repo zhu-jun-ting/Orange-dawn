@@ -34,7 +34,7 @@ public class Debri : MonoBehaviour
 		SP = ShadowPool.instance;
 
 
-        rb.velocity = new Vector2(0.5f, 0.5f);
+        rb.linearVelocity = new Vector2(0.5f, 0.5f);
 		frameCount = 0;
         curAlphaPercent = 1;
         startTime = Time.time;

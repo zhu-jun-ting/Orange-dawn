@@ -114,13 +114,13 @@ public class NPCMaster : PawnMaster
 
     protected void FollowTarget(Transform target)
     {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
     protected void FollowTarget(Vector2 position)
     {
-        rb.velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
         transform.position = Vector2.MoveTowards(transform.position, position, moveSpeed * Time.deltaTime);
     }
 

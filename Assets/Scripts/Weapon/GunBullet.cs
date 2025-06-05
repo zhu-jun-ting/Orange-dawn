@@ -22,12 +22,12 @@ public class GunBullet : MonoBehaviour
 
     public void SetSpeed(Vector2 direction)
     {
-        rigidbody.velocity = Normalize(direction) * speed;
+        rigidbody.linearVelocity = Normalize(direction) * speed;
     }
 
     public void SetSpeed(Vector2 direction, float speed)
     {
-        rigidbody.velocity = Normalize(direction) * speed;
+        rigidbody.linearVelocity = Normalize(direction) * speed;
     }
 
     public void SetOwner(GameObject owner_) {

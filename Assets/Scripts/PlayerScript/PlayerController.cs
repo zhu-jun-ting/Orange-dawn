@@ -132,11 +132,11 @@ public class PlayerController : PawnMaster
         frameCount++;
         if (!isDashing)
         {
-            rb.velocity = new Vector2(moveH, moveV);
+            rb.linearVelocity = new Vector2(moveH, moveV);
         }
         else
         {
-            rb.velocity = new Vector2(dashMoveH, dashMoveV);
+            rb.linearVelocity = new Vector2(dashMoveH, dashMoveV);
 
             // if (frameCount % ShadowPool.instance.framePerShadow == 0) ShadowPool.instance.GetFromPool();
 
@@ -292,8 +292,8 @@ public class PlayerController : PawnMaster
     {
         isDashing = true;
         startDashTime = Time.time;
-        dashMoveH = rb.velocity.x * dashSpeedMultiplier;
-        dashMoveV = rb.velocity.y * dashSpeedMultiplier;
+        dashMoveH = rb.linearVelocity.x * dashSpeedMultiplier;
+        dashMoveV = rb.linearVelocity.y * dashSpeedMultiplier;
         // ShadowPool.instance.SetPrefabAndTransform(shadowPrefab, transform);
     }
 
