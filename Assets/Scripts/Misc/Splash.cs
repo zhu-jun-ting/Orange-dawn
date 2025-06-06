@@ -6,6 +6,7 @@ public class Splash : MonoBehaviour
 {
     [SerializeField] private float att;
     [SerializeField] private GameObject owner;
+    [SerializeField] private float hit_back_factor = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class Splash : MonoBehaviour
         if(other.tag == "Enemy")
         {
             // Debug.Log("enemy");
-            other.gameObject.GetComponent<IBuffable>().Damage(att, GameEvents.DamageType.Crit, 1f, owner.transform); // TODO: get player stats
+            other.gameObject.GetComponent<IBuffable>().Damage(att, GameEvents.DamageType.Crit, hit_back_factor, owner.transform); // TODO: get player stats
         }
     }
 }

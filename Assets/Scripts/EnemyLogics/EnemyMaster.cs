@@ -19,7 +19,7 @@ public class EnemyMaster : PawnMaster
     [Header("Hurt Effects")]
     protected SpriteRenderer sr;
     protected float hurtDuration;
-    protected float hurtCounter;
+    protected Color originalColor; // Store the original color
 
     [Header("Game Objects")]
     protected GameObject explosionEffect;
@@ -35,6 +35,11 @@ public class EnemyMaster : PawnMaster
     protected GameEvents game_events;
     protected bool is_alive;
 
+    protected float lastDamageTime = -1f;
+    protected float damageCooldown = 0.1f;
+
+    protected bool isFlashing = false;
+
 
     public virtual void Awake()
     {
@@ -49,10 +54,10 @@ public class EnemyMaster : PawnMaster
     {
         base.Start();
         curHP = maxHP;
-        // target = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         enemy_health_bar = health_bar.GetComponent<EnemyHealthBar>();
+        originalColor = sr.color; // Store the original color
 
         // get singleton references
         combat_manager = FindObjectOfType<CombatManager>();
@@ -63,16 +68,34 @@ public class EnemyMaster : PawnMaster
         
     }
 
+    public virtual void Update() {
+        // If you need per-frame logic, add it here
+    }
 
-    public virtual void Update()
+    protected IEnumerator HurtFlashCoroutine()
     {
-        if (hurtCounter <= 0)
+        if (sr != null && sr.material.HasProperty("_FlashAmount"))
         {
+            float duration = 0.5f;
+            float timer = 0f;
+            sr.material.SetFloat("_FlashAmount", 1);
+            isFlashing = true;
+            while (timer < duration)
+            {
+                float t = timer / duration;
+                sr.material.SetFloat("_FlashAmount", 1 - t);
+                timer += Time.deltaTime;
+                yield return null;
+            }
             sr.material.SetFloat("_FlashAmount", 0);
-        } else {
-            sr.material.SetFloat("_FlashAmount", hurtCounter / hurtDuration);
-            hurtCounter -= Time.deltaTime;
+            isFlashing = false;
         }
+    }
+
+    protected void PlayHurtFlash()
+    {
+        if (!isFlashing)
+            StartCoroutine(HurtFlashCoroutine());
     }
 
     void OnDestroy()
@@ -95,17 +118,21 @@ public class EnemyMaster : PawnMaster
 
     protected void FollowTarget(Transform target)
     {
-        rb.linearVelocity = Vector2.zero;
-        transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        // rb.linearVelocity = Vector2.zero;
+        // transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
     public override void Damage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
     {
+        if (Time.time - lastDamageTime < damageCooldown) return; // Prevent double damage in short period
+        lastDamageTime = Time.time;
+        
         base.Damage(_amount, damage_type_, _hit_back_factor, instigator);
 
         hitBackFactor = _hit_back_factor;
         curHP -= _amount;
-        HurtFlash();
+
+        PlayHurtFlash(); // Add this line to trigger the flash
         if (_hit_back_factor != 0 || instigator != null) HitBack(instigator);
         enemy_health_bar.SetHealth(maxHP, curHP);
 
@@ -135,16 +162,16 @@ public class EnemyMaster : PawnMaster
         Destroy(gameObject);
     }
 
-    protected void HurtFlash()
-    {
-        sr.material.SetFloat("_FlashAmount", 1);
-        hurtCounter = hurtDuration;
-    }
-
     protected void HitBack(Transform _instigator)
     {
-        Vector2 diff = (_instigator.position - transform.position) * hitBackFactor * -1;
-        transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y); 
+        // Ensure Rigidbody2D is set to Dynamic, Gravity Scale = 0, and not Kinematic for AddForce to work
+        // Optionally, set Drag to control how quickly the enemy stops after knockback
+        if (rb == null || _instigator == null) return;
+        rb.linearVelocity = Vector2.zero; // Reset velocity for consistent knockback
+        Vector2 direction = (transform.position - _instigator.position).normalized;
+        rb.AddForce(direction * hitBackFactor, ForceMode2D.Impulse);
+        Debug.Log("hit back with factor: " + direction * hitBackFactor);
+
     }
 
     protected void HurtPlayer(GameObject _player, float _amount) {
