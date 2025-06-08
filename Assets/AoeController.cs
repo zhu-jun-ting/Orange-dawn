@@ -1,8 +1,6 @@
-using System.Security.Cryptography.X509Certificates;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Collider2D))]
@@ -11,78 +9,84 @@ public class AoeController : MonoBehaviour
     private Animator animator;
     private List<Collider2D> pawns = new List<Collider2D>();
 
-    [Header("triggering tags")]
-    public List<string> trigger_tags; 
+    [Header("Triggering Tags")]
+    public List<string> trigger_tags;
 
-    [Header("for AOE DOT test")]
+    [Header("AOE DOT Test")]
     public DOTStat dot_stat;
 
-    // public Collider2D collider;
-    
-    // Use this for initialization
-    void Start () {
+    void Start()
+    {
         animator = GetComponent<Animator>();
-        // print(animator);
-        // animator.SetTrigger("start_anim");
-        // Reset();
+        // Register for Y key event
+        if (InputManager.Instance != null)
+            InputManager.Instance.OnYKeyPressed += OnYKeyPressed;
     }
 
-    public void DealAOEDamage() {
-        // Debug.Log("AOE damage timestamp : " + Time.time);
-        foreach(Collider2D pawn in pawns) {
-            if (pawn != null) {
+    private void OnDestroy()
+    {
+        if (InputManager.Instance != null)
+            InputManager.Instance.OnYKeyPressed -= OnYKeyPressed;
+    }
+
+    private void OnYKeyPressed()
+    {
+        animator.SetTrigger("start_anim");
+    }
+
+    public void DealAOEDamage()
+    {
+        foreach (Collider2D pawn in pawns)
+        {
+            if (pawn != null)
+            {
                 IBuffable ibuffable = pawn.gameObject.GetComponent<IBuffable>();
-                // BuffMaster buff = ScriptableObject.CreateInstance(typeof(BuffMaster)) as BuffMaster;
-                Buff buff = new Buff(dot_stat);
-                ibuffable.Damage(10, GameEvents.DamageType.Normal, 0f, transform);
-                ibuffable.ApplyBuff(buff); 
+                if (ibuffable != null)
+                {
+                    Buff buff = new Buff(dot_stat);
+                    ibuffable.Damage(10, GameEvents.DamageType.Normal, 0f, transform);
+                    ibuffable.ApplyBuff(buff);
+                }
             }
         }
-    }
+    } 
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter2D(Collider2D other)
     {
-        if (Input.GetKey(KeyCode.Y)) {
-            animator.SetTrigger("start_anim");
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D other) {
-        //if the object is not already in the list
-        if(!pawns.Contains(other) && trigger_tags.Contains(other.tag)) {
-            //add the object to the list
+        if (!pawns.Contains(other) && trigger_tags.Contains(other.tag))
+        {
             pawns.Add(other);
-            // Debug.Log(other + " added");
         }
     }
 
-    void OnTriggerExit2D(Collider2D other) {
-        //if the object is not already in the list
-        if(pawns.Contains(other)  && trigger_tags.Contains(other.tag)) {
-            //add the object to the list
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (pawns.Contains(other) && trigger_tags.Contains(other.tag))
+        {
             pawns.Remove(other);
-            // Debug.Log(other + " removeed. ");
         }
     }
 
-    //Since we use editor calls we omit t$$anonymous$$s function on build time
-    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
     public void Reset()
     {
         AudioSource source = GetComponent<AudioSource>();
         Light light = GetComponent<Light>();
 
-        if( source == null && light == null ) {
-            if( UnityEditor.EditorUtility.DisplayDialog( "Choose a Component", "You are missing one of the required componets. Please choose one to add", "AudioSource", "Light" ) ) {
+        if (source == null && light == null)
+        {
+            if (UnityEditor.EditorUtility.DisplayDialog("Choose a Component", "You are missing one of the required components. Please choose one to add", "AudioSource", "Light"))
+            {
                 gameObject.AddComponent<AudioSource>();
-            } else {
+            }
+            else
+            {
                 gameObject.AddComponent<Light>();
             }
         }
     }
+#endif
 
-    public void nothing() {
-        
-    }
+    // Placeholder for future use
+    public void Nothing() { }
 }
