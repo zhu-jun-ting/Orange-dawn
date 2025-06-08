@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2d4c7c624f2c541830dd8ab6e5ad8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Conversation: {fileID: 123484442}
+  Conversation: {fileID: 0}
 --- !u!1 &145889852
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,10 +3148,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9140468723106498572}
     - target: {fileID: 4321068798391446450, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321068798391446450, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.67
       objectReference: {fileID: 0}
@@ -3195,21 +3191,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 4321068798391446461, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 4321068798882753812, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4321068798882753812, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321068798882753812, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4321068800077468870, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3803,11 +3791,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3235738135625849625, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3235738135625849625, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3235738136384544128, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
       propertyPath: target
@@ -3816,14 +3804,6 @@ PrefabInstance:
     - target: {fileID: 3235738136384544176, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
       propertyPath: m_Name
       value: ShooterEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 3235738136384544176, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3235738136384544191, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3235738136384544191, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5749,28 +5729,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1012180736418498776, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1012180736418498776, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1012180736909545073, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
       propertyPath: m_Name
       value: EnemyHound
       objectReference: {fileID: 0}
-    - target: {fileID: 1012180736909545073, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1012180736909545085, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 9140468723106498572}
-    - target: {fileID: 1012180736909545086, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 1012180736909545086, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.29
