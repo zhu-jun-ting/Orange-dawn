@@ -1,3 +1,4 @@
+using System.Security.AccessControl;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,6 +90,32 @@ public class PlayerController : PawnMaster
 
         // register the instance
         instance = this;
+
+        // Register input events
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnMove += HandleMove;
+            InputManager.Instance.OnPause += HandlePause;
+            // Add more as needed (e.g., OnFire)
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnMove += HandleMove;
+            InputManager.Instance.OnPause += HandlePause;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.OnMove -= HandleMove;
+            InputManager.Instance.OnPause -= HandlePause;
+        }
     }
 
     // use the variables about fire_aoe and update the scale, damage of the AOE
@@ -99,13 +126,27 @@ public class PlayerController : PawnMaster
         fire_aoe.SetActive(have_fire_aoe);
     }
 
+    private void HandleMove(Vector2 move)
+    {
+        moveH = move.x * moveSpeed;
+        moveV = move.y * moveSpeed;
+    }  
+
+    private void HandlePause()
+    {
+        // Implement pause menu logic here
+        Debug.Log("Pause triggered");
+    }
+
     // Update is called once per frame
     void Update()
     {
         SwitchGun();
-        moveH = Input.GetAxis("Horizontal") * moveSpeed;
-        moveV = Input.GetAxis("Vertical") * moveSpeed;
+        // Remove direct Input axis usage, movement is now handled by HandleMove
+        // moveH = Input.GetAxis("Horizontal") * moveSpeed;
+        // moveV = Input.GetAxis("Vertical") * moveSpeed;
 
+        // Dash
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing) {
             ProcessDash();
         }
@@ -113,13 +154,11 @@ public class PlayerController : PawnMaster
         // test buff key
         if (Input.GetKeyDown(KeyCode.F)) {
             ContiniousAOEStat s = ScriptableObject.CreateInstance(typeof(ContiniousAOEStat)) as ContiniousAOEStat;
-            
             s.additional_aoe_damage_per_tick = 5f;
             s.additional_aoe_range = 5f;
             s.buff_duration = 999f;
             s.buff_icon = null;
             Buff buff = new Buff(s);
-            
             ApplyBuff(buff);
         }
     }
@@ -151,6 +190,9 @@ public class PlayerController : PawnMaster
         // fire_aoe.SetActive(have_fire_aoe);
         // fire_aoe.transform.position = transform.GetChild(0).transform.position;
 
+        // Reset move to prevent continuous movement
+        moveH = 0f;
+        moveV = 0f;
     }
 
     public override void Damage(float damage, GameEvents.DamageType damage_type_, float hit_back_, Transform instigator_)
@@ -288,14 +330,18 @@ public class PlayerController : PawnMaster
         myRender.enabled = true;
     }
 
+    [SerializeField] private GameObject afterimagePrefab;
+    private Coroutine dashShadowCoroutine;
+
     private void ProcessDash()
     {
         isDashing = true;
         startDashTime = Time.time;
         dashMoveH = rb.linearVelocity.x * dashSpeedMultiplier;
         dashMoveV = rb.linearVelocity.y * dashSpeedMultiplier;
-        // ShadowPool.instance.SetPrefabAndTransform(shadowPrefab, transform);
+
     }
+
 
     private void Flip()
     {

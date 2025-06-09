@@ -1666,6 +1666,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e54045d68444bcf40b54d12f662031c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!120 &428616307 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 557490079, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
+  m_PrefabInstance: {fileID: 2045018380}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &459220614
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,8 +1782,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 2
+  m_Offset: {x: 0.0020432475, y: 0}
+  m_Radius: 2.997957
 --- !u!1001 &465944016
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2141,7 +2146,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 63
 --- !u!114 &624363238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2686,7 +2691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &922823841
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2762,6 +2767,7 @@ MonoBehaviour:
   option1: {fileID: 1963545008}
   option2: {fileID: 1980139928}
   option3: {fileID: 145889854}
+  buff_list: []
 --- !u!1 &954218118
 GameObject:
   m_ObjectHideFlags: 0
@@ -5295,6 +5301,22 @@ PrefabInstance:
     - target: {fileID: 1429624002, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645237873, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
+      propertyPath: laserRenderer
+      value: 
+      objectReference: {fileID: 428616307}
+    - target: {fileID: 1645237873, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
+      propertyPath: maxLaserLength
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645237873, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
+      propertyPath: damagePerSecond
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645237873, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
+      propertyPath: enemyLayer.m_Bits
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2083645870, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
       propertyPath: test

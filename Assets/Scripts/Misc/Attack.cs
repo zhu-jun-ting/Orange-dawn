@@ -11,15 +11,22 @@ public class Attack : MonoBehaviour
         
     }
 
+    void OnEnable()
+    {
+        if (InputManager.Instance != null)
+            InputManager.Instance.OnFire += SwordAttack;
+    }
+
+    void OnDisable()
+    {
+        if (InputManager.Instance != null)
+            InputManager.Instance.OnFire -= SwordAttack;
+    }
+
     // Update is called once per frame
     void Update()
     {
-
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            SwordAttack();
-        }
+        // Input is now handled via InputManager event.
     }
 
     private void SwordAttack()

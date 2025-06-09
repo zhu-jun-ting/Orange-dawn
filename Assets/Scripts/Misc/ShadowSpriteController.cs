@@ -54,7 +54,7 @@ public class ShadowSpriteController : MonoBehaviour
 
         if (Time.time >= startTime + duration)
         {
-            Debug.Log("game object should be destroyed");
+            // Debug.Log("game object should be destroyed");
             ShadowPool.instance.ReturnPool(gameObject);
         }
     }

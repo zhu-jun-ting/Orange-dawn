@@ -21,12 +21,14 @@ public class AoeController : MonoBehaviour
         // Register for Y key event
         if (InputManager.Instance != null)
             InputManager.Instance.OnYKeyPressed += OnYKeyPressed;
+        // Register for pause or other input events here if needed in the future
     }
 
     private void OnDestroy()
     {
         if (InputManager.Instance != null)
             InputManager.Instance.OnYKeyPressed -= OnYKeyPressed;
+        // Unregister other input events here if added in the future
     }
 
     private void OnYKeyPressed()

@@ -63,30 +63,32 @@ public class NPCShooter : NPCMaster, IDetectorHandler
     }
 
     public void HandleOnTriggerEnter2D(int collider_id, GameObject collider, GameObject other) {
-        ChangeState(State.Attacking);
-        target = collider.GetComponent<Detector>().GetRandomGameObjectInRange().transform;
         detector = collider.GetComponent<Detector>();
-        // Debug.Log(target);
+        if (!detector.IsEmptyWithinCollider()) {
+            target = detector.GetRandomGameObjectInRange().transform;
+            ChangeState(State.Attacking);
+        }
     }
 
     public void HandleOnTriggerExit2D(int collider_id, GameObject collider, GameObject other) {
-        if (collider.GetComponent<Detector>().IsEmptyWithinCollider()) {
+        detector = collider.GetComponent<Detector>();
+        if (detector.IsEmptyWithinCollider()) {
             ChangeState(State.Idle);
-        } else if (target.Equals(other)) {
-            target = collider.GetComponent<Detector>().GetRandomGameObjectInRange().transform;
+        } else if (target != null && target.Equals(other.transform)) {
+            target = detector.GetRandomGameObjectInRange().transform;
         }
     }
 
     public override void ChangeState(State s) {
-        // if the state is not changed, then do nothing (avoid creating multiple coroutines)
         if (s == state) {
             return;
         }
         base.ChangeState(s);
         if (s == State.Idle) {
             target = null;
-            StopCoroutine(shoot_timer);
+            if (shoot_timer != null) StopCoroutine(shoot_timer);
         } else if (s == State.Attacking) {
+            if (shoot_timer != null) StopCoroutine(shoot_timer);
             shoot_timer = Shoot(shoot_interval);
             StartCoroutine(shoot_timer);  
         }

@@ -50,7 +50,7 @@ public class ChunkManager : MonoBehaviour {
             for ( int y = -restrictedSize; y <= restrictedSize; y++ ) {
 
                 if ( Mathf.Abs(x) == restrictedSize || Mathf.Abs(y) == restrictedSize ) {
-                    Debug.Log( "Wall" );
+                    // Debug.Log( "Wall" );
                     Instantiate( wallPrefab, new Vector3( x, y, 0 ) + playerObj.transform.position, Quaternion.identity );
                 }
 

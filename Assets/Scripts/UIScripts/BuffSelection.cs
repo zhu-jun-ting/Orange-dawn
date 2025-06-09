@@ -10,13 +10,26 @@ public class BuffSelection : View
     [SerializeField] private Button option1;
     [SerializeField] private Button option2;
     [SerializeField] private Button option3;
-    private List<StatMaster> buff_list;
+    public List<StatMaster> buff_list;
 
 
-    public override void Update() { if ( Input.GetKeyDown( KeyCode.T ) ) { Toggle(); } }
+    private void OnEnable()
+    {
+        if (InputManager.Instance != null)
+            InputManager.Instance.OnBuffSelectionToggle += Toggle;
+    }
 
-    private void Toggle() {
+    private void OnDestroy() {
+        if (InputManager.Instance != null)
+            InputManager.Instance.OnBuffSelectionToggle -= Toggle;
+    }
+
+    public override void Update() { /* Input is now handled via InputManager event. */ }
+
+    private void Toggle()
+    {
         CanvasManager.Show<BuffSelection>();
+        // Debug.Log("BuffSelection toggled.");
     }
 
     public override void Initialize() { 

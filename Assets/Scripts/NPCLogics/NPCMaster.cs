@@ -45,6 +45,9 @@ public class NPCMaster : PawnMaster
     public enum State { Idle, Attacking }
     protected State state;
 
+    private float stuckTimer = 0f;
+    private Vector2 lastPosition;
+
     public virtual void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -56,17 +59,14 @@ public class NPCMaster : PawnMaster
     {
         base.Start();
         curHP = maxHP;
-
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         enemy_health_bar = health_bar.GetComponent<EnemyHealthBar>();
         combat_manager = FindObjectOfType<CombatManager>();
         if (combat_manager == null) Debug.LogError("combat manager can not be found.");
-
-        // player = GameObject.FindGameObjectWithTag("Player");
-        // Debug.Log(player);
-
         state = State.Idle;
+        lastPosition = transform.position;
+        stuckTimer = 0f;
     }
 
 
@@ -79,6 +79,44 @@ public class NPCMaster : PawnMaster
             sr.material.SetFloat("_FlashAmount", hurtCounter / hurtDuration);
             hurtCounter -= Time.deltaTime;
         }
+        // State logic: wander if Idle, otherwise do not wander
+        if (state == State.Idle)
+        {
+            if (is_moving)
+            {
+                FollowTarget(destination);
+                // Stuck detection
+                if (Vector2.Distance((Vector2)transform.position, lastPosition) < 0.05f)
+                {
+                    stuckTimer += Time.deltaTime;
+                    if (stuckTimer > 1f)
+                    {
+                        // Try a new destination if stuck for over 1 second
+                        destination = GetRandomLocationInCircle(player.transform.position, follow_range);
+                        stuckTimer = 0f;
+                        lastPosition = transform.position;
+                    }
+                }
+                else
+                {
+                    stuckTimer = 0f;
+                    lastPosition = transform.position;
+                }
+            }
+            if ((Vector2.Distance(transform.position, player.transform.position) > follow_range && !is_moving) ||
+                (!is_moving && UnityEngine.Random.Range(0f, 1f) < random_walk_probability))
+            {
+                destination = GetRandomLocationInCircle(player.transform.position, follow_range);
+                is_moving = true;
+                lastPosition = transform.position;
+                stuckTimer = 0f;
+            }
+            if (Vector2.Distance(transform.position, destination) < .5f)
+            {
+                is_moving = false;
+            }
+        }
+        // If Attacking, do not wander
     }
 
     public override void FixedUpdate()
@@ -91,7 +129,8 @@ public class NPCMaster : PawnMaster
             
 
             if ( (Vector2.Distance(transform.position, player.transform.position) > follow_range && !is_moving) || 
-                (!is_moving && UnityEngine.Random.Range(0f, 1f) < random_walk_probability) ) {
+                (!is_moving && UnityEngine.Random.Range(0f, 1f) < random_walk_probability) ) 
+            {
                 destination = GetRandomLocationInCircle(player.transform.position, follow_range);
                 is_moving = true;
             }
@@ -143,8 +182,8 @@ public class NPCMaster : PawnMaster
     }
 
     public virtual void ChangeState(NPCMaster.State s) {
+        Debug.Log("NPC state changed from " + state + " to: " + s);
         state = s;
-        // Debug.Log(s);
     }
 
     protected void HurtFlash()

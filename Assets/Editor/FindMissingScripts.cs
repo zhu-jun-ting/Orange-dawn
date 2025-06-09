@@ -6,7 +6,7 @@ public class FindMissingScripts : EditorWindow
     [MenuItem("Tools/Find Missing Scripts in Scene")]
     public static void FindMissingInScene()
     {
-        GameObject[] go = GameObject.FindObjectsOfType<GameObject>();
+        GameObject[] go = GameObject.FindObjectsByType<GameObject>(FindObjectsSortMode.None);
         int go_count = 0, components_count = 0, missing_count = 0;
         foreach (GameObject g in go)
         {
@@ -35,4 +35,4 @@ public class FindMissingScripts : EditorWindow
         }
         return path;
     }
-} 
+}

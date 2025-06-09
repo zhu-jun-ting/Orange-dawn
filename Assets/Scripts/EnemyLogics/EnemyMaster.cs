@@ -170,7 +170,7 @@ public class EnemyMaster : PawnMaster
         rb.linearVelocity = Vector2.zero; // Reset velocity for consistent knockback
         Vector2 direction = (transform.position - _instigator.position).normalized;
         rb.AddForce(direction * hitBackFactor, ForceMode2D.Impulse);
-        Debug.Log("hit back with factor: " + direction * hitBackFactor);
+        // Debug.Log("hit back with factor: " + direction * hitBackFactor);
 
     }
 
