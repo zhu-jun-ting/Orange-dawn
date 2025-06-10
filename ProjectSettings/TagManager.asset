@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Experience
   - NPC
+  - Card
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - UI
   - Wall
   - Enemy
-  - 
-  - 
+  - Board
+  - Card
   - 
   - 
   - 
@@ -58,6 +59,12 @@ TagManager:
     locked: 0
   - name: Effects
     uniqueID: 2654380541
+    locked: 0
+  - name: Board
+    uniqueID: 405727931
+    locked: 0
+  - name: Card
+    uniqueID: 2049826217
     locked: 0
   - name: UI
     uniqueID: 2391504087
