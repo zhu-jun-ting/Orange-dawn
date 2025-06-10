@@ -10,8 +10,10 @@ public class NPCLasergun : MonoBehaviour
     public float damagePerSecond = 10f;
     public float damageInterval = 0.5f;
     public LayerMask enemyLayer;
+    public LayerMask wallLayer; // New: wall layer for reflection
     public LineRenderer laserRenderer;
     public GameObject effect;
+    public int maxReflectionCount = 2; // New: max number of reflections
 
     private bool isShooting = false;
     private Coroutine laserCoroutine;
@@ -62,44 +64,86 @@ public class NPCLasergun : MonoBehaviour
         {
             Vector2 direction = ((Vector2)npcTarget.position - (Vector2)transform.position).normalized;
             transform.right = direction;
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, direction, maxLaserLength, enemyLayer);
-            Vector3 endPoint = transform.position + (Vector3)direction * maxLaserLength;
+
+            // Reflection logic
+            Vector3 startPos = transform.position;
+            Vector3 currentDir = direction;
+            float remainingLength = maxLaserLength;
+            int reflections = 0;
+            List<Vector3> laserPoints = new List<Vector3> { startPos };
             HashSet<EnemyMaster> enemiesThisFrame = new HashSet<EnemyMaster>();
-            if (hits.Length > 0)
+
+            while (reflections <= maxReflectionCount && remainingLength > 0.01f)
             {
-                endPoint = hits[hits.Length - 1].point;
-                foreach (var hit in hits)
+                RaycastHit2D hitWall = Physics2D.Raycast(startPos, currentDir, remainingLength, wallLayer);
+                RaycastHit2D[] hitEnemies = Physics2D.RaycastAll(startPos, currentDir, remainingLength, enemyLayer);
+                float segmentLength = remainingLength;
+                Vector3 endPoint = startPos + (Vector3)currentDir * remainingLength;
+
+                if (hitWall.collider != null)
                 {
-                    var enemy = hit.collider.GetComponent<EnemyMaster>();
-                    if (enemy != null)
+                    segmentLength = hitWall.distance;
+                    endPoint = hitWall.point;
+                }
+
+                // Damage all enemies along this segment
+                foreach (var hit in hitEnemies)
+                {
+                    if (hit.distance <= segmentLength)
                     {
-                        enemiesThisFrame.Add(enemy);
-                        if (!enemyHitTimers.ContainsKey(enemy))
-                            enemyHitTimers[enemy] = 0f;
-                        enemyHitTimers[enemy] += Time.deltaTime;
-                        if (enemyHitTimers[enemy] >= damageInterval)
+                        var enemy = hit.collider.GetComponent<EnemyMaster>();
+                        if (enemy != null)
                         {
-                            enemy.Damage(damagePerSecond * damageInterval, GameEvents.DamageType.Normal, 0f, transform);
-                            enemyHitTimers[enemy] = 0f;
+                            enemiesThisFrame.Add(enemy);
+                            if (!enemyHitTimers.ContainsKey(enemy))
+                                enemyHitTimers[enemy] = 0f;
+                            enemyHitTimers[enemy] += Time.deltaTime;
+                            if (enemyHitTimers[enemy] >= damageInterval)
+                            {
+                                enemy.Damage(damagePerSecond * damageInterval, GameEvents.DamageType.Normal, 0f, transform);
+                                enemyHitTimers[enemy] = 0f;
+                            }
                         }
                     }
                 }
+
+                laserPoints.Add(endPoint);
+
+                if (hitWall.collider != null && reflections < maxReflectionCount)
+                {
+                    // Reflect
+                    Vector2 inDir = currentDir;
+                    Vector2 normal = hitWall.normal;
+                    currentDir = Vector2.Reflect(inDir, normal).normalized;
+                    startPos = endPoint + (Vector3)currentDir * 0.01f; // Small offset to avoid self-hit
+                    remainingLength -= segmentLength;
+                    reflections++;
+                }
+                else
+                {
+                    // No more reflections or no wall hit
+                    break;
+                }
             }
+
+            // Remove enemies not hit this frame from the timer dictionary
             var keys = new List<EnemyMaster>(enemyHitTimers.Keys);
             foreach (var enemy in keys)
             {
                 if (!enemiesThisFrame.Contains(enemy))
                     enemyHitTimers.Remove(enemy);
             }
+            // Update LineRenderer
             if (laserRenderer != null)
             {
-                laserRenderer.SetPosition(0, transform.position);
-                laserRenderer.SetPosition(1, endPoint);
+                laserRenderer.positionCount = laserPoints.Count;
+                for (int i = 0; i < laserPoints.Count; i++)
+                    laserRenderer.SetPosition(i, laserPoints[i]);
             }
             if (effect != null)
             {
-                effect.transform.position = endPoint;
-                effect.transform.forward = -direction;
+                effect.transform.position = laserPoints[laserPoints.Count - 1];
+                effect.transform.forward = -currentDir;
             }
             yield return null;
         }

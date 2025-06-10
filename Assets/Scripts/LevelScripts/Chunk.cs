@@ -44,7 +44,7 @@ public class Chunk {
         this.chunkCoords = chunkCoords;
         this.tilePrefab = tilePrefab;
 
-        gen = GameObject.FindObjectOfType<ChunkGenerator> ();
+        gen = GameObject.FindFirstObjectByType<ChunkGenerator>();
         
         Vector2 offset = new Vector2( ( chunkCoords.x * chunkSize ), ( chunkCoords.y * chunkSize ) );
 

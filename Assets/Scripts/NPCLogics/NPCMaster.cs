@@ -62,7 +62,7 @@ public class NPCMaster : PawnMaster
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         enemy_health_bar = health_bar.GetComponent<EnemyHealthBar>();
-        combat_manager = FindObjectOfType<CombatManager>();
+        combat_manager = FindFirstObjectByType<CombatManager>();
         if (combat_manager == null) Debug.LogError("combat manager can not be found.");
         state = State.Idle;
         lastPosition = transform.position;

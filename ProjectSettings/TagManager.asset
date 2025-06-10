@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - Enemy
   - Experience
@@ -14,8 +14,8 @@ TagManager:
   - Item
   - Water
   - UI
-  - 
-  - 
+  - Wall
+  - Enemy
   - 
   - 
   - 
@@ -44,8 +44,14 @@ TagManager:
   - name: Floor
     uniqueID: 841323991
     locked: 0
+  - name: Wall
+    uniqueID: 3814244361
+    locked: 0
   - name: Item
     uniqueID: 174745539
+    locked: 0
+  - name: Enemy
+    uniqueID: 3852912915
     locked: 0
   - name: Default
     uniqueID: 0
@@ -56,3 +62,5 @@ TagManager:
   - name: UI
     uniqueID: 2391504087
     locked: 0
+  m_RenderingLayers:
+  - Default

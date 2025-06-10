@@ -60,7 +60,7 @@ public class EnemyMaster : PawnMaster
         originalColor = sr.color; // Store the original color
 
         // get singleton references
-        combat_manager = FindObjectOfType<CombatManager>();
+        combat_manager = FindFirstObjectByType<CombatManager>();
         if (combat_manager == null) Debug.LogError("combat manager can not be found.");
         is_alive = true;
 

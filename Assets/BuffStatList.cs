@@ -9,6 +9,6 @@ public class BuffStatList : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        BuffStatList.instance = (BuffStatList)FindFirstObjectByType(typeof(BuffStatList));
     }
 }

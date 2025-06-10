@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1012180735078789660}
   - component: {fileID: 1012180735078789658}
   - component: {fileID: 1012180735078789659}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -85,7 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1012180735223525878}
   - component: {fileID: 1012180735223525879}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: WorldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1012180735389192539}
   - component: {fileID: 1012180735389192537}
   - component: {fileID: 1012180735389192536}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - component: {fileID: 1012180736418498776}
   - component: {fileID: 1012180736418498758}
   - component: {fileID: 1012180736418498759}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 1012180736909545085}
   - component: {fileID: 1012180736909545083}
   - component: {fileID: 1012180736909545084}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyHound
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -590,7 +590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6563926399844618990}
   - component: {fileID: 7073624143967143620}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: BuffIconGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
