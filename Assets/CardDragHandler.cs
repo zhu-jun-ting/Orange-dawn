@@ -23,6 +23,39 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         cardMaster = GetComponent<CardMasterHolder>()?.cardMaster; // Assumes CardMasterHolder holds a CardMaster reference
     }
 
+    private Gun GetCurrentPlayerGun()
+    {
+        // Assumes PlayerController.instance.guns[gunNum] is the current gun
+        var player = PlayerController.instance;
+        if (player != null && player.guns != null && player.guns.Length > 0)
+        {
+            // gunNum is private, so use reflection or expose a public getter if needed
+            var gunNumField = typeof(PlayerController).GetField("gunNum", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            int gunNum = gunNumField != null ? (int)gunNumField.GetValue(player) : 0;
+            if (gunNum >= 0 && gunNum < player.guns.Length && player.guns[gunNum] != null)
+            {
+                return player.guns[gunNum].GetComponent<Gun>();
+            }
+        }
+        return null;
+    }
+
+    private void CallOnCardEnableIfOnGrid()
+    {
+        if (cardMaster != null && lastRow >= 0 && lastCol >= 0)
+        {
+            cardMaster.OnCardEnable(GetCurrentPlayerGun());
+        }
+    }
+
+    private void CallOnCardDisableIfOffGrid()
+    {
+        if (cardMaster != null)
+        {
+            cardMaster.OnCardDisable(GetCurrentPlayerGun());
+        }
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         originalPosition = rectTransform.position;
@@ -36,7 +69,9 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             BoardArea.instance.ClearCell(lastRow, lastCol);
             lastRow = lastCol = -1;
+            CallOnCardDisableIfOffGrid();
         }
+        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -63,6 +98,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 BoardArea.instance.SetCell(cell.x, cell.y, cardMaster);
                 lastRow = cell.x;
                 lastCol = cell.y;
+                CallOnCardEnableIfOnGrid();
             }
             else
             {

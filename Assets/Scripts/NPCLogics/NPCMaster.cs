@@ -182,7 +182,7 @@ public class NPCMaster : PawnMaster
     }
 
     public virtual void ChangeState(NPCMaster.State s) {
-        Debug.Log("NPC state changed from " + state + " to: " + s);
+        // Debug.Log("NPC state changed from " + state + " to: " + s);
         state = s;
     }
 

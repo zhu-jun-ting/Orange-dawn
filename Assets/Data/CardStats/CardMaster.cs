@@ -10,5 +10,6 @@ public class CardMaster : ScriptableObject {
     public string card_description;
 
 
-    public virtual void OnCardEnable() {}
+    public virtual void OnCardEnable(Gun gun) {}
+    public virtual void OnCardDisable(Gun gun) {}
 }

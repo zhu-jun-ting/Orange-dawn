@@ -23,7 +23,6 @@ public class MeleeEnemy : EnemyMaster
     void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Player") {
-            // Debug.Log("TODO: MeleeEnemy: deal damage to player.");
             HurtPlayer(target.gameObject, 10f); // TODO: update parameter
         }
     }
