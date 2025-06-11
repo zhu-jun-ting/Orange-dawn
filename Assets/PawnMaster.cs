@@ -61,11 +61,6 @@ public class PawnMaster : MonoBehaviour, IBuffable
 
 
 
-
-    // public virtual void Damage(float _amount, float _hit_back_factor, Transform instigator) {
-    //     // wait for override by child classes
-    // }
-
     public virtual void ApplyBuff(Buff buff_)
     {
 

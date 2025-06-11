@@ -12,12 +12,15 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Vector2 originalAnchoredPosition;
     private Tween shakeTween;
     private float pointerEnterBlockTime = 0f; // Added threshold time
+    private int lastRow = -1, lastCol = -1;
+    private CardMaster cardMaster;
 
     void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
+        cardMaster = GetComponent<CardMasterHolder>()?.cardMaster; // Assumes CardMasterHolder holds a CardMaster reference
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -27,6 +30,13 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         canvasGroup.blocksRaycasts = false;
         // Scale up for feedback
         rectTransform.DOScale(1.1f, 0.2f).SetEase(Ease.OutBack);
+        BoardArea.instance.ShowCardHints();
+        // Remove from previous cell if present
+        if (lastRow >= 0 && lastCol >= 0)
+        {
+            BoardArea.instance.ClearCell(lastRow, lastCol);
+            lastRow = lastCol = -1;
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -37,16 +47,35 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.blocksRaycasts = true;
-        // Scale back to normal
         rectTransform.DOScale(1f, 0.2f).SetEase(Ease.OutBack);
-        if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill(); // Stop shake if active
-        if (BoardArea.instance != null && !BoardArea.instance.IsPointInside(Input.mousePosition, canvas.worldCamera))
+        if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();
+        BoardArea.instance.HideCardHints();
+        if (BoardArea.instance != null && BoardArea.instance.IsPointInside(Input.mousePosition, canvas.worldCamera))
+        {
+            Vector2 localPoint = BoardArea.instance.ScreenToLocalPoint(Input.mousePosition, canvas.worldCamera);
+            Vector2 cardSize = rectTransform.rect.size;
+            Vector2Int cell = BoardArea.instance.GetNearestGridCell(localPoint, cardSize);
+            // Prevent overlap
+            if (!BoardArea.instance.IsCellOccupied(cell.x, cell.y))
+            {
+                Vector2 snappedLocal = BoardArea.instance.GetGridCellPosition(cell.x, cell.y, cardSize);
+                rectTransform.DOAnchorPos(snappedLocal, 0.2f).SetEase(Ease.OutQuad);
+                BoardArea.instance.SetCell(cell.x, cell.y, cardMaster);
+                lastRow = cell.x;
+                lastCol = cell.y;
+            }
+            else
+            {
+                // Snap back to original position if cell is occupied
+                rectTransform.DOAnchorPos(originalAnchoredPosition, 0.3f).SetEase(Ease.OutQuad);
+            }
+        }
+        else if (BoardArea.instance != null)
         {
             // Animate back to original anchored position
             rectTransform.DOAnchorPos(originalAnchoredPosition, 0.3f).SetEase(Ease.OutQuad);
-            // Debug.LogError("Card dropped outside the board area, returning to original position. " + originalAnchoredPosition);
         }
-        pointerEnterBlockTime = Time.time + 0.5f; // Block pointer enter for 1 second
+        pointerEnterBlockTime = Time.time + 0.5f;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
