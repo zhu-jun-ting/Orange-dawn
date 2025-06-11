@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PawnMaster : MonoBehaviour, IBuffable
 {
-
-    // public fields
     [Header("Pawn Master : the buff list UI panel game object and the buff icon prefab")]
     public Transform buff_icon_grid;
     public GameObject icon_prefab;
@@ -15,9 +13,7 @@ public class PawnMaster : MonoBehaviour, IBuffable
     {
         public IEnumerator timer;
         public BuffIconController icon_controller;
-
     }
-
 
     protected Dictionary<Buff, BuffController> buffs = new Dictionary<Buff, BuffController>();
 
@@ -32,8 +28,6 @@ public class PawnMaster : MonoBehaviour, IBuffable
     {
         current_buff_frame_count = 0;
         FRAME_PER_TICK = Mathf.RoundToInt(CombatManager.TICK_INTERVAL / Time.fixedDeltaTime);
-
-
     }
 
     public virtual void FixedUpdate()
@@ -58,12 +52,8 @@ public class PawnMaster : MonoBehaviour, IBuffable
         }
     }
 
-
-
-
     public virtual void ApplyBuff(Buff buff_)
     {
-
         Buff to_remove = null;
         // first check if the current buff list contains the buff, if contains, refresh the timer
         foreach (Buff buff in buffs.Keys)
@@ -99,12 +89,10 @@ public class PawnMaster : MonoBehaviour, IBuffable
             StartCoroutine(timer);
         }
         
-
         if (!buffs.TryAdd(buff_, buff_controller))
         {
             Debug.LogError("can not add buff type" + buff_.buff_type);
         }
-        
     }
 
     private IEnumerator BuffEndTimer(float duration_, Buff buff_, float start_time, BuffIconController controller)
@@ -134,14 +122,14 @@ public class PawnMaster : MonoBehaviour, IBuffable
         }
     }
 
-    public virtual void Damage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
+    public virtual void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
     {
-
+        // ...existing code...
     }
 
     public void BuffDamage(float amount_)
     {
-
+        // ...existing code...
     }
 
     public virtual void UpdatePlayerContinuousAOE(ContiniousAOEStat stat)

@@ -195,7 +195,7 @@ public class PlayerController : PawnMaster
         moveV = 0f;
     }
 
-    public override void Damage(float damage, GameEvents.DamageType damage_type_, float hit_back_, Transform instigator_)
+    public override void TakeDamage(float damage, GameEvents.DamageType damage_type_, float hit_back_, Transform instigator_)
     {
         health -= damage;
         HealthBar.HealthCurrent = health;
@@ -308,7 +308,7 @@ public class PlayerController : PawnMaster
 
         // if (collision.gameObject.CompareTag("Enemy") == true)
         // {
-        //     Damage(5, 0f, transform);
+        //     TakeDamage(5, 0f, transform);
         // }
     }
 

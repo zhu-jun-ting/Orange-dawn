@@ -100,7 +100,7 @@ public class NPCLasergun : MonoBehaviour
                             enemyHitTimers[enemy] += Time.deltaTime;
                             if (enemyHitTimers[enemy] >= damageInterval)
                             {
-                                enemy.Damage(damagePerSecond * damageInterval, GameEvents.DamageType.Normal, 0f, transform);
+                                enemy.TakeDamage(damagePerSecond * damageInterval, GameEvents.DamageType.Normal, 0f, transform);
                                 enemyHitTimers[enemy] = 0f;
                             }
                         }

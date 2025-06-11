@@ -163,9 +163,9 @@ public class NPCMaster : PawnMaster
         transform.position = Vector2.MoveTowards(transform.position, position, moveSpeed * Time.deltaTime);
     }
 
-    public override void Damage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
+    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
     {
-        base.Damage(_amount, damage_type_, _hit_back_factor, instigator);
+        base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator);
 
         hitBackFactor = _hit_back_factor;
         curHP -= _amount;
@@ -199,7 +199,7 @@ public class NPCMaster : PawnMaster
     }
 
     protected void Hurt(GameObject _pawn, float _amount) {
-        _pawn.GetComponent<IBuffable>().Damage(_amount, GameEvents.DamageType.Normal, 0f, transform);
+        _pawn.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, transform);
     }
 
     private Vector2 GetRandomLocationInCircle(Vector2 initial_location, float radius) {

@@ -18,7 +18,7 @@ public class DOTStat : StatMaster {
         //      e.g. interval = 2 mean every TICK_INTERVAL * 2 seconds between each call of UpdateBuff
         // P.S. interval should be implemented by a timer inside this function
         Debug.Log(buffable); 
-        buffable.Damage(dot_damage_per_second * CombatManager.TICK_INTERVAL, GameEvents.DamageType.DotDamage, 0f, null);
+        buffable.TakeDamage(dot_damage_per_second * CombatManager.TICK_INTERVAL, GameEvents.DamageType.DotDamage, 0f, null);
     }
 
     public override void EndBuff(IBuffable buffable) {

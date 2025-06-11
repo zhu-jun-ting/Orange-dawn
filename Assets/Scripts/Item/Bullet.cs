@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour
         if (trigger_tags.Contains(other.tag)) {
             // TODO: adjust the damagetype
             if (other.gameObject.GetComponent<IBuffable>() != null) {
-                other.gameObject.GetComponent<IBuffable>().Damage(damage, GameEvents.DamageType.Normal, 0f, transform);
+                other.gameObject.GetComponent<IBuffable>().TakeDamage(damage, GameEvents.DamageType.Normal, 0f, transform);
             }
             Destroy(gameObject);
         }

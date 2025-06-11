@@ -122,12 +122,12 @@ public class EnemyMaster : PawnMaster
         // transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
-    public override void Damage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
+    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
     {
         if (Time.time - lastDamageTime < damageCooldown) return; // Prevent double damage in short period
         lastDamageTime = Time.time;
         
-        base.Damage(_amount, damage_type_, _hit_back_factor, instigator);
+        base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator);
 
         hitBackFactor = _hit_back_factor;
         curHP -= _amount;
@@ -175,7 +175,7 @@ public class EnemyMaster : PawnMaster
     }
 
     protected void HurtPlayer(GameObject _player, float _amount) {
-        _player.GetComponent<IBuffable>().Damage(_amount, GameEvents.DamageType.Normal, 0f, transform);
+        _player.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, transform);
     }
 
 }

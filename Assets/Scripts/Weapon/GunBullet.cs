@@ -50,7 +50,7 @@ public class GunBullet : MonoBehaviour
         {
             if (other != null) {
                 // Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-                other.gameObject.GetComponent<IBuffable>().Damage(att, GameEvents.DamageType.Normal, hit_back, owner.transform); 
+                other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Normal, hit_back, owner.transform); 
                 GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
                 exp.transform.position = transform.position; 
                 
