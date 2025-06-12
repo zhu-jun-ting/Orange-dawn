@@ -12,8 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920fa0595afc020418d940869f880d9d, type: 3}
   m_Name: CardBasePistol
   m_EditorClassIdentifier: 
-  card_icon: {fileID: 0}
-  card_id: 
-  card_name: 
-  card_description: 
+  card_icon: {fileID: 21300000, guid: 4a9f1313bc340844281fa9d979f92d0e, type: 3}
+  card_id: 2
+  card_name: Card Base Pistol
+  card_description: demo pistol description
   current_gun: {fileID: 0}
+  up_link_enabled: 1
+  up_link_type: 0
+  up_link_cardmaster: {fileID: 0}
+  left_link_enabled: 1
+  left_link_type: 0
+  left_link_cardmaster: {fileID: 0}
+  right_link_enabled: 1
+  right_link_type: 0
+  right_link_cardmaster: {fileID: 0}
+  down_link_enabled: 1
+  down_link_type: 0
+  down_link_cardmaster: {fileID: 0}
+  is_free_card: 1
+  up_link_gameobject: {fileID: 0}
+  left_link_gameobject: {fileID: 0}
+  right_link_gameobject: {fileID: 0}
+  down_link_gameobject: {fileID: 0}

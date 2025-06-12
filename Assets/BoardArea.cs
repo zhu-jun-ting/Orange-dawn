@@ -81,6 +81,15 @@ public class BoardArea : MonoBehaviour
         gridState[row, col] = card;
     }
 
+    public CardMaster GetCell(int row, int col)
+    {
+        if (gridState == null)
+            return null;
+        if (row < 0 || row >= rows || col < 0 || col >= columns)
+            return null;
+        return gridState[row, col];
+    }
+
     public void ClearCell(int row, int col)
     {
         gridState[row, col] = null;

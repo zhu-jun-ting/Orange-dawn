@@ -16,3 +16,22 @@ MonoBehaviour:
   card_id: 1
   card_name: Add Attack
   card_description: 'This Add Attack (need implement, just for demo) '
+  current_gun: {fileID: 0}
+  up_link_enabled: 0
+  up_link_type: 0
+  up_link_cardmaster: {fileID: 0}
+  left_link_enabled: 1
+  left_link_type: 0
+  left_link_cardmaster: {fileID: 0}
+  right_link_enabled: 0
+  right_link_type: 0
+  right_link_cardmaster: {fileID: 0}
+  down_link_enabled: 0
+  down_link_type: 0
+  down_link_cardmaster: {fileID: 0}
+  is_free_card: 0
+  up_link_gameobject: {fileID: 0}
+  left_link_gameobject: {fileID: 0}
+  right_link_gameobject: {fileID: 0}
+  down_link_gameobject: {fileID: 0}
+  attackToAdd: 50
