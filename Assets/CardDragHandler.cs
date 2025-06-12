@@ -151,8 +151,13 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         rectTransform.DOScale(1.1f, 0.2f).SetEase(Ease.OutBack);
         BoardArea.instance.ShowCardHints();
 
-        tmpCardMaster = BoardArea.instance.GetCell(lastRow, lastCol);
-        BoardArea.instance.ClearCell(lastRow, lastCol);
+        // Save the card in the cell before clearing, but check upper bounds
+        if (lastRow >= 0 && lastCol >= 0 && lastRow < BoardArea.instance.rows && lastCol < BoardArea.instance.columns)
+        {
+            tmpCardMaster = BoardArea.instance.GetCell(lastRow, lastCol);
+            BoardArea.instance.ClearCell(lastRow, lastCol);
+        } 
+        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -183,21 +188,58 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         rectTransform.DOScale(1f, 0.2f).SetEase(Ease.OutBack);
         if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();
         BoardArea.instance.HideCardHints();
-        if (BoardArea.instance != null && BoardArea.instance.IsPointInside(Input.mousePosition, canvas.worldCamera))
+
+        bool droppedOnHand = HandArea.instance != null && HandArea.instance.IsPointInside(Input.mousePosition, canvas.worldCamera);
+        bool droppedOnBoard = BoardArea.instance != null && BoardArea.instance.IsPointInside(Input.mousePosition, canvas.worldCamera);
+
+        if (droppedOnHand)
+        {
+            // If card was on board, remove from board and add to hand
+            if (lastRow >= 0 && lastCol >= 0)
+            {
+                BoardArea.instance.ClearCell(lastRow, lastCol);
+                lastRow = lastCol = -1;
+                CallOnCardDisableIfOffGrid();
+            }
+            // Optionally: HandArea.instance.AddCard(cardMaster);
+            // Set parent to hand area, but do not snap to center
+            if (HandArea.instance != null)
+            {
+                var handRect = HandArea.instance.GetComponent<RectTransform>();
+                rectTransform.SetParent(handRect, true);
+                // Check for overlap with other cards in hand area
+                foreach (Transform sibling in handRect)
+                {
+                    if (sibling == rectTransform) continue;
+                    var otherRect = sibling as RectTransform;
+                    if (otherRect == null) continue;
+                    if (RectTransformOverlaps(rectTransform, otherRect))
+                    {
+                        // Move this card slightly to the right to separate
+                        rectTransform.anchoredPosition += new Vector2(otherRect.rect.width + 10f, 0);
+                    }
+                }
+                // Otherwise, leave the card where it is released
+            }
+        }
+        else if (droppedOnBoard)
         {
             Vector2 localPoint = BoardArea.instance.ScreenToLocalPoint(Input.mousePosition, canvas.worldCamera);
             Vector2 cardSize = rectTransform.rect.size;
             Vector2Int cell = BoardArea.instance.GetNearestGridCell(localPoint, cardSize);
-            // Prevent overlap
             if (!BoardArea.instance.IsCellOccupied(cell.x, cell.y) && CanPlaceCardAtCell(cell.x, cell.y, cardMaster))
             {
-                // Remove from previous cell if present
                 if (lastRow >= 0 && lastCol >= 0)
                 {
                     lastRow = lastCol = -1;
                     CallOnCardDisableIfOffGrid();
                 }
+                if (HandArea.instance != null && HandArea.instance.ContainsCard(cardMaster))
+                {
+                    HandArea.instance.RemoveCard(cardMaster);
+                }
                 Vector2 snappedLocal = BoardArea.instance.GetGridCellPosition(cell.x, cell.y, cardSize);
+                rectTransform.SetParent(BoardArea.instance.transform, true);
                 rectTransform.DOAnchorPos(snappedLocal, 0.2f).SetEase(Ease.OutQuad);
                 BoardArea.instance.SetCell(cell.x, cell.y, cardMaster);
                 lastRow = cell.x;
@@ -206,20 +248,16 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             }
             else
             {
-                // Snap back to original position if cell is occupied or link check fails
                 rectTransform.DOAnchorPos(originalAnchoredPosition, 0.3f).SetEase(Ease.OutQuad);
-
-                // Return the gridState to the previous state
                 if (tmpCardMaster != null)
                 {
                     BoardArea.instance.SetCell(lastRow, lastCol, tmpCardMaster);
-                    tmpCardMaster = null; // Clear temporary reference
+                    tmpCardMaster = null;
                 }
             }
         }
-        else if (BoardArea.instance != null)
+        else
         {
-            // Animate back to original anchored position
             rectTransform.DOAnchorPos(originalAnchoredPosition, 0.3f).SetEase(Ease.OutQuad);
         }
         pointerEnterBlockTime = Time.time + 0.5f;
@@ -228,6 +266,18 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             ResetHintColor(lastHintRow, lastHintCol);
             lastHintRow = lastHintCol = -1;
         }
+    }
+
+    // Helper to check overlap between two RectTransforms (in local space of their parent)
+    private bool RectTransformOverlaps(RectTransform a, RectTransform b)
+    {
+        Vector3[] aCorners = new Vector3[4];
+        Vector3[] bCorners = new Vector3[4];
+        a.GetWorldCorners(aCorners);
+        b.GetWorldCorners(bCorners);
+        Rect aRect = new Rect(aCorners[0], aCorners[2] - aCorners[0]);
+        Rect bRect = new Rect(bCorners[0], bCorners[2] - bCorners[0]);
+        return aRect.Overlaps(bRect);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
