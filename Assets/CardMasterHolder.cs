@@ -3,8 +3,8 @@ using TMPro;
 
 public class CardMasterHolder : MonoBehaviour
 {
-    [Header("Card Data Holder")]
-    public CardMaster cardMaster;
+
+    private CardMaster cardMaster;
 
     [Header("UI References")]
     public TMP_Text headingText;
@@ -12,13 +12,22 @@ public class CardMasterHolder : MonoBehaviour
 
     private void OnEnable()
     {
-        CardMaster.OnUpdateCardTexts += UpdateAllCardTexts;
+        cardMaster = GetComponent<CardMaster>();
+        if (!CombatManager.is_update_card_registered)
+        {
+            CardMaster.OnUpdateCardTexts += UpdateAllCardTexts;
+            CombatManager.is_update_card_registered = true;
+        }
         UpdateTexts();
     }
 
     private void OnDisable()
     {
-        CardMaster.OnUpdateCardTexts -= UpdateAllCardTexts;
+        if (CombatManager.is_update_card_registered)
+        {
+            CardMaster.OnUpdateCardTexts -= UpdateAllCardTexts;
+            CombatManager.is_update_card_registered = false;
+        }
     }
 
     private void UpdateAllCardTexts()
@@ -30,6 +39,8 @@ public class CardMasterHolder : MonoBehaviour
             holder.UpdateTexts();
         }
     }
+
+
 
     public void UpdateTexts()
     {

@@ -18,12 +18,23 @@ public class Gun : MonoBehaviour
     protected float flipY;
     protected Animator animator;
 
+    // Store initial values for reset
+    private float initialDamage;
+    private float initialSpeed;
+    private float initialRecon;
+    private float initialInterval;
+
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         muzzlePos = transform.Find("Muzzle");
         shellPos = transform.Find("BulletShell");
         flipY = transform.localScale.y;
+        // Store initial values
+        initialDamage = damage;
+        initialSpeed = speed;
+        initialRecon = recon;
+        initialInterval = interval;
     }
 
     protected virtual void Update()
@@ -78,5 +89,14 @@ public class Gun : MonoBehaviour
         GameObject shell = ObjectPool.Instance.GetObject(shellPrefab);
         shell.transform.position = shellPos.position;
         shell.transform.rotation = shellPos.rotation;
+    }
+
+    // Resets all gun stats to their initial values
+    public virtual void Reset()
+    {
+        damage = initialDamage;
+        speed = initialSpeed;
+        recon = initialRecon;
+        interval = initialInterval;
     }
 }

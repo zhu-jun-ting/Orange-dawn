@@ -50,6 +50,7 @@ public class CombatManager : MonoBehaviour
 
     // instance
     public static CombatManager instance;
+    public static bool is_update_card_registered = false;
 
 
 

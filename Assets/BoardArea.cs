@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections.Generic;
+using System.Linq;
 
 [RequireComponent(typeof(RectTransform))]
 public class BoardArea : MonoBehaviour
@@ -23,6 +25,11 @@ public class BoardArea : MonoBehaviour
     [Header("Grid State")]
     public CardMaster[,] gridState;
 
+    [Header("For test, mark ROOT as the left up most grid cell")]
+    public List<CardMaster> roots = new List<CardMaster>();
+
+    private static bool isUpdateRootsRegistered = false;
+
     void Awake()
     {
         instance = this;
@@ -32,6 +39,7 @@ public class BoardArea : MonoBehaviour
         HideCardHints();
         CreateGridGuidelines();
         HideGridGuidelines();
+
     }
 
     public bool IsPointInside(Vector2 screenPoint, Camera uiCamera)
@@ -79,6 +87,7 @@ public class BoardArea : MonoBehaviour
     public void SetCell(int row, int col, CardMaster card)
     {
         gridState[row, col] = card;
+
     }
 
     public CardMaster GetCell(int row, int col)
@@ -93,6 +102,7 @@ public class BoardArea : MonoBehaviour
     public void ClearCell(int row, int col)
     {
         gridState[row, col] = null;
+
     }
 
     // --- Grid Visuals ---
@@ -175,4 +185,92 @@ public class BoardArea : MonoBehaviour
         if (gridGuidelinesParent != null) gridGuidelinesParent.SetActive(false);
         guidelinesVisible = false;
     }
+
+    // Performs a BFS from the given root and returns a list of CardMaster from endmost node to root (root last)
+    public static List<CardMaster> GetOrderedBFSFromRoot(CardMaster root)
+    {
+        var result = new List<CardMaster>();
+        if (root == null) return result;
+        var visited = new HashSet<CardMaster>();
+        var queue = new Queue<CardMaster>();
+
+        queue.Enqueue(root);
+        visited.Add(root);
+
+        // Standard BFS traversal
+        while (queue.Count > 0)
+        {
+            var node = queue.Dequeue();
+            result.Add(node);
+
+            // Check links in order: top, left, right, down
+            CardMaster[] children = new CardMaster[] {
+                node.up_link_cardmaster,
+                node.left_link_cardmaster,
+                node.right_link_cardmaster,
+                node.down_link_cardmaster
+            };
+            foreach (var child in children)
+            {
+                if (child != null && !visited.Contains(child))
+                {
+                    queue.Enqueue(child);
+                    visited.Add(child);
+                }
+            }
+        }
+        // Reverse the result to have root last
+        result.Reverse();
+
+        // Debug.Log($"BFS from root {root.name} found {result.Count} cards.");
+        // Debug.Log($"BFS from root {root.name} found cards: {string.Join(", ", result.Select(c => c.name))}"); 
+
+        return result;
+    }
+
+    // Traverse BFS from a given root, reset all cards, then call OnCardEnable in order
+    public static void ResetAndEnableBFSFromRoot(CardMaster root)
+    {
+        var ordered = GetOrderedBFSFromRoot(root);
+        // Reset all cards first
+        foreach (var card in ordered)
+        {
+            if (card != null)
+                card.Reset();
+        }
+        // Then call OnCardEnable in order
+        foreach (var card in ordered)
+        {
+            if (card != null)
+                card.OnCardEnable();
+        }
+    }
+
+    // Subscribe to OnUpdateCardValues event to trigger this for all roots
+    void OnEnable()
+    {
+        if (!isUpdateRootsRegistered)
+        {
+            CardMaster.OnUpdateCardValues += UpdateAllRoots;
+            isUpdateRootsRegistered = true;
+        }
+    }
+    void OnDisable()
+    {
+        if (isUpdateRootsRegistered)
+        {
+            CardMaster.OnUpdateCardValues -= UpdateAllRoots;
+            isUpdateRootsRegistered = false;
+        }
+    }
+    private void UpdateAllRoots()
+    {
+        if (roots == null) return;
+        foreach (var root in roots)
+        {
+            if (root != null)
+                ResetAndEnableBFSFromRoot(root);
+        }
+    }
 }
+

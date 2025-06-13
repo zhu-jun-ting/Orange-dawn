@@ -23,7 +23,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
-        cardMaster = GetComponent<CardMasterHolder>()?.cardMaster; // Assumes CardMasterHolder holds a CardMaster reference
+        cardMaster = GetComponent<CardMaster>(); // Assumes CardMasterHolder holds a CardMaster reference
     }
 
     private Gun GetCurrentPlayerGun()
@@ -47,7 +47,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (cardMaster != null && lastRow >= 0 && lastCol >= 0)
         {
-            cardMaster.OnCardEnable(GetCurrentPlayerGun());
+            cardMaster.OnCardEnable();
         }
     }
 
@@ -55,7 +55,12 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (cardMaster != null)
         {
-            cardMaster.OnCardDisable(GetCurrentPlayerGun());
+            // If this card is a root and is being removed from the board, remove from roots list
+            if (cardMaster.is_root && BoardArea.instance != null && BoardArea.instance.roots != null)
+            {
+                BoardArea.instance.roots.Remove(cardMaster);
+            }
+            cardMaster.OnCardDisable();
         }
     }
 
@@ -194,12 +199,56 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
         if (droppedOnHand)
         {
-            // If card was on board, remove from board and add to hand
             if (lastRow >= 0 && lastCol >= 0)
             {
+                // Destroy links in all directions
+                var grid = BoardArea.instance.gridState;
+                int rows = BoardArea.instance.rows;
+                int cols = BoardArea.instance.columns;
+                int row = lastRow, col = lastCol;
+                // Up
+                if (row > 0)
+                {
+                    var upCard = grid[row - 1, col];
+                    if (upCard != null && upCard.down_link_cardmaster == cardMaster)
+                    {
+                        upCard.down_link_cardmaster = null;
+                        cardMaster.up_link_cardmaster = null;
+                    }
+                }
+                // Down
+                if (row < rows - 1)
+                {
+                    var downCard = grid[row + 1, col];
+                    if (downCard != null && downCard.up_link_cardmaster == cardMaster)
+                    {
+                        downCard.up_link_cardmaster = null;
+                        cardMaster.down_link_cardmaster = null;
+                    }
+                }
+                // Left
+                if (col > 0)
+                {
+                    var leftCard = grid[row, col - 1];
+                    if (leftCard != null && leftCard.right_link_cardmaster == cardMaster)
+                    {
+                        leftCard.right_link_cardmaster = null;
+                        cardMaster.left_link_cardmaster = null;
+                    }
+                }
+                // Right
+                if (col < cols - 1)
+                {
+                    var rightCard = grid[row, col + 1];
+                    if (rightCard != null && rightCard.left_link_cardmaster == cardMaster)
+                    {
+                        rightCard.left_link_cardmaster = null;
+                        cardMaster.right_link_cardmaster = null;
+                    }
+                }
                 BoardArea.instance.ClearCell(lastRow, lastCol);
                 lastRow = lastCol = -1;
-                CallOnCardDisableIfOffGrid();
+                // Do not call CallOnCardDisableIfOffGrid here
             }
             // Optionally: HandArea.instance.AddCard(cardMaster);
             // Set parent to hand area, but do not snap to center
@@ -219,8 +268,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         rectTransform.anchoredPosition += new Vector2(otherRect.rect.width + 10f, 0);
                     }
                 }
-                // Otherwise, leave the card where it is released
+                
             }
+            // Only trigger update after all changes
+            TriggerUpdateCards();
         }
         else if (droppedOnBoard)
         {
@@ -232,7 +283,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (lastRow >= 0 && lastCol >= 0)
                 {
                     lastRow = lastCol = -1;
-                    CallOnCardDisableIfOffGrid();
+                    // Do not call CallOnCardDisableIfOffGrid here
                 }
                 if (HandArea.instance != null && HandArea.instance.ContainsCard(cardMaster))
                 {
@@ -244,7 +295,83 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 BoardArea.instance.SetCell(cell.x, cell.y, cardMaster);
                 lastRow = cell.x;
                 lastCol = cell.y;
-                CallOnCardEnableIfOnGrid();
+                // Do not call CallOnCardEnableIfOnGrid here
+
+                // Create links in all directions
+                var grid = BoardArea.instance.gridState;
+                int rows = BoardArea.instance.rows;
+                int cols = BoardArea.instance.columns;
+                int row = cell.x, col = cell.y;
+                // Up
+                if (row > 0 && cardMaster.up_link_enabled)
+                {
+                    var upCard = grid[row - 1, col];
+                    if (upCard != null && upCard.down_link_enabled && upCard.down_link_type == cardMaster.up_link_type && cardMaster.up_link_type == upCard.down_link_type)
+                    {
+                        cardMaster.up_link_cardmaster = upCard;
+                        upCard.down_link_cardmaster = cardMaster;
+                        // Debug.Log("up card found: " + cardMaster.up_link_cardmaster);
+                    }
+                }
+                // Down
+                if (row < rows - 1 && cardMaster.down_link_enabled)
+                {
+                    var downCard = grid[row + 1, col];
+                    if (downCard != null && downCard.up_link_enabled && downCard.up_link_type == cardMaster.down_link_type && cardMaster.down_link_type == downCard.up_link_type)
+                    {
+                        cardMaster.down_link_cardmaster = downCard;
+                        downCard.up_link_cardmaster = cardMaster;
+                        // Debug.Log("down card found: " + cardMaster.down_link_cardmaster);
+                    }
+                }
+                // Left
+                if (col > 0 && cardMaster.left_link_enabled)
+                {
+                    var leftCard = grid[row, col - 1];
+                    if (leftCard != null && leftCard.right_link_enabled && leftCard.right_link_type == cardMaster.left_link_type && cardMaster.left_link_type == leftCard.right_link_type)
+                    {
+                        cardMaster.left_link_cardmaster = leftCard;
+                        leftCard.right_link_cardmaster = cardMaster;
+                        // Debug.Log("left card found: " + cardMaster.left_link_cardmaster);
+                    }
+                }
+                // Right
+                if (col < cols - 1 && cardMaster.right_link_enabled)
+                {
+                    var rightCard = grid[row, col + 1];
+                    if (rightCard != null && rightCard.left_link_enabled && rightCard.left_link_type == cardMaster.right_link_type && cardMaster.right_link_type == rightCard.left_link_type)
+                    {
+                        cardMaster.right_link_cardmaster = rightCard;
+                        rightCard.left_link_cardmaster = cardMaster;
+                        // Debug.Log("right card found: " + cardMaster.right_link_cardmaster);
+                    }
+                }
+
+                
+
+                // If card is root, only add to BoardArea.roots if not already in any root's BFS traversal
+                if (cardMaster.is_root && BoardArea.instance.roots != null)
+                {
+                    bool foundInAnyTraversal = false;
+                    foreach (var root in BoardArea.instance.roots)
+                    {
+                        var traversed = BoardArea.GetOrderedBFSFromRoot(root);
+                        if (traversed.Contains(cardMaster))
+                        {
+                            foundInAnyTraversal = true;
+                            break;
+                        }
+                    }
+                    if (!foundInAnyTraversal && !BoardArea.instance.roots.Contains(cardMaster))
+                    {
+                        BoardArea.instance.roots.Add(cardMaster);
+                    }
+                }
+
+
+
+                // Only trigger update after all changes
+                TriggerUpdateCards();
             }
             else
             {
@@ -292,5 +419,16 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         // Stop shake feedback
         if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();
+    }
+
+    private static float lastUpdateCardsTime = -100f;
+    public static void TriggerUpdateCards()
+    {
+        if (Time.time - lastUpdateCardsTime < 0.1f) return;
+        lastUpdateCardsTime = Time.time;
+        CardMaster.InvokeUpdateCardValues();
+        CardMaster.InvokeUpdateBaseDesctipion();
+        CardMaster.InvokeUpdateCardTexts();
+        // Debug.Log("Update cards triggered at " + Time.time);
     }
 }

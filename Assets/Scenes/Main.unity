@@ -1666,6 +1666,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 145889852}
   m_CullTransparentMesh: 1
+--- !u!1 &153563396 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+  m_PrefabInstance: {fileID: 535079183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &237325909
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,6 +2229,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e54045d68444bcf40b54d12f662031c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &448018203 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+  m_PrefabInstance: {fileID: 3103119244726934010}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &459220614
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2413,42 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
   m_PrefabInstance: {fileID: 3103119244726934010}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &500653892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448018203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6db64885f2037c43a010ee25879a9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card_icon: {fileID: 0}
+  card_id: 1
+  card_name: Add Attack 2
+  card_description: 'WOW this is 2222 nd description! '
+  current_gun: {fileID: 0}
+  up_link_enabled: 0
+  up_link_type: 0
+  up_link_cardmaster: {fileID: 0}
+  left_link_enabled: 1
+  left_link_type: 0
+  left_link_cardmaster: {fileID: 0}
+  right_link_enabled: 1
+  right_link_type: 0
+  right_link_cardmaster: {fileID: 0}
+  down_link_enabled: 0
+  down_link_type: 0
+  down_link_cardmaster: {fileID: 0}
+  is_free_card: 0
+  is_root: 0
+  up_link_gameobject: {fileID: 0}
+  left_link_gameobject: {fileID: 0}
+  right_link_gameobject: {fileID: 0}
+  down_link_gameobject: {fileID: 0}
+  attackToAdd: 10
 --- !u!1 &521559883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2560,7 +2606,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1883698207545688597, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_text
-      value: demo pistol description
+      value: 'Damage: 170
+
+        Speed: 10
+
+        Recon: 4
+
+        Interval:
+        0.5'
       objectReference: {fileID: 0}
     - target: {fileID: 2603181392241329048, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -2577,13 +2630,51 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 535079190}
   m_SourcePrefab: {fileID: 100100000, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
 --- !u!224 &535079184 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
   m_PrefabInstance: {fileID: 535079183}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &535079190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 153563396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 920fa0595afc020418d940869f880d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card_icon: {fileID: 0}
+  card_id: 2
+  card_name: Pistol
+  card_description: Pistol Description
+  current_gun: {fileID: 0}
+  up_link_enabled: 1
+  up_link_type: 0
+  up_link_cardmaster: {fileID: 0}
+  left_link_enabled: 1
+  left_link_type: 0
+  left_link_cardmaster: {fileID: 0}
+  right_link_enabled: 1
+  right_link_type: 0
+  right_link_cardmaster: {fileID: 0}
+  down_link_enabled: 1
+  down_link_type: 0
+  down_link_cardmaster: {fileID: 0}
+  is_free_card: 1
+  is_root: 1
+  up_link_gameobject: {fileID: 0}
+  left_link_gameobject: {fileID: 0}
+  right_link_gameobject: {fileID: 0}
+  down_link_gameobject: {fileID: 0}
 --- !u!224 &540011182 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7633863472519149119, guid: a84328939017d6f458196e4432818696, type: 3}
@@ -4555,6 +4646,7 @@ MonoBehaviour:
   margin: 10
   gridLinePrefab: {fileID: 3988944398593681122, guid: a84328939017d6f458196e4432818696, type: 3}
   cardHintPrefab: {fileID: 3988944398593681122, guid: a84328939017d6f458196e4432818696, type: 3}
+  roots: []
 --- !u!114 &1381811381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5987,7 +6079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 243.8737, y: -23.4678}
+  m_AnchoredPosition: {x: 242.1, y: -28.4}
   m_SizeDelta: {x: 208.8526, y: 256.3355}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1851735988
@@ -6941,7 +7033,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2138689056}
   m_SourcePrefab: {fileID: 100100000, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
 --- !u!224 &2048077251 stripped
 RectTransform:
@@ -7229,6 +7324,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ExpText: {fileID: 118965050}
   LevelText: {fileID: 1843651046}
+--- !u!1 &2138689050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+  m_PrefabInstance: {fileID: 2048077250}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2138689056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138689050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6db64885f2037c43a010ee25879a9d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card_icon: {fileID: 0}
+  card_id: 1
+  card_name: Add Attack
+  card_description: 'WOW this is description! '
+  current_gun: {fileID: 0}
+  up_link_enabled: 0
+  up_link_type: 0
+  up_link_cardmaster: {fileID: 0}
+  left_link_enabled: 1
+  left_link_type: 0
+  left_link_cardmaster: {fileID: 0}
+  right_link_enabled: 1
+  right_link_type: 0
+  right_link_cardmaster: {fileID: 0}
+  down_link_enabled: 0
+  down_link_type: 0
+  down_link_cardmaster: {fileID: 0}
+  is_free_card: 0
+  is_root: 0
+  up_link_gameobject: {fileID: 0}
+  left_link_gameobject: {fileID: 0}
+  right_link_gameobject: {fileID: 0}
+  down_link_gameobject: {fileID: 0}
+  attackToAdd: 10
 --- !u!1001 &2463634058679621334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7393,7 +7529,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 500653892}
   m_SourcePrefab: {fileID: 100100000, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
 --- !u!1001 &3890116298807397596
 PrefabInstance:
