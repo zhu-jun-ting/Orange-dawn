@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class Shotgun : Gun
 {
-    
-    public int bulletNum = 3;
-    public float bulletAngle = 15;
+
 
     protected override void Fire()
     {

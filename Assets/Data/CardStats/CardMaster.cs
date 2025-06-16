@@ -10,7 +10,7 @@ public class CardMaster : MonoBehaviour
     public Sprite card_icon;
     public string card_id; // unique identifier for the card
     public string card_name;
-    public string card_description;
+    [TextArea(3, 10)] public string card_description;
     public Gun current_gun;
 
     // events to update card values and texts
@@ -248,12 +248,21 @@ public class CardMaster : MonoBehaviour
         SetLinkAlpha(GetLinkGameObject("down"), 0f);
     }
 
+    public void SetLinkInvisible(string dir)
+    {
+        var go = GetLinkGameObject(dir);
+        if (go != null)
+        {
+            SetLinkAlpha(go, 0f);
+        }
+    }
+
     public void SetActiveLinksGreenAndVisible(bool up, bool left, bool right, bool down)
     {
-        if (up) SetLinkColor(GetLinkGameObject("up"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("up"), 0.5f);
-        if (left) SetLinkColor(GetLinkGameObject("left"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("left"), 0.5f);
-        if (right) SetLinkColor(GetLinkGameObject("right"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("right"), 0.5f);
-        if (down) SetLinkColor(GetLinkGameObject("down"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("down"), 0.5f);
+        if (up) SetLinkColor(GetLinkGameObject("up"), Color.green, 1f); else if (!up_link_enabled) SetLinkAlpha(GetLinkGameObject("up"), 0f);
+        if (left) SetLinkColor(GetLinkGameObject("left"), Color.green, 1f); else if (!left_link_enabled) SetLinkAlpha(GetLinkGameObject("left"), 0f);
+        if (right) SetLinkColor(GetLinkGameObject("right"), Color.green, 1f); else if (!right_link_enabled) SetLinkAlpha(GetLinkGameObject("right"), 0f);
+        if (down) SetLinkColor(GetLinkGameObject("down"), Color.green, 1f); else if (!down_link_enabled) SetLinkAlpha(GetLinkGameObject("down"), 0f);
     }
 
     public void SetPlacedLinksGreenAndVisible(bool up, bool left, bool right, bool down)
@@ -275,6 +284,7 @@ public class CardMaster : MonoBehaviour
             c.a = alpha;
             img.color = c;
         }
+        // Debug.Log("set link alpha: " + go.name + " to " + alpha);
     }
     private void SetLinkColor(GameObject go, Color color, float alpha)
     {

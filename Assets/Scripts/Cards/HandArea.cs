@@ -17,6 +17,17 @@ public class HandArea : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
+    void OnEnable()
+    {
+        // Debug.Log("HandArea OnEnable called");
+        CardMaster.OnUpdateCardValues += ResetAllHandCards;
+    }
+
+    void OnDisable()
+    {
+        CardMaster.OnUpdateCardValues -= ResetAllHandCards;
+    }
+
     public bool IsPointInside(Vector2 screenPoint, Camera uiCamera)
     {
         return RectTransformUtility.RectangleContainsScreenPoint(rectTransform, screenPoint, uiCamera);
@@ -37,5 +48,18 @@ public class HandArea : MonoBehaviour
     public bool ContainsCard(CardMaster card)
     {
         return handCards.Contains(card);
+    }
+
+    // Reset all cards in the hand area
+    public void ResetAllHandCards()
+    {
+        if (instance == null || instance.handCards == null) return;
+        foreach (var card in instance.handCards)
+        {
+            if (card != null)
+                card.Reset();
+                // Debug.Log($"Resetting card: {card.name}");
+        }
+        
     }
 }

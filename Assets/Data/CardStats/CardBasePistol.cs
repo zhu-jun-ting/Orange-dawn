@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CardBasePistol : CardMaster
@@ -10,15 +12,13 @@ public class CardBasePistol : CardMaster
     }
     private void OnEnable()
     {
-        CardMaster.OnUpdateBaseDesctipion += UpdateDescriptionWithPistolStats;
-        UpdateDescriptionWithPistolStats();
-
+        // UpdateDescriptionWithPistolStats();
         // Debug.Log($"CardBasePistol OnEnaable: {instance.name}, current_gun: {current_gun}");
     }
 
     void OnDisable()
     {
-        CardMaster.OnUpdateBaseDesctipion -= UpdateDescriptionWithPistolStats;
+
     }
 
     public override void OnCardEnable()
@@ -27,7 +27,6 @@ public class CardBasePistol : CardMaster
         {
             current_gun = FindActivePistolOnPlayer();
         }
-        UpdateDescriptionWithPistolStats();
         base.OnCardEnable(); // Call the base method to store the current gun reference
     }
 
@@ -37,16 +36,15 @@ public class CardBasePistol : CardMaster
         base.OnCardDisable(); // Call the base method to clear the current gun reference
     }
 
-    private void UpdateDescriptionWithPistolStats()
+    public override string GetDescription()
     {
         if (current_gun == null) current_gun = FindActivePistolOnPlayer();
         if (current_gun != null)
         {
-            string desc = $"Damage: {current_gun.damage}\nSpeed: {current_gun.speed}\nRecon: {current_gun.recon}\nInterval: {current_gun.interval}";
-            // Debug.Log($"Damage: {current_gun.damage}\nSpeed: {current_gun.speed}\nRecon: {current_gun.recon}\nInterval: {current_gun.interval}");
-            // Directly set the field, do NOT call SetCardDescription to avoid recursion
-            card_description = desc;
+            return String.Format(card_description,
+                current_gun.damage, current_gun.speed, current_gun.recon, current_gun.interval, current_gun.critChance, current_gun.critDamage, current_gun.bulletNum, current_gun.bulletAngle, current_gun.penetrate);
         }
+        return "";
     }
 
     private Gun FindActivePistolOnPlayer()
@@ -86,7 +84,6 @@ public class CardBasePistol : CardMaster
         if (numberType == CardMaster.NumberType.Damage)
         {
             current_gun.damage += value;
-            UpdateDescriptionWithPistolStats();
         }
         else
         {

@@ -336,12 +336,24 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         rectTransform.DOScale(1.1f, 0.2f).SetEase(Ease.OutBack);
         BoardArea.instance.ShowCardHints();
 
-        // --- Reset all links to black 50% transparent on this card ---
+        // --- Reset all links to black 50% transparent on this card, but only if enabled AND type is not Common; otherwise set invisible ---
         if (cardMaster != null) {
-            cardMaster.SetLinkHalfTransparentBlack("up");
-            cardMaster.SetLinkHalfTransparentBlack("down");
-            cardMaster.SetLinkHalfTransparentBlack("left");
-            cardMaster.SetLinkHalfTransparentBlack("right");
+            if (cardMaster.up_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("up");
+            else
+                cardMaster.SetLinkAlpha(up_link_gameobject, 0f);
+            if (cardMaster.down_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("down");
+            else
+                cardMaster.SetLinkAlpha(down_link_gameobject, 0f);
+            if (cardMaster.left_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("left");
+            else
+                cardMaster.SetLinkAlpha(left_link_gameobject, 0f);
+            if (cardMaster.right_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("right");
+            else
+                cardMaster.SetLinkAlpha(right_link_gameobject, 0f);
         }
 
         // --- Reset all previously linked neighbor cards' corresponding links ---
@@ -357,7 +369,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 var upCard = grid[row - 1, col];
                 if (upCard != null && upCard.down_link_cardmaster == cardMaster)
                 {
-                    upCard.SetLinkHalfTransparentBlack("down");
+                    if (upCard.down_link_enabled && upCard.down_link_type != CardMaster.LinkType.Common)
+                        upCard.SetLinkHalfTransparentBlack("down");
+                    else
+                        upCard.SetLinkAlpha(upCard.GetComponent<CardDragHandler>()?.down_link_gameobject, 0f);
                 }
             }
             // Down neighbor
@@ -366,7 +381,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 var downCard = grid[row + 1, col];
                 if (downCard != null && downCard.up_link_cardmaster == cardMaster)
                 {
-                    downCard.SetLinkHalfTransparentBlack("up");
+                    if (downCard.up_link_enabled && downCard.up_link_type != CardMaster.LinkType.Common)
+                        downCard.SetLinkHalfTransparentBlack("up");
+                    else
+                        downCard.SetLinkAlpha(downCard.GetComponent<CardDragHandler>()?.up_link_gameobject, 0f);
                 }
             }
             // Left neighbor
@@ -375,7 +393,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 var leftCard = grid[row, col - 1];
                 if (leftCard != null && leftCard.right_link_cardmaster == cardMaster)
                 {
-                    leftCard.SetLinkHalfTransparentBlack("right");
+                    if (leftCard.right_link_enabled && leftCard.right_link_type != CardMaster.LinkType.Common)
+                        leftCard.SetLinkHalfTransparentBlack("right");
+                    else
+                        leftCard.SetLinkAlpha(leftCard.GetComponent<CardDragHandler>()?.right_link_gameobject, 0f);
                 }
             }
             // Right neighbor
@@ -384,7 +405,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 var rightCard = grid[row, col + 1];
                 if (rightCard != null && rightCard.left_link_cardmaster == cardMaster)
                 {
-                    rightCard.SetLinkHalfTransparentBlack("left");
+                    if (rightCard.left_link_enabled && rightCard.left_link_type != CardMaster.LinkType.Common)
+                        rightCard.SetLinkHalfTransparentBlack("left");
+                    else
+                        rightCard.SetLinkAlpha(rightCard.GetComponent<CardDragHandler>()?.left_link_gameobject, 0f);
                 }
             }
         }
@@ -402,13 +426,25 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         // 1. Reset all links on all cards to black 50% transparent
-        ResetAllCardLinksHalfTransparentBlack();
-        // 1a. Also reset this card's links to black 50% transparent before hint
+        // ResetAllCardLinksHalfTransparentBlack();
+        // 1a. Also reset this card's links to black 50% transparent only if enabled AND type is not Common; otherwise set invisible before hint
         if (cardMaster != null) {
-            cardMaster.SetLinkHalfTransparentBlack("up");
-            cardMaster.SetLinkHalfTransparentBlack("down");
-            cardMaster.SetLinkHalfTransparentBlack("left");
-            cardMaster.SetLinkHalfTransparentBlack("right"); 
+            if (cardMaster.up_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("up");
+            else
+                cardMaster.SetLinkAlpha(up_link_gameobject, 0f);
+            if (cardMaster.down_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("down");
+            else
+                cardMaster.SetLinkAlpha(down_link_gameobject, 0f);
+            if (cardMaster.left_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("left");
+            else
+                cardMaster.SetLinkAlpha(left_link_gameobject, 0f);
+            if (cardMaster.right_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("right"); 
+            else
+                cardMaster.SetLinkAlpha(right_link_gameobject, 0f);
         }
         // 2. For all cards on the board, set links with no connected CardMaster to transparent
         var board = BoardArea.instance;
@@ -440,7 +476,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     ResetHintColor(lastHintRow, lastHintCol);
                 canPlace = !BoardArea.instance.IsCellOccupied(cell.x, cell.y) && CanPlaceCardAtCell(cell.x, cell.y, cardMaster);
                 SetHintColor(cell.x, cell.y, canPlace ? Color.green : Color.red);
-                if (canPlace) PreviewLinkVisuals(cell.x, cell.y); // This will set green links for the drag preview
+                // if (canPlace) PreviewLinkVisuals(cell.x, cell.y); // This will set green links for the drag preview
                 lastHintRow = cell.x;
                 lastHintCol = cell.y;
             }
@@ -459,12 +495,12 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         BoardArea.instance.HideCardHints();
 
         // Always reset this card's links to black 50% transparent first
-        if (cardMaster != null) {
-            cardMaster.SetLinkHalfTransparentBlack("up");
-            cardMaster.SetLinkHalfTransparentBlack("down");
-            cardMaster.SetLinkHalfTransparentBlack("left");
-            cardMaster.SetLinkHalfTransparentBlack("right");
-        }
+        // if (cardMaster != null) {
+        //     cardMaster.SetLinkHalfTransparentBlack("up");
+        //     cardMaster.SetLinkHalfTransparentBlack("down");
+        //     cardMaster.SetLinkHalfTransparentBlack("left");
+        //     cardMaster.SetLinkHalfTransparentBlack("right");
+        // }
 
         bool droppedOnHand = HandArea.instance != null && HandArea.instance.IsPointInside(Input.mousePosition, canvas.worldCamera);
         bool droppedOnBoard = BoardArea.instance != null && BoardArea.instance.IsPointInside(Input.mousePosition, canvas.worldCamera);
@@ -528,6 +564,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 var handRect = HandArea.instance.GetComponent<RectTransform>();
                 rectTransform.SetParent(handRect, true);
+                HandArea.instance.AddCard(cardMaster);
                 // Check for overlap with other cards in hand area
                 foreach (Transform sibling in handRect)
                 {
@@ -540,10 +577,11 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         rectTransform.anchoredPosition += new Vector2(otherRect.rect.width + 10f, 0);
                     }
                 }
-                
+
             }
             // Only trigger update after all changes
             TriggerUpdateCards();
+            CardMaster.InvokeUpdateCardTexts();
         }
         else if (droppedOnBoard)
         {
@@ -619,7 +657,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     }
                 }
 
-                
+
 
                 // If card is root, only add to BoardArea.roots if not already in any root's BFS traversal
                 if (cardMaster.is_root && BoardArea.instance.roots != null)
@@ -639,9 +677,6 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         BoardArea.instance.roots.Add(cardMaster);
                     }
                 }
-
-
-
                 // Only trigger update after all changes
                 TriggerUpdateCards();
             }

@@ -33,7 +33,7 @@ public class CardDesciprtionUpdater : MonoBehaviour
     private void UpdateAllCardTexts()
     {
         // Find all CardMasterHolder components in the scene and update their texts
-        var holders = FindObjectsOfType<CardDesciprtionUpdater>();
+        var holders = FindObjectsByType<CardDesciprtionUpdater>(FindObjectsSortMode.None);
         foreach (var holder in holders)
         {
             holder.UpdateTexts();
@@ -50,7 +50,7 @@ public class CardDesciprtionUpdater : MonoBehaviour
                 headingText.text = cardMaster.GetName();
             if (descriptionText != null)
                 descriptionText.text = cardMaster.GetDescription();
-            Debug.Log(cardMaster.GetDescription());
+            // Debug.Log(cardMaster.GetDescription());
         }
     }
 

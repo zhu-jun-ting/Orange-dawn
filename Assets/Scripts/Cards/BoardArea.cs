@@ -254,6 +254,8 @@ public class BoardArea : MonoBehaviour
             CardMaster.OnUpdateCardValues += UpdateAllRoots;
             isUpdateRootsRegistered = true;
         }
+        // Trigger card update when board is enabled
+        CardDragHandler.TriggerUpdateCards();
     }
     void OnDisable()
     {
