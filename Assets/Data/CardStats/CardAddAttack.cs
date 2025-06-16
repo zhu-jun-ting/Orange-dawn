@@ -35,18 +35,26 @@ public class CardAddAttack : CardMaster
         }
         current_gun = foundGun; // Set to found gun or null if none
 
-        // Debug.Log($"up link_cardmaster: {up_link_cardmaster}, left_link_cardmaster: {left_link_cardmaster}, right_link_cardmaster: {right_link_cardmaster}, down_link_cardmaster: {down_link_cardmaster}");
-
         // Call UpdateNumberValue on all linked cards
         foreach (var link in linked)
         {
             if (link != null)
             {
-                link.UpdateNumberValue(CardMaster.NumberType.Damage, attackToAdd, instance);
+                if (link.card_type == CardType.Value)
+                {
+                    // If the link is a value card, we can add attack to it
+                    link.UpdateNumberValue(CardMaster.NumberType.Damage, attackToAdd, instance);
+                }
+                else
+                {
+                    // If the link is a gun card, we should apply the buff at the very end
+                    CardMaster.OnApplyValuesToGuns += () => link.UpdateNumberValue(CardMaster.NumberType.Damage, attackToAdd, instance);
+                }
+                
             }
         }
 
-        card_description = $"Adds {attackToAdd} attack to the gun.";
+        // card_description = string.Format(card_description, attackToAdd);
         base.OnCardEnable();
     }
 
@@ -63,31 +71,36 @@ public class CardAddAttack : CardMaster
     public override void Reset()
     {
         attackToAdd = attackToAddDefault;
-        card_description = $"Adds {attackToAdd} attack to the gun.";
+        // card_description = string.Format(card_description, attackToAdd);
         base.Reset(); // Call the base reset method to reset other properties
-        
+        // Debug.Log("Reset ---" + string.Format(card_description, attackToAdd));
+
+    }
+    
+    // return the formatted description of the card
+    public override string GetDescription()
+    {
+        return string.Format(card_description, attackToAdd);
     }
 
     public override void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
     {
 
-        if (IsBuffedFromSource(source, addToList:true, includeSelf:true))
-        {
-            return;
-        }
+        if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return;
 
         // if source is a children of me, then I should take the buff from source
-        if (!(source != null && IsChildren(source)))
-        {
-            return;
-        }
+        // TODO: decide whether to allow buffs from children or not
+        // if (!(source != null && IsChildren(source))) return;
+
+
 
         base.UpdateNumberValue(numberType, value, source);
 
         if (numberType == CardMaster.NumberType.Damage)
         {
             attackToAdd += value;
-            card_description = $"Adds {attackToAdd} attack to the gun.";
+            // card_description = string.Format(card_description, attackToAdd);
+            // Debug.Log(string.Format(card_description, attackToAdd));
         }
         else
         {

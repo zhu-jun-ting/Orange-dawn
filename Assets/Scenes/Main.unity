@@ -2428,7 +2428,7 @@ MonoBehaviour:
   card_icon: {fileID: 0}
   card_id: 1
   card_name: Add Attack 2
-  card_description: 'WOW this is 2222 nd description! '
+  card_description: Adds {0} attack to the left and right cards.
   current_gun: {fileID: 0}
   up_link_enabled: 0
   up_link_type: 0
@@ -2444,10 +2444,7 @@ MonoBehaviour:
   down_link_cardmaster: {fileID: 0}
   is_free_card: 0
   is_root: 0
-  up_link_gameobject: {fileID: 0}
-  left_link_gameobject: {fileID: 0}
-  right_link_gameobject: {fileID: 0}
-  down_link_gameobject: {fileID: 0}
+  card_type: 0
   attackToAdd: 10
 --- !u!1 &521559883
 GameObject:
@@ -2671,10 +2668,7 @@ MonoBehaviour:
   down_link_cardmaster: {fileID: 0}
   is_free_card: 1
   is_root: 1
-  up_link_gameobject: {fileID: 0}
-  left_link_gameobject: {fileID: 0}
-  right_link_gameobject: {fileID: 0}
-  down_link_gameobject: {fileID: 0}
+  card_type: 0
 --- !u!224 &540011182 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7633863472519149119, guid: a84328939017d6f458196e4432818696, type: 3}
@@ -7344,7 +7338,7 @@ MonoBehaviour:
   card_icon: {fileID: 0}
   card_id: 1
   card_name: Add Attack
-  card_description: 'WOW this is description! '
+  card_description: Adds {0} attack to the left and right cards.
   current_gun: {fileID: 0}
   up_link_enabled: 0
   up_link_type: 0
@@ -7360,10 +7354,7 @@ MonoBehaviour:
   down_link_cardmaster: {fileID: 0}
   is_free_card: 0
   is_root: 0
-  up_link_gameobject: {fileID: 0}
-  left_link_gameobject: {fileID: 0}
-  right_link_gameobject: {fileID: 0}
-  down_link_gameobject: {fileID: 0}
+  card_type: 0
   attackToAdd: 10
 --- !u!1001 &2463634058679621334
 PrefabInstance:

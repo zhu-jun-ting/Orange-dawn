@@ -18,6 +18,7 @@ public class CardMaster : MonoBehaviour
     //   OnUpdateBaseDesctipion: update the base description of the card
     //   OnUpdateCardTexts: update the card texts in the UI
     public static event System.Action OnUpdateCardValues;
+    public static event System.Action OnApplyValuesToGuns;
     public static event System.Action OnUpdateBaseDesctipion;
     public static event System.Action OnUpdateCardTexts;
 
@@ -40,6 +41,13 @@ public class CardMaster : MonoBehaviour
         Health,
         Probablity,
         Amount,
+    }
+
+    public enum CardType
+    {
+        Value,
+        Gun,
+        Spawner,
     }
 
 
@@ -77,16 +85,9 @@ public class CardMaster : MonoBehaviour
     [Header("Card Properties")]
     public bool is_free_card = false; // If true, card can be placed anywhere regardless of link restrictions
     public bool is_root = false; // if true, this card is the root of the card tree that traverse from this card
+    public CardType card_type = CardType.Value; // if true, this card is the root of the card tree that traverse from this card
 
 
-
-
-    [Header("Link GameObjects")]
-    [Tooltip("GameObject to show the up link connection in the UI")]
-    public GameObject up_link_gameobject;
-    public GameObject left_link_gameobject;
-    public GameObject right_link_gameobject;
-    public GameObject down_link_gameobject;
 
 
     protected CardMaster instance;
@@ -144,6 +145,18 @@ public class CardMaster : MonoBehaviour
 
     }
 
+    // you should override this method to return the card's name and description
+    // if you want to use the default implementation, just return card_name
+    public virtual string GetName()
+    {
+        return card_name;
+    }
+
+    public virtual string GetDescription()
+    {
+        return card_description;
+    }
+
     // Call this at the start of each propagation/update cycle to clear the set
     public void ClearUpdateSources()
     {
@@ -175,6 +188,10 @@ public class CardMaster : MonoBehaviour
     {
         OnUpdateCardTexts?.Invoke();
     }
+    public static void InvokeApplyValuesToGuns()
+    {
+        OnApplyValuesToGuns?.Invoke();
+    }
 
     // Returns true if this card is a parent of the source card in the same tree (using reversed BFS order)
     public bool IsChildren(CardMaster source)
@@ -195,6 +212,99 @@ public class CardMaster : MonoBehaviour
         }
         return false;
     }
+
+
+    // --- Link Visuals ---
+    // Use CardDragHandler's link GameObjects only
+    private GameObject GetLinkGameObject(string dir)
+    {
+        var dragHandler = GetComponent<CardDragHandler>();
+        if (dragHandler != null)
+        {
+            switch (dir)
+            {
+                case "up": return dragHandler.up_link_gameobject;
+                case "left": return dragHandler.left_link_gameobject;
+                case "right": return dragHandler.right_link_gameobject;
+                case "down": return dragHandler.down_link_gameobject;
+            }
+        }
+        return null;
+    }
+
+    public void SetAllLinksHalfTransparent()
+    {
+        SetLinkAlpha(GetLinkGameObject("up"), 0.5f);
+        SetLinkAlpha(GetLinkGameObject("left"), 0.5f);
+        SetLinkAlpha(GetLinkGameObject("right"), 0.5f);
+        SetLinkAlpha(GetLinkGameObject("down"), 0.5f);
+    }
+
+    public void SetAllLinksInvisible()
+    {
+        SetLinkAlpha(GetLinkGameObject("up"), 0f);
+        SetLinkAlpha(GetLinkGameObject("left"), 0f);
+        SetLinkAlpha(GetLinkGameObject("right"), 0f);
+        SetLinkAlpha(GetLinkGameObject("down"), 0f);
+    }
+
+    public void SetActiveLinksGreenAndVisible(bool up, bool left, bool right, bool down)
+    {
+        if (up) SetLinkColor(GetLinkGameObject("up"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("up"), 0.5f);
+        if (left) SetLinkColor(GetLinkGameObject("left"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("left"), 0.5f);
+        if (right) SetLinkColor(GetLinkGameObject("right"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("right"), 0.5f);
+        if (down) SetLinkColor(GetLinkGameObject("down"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("down"), 0.5f);
+    }
+
+    public void SetPlacedLinksGreenAndVisible(bool up, bool left, bool right, bool down)
+    {
+        if (up) SetLinkColor(GetLinkGameObject("up"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("up"), 0f);
+        if (left) SetLinkColor(GetLinkGameObject("left"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("left"), 0f);
+        if (right) SetLinkColor(GetLinkGameObject("right"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("right"), 0f);
+        if (down) SetLinkColor(GetLinkGameObject("down"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("down"), 0f);
+    }
+
+    // Make SetLinkAlpha public for use by CardDragHandler
+    public void SetLinkAlpha(GameObject go, float alpha)
+    {
+        if (go == null) return;
+        var img = go.GetComponent<UnityEngine.UI.Image>();
+        if (img != null)
+        {
+            var c = img.color;
+            c.a = alpha;
+            img.color = c;
+        }
+    }
+    private void SetLinkColor(GameObject go, Color color, float alpha)
+    {
+        if (go == null) return;
+        var img = go.GetComponent<UnityEngine.UI.Image>();
+        if (img != null)
+        {
+            color.a = alpha;
+            img.color = color;
+        }
+    }
+
+    // Set a specific link (by direction) to black 50% transparent
+    public void SetLinkHalfTransparentBlack(string dir)
+    {
+        var go = GetLinkGameObject(dir);
+        if (go == null) return;
+        var img = go.GetComponent<UnityEngine.UI.Image>();
+        if (img != null)
+        {
+            img.color = new Color(0f, 0f, 0f, 0.5f);
+        }
+    }
     
-    
+    public static void ClearOnApplyValuesToGuns()
+    {
+        if (OnApplyValuesToGuns == null) return;
+        foreach (Delegate d in OnApplyValuesToGuns.GetInvocationList())
+        {
+            OnApplyValuesToGuns -= (System.Action)d;
+        }
+    }
 }
