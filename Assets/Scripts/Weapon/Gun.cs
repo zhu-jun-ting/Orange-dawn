@@ -135,5 +135,6 @@ public class Gun : MonoBehaviour
         speed = initialSpeed;
         recon = initialRecon;
         interval = initialInterval;
+        Debug.Log("Gun stats reset to initial values." + $" Damage: {damage}, Speed: {speed}, Recon: {recon}, Interval: {interval}"); 
     }
 }

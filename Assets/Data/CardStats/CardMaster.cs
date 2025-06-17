@@ -56,28 +56,28 @@ public class CardMaster : MonoBehaviour
     [Header("Up Link Settings")]
     public bool up_link_enabled = false;
     public CardMaster.LinkType up_link_type = CardMaster.LinkType.Common;
-    [HideInInspector] public CardMaster up_link_cardmaster = null;
+    public CardMaster up_link_cardmaster = null;
 
 
 
     [Header("Left Link Settings")]
     public bool left_link_enabled = false;
     public CardMaster.LinkType left_link_type = CardMaster.LinkType.Common;
-    [HideInInspector] public CardMaster left_link_cardmaster = null;
+    public CardMaster left_link_cardmaster = null;
 
 
 
     [Header("Right Link Settings")]
     public bool right_link_enabled = false;
     public CardMaster.LinkType right_link_type = CardMaster.LinkType.Common;
-    [HideInInspector] public CardMaster right_link_cardmaster = null;
+    public CardMaster right_link_cardmaster = null;
 
 
 
     [Header("Down Link Settings")]
     public bool down_link_enabled = false;
     public CardMaster.LinkType down_link_type = CardMaster.LinkType.Common;
-    [HideInInspector] public CardMaster down_link_cardmaster = null;
+    public CardMaster down_link_cardmaster = null;
 
 
 

@@ -2430,7 +2430,7 @@ MonoBehaviour:
   card_name: Add Attack 2
   card_description: Adds {0} attack to the left and right cards.
   current_gun: {fileID: 0}
-  up_link_enabled: 0
+  up_link_enabled: 1
   up_link_type: 0
   up_link_cardmaster: {fileID: 0}
   left_link_enabled: 1
@@ -2439,7 +2439,7 @@ MonoBehaviour:
   right_link_enabled: 1
   right_link_type: 0
   right_link_cardmaster: {fileID: 0}
-  down_link_enabled: 0
+  down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
   is_free_card: 0
@@ -2575,11 +2575,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -20
+      value: -16.1
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -28.2
+      value: -40.7
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6731,11 +6731,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -48.8
+      value: -18.4
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 40.5
+      value: 25.9
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6844,7 +6844,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 508, y: 305}
+  m_AnchoredPosition: {x: 487.7, y: 241.79}
   m_SizeDelta: {x: 1015, y: 324}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2004562054
@@ -7489,7 +7489,7 @@ MonoBehaviour:
   card_name: Add Attack
   card_description: Adds {0} attack to the left and right cards.
   current_gun: {fileID: 0}
-  up_link_enabled: 0
+  up_link_enabled: 1
   up_link_type: 0
   up_link_cardmaster: {fileID: 0}
   left_link_enabled: 1
@@ -7498,7 +7498,7 @@ MonoBehaviour:
   right_link_enabled: 1
   right_link_type: 0
   right_link_cardmaster: {fileID: 0}
-  down_link_enabled: 0
+  down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
   is_free_card: 0
