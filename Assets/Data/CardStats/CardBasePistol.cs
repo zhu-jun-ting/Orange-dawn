@@ -84,7 +84,7 @@ public class CardBasePistol : CardMaster
         if (numberType == CardMaster.NumberType.Damage)
         {
             current_gun.damage += value;
-            Debug.Log($"UpdateNumberValue from: {source.card_name} - Damage increase {value} New Damage: {current_gun.damage}");
+            // Debug.Log($"UpdateNumberValue from: {source.card_name} - Damage increase {value} New Damage: {current_gun.damage}");
         }
         else
         {

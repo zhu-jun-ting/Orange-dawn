@@ -590,22 +590,55 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Vector2Int cell = BoardArea.instance.GetNearestGridCell(localPoint, cardSize);
             if (!BoardArea.instance.IsCellOccupied(cell.x, cell.y) && CanPlaceCardAtCell(cell.x, cell.y, cardMaster))
             {
-                if (lastRow >= 0 && lastCol >= 0)
-                {
-                    lastRow = lastCol = -1;
-                    // Do not call CallOnCardDisableIfOffGrid here
-                }
+                // if (lastRow >= 0 && lastCol >= 0)
+                // {
+                //     lastRow = lastCol = -1;
+                // }
                 if (HandArea.instance != null && HandArea.instance.ContainsCard(cardMaster))
                 {
                     HandArea.instance.RemoveCard(cardMaster);
                 }
-                Vector2 snappedLocal = BoardArea.instance.GetGridCellPosition(cell.x, cell.y, cardSize);
-                rectTransform.SetParent(BoardArea.instance.transform, true);
-                rectTransform.DOAnchorPos(snappedLocal, 0.2f).SetEase(Ease.OutQuad);
-                BoardArea.instance.SetCell(cell.x, cell.y, cardMaster);
-                lastRow = cell.x;
-                lastCol = cell.y;
-                // Do not call CallOnCardEnableIfOnGrid here
+
+
+                // --- Destroy links in all directions from the card's original board position ---
+                if (lastRow >= 0 && lastCol >= 0) {
+                    var prevGrid = BoardArea.instance.gridState;
+                    int prevRows = BoardArea.instance.rows;
+                    int prevCols = BoardArea.instance.columns;
+                    int prevRow = lastRow, prevCol = lastCol;
+                    // Up
+                    if (prevRow > 0) {
+                        var upCard = prevGrid[prevRow - 1, prevCol];
+                        if (upCard != null && upCard.down_link_cardmaster == cardMaster) {
+                            upCard.down_link_cardmaster = null; 
+                        }
+                        cardMaster.up_link_cardmaster = null;
+                    }
+                    // Down
+                    if (prevRow < prevRows - 1) {
+                        var downCard = prevGrid[prevRow + 1, prevCol];
+                        if (downCard != null && downCard.up_link_cardmaster == cardMaster) {
+                            downCard.up_link_cardmaster = null;
+                        }
+                        cardMaster.down_link_cardmaster = null;
+                    }
+                    // Left
+                    if (prevCol > 0) {
+                        var leftCard = prevGrid[prevRow, prevCol - 1];
+                        if (leftCard != null && leftCard.right_link_cardmaster == cardMaster) {
+                            leftCard.right_link_cardmaster = null;
+                        }
+                        cardMaster.left_link_cardmaster = null;
+                    }
+                    // Right
+                    if (prevCol < prevCols - 1) {
+                        var rightCard = prevGrid[prevRow, prevCol + 1];
+                        if (rightCard != null && rightCard.left_link_cardmaster == cardMaster) {
+                            rightCard.left_link_cardmaster = null;
+                        }
+                        cardMaster.right_link_cardmaster = null;
+                    }
+                }
 
                 // Create links in all directions
                 var grid = BoardArea.instance.gridState;
@@ -656,6 +689,14 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                         // Debug.Log("right card found: " + cardMaster.right_link_cardmaster);
                     }
                 }
+
+                // Actually Set the card in the grid. 
+                Vector2 snappedLocal = BoardArea.instance.GetGridCellPosition(cell.x, cell.y, cardSize);
+                rectTransform.SetParent(BoardArea.instance.transform, true);
+                rectTransform.DOAnchorPos(snappedLocal, 0.2f).SetEase(Ease.OutQuad);
+                BoardArea.instance.SetCell(cell.x, cell.y, cardMaster);
+                lastRow = cell.x;
+                lastCol = cell.y;
 
 
 

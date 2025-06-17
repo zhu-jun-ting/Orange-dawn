@@ -243,7 +243,7 @@ public class BoardArea : MonoBehaviour
         {
             if (card != null)
                 card.OnCardEnable();
-                Debug.Log($"Enabled card: {card.name} from root {root.name}"); 
+                // Debug.Log($"Enabled card: {card.name} from root {root.name}"); 
         }
     }
 
