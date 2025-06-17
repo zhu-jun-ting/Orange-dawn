@@ -163,7 +163,7 @@ public class NPCMaster : PawnMaster
         transform.position = Vector2.MoveTowards(transform.position, position, moveSpeed * Time.deltaTime);
     }
 
-    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
+    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator, Gun source = null)
     {
         base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator);
 

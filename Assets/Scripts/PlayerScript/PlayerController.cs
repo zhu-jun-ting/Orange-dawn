@@ -195,7 +195,7 @@ public class PlayerController : PawnMaster
         moveV = 0f;
     }
 
-    public override void TakeDamage(float damage, GameEvents.DamageType damage_type_, float hit_back_, Transform instigator_)
+    public override void TakeDamage(float damage, GameEvents.DamageType damage_type_, float hit_back_, Transform instigator_, Gun source = null)
     {
         health -= damage;
         HealthBar.HealthCurrent = health;

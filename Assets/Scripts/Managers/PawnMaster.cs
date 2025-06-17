@@ -122,10 +122,11 @@ public class PawnMaster : MonoBehaviour, IBuffable
         }
     }
 
-    public virtual void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
+    public virtual void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator, Gun source = null)
     {
-        // ...existing code...
+        // This method should be overridden in derived classes to handle damage logic
     }
+
 
     public void BuffDamage(float amount_)
     {

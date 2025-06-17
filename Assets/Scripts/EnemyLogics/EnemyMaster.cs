@@ -122,7 +122,7 @@ public class EnemyMaster : PawnMaster
         // transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
-    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator)
+    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator, Gun source = null)
     {
         if (Time.time - lastDamageTime < damageCooldown) return; // Prevent double damage in short period
         lastDamageTime = Time.time;

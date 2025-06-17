@@ -18,18 +18,25 @@ public class Bullet : MonoBehaviour
     // the direction bullet is going to fly
 
     public float speed;
+    public float lifeCycle = 10f;
+    public GameEvents.DamageType damageType = GameEvents.DamageType.Normal;
 
+    public float hitBackFactor = 0f; // how much the bullet will push the target back when it hits
+
+    public Gun source; // the gun that fired this bullet, used for source of damage and other effects
 
     // internal vars
 
     private Rigidbody2D rb;
 
 
+
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, 10f);
+        Destroy(gameObject, lifeCycle);
     }
 
     // Update is called once per frame
@@ -48,7 +55,7 @@ public class Bullet : MonoBehaviour
         if (trigger_tags.Contains(other.tag)) {
             // TODO: adjust the damagetype
             if (other.gameObject.GetComponent<IBuffable>() != null) {
-                other.gameObject.GetComponent<IBuffable>().TakeDamage(damage, GameEvents.DamageType.Normal, 0f, transform);
+                other.gameObject.GetComponent<IBuffable>().TakeDamage(damage, damageType, hitBackFactor, transform, source);
             }
             Destroy(gameObject);
         }
