@@ -54,14 +54,16 @@ public class GunBullet : MonoBehaviour
     {
         if (trigger_tags.Contains(other.tag))
         {
-            if (other != null) {
+            if (other != null)
+            {
                 // Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-                other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Normal, hit_back, owner.gameObject, gun); 
+                other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Normal, hit_back, owner.gameObject, gun);
                 GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
-                exp.transform.position = transform.position; 
-                
+                exp.transform.position = transform.position;
+
             }
-            ObjectPool.Instance.PushObject(gameObject);
+            // ObjectPool.Instance.PushObject(gameObject);
+            Destroy(gameObject);
         }
     }
     

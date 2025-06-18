@@ -10,32 +10,32 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
     public float max_HP = 100f;
     public int spawn_count = 1;
     public float lifecycle = 10f;
-    public int max_instances = 100;
+    public int max_instances = 10;
 
     [Header("Spawm Settings")]
     public float spawn_radius = 5f;
     public GameObject npcShooterPrefab; // Assign in inspector
 
     // Keep track of spawned NPCs
-    private static List<GameObject> spawnedNPCs = new List<GameObject>();
+    // private static List<GameObject> spawnedNPCs = new List<GameObject>();
 
     public void TriggerAction(CardMaster source, Transform location)
     {
         if (npcShooterPrefab == null || location == null) return;
         for (int i = 0; i < spawn_count; i++)
         {
-            // Enforce max_instances
-            if (spawnedNPCs.Count >= max_instances)
-            {
-                if (spawnedNPCs[0] != null)
-                    GameObject.Destroy(spawnedNPCs[0]);
-                spawnedNPCs.RemoveAt(0);
-            }
-            // Random position within radius
+            
+            // Randomly position the NPC within a circle around the location
             Vector2 randCircle = Random.insideUnitCircle * spawn_radius;
             Vector3 spawnPos = location.position + new Vector3(randCircle.x, 0, randCircle.y);
-            GameObject npc = GameObject.Instantiate(npcShooterPrefab, spawnPos, Quaternion.identity);
+
+            // Ensure the NPC prefab is pooled
+            ObjectPool.Instance.SetMaxSize(npcShooterPrefab, max_instances);
+            GameObject npc = ObjectPool.Instance.GetObject(npcShooterPrefab);
+            npc.transform.position = spawnPos;
+            npc.transform.rotation = Quaternion.identity;
             // Assign stats
+
             NPCShooter shooter = npc.GetComponent<NPCShooter>();
             if (shooter != null)
             {
@@ -45,12 +45,14 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
                 // Optionally set HP to max
                 shooter.maxHP = max_HP;
             }
+
             // Auto-destroy after lifecycle
             if (lifecycle > 0)
             {
                 GameObject.Destroy(npc, lifecycle);
             }
-            spawnedNPCs.Add(npc);
+
+            // spawnedNPCs.Add(npc);
         }
     }
 

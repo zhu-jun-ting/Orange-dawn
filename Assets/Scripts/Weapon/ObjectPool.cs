@@ -1,51 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool
+public class ObjectPool : MonoBehaviour
 {
-    private static ObjectPool instance;
-    private Dictionary<string, Queue<GameObject>> objectPool = new Dictionary<string, Queue<GameObject>>();
-    private GameObject pool;
-    public static ObjectPool Instance
+    public static ObjectPool Instance;
+    private void Awake() { Instance = this; }
+
+    // Each prefab has its own queue and max size
+    private Dictionary<GameObject, Queue<GameObject>> pools = new Dictionary<GameObject, Queue<GameObject>>();
+    private Dictionary<GameObject, int> maxSizes = new Dictionary<GameObject, int>();
+    private int defaultMaxSize = 1000;
+
+    // Set max size for a specific prefab
+    public void SetMaxSize(GameObject prefab, int maxSize)
     {
-        get
-        {
-            if (instance == null)
-            {
-                instance = new ObjectPool();
-            }
-            return instance;
-        }
-    }
-    public GameObject GetObject(GameObject prefab)
-    {
-        GameObject _object;
-        if (!objectPool.ContainsKey(prefab.name) || objectPool[prefab.name].Count == 0)
-        {
-            _object = GameObject.Instantiate(prefab);
-            PushObject(_object);
-            if (pool == null)
-                pool = new GameObject("ObjectPool");
-            GameObject childPool = GameObject.Find(prefab.name + "Pool");
-            if (!childPool)
-            {
-                childPool = new GameObject(prefab.name + "Pool");
-                childPool.transform.SetParent(pool.transform);
-            }
-            _object.transform.SetParent(childPool.transform);
-        }
-        _object = objectPool[prefab.name].Dequeue();
-        _object.SetActive(true);
-        return _object;
+        maxSizes[prefab] = maxSize;
     }
 
-    public void PushObject(GameObject prefab)
+    public GameObject GetObject(GameObject prefab)
     {
-        string _name = prefab.name.Replace("(Clone)", string.Empty);
-        if (!objectPool.ContainsKey(_name))
-            objectPool.Add(_name, new Queue<GameObject>());
-        objectPool[_name].Enqueue(prefab);
-        prefab.SetActive(false);
+        if (pools.ContainsKey(prefab))
+        {
+            var tempPool = pools[prefab];
+            int initialCount = tempPool.Count;
+            for (int i = 0; i < initialCount; i++)
+            {
+                GameObject obj = tempPool.Dequeue();
+                if (obj != null)
+                    tempPool.Enqueue(obj);
+            }
+        }
+        if (prefab == null)
+        {
+            Debug.LogError("ObjectPool: prefab is null");
+            return null;
+        }
+        if (!pools.ContainsKey(prefab))
+        {
+            pools[prefab] = new Queue<GameObject>();
+            maxSizes[prefab] = defaultMaxSize;
+        }
+        var pool = pools[prefab];
+        int maxSize = maxSizes[prefab];
+        if (pool.Count < maxSize)
+        {
+            GameObject obj = Instantiate(prefab);
+            pool.Enqueue(obj);
+            obj.SetActive(true);
+            return obj;
+        }
+        else
+        {
+            GameObject obj = pool.Dequeue();
+            pool.Enqueue(obj);
+            obj.SetActive(true);
+            return obj;
+        }
     }
 }

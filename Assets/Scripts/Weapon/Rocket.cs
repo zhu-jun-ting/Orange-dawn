@@ -50,6 +50,6 @@ public class Rocket : MonoBehaviour
     IEnumerator Push(GameObject _object, float time)
     {
         yield return new WaitForSeconds(time);
-        ObjectPool.Instance.PushObject(_object);
+        // ObjectPool.Instance.PushObject(_object);
     }
 }

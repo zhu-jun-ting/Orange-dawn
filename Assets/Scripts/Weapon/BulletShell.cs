@@ -41,6 +41,6 @@ public class BulletShell : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         // Destroy(gameObject);
-        ObjectPool.Instance.PushObject(gameObject);
+        // ObjectPool.Instance.PushObject(gameObject);
     }
 }

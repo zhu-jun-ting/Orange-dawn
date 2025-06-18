@@ -18,7 +18,7 @@ public class Explosion : MonoBehaviour
         if (info.normalizedTime >= 1)
         {
             // Destroy(gameObject);
-            ObjectPool.Instance.PushObject(gameObject);
+            // ObjectPool.Instance.PushObject(gameObject);
         }
     }
 }
