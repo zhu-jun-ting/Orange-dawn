@@ -131,7 +131,7 @@ public class EnemyMaster : PawnMaster
         curHP -= _amount;
 
         PlayHurtFlash(); // Add this line to trigger the flash
-        if (_hit_back_factor != 0 || instigator != null) HitBack(instigator.transform);
+        if (_hit_back_factor != 0 && instigator != null) HitBack(instigator.transform); 
         enemy_health_bar.SetHealth(maxHP, curHP);
 
         // invoke this game event

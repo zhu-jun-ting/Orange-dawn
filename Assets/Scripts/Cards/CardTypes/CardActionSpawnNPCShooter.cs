@@ -16,15 +16,27 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
     public float spawn_radius = 5f;
     public GameObject npcShooterPrefab; // Assign in inspector
 
-    // Keep track of spawned NPCs
-    // private static List<GameObject> spawnedNPCs = new List<GameObject>();
+
+
+    // Store initial values for reset
+    private float initialShootInterval;
+    private float initialAttack;
+    private float initialMaxHP;
+    private int initialSpawnCount;
+    private float initialLifecycle;
+    private int initialMaxInstances;
+    private float initialSpawnRadius;
+    private GameObject initialNpcShooterPrefab;
+
+
+
 
     public void TriggerAction(CardMaster source, Transform location)
     {
         if (npcShooterPrefab == null || location == null) return;
         for (int i = 0; i < spawn_count; i++)
         {
-            
+
             // Randomly position the NPC within a circle around the location
             Vector2 randCircle = Random.insideUnitCircle * spawn_radius;
             Vector3 spawnPos = location.position + new Vector3(randCircle.x, 0, randCircle.y);
@@ -65,15 +77,36 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
         base.OnCardEnable();
     }
 
+    protected override void Awake()
+    {
+        base.Awake();
+        initialShootInterval = shoot_interval;
+        initialAttack = attack;
+        initialMaxHP = max_HP;
+        initialSpawnCount = spawn_count;
+        initialLifecycle = lifecycle;
+        initialMaxInstances = max_instances;
+        initialSpawnRadius = spawn_radius;
+        initialNpcShooterPrefab = npcShooterPrefab;
+    }
+
     public override void Reset()
     {
+        shoot_interval = initialShootInterval;
+        attack = initialAttack;
+        max_HP = initialMaxHP;
+        spawn_count = initialSpawnCount;
+        lifecycle = initialLifecycle;
+        max_instances = initialMaxInstances;
+        spawn_radius = initialSpawnRadius;
+        npcShooterPrefab = initialNpcShooterPrefab;
         base.Reset(); // Call the base reset method to reset other properties
     }
     
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return string.Format(card_description);
+        return string.Format(card_description, max_HP, attack, shoot_interval, spawn_count, max_instances);
     }
 
     public override void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
@@ -82,7 +115,7 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
         base.UpdateNumberValue(numberType, value, source);
         if (numberType == CardMaster.NumberType.Damage)
         {
-            // ...existing code...
+            attack += value;
         }
     }
 }

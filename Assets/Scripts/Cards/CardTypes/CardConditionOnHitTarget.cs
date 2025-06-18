@@ -9,6 +9,7 @@ public class CardConditionOnHitTarget : CardMaster
 
     [Header("Card Settings")]
     public List<CardMaster.CardDir> triggerDirections;
+    public int manaCost = 5;
 
 
     public override void OnCardEnable()
@@ -31,6 +32,9 @@ public class CardConditionOnHitTarget : CardMaster
     {
         if (receiver != null && receiver.CompareTag("Enemy") && source == current_gun)
         {
+            if (!ManaBar.CanCostMana(-manaCost))
+                return;
+            bool hasTriggered = false;
             foreach (var dir in triggerDirections)
             {
                 CardMaster linked = null;
@@ -49,8 +53,10 @@ public class CardConditionOnHitTarget : CardMaster
                 if (enabled && linked != null && linked is ICardAction action)
                 {
                     action.TriggerAction(this, receiver.transform);
+                    hasTriggered = true; // Mark that at least one action was triggered
                 }
             }
+            if(hasTriggered) GameEvents.instance.UpdateMana(-manaCost);
         }
     }
 
@@ -66,7 +72,7 @@ public class CardConditionOnHitTarget : CardMaster
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return string.Format(card_description);
+        return string.Format(card_description, manaCost);
     }
 
 
@@ -84,13 +90,13 @@ public class CardConditionOnHitTarget : CardMaster
 
         base.UpdateNumberValue(numberType, value, source);
 
-        if (numberType == CardMaster.NumberType.Damage)
+        if (numberType == CardMaster.NumberType.Mana)
         {
-
+            manaCost += (int)value;
         }
         else
         {
-            Debug.LogError($"UpdateNumberValue not implemented for {this.name}. NumberType: {numberType}, Value: {value}");
+            
         }
     }
 }

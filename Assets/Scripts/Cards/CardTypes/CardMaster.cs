@@ -41,6 +41,7 @@ public class CardMaster : MonoBehaviour
         Health,
         Probablity,
         Amount,
+        Mana,
     }
 
     public enum CardType

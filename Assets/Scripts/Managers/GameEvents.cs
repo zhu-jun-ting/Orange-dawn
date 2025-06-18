@@ -19,12 +19,14 @@ public class GameEvents : MonoBehaviour
     }
 
     public event Action<float, EnemyMaster> onHitEnemy;
-    public void HitEnemy(float damage_, EnemyMaster enemy_) {
-        if (onHitEnemy != null) {
+    public void HitEnemy(float damage_, EnemyMaster enemy_)
+    {
+        if (onHitEnemy != null)
+        {
             onHitEnemy(damage_, enemy_);
         }
     }
-    
+
 
 
 
@@ -36,7 +38,8 @@ public class GameEvents : MonoBehaviour
         {
             OnHitPawn(damage_, reciever_, instigator_, damage_type_, location_, source_);
         }
-        if (onShowNumberUI != null && location_ != null) {
+        if (onShowNumberUI != null && location_ != null)
+        {
             onShowNumberUI((int)damage_, reciever_, damage_type_, (Vector2)location_.position);
         }
     }
@@ -47,9 +50,22 @@ public class GameEvents : MonoBehaviour
     public enum DamageType { Normal, Crit, Heal, DotDamage }
 
     public event Action<int, PawnMaster, DamageType, Vector2> onShowNumberUI;
-    public void ShowNumberUI(int damage_, PawnMaster reciever_, DamageType damage_type_, Vector2 location_) {
-        if (onHitEnemy != null) {
+    public void ShowNumberUI(int damage_, PawnMaster reciever_, DamageType damage_type_, Vector2 location_)
+    {
+        if (onHitEnemy != null)
+        {
             onShowNumberUI(damage_, reciever_, damage_type_, location_);
+        }
+    }
+
+
+
+    public event Action<int, int> OnUpdateMana;
+    public void UpdateMana(int diffMana = 0, int maxMana = -1)
+    {
+        if (OnUpdateMana != null)
+        {
+            OnUpdateMana(diffMana, maxMana);
         }
     }
 }
