@@ -106,7 +106,7 @@ public class Lasergun : Gun
                             enemyHitTimers[enemy] += Time.deltaTime;
                             if (enemyHitTimers[enemy] >= damageInterval)
                             {
-                                enemy.TakeDamage(damagePerSecond * damageInterval, GameEvents.DamageType.Normal, 0f, transform);
+                                enemy.TakeDamage(damagePerSecond * damageInterval, GameEvents.DamageType.Normal, 0f, gameObject);
                                 enemyHitTimers[enemy] = 0f;
                             }
                         }

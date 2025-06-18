@@ -11,6 +11,7 @@ public class GunBullet : MonoBehaviour
     new private Rigidbody2D rigidbody;
     public List<string> trigger_tags; 
     public float hit_back = 0.01f;
+    public Gun gun; // the gun that fired this bullet, used for source of damage and other effects
     // all tags included gameobjects will trigger this bullet to hurt
 
     void Awake()
@@ -18,6 +19,11 @@ public class GunBullet : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
         // att = 5;
         // owner = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    protected virtual void Start()
+    {
+
     }
 
     public void SetSpeed(Vector2 direction)
@@ -50,7 +56,7 @@ public class GunBullet : MonoBehaviour
         {
             if (other != null) {
                 // Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-                other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Normal, hit_back, owner.transform); 
+                other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Normal, hit_back, owner.gameObject, gun); 
                 GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
                 exp.transform.position = transform.position; 
                 

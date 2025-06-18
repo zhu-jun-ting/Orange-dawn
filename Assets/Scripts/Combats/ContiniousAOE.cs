@@ -34,7 +34,7 @@ public class ContiniousAOE : MonoBehaviour
             if (pawn != null) {
                 IBuffable ibuffable = pawn.gameObject.GetComponent<IBuffable>();
 
-                ibuffable.TakeDamage(damage, GameEvents.DamageType.Normal, 0f, transform);
+                ibuffable.TakeDamage(damage, GameEvents.DamageType.Normal, 0f, gameObject);
             }
         }
     }

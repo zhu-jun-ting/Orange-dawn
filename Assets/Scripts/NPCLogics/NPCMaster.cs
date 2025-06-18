@@ -12,7 +12,7 @@ public class NPCMaster : PawnMaster
     public float follow_range; // how far away can NPC stay with player
 
 
-    protected float maxHP;
+    public float maxHP;
     protected float curHP;
     protected Rigidbody2D rb;
     protected float melee_damage;
@@ -128,8 +128,8 @@ public class NPCMaster : PawnMaster
             }
             
 
-            if ( (Vector2.Distance(transform.position, player.transform.position) > follow_range && !is_moving) || 
-                (!is_moving && UnityEngine.Random.Range(0f, 1f) < random_walk_probability) ) 
+            if ((Vector2.Distance(transform.position, player.transform.position) > follow_range && !is_moving) || 
+                (!is_moving && UnityEngine.Random.Range(0f, 1f) < random_walk_probability))
             {
                 destination = GetRandomLocationInCircle(player.transform.position, follow_range);
                 is_moving = true;
@@ -163,14 +163,14 @@ public class NPCMaster : PawnMaster
         transform.position = Vector2.MoveTowards(transform.position, position, moveSpeed * Time.deltaTime);
     }
 
-    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator, Gun source = null)
+    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, GameObject instigator, Gun source = null)
     {
         base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator);
 
         hitBackFactor = _hit_back_factor;
         curHP -= _amount;
         HurtFlash();
-        if (_hit_back_factor != 0 || instigator != null) HitBack(instigator);
+        if (_hit_back_factor != 0 || instigator != null) HitBack(instigator.transform);
         enemy_health_bar.SetHealth(maxHP, curHP);
 
         if (curHP <= 0)
@@ -179,6 +179,8 @@ public class NPCMaster : PawnMaster
             Destroy(gameObject);
             // Instantiate(explosionEffect, transform.position, transform.rotation);
         }
+
+        base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator, source);
     }
 
     public virtual void ChangeState(NPCMaster.State s) {
@@ -199,7 +201,7 @@ public class NPCMaster : PawnMaster
     }
 
     protected void Hurt(GameObject _pawn, float _amount) {
-        _pawn.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, transform);
+        _pawn.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, gameObject);
     }
 
     private Vector2 GetRandomLocationInCircle(Vector2 initial_location, float radius) {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircularBullet : Bullet
+public class CircularBullet : GunBullet
 {
     [Header("Circular Motion Parameters")]
     public Vector2 center = Vector2.zero;

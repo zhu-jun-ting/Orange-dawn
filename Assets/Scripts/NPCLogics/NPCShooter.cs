@@ -8,8 +8,9 @@ public class NPCShooter : NPCMaster, IDetectorHandler
 
     [Header("stats")]
     public NPCShooterStat shooter_stat;
-    protected float shoot_range;
-    protected float shoot_interval;
+    public float shoot_range;
+    public float shoot_interval;
+    public float attack = 10f;
 
     [Header("game objects")]
     private ShootRangeDetector shoot_detector;
@@ -104,12 +105,12 @@ public class NPCShooter : NPCMaster, IDetectorHandler
             // print("WaitAndPrint " + Time.time);
             if (detector.IsEmptyWithinCollider()) {
                 ChangeState(State.Idle);
-            } else if (state == State.Attacking && target != null) {
+            } else if (state == State.Attacking && target != null) { 
                 GameObject bullet = Instantiate(bullet_prefab, transform.position, Quaternion.identity);
                 bullet.GetComponent<GunBullet>().trigger_tags.Add("Enemy");
                 bullet.GetComponent<GunBullet>().SetSpeed(target.transform.position - transform.position, 3f);
-                bullet.GetComponent<GunBullet>().att = 10f; // TODO: update damage
-                bullet.GetComponent<GunBullet>().SetOwner(gameObject);
+                bullet.GetComponent<GunBullet>().att = attack; 
+                bullet.GetComponent<GunBullet>().SetOwner(gameObject); 
             } 
             if (target == null) {
                 target = detector.GetComponent<Detector>().GetRandomGameObjectInRange().transform;

@@ -195,7 +195,7 @@ public class PlayerController : PawnMaster
         moveV = 0f;
     }
 
-    public override void TakeDamage(float damage, GameEvents.DamageType damage_type_, float hit_back_, Transform instigator_, Gun source = null)
+    public override void TakeDamage(float damage, GameEvents.DamageType damage_type_, float hit_back_, GameObject instigator_, Gun source = null)
     {
         health -= damage;
         HealthBar.HealthCurrent = health;
@@ -207,7 +207,10 @@ public class PlayerController : PawnMaster
         }
         BlinkPlayer(Blinks, time);
 
-        CombatManager.instance.HandleShowDamageUI((int)damage, this, GameEvents.DamageType.Normal, transform.position);
+        // CombatManager.instance.HandleShowDamageUI((int)damage, this, GameEvents.DamageType.Normal, transform.position);
+
+        base.TakeDamage(damage, damage_type_, hit_back_, instigator_, source);
+        
     }
 
     void OnDestroy()

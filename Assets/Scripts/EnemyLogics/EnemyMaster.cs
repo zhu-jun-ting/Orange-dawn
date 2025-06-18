@@ -122,22 +122,19 @@ public class EnemyMaster : PawnMaster
         // transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
-    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, Transform instigator, Gun source = null)
+    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, GameObject instigator, Gun source = null)
     {
         if (Time.time - lastDamageTime < damageCooldown) return; // Prevent double damage in short period
         lastDamageTime = Time.time;
-        
-        base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator);
 
         hitBackFactor = _hit_back_factor;
         curHP -= _amount;
 
         PlayHurtFlash(); // Add this line to trigger the flash
-        if (_hit_back_factor != 0 || instigator != null) HitBack(instigator);
+        if (_hit_back_factor != 0 || instigator != null) HitBack(instigator.transform);
         enemy_health_bar.SetHealth(maxHP, curHP);
 
         // invoke this game event
-        // GameEvents.onHitEnemy += OnHitEnemy();
         GameEvents.instance.HitEnemy(_amount, this);
 
 
@@ -149,12 +146,14 @@ public class EnemyMaster : PawnMaster
             Invoke("DestroyMyself", 1.0f);
             // Debug.Log("died");
             is_alive = false;
-            
+
             // Instantiate(explosionEffect, transform.position, transform.rotation);
         }
 
         // if (gameObject)
-        CombatManager.instance.HandleShowDamageUI((int)_amount, this, damage_type_, transform.position);
+        // CombatManager.instance.HandleShowDamageUI((int)_amount, this, damage_type_, transform.position);
+        
+        base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator, source);
     }
 
     // called when the actual time of destorying this pawn
@@ -175,7 +174,7 @@ public class EnemyMaster : PawnMaster
     }
 
     protected void HurtPlayer(GameObject _player, float _amount) {
-        _player.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, transform);
+        _player.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, gameObject);
     }
 
 }

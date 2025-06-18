@@ -46,7 +46,7 @@ public class AoeController : MonoBehaviour
                 if (ibuffable != null)
                 {
                     Buff buff = new Buff(dot_stat);
-                    ibuffable.TakeDamage(10, GameEvents.DamageType.Normal, 0f, transform);
+                    ibuffable.TakeDamage(10, GameEvents.DamageType.Normal, 0f, gameObject);
                     ibuffable.ApplyBuff(buff);
                 }
             }

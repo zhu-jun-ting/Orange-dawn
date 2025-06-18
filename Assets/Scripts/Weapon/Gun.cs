@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -88,6 +87,7 @@ public class Gun : MonoBehaviour
             bullet.GetComponent<GunBullet>().trigger_tags.Add("Enemy");
             bullet.GetComponent<GunBullet>().att = damage;
             bullet.GetComponent<GunBullet>().SetOwner(gameObject);
+            bullet.GetComponent<GunBullet>().gun = this;
 
             float angel = Random.Range(-recon, recon);
             bullet.GetComponent<GunBullet>().SetSpeed(Quaternion.AngleAxis(angel, Vector3.forward) * direction, speed);
