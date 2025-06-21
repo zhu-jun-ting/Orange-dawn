@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyShooterStat : EnemyStat {
 
     // [Header("Shooter Enemies")]
+    public float shoot_damage; 
     public float shoot_range;
     public float shoot_interval;
     public GameObject bullet_prefab;

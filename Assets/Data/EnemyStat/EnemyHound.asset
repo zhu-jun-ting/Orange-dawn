@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2df5b4276363b147b19b30ea8853368, type: 3}
   m_Name: EnemyHound
   m_EditorClassIdentifier: 
-  max_health: 40
+  max_health: 5
   move_speed: 2.4
-  melee_damage: 20
+  melee_damage: 2
   hurtDuration: 1

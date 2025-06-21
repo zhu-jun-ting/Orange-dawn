@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2df5b4276363b147b19b30ea8853368, type: 3}
   m_Name: EnemyStat
   m_EditorClassIdentifier: 
-  max_health: 50
+  max_health: 8
   move_speed: 1.8
-  melee_damage: 20
+  melee_damage: 2
   hurtDuration: 1

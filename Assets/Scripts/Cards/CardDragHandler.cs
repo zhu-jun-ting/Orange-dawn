@@ -18,6 +18,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private int lastHintRow = -1, lastHintCol = -1;
     private Color? originalHintColor = null;
     private CardMaster tmpCardMaster; // only for tmp use
+    private Color colorCanPlace => GameSettings.instance ? GameSettings.instance.colorCanPlace : Color.green;
+    private Color colorCannotPlace => GameSettings.instance ? GameSettings.instance.colorCannotPlace : Color.red;
+    private Color colorLinkInactive => GameSettings.instance ? GameSettings.instance.colorLinkInactive : new Color(0, 0, 0, 0.5f);
+    private Color colorLinkActive => GameSettings.instance ? GameSettings.instance.colorLinkActive : new Color(0, 1, 0, 1f);
 
     [Header("Link GameObjects")]
     [Tooltip("GameObject to show the up link connection in the UI")]
@@ -318,11 +322,20 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 var card = board.gridState[r, c];
                 if (card == null) continue;
+
+                // if link has reference then set that to green, otherwise set to black 50% transparent
                 bool up = card.up_link_cardmaster != null;
                 bool down = card.down_link_cardmaster != null;
                 bool left = card.left_link_cardmaster != null;
                 bool right = card.right_link_cardmaster != null;
-                card.SetPlacedLinksGreenAndVisible(up, left, right, down);
+                card.SetPlacedLinksColorAndAlpha(up, left, right, down, colorLinkActive, colorLinkActive.a);
+            
+                // otherwise set to black 50% transparent
+                up = card.up_link_enabled && card.up_link_cardmaster == null;
+                down = card.down_link_enabled && card.down_link_cardmaster == null;
+                left = card.left_link_enabled && card.left_link_cardmaster == null;
+                right = card.right_link_enabled && card.right_link_cardmaster == null;
+                card.SetPlacedLinksColorAndAlpha(up, left, right, down, colorLinkInactive, colorLinkInactive.a);
             }
         }
     }
@@ -475,7 +488,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (lastHintRow >= 0 && lastHintCol >= 0)
                     ResetHintColor(lastHintRow, lastHintCol);
                 canPlace = !BoardArea.instance.IsCellOccupied(cell.x, cell.y) && CanPlaceCardAtCell(cell.x, cell.y, cardMaster);
-                SetHintColor(cell.x, cell.y, canPlace ? Color.green : Color.red);
+                SetHintColor(cell.x, cell.y, canPlace ? colorCanPlace : colorCannotPlace);
                 // if (canPlace) PreviewLinkVisuals(cell.x, cell.y); // This will set green links for the drag preview
                 lastHintRow = cell.x;
                 lastHintCol = cell.y;

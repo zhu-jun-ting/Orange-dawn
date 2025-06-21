@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLaserLength: 20
-  damagePerSecond: 100
+  damagePerSecond: 5
   damageInterval: 0.2
   enemyLayer:
     serializedVersion: 2

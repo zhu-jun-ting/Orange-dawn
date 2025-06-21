@@ -16,4 +16,4 @@ MonoBehaviour:
   buff_name: demo_dot_buff
   buff_description: demo buff
   buff_duration: 2
-  dot_damage_per_second: 12.71
+  dot_damage_per_second: 2

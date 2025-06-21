@@ -11,9 +11,9 @@ public class BoardArea : MonoBehaviour
     private RectTransform rectTransform;
 
     [Header("Grid Settings")]
-    public int rows = 3;
-    public int columns = 3;
-    public float margin = 10f;
+    public int rows { get { return GameSettings.instance ? GameSettings.instance.boardRows : 3; } set { if (GameSettings.instance) GameSettings.instance.boardRows = value; } }
+    public int columns { get { return GameSettings.instance ? GameSettings.instance.boardColumns : 3; } set { if (GameSettings.instance) GameSettings.instance.boardColumns = value; } }
+    public float margin { get { return GameSettings.instance ? GameSettings.instance.boardMargin : 10f; } set { if (GameSettings.instance) GameSettings.instance.boardMargin = value; } }
 
     [Header("Grid Visuals")]
     public GameObject gridLinePrefab; // Assign a UI Image prefab for lines
@@ -39,8 +39,84 @@ public class BoardArea : MonoBehaviour
         HideCardHints();
         CreateGridGuidelines();
         HideGridGuidelines();
-
     }
+
+    void Start()
+    {
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnLevelCleared += HandleLevelCleared;
+        }
+    }
+
+    // Subscribe to OnUpdateCardValues event to trigger this for all roots
+    void OnEnable()
+    {
+        if (!isUpdateRootsRegistered)
+        {
+            CardMaster.OnUpdateCardValues += UpdateAllRoots;
+            isUpdateRootsRegistered = true;
+        }
+
+        // Trigger card update when board is enabled
+        CardDragHandler.TriggerUpdateCards();
+    }
+
+    void OnDisable()
+    {
+        if (isUpdateRootsRegistered)
+        {
+            CardMaster.OnUpdateCardValues -= UpdateAllRoots;
+            isUpdateRootsRegistered = false;
+        }
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnLevelCleared -= HandleLevelCleared;
+        }
+    }
+
+    // Handles propagation of OnCardLevelCleared and triggers card update
+    private void HandleLevelCleared()
+    {
+        if (roots == null) return;
+        foreach (var root in roots)
+        {
+            if (root == null) continue;
+            // BFS traversal from root
+            var cards = GetOrderedBFSFromRoot(root);
+            foreach (var card in cards)
+            {
+                if (card != null)
+                {
+                    card.OnCardLevelCleared();
+                }
+            }
+        }
+        // After all cards handled, trigger update
+        CardDragHandler.TriggerUpdateCards();    
+    }
+
+    private void UpdateAllRoots()
+    {
+        if (roots == null) return;
+        foreach (var root in roots)
+        {
+            if (root != null)
+                ResetAndEnableBFSFromRoot(root);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     public bool IsPointInside(Vector2 screenPoint, Camera uiCamera)
     {
@@ -186,6 +262,48 @@ public class BoardArea : MonoBehaviour
         guidelinesVisible = false;
     }
 
+    /// <summary>
+    /// Updates the grid size and visuals. Expands to right/down, preserves cards. Shrinks from right/down, blocks if cards present.
+    /// </summary>
+    public void UpdateGridSize(int newRows, int newCols)
+    {
+        int oldRows = gridState.GetLength(0);
+        int oldCols = gridState.GetLength(1);
+        // Check for shrink with active cards
+        if (newRows < oldRows)
+        {
+            for (int r = newRows; r < oldRows; r++)
+                for (int c = 0; c < oldCols; c++)
+                    if (gridState[r, c] != null)
+                    {
+                        Debug.LogError($"Cannot shrink rows: Card present at [{r},{c}] ({gridState[r, c].name})");
+                        return;
+                    }
+        }
+        if (newCols < oldCols)
+        {
+            for (int c = newCols; c < oldCols; c++)
+                for (int r = 0; r < oldRows; r++)
+                    if (gridState[r, c] != null)
+                    {
+                        Debug.LogError($"Cannot shrink columns: Card present at [{r},{c}] ({gridState[r, c].name})");
+                        return;
+                    }
+        }
+        // Create new grid
+        var newGrid = new CardMaster[newRows, newCols];
+        for (int r = 0; r < Mathf.Min(oldRows, newRows); r++)
+            for (int c = 0; c < Mathf.Min(oldCols, newCols); c++)
+                newGrid[r, c] = gridState[r, c];
+        gridState = newGrid;
+        // Update hints and guides
+        CreateCardHints();
+        HideCardHints();
+        CreateGridGuidelines();
+        HideGridGuidelines();
+        Debug.Log($"Grid resized to {newRows}x{newCols}");
+    }
+
     // Performs a BFS from the given root and returns a list of CardMaster from endmost node to root (root last)
     public static List<CardMaster> GetOrderedBFSFromRoot(CardMaster root)
     {
@@ -246,34 +364,4 @@ public class BoardArea : MonoBehaviour
                 // Debug.Log($"Enabled card: {card.name} from root {root.name}"); 
         }
     }
-
-    // Subscribe to OnUpdateCardValues event to trigger this for all roots
-    void OnEnable()
-    {
-        if (!isUpdateRootsRegistered)
-        {
-            CardMaster.OnUpdateCardValues += UpdateAllRoots;
-            isUpdateRootsRegistered = true;
-        }
-        // Trigger card update when board is enabled
-        CardDragHandler.TriggerUpdateCards();
-    }
-    void OnDisable()
-    {
-        if (isUpdateRootsRegistered)
-        {
-            CardMaster.OnUpdateCardValues -= UpdateAllRoots;
-            isUpdateRootsRegistered = false;
-        }
-    }
-    private void UpdateAllRoots()
-    {
-        if (roots == null) return;
-        foreach (var root in roots)
-        {
-            if (root != null)
-                ResetAndEnableBFSFromRoot(root);
-        }
-    }
 }
-

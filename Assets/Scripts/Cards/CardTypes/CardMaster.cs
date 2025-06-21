@@ -124,31 +124,6 @@ public class CardMaster : MonoBehaviour
         ClearUpdateSources();
     }
 
-    private HashSet<CardMaster> updateSources = new HashSet<CardMaster>();
-
-    // check if this card is buffed from a specific source
-    public bool IsBuffedFromSource(CardMaster source, bool addToList = true, bool includeSelf = true)
-    {
-
-        if (includeSelf && source == this) return true;
-        if (source == null) return true;
-        // Check if the source is already in the update sources
-        if (updateSources.Count == 0) return false;
-
-        if (updateSources.Contains(source))
-        {
-            return true;
-        }
-        else
-        {
-            if (addToList)
-            {
-                updateSources.Add(source);
-            }
-            return false;
-        }
-    }
-
     public virtual void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
     {
 
@@ -184,6 +159,121 @@ public class CardMaster : MonoBehaviour
         OnUpdateCardTexts?.Invoke();
     }
 
+
+    public virtual void OnCardLevelCleared() {
+        
+    }
+
+    public virtual void OnCardDestroyed() {
+        // Remove references from linked cards before destroying this card
+        // Up
+        if (up_link_cardmaster != null && up_link_cardmaster.down_link_cardmaster == this)
+        {
+            up_link_cardmaster.down_link_cardmaster = null;
+            // Set up link visual to black 0.5 transparent
+            up_link_cardmaster.SetLinkHalfTransparentBlack("down");
+            this.SetLinkHalfTransparentBlack("up");
+            up_link_cardmaster = null;
+        }
+        // Down
+        if (down_link_cardmaster != null && down_link_cardmaster.up_link_cardmaster == this)
+        {
+            down_link_cardmaster.up_link_cardmaster = null;
+            down_link_cardmaster.SetLinkHalfTransparentBlack("up");
+            this.SetLinkHalfTransparentBlack("down");
+            down_link_cardmaster = null;
+        }
+        // Left
+        if (left_link_cardmaster != null && left_link_cardmaster.right_link_cardmaster == this)
+        {
+            left_link_cardmaster.right_link_cardmaster = null;
+            left_link_cardmaster.SetLinkHalfTransparentBlack("right");
+            this.SetLinkHalfTransparentBlack("left");
+            left_link_cardmaster = null;
+        }
+        // Right
+        if (right_link_cardmaster != null && right_link_cardmaster.left_link_cardmaster == this)
+        {
+            right_link_cardmaster.left_link_cardmaster = null;
+            right_link_cardmaster.SetLinkHalfTransparentBlack("left");
+            this.SetLinkHalfTransparentBlack("right");
+            right_link_cardmaster = null;
+        }
+        // --- Remove all board references like dragging off board ---
+        if (BoardArea.instance != null && BoardArea.instance.gridState != null)
+        {
+            var grid = BoardArea.instance.gridState;
+            int rows = BoardArea.instance.rows;
+            int cols = BoardArea.instance.columns;
+            // Find this card's position on the board
+            for (int row = 0; row < rows; row++)
+            {
+                for (int col = 0; col < cols; col++)
+                {
+                    if (grid[row, col] == this)
+                    {
+                        // Up
+                        if (row > 0)
+                        {
+                            var upCard = grid[row - 1, col];
+                            if (upCard != null && upCard.down_link_cardmaster == this)
+                            {
+                                upCard.down_link_cardmaster = null;
+                                this.up_link_cardmaster = null;
+                            }
+                        }
+                        // Down
+                        if (row < rows - 1)
+                        {
+                            var downCard = grid[row + 1, col];
+                            if (downCard != null && downCard.up_link_cardmaster == this)
+                            {
+                                downCard.up_link_cardmaster = null;
+                                this.down_link_cardmaster = null;
+                            }
+                        }
+                        // Left
+                        if (col > 0)
+                        {
+                            var leftCard = grid[row, col - 1];
+                            if (leftCard != null && leftCard.right_link_cardmaster == this)
+                            {
+                                leftCard.right_link_cardmaster = null;
+                                this.left_link_cardmaster = null;
+                            }
+                        }
+                        // Right
+                        if (col < cols - 1)
+                        {
+                            var rightCard = grid[row, col + 1];
+                            if (rightCard != null && rightCard.left_link_cardmaster == this)
+                            {
+                                rightCard.left_link_cardmaster = null;
+                                this.right_link_cardmaster = null;
+                            }
+                        }
+                        BoardArea.instance.ClearCell(row, col);
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Move this card to the hand area before destroying
+        if (HandArea.instance != null)
+        {
+            this.transform.SetParent(HandArea.instance.transform, false);
+            HandArea.instance.AddCard(this);
+        }
+
+        // make the destroyed card invisible
+        this.transform.position = new Vector3(10000, 10000, 10000);
+
+        CardDragHandler.TriggerUpdateCards();
+
+    }
+
+    // --- Events Callers ---
     // Static methods to safely invoke events from outside this class
     public static void InvokeUpdateCardValues()
     {
@@ -202,6 +292,8 @@ public class CardMaster : MonoBehaviour
         OnApplyValuesToGuns?.Invoke();
     }
 
+
+    // --- Helper Functions ---
     // Returns true if this card is a parent of the source card in the same tree (using reversed BFS order)
     public bool IsChildren(CardMaster source)
     {
@@ -220,6 +312,32 @@ public class CardMaster : MonoBehaviour
             }
         }
         return false;
+    }
+
+    
+    private HashSet<CardMaster> updateSources = new HashSet<CardMaster>();
+
+    // check if this card is buffed from a specific source
+    public bool IsBuffedFromSource(CardMaster source, bool addToList = true, bool includeSelf = true)
+    {
+
+        if (includeSelf && source == this) return true;
+        if (source == null) return true;
+        // Check if the source is already in the update sources
+        if (updateSources.Count == 0) return false;
+
+        if (updateSources.Contains(source))
+        {
+            return true;
+        }
+        else
+        {
+            if (addToList)
+            {
+                updateSources.Add(source);
+            }
+            return false;
+        }
     }
 
 
@@ -280,6 +398,20 @@ public class CardMaster : MonoBehaviour
         if (left) SetLinkColor(GetLinkGameObject("left"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("left"), 0f);
         if (right) SetLinkColor(GetLinkGameObject("right"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("right"), 0f);
         if (down) SetLinkColor(GetLinkGameObject("down"), Color.green, 1f); else SetLinkAlpha(GetLinkGameObject("down"), 0f);
+    }
+
+    public void SetPlacedLinksColorAndAlpha(bool up, bool left, bool right, bool down, Color color, float alpha)
+    {
+        if (up) SetLinkColor(GetLinkGameObject("up"), color, alpha);
+        if (left) SetLinkColor(GetLinkGameObject("left"), color, alpha);
+        if (right) SetLinkColor(GetLinkGameObject("right"), color, alpha);
+        if (down) SetLinkColor(GetLinkGameObject("down"), color, alpha);
+    }
+
+    public void SetPlacedLinksColorAndAlpha(String dir, Color color, float alpha)
+    {
+        var go = GetLinkGameObject(dir);
+        if (go != null) SetLinkColor(go, color, alpha);
     }
 
     // Make SetLinkAlpha public for use by CardDragHandler

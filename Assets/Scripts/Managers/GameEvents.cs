@@ -68,4 +68,13 @@ public class GameEvents : MonoBehaviour
             OnUpdateMana(diffMana, maxMana);
         }
     }
+
+    public event Action OnLevelCleared;
+    public void LevelCleared()
+    {
+        if (OnLevelCleared != null)
+        {
+            OnLevelCleared();
+        }
+    }
 }

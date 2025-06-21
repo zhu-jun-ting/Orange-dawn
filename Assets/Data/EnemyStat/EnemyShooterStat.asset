@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292376a9549ae2d4da73c27317c47491, type: 3}
   m_Name: EnemyShooterStat
   m_EditorClassIdentifier: 
-  max_health: 30
+  max_health: 3
   move_speed: 1.8
   melee_damage: 1
   hurtDuration: 1
