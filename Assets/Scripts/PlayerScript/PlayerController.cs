@@ -195,9 +195,12 @@ public class PlayerController : PawnMaster
         moveV = 0f;
     }
 
-    public override void TakeDamage(float damage, GameEvents.DamageType damage_type_, float hit_back_, GameObject instigator_, Gun source = null)
+    
+
+
+    public override void TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
     {
-        health -= damage;
+        health -= _amount;
         HealthBar.HealthCurrent = health;
 
         if (health <= 0)
@@ -207,9 +210,7 @@ public class PlayerController : PawnMaster
         }
         BlinkPlayer(Blinks, time);
 
-        // CombatManager.instance.HandleShowDamageUI((int)damage, this, GameEvents.DamageType.Normal, transform.position);
-
-        base.TakeDamage(damage, damage_type_, hit_back_, instigator_, source);
+        base.TakeDamage(_amount, reciever,instigator, damage_type_, location, _hit_back_factor, source);
         
     }
 
@@ -307,12 +308,6 @@ public class PlayerController : PawnMaster
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
-
-        // if (collision.gameObject.CompareTag("Enemy") == true)
-        // {
-        //     TakeDamage(5, 0f, transform);
-        // }
     }
 
     void BlinkPlayer(int numBlinks, float seconds)

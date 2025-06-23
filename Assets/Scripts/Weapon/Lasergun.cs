@@ -106,7 +106,9 @@ public class Lasergun : Gun
                             enemyHitTimers[enemy] += Time.deltaTime;
                             if (enemyHitTimers[enemy] >= damageInterval)
                             {
-                                enemy.TakeDamage(damagePerSecond * damageInterval, GameEvents.DamageType.Normal, 0f, gameObject);
+                                // enemy.TakeDamage(damagePerSecond * damageInterval, GameEvents.DamageType.Normal, 0f, gameObject);
+                                PawnMaster pawnMaster = enemy;
+                                if (pawnMaster != null) GameEvents.instance.HitPawn(damagePerSecond * damageInterval, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, this);
                                 enemyHitTimers[enemy] = 0f;
                             }
                         }

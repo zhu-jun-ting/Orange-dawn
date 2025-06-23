@@ -30,7 +30,8 @@ public class Splash : MonoBehaviour
         if(other.tag == "Enemy")
         {
             // Debug.Log("enemy");
-            other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Crit, hit_back_factor, owner.gameObject); // TODO: get player stats
+            PawnMaster pawnMaster = other.gameObject.GetComponent<PawnMaster>();
+            if (pawnMaster != null) GameEvents.instance.HitPawn(att, pawnMaster, owner.gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back_factor, null);
         }
     }
 }

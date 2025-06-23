@@ -43,10 +43,11 @@ public class AoeController : MonoBehaviour
             if (pawn != null)
             {
                 IBuffable ibuffable = pawn.gameObject.GetComponent<IBuffable>();
-                if (ibuffable != null)
+                PawnMaster pawnMaster = pawn.gameObject.GetComponent<PawnMaster>();
+                if (ibuffable != null && pawnMaster != null)
                 {
                     Buff buff = new Buff(dot_stat);
-                    ibuffable.TakeDamage(10, GameEvents.DamageType.Normal, 0f, gameObject);
+                    GameEvents.instance.HitPawn(10, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, null);
                     ibuffable.ApplyBuff(buff);
                 }
             }

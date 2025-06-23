@@ -57,9 +57,12 @@ public class GunBullet : MonoBehaviour
             if (other != null)
             {
                 // Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-                other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Normal, hit_back, owner.gameObject, gun);
+                // other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Normal, hit_back, owner.gameObject, gun);
                 GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
                 exp.transform.position = transform.position;
+
+                PawnMaster pawnMaster = other.gameObject.GetComponent<PawnMaster>();
+                if (pawnMaster != null) GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, gun);
 
             }
             // ObjectPool.Instance.PushObject(gameObject);

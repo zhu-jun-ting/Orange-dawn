@@ -163,9 +163,8 @@ public class NPCMaster : PawnMaster
         transform.position = Vector2.MoveTowards(transform.position, position, moveSpeed * Time.deltaTime);
     }
 
-    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, GameObject instigator, Gun source = null)
+    public override void TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
     {
-        base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator);
 
         hitBackFactor = _hit_back_factor;
         curHP -= _amount;
@@ -179,6 +178,8 @@ public class NPCMaster : PawnMaster
             Destroy(gameObject);
             // Instantiate(explosionEffect, transform.position, transform.rotation);
         }
+
+        base.TakeDamage(_amount, reciever,instigator, damage_type_, location, _hit_back_factor, source);
     }
 
     public virtual void ChangeState(NPCMaster.State s) {
@@ -198,9 +199,9 @@ public class NPCMaster : PawnMaster
         transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y); 
     }
 
-    protected void Hurt(GameObject _pawn, float _amount) {
-        _pawn.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, gameObject);
-    }
+    // protected void Hurt(GameObject _pawn, float _amount) {
+    //     _pawn.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, gameObject);
+    // }
 
     private Vector2 GetRandomLocationInCircle(Vector2 initial_location, float radius) {
         float angle = UnityEngine.Random.Range(0.0f, Mathf.PI*2);

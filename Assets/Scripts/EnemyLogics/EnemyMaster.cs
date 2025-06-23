@@ -122,7 +122,7 @@ public class EnemyMaster : PawnMaster
         // transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
-    public override void TakeDamage(float _amount, GameEvents.DamageType damage_type_, float _hit_back_factor, GameObject instigator, Gun source = null)
+    public override void TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
     {
         if (Time.time - lastDamageTime < damageCooldown) return; // Prevent double damage in short period
         lastDamageTime = Time.time;
@@ -153,7 +153,7 @@ public class EnemyMaster : PawnMaster
         // if (gameObject)
         // CombatManager.instance.HandleShowDamageUI((int)_amount, this, damage_type_, transform.position);
         
-        base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator, source);
+        base.TakeDamage(_amount, reciever,instigator, damage_type_, location, _hit_back_factor, source);
     }
 
     // called when the actual time of destorying this pawn
@@ -174,7 +174,10 @@ public class EnemyMaster : PawnMaster
     }
 
     protected void HurtPlayer(GameObject _player, float _amount) {
-        _player.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, gameObject);
+        // _player.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, gameObject);
+        PawnMaster pawnMaster = _player.gameObject.GetComponent<PawnMaster>();
+        if (pawnMaster != null) GameEvents.instance.HitPawn(_amount, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, null);
+
     }
 
 }

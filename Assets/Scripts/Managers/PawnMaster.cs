@@ -28,6 +28,14 @@ public class PawnMaster : MonoBehaviour, IBuffable
     {
         current_buff_frame_count = 0;
         FRAME_PER_TICK = Mathf.RoundToInt(CombatManager.TICK_INTERVAL / Time.fixedDeltaTime);
+
+        // Register TakeDamage to OnHitPawn event
+        // if (GameEvents.instance != null) GameEvents.instance.OnHitPawn += HandleTakeDamage;
+    }
+
+    public virtual void OnDisable()
+    {
+        // if (GameEvents.instance != null) GameEvents.instance.OnHitPawn -= HandleTakeDamage;
     }
 
     public virtual void FixedUpdate()
@@ -122,10 +130,10 @@ public class PawnMaster : MonoBehaviour, IBuffable
         }
     }
 
-    public virtual void TakeDamage(float damage, GameEvents.DamageType damage_type_, float _hit_back_factor, GameObject instigator_, Gun source = null)
+    public virtual void TakeDamage(float damage, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type, Transform location, float hit_back_factor_, Gun source)
     {
         // Trigger the hit event
-        GameEvents.instance.HitPawn(damage_:damage, reciever_:this, instigator_:instigator_, damage_type_:damage_type_, location_:transform, source_:source);
+        // GameEvents.instance.HitPawn(damage_:damage, reciever_:this, instigator_:instigator_, damage_type_:damage_type_, location_:transform, source_:source);
     }
 
 
@@ -143,4 +151,6 @@ public class PawnMaster : MonoBehaviour, IBuffable
     {
         Debug.LogError("pawn " + gameObject + " can not have an lifesteal buff");
     }
+
+
 }

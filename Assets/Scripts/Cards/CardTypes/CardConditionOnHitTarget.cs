@@ -28,7 +28,7 @@ public class CardConditionOnHitTarget : CardMaster
         base.OnCardDisable();
     }
 
-    private void HandleOnHitPawn(float damage, PawnMaster receiver, GameObject instigator, GameEvents.DamageType damageType, Transform location, Gun source)
+    private void HandleOnHitPawn(float damage, PawnMaster receiver, GameObject instigator, GameEvents.DamageType damageType, Transform location, float hit_back, Gun source)
     {
         if (receiver != null && receiver.CompareTag("Enemy") && source == current_gun)
         {

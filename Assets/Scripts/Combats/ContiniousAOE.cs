@@ -32,9 +32,8 @@ public class ContiniousAOE : MonoBehaviour
         // Debug.Log("AOE damage timestamp : " + Time.time);
         foreach(Collider2D pawn in pawns) {
             if (pawn != null) {
-                IBuffable ibuffable = pawn.gameObject.GetComponent<IBuffable>();
-
-                ibuffable.TakeDamage(damage, GameEvents.DamageType.Normal, 0f, gameObject);
+                PawnMaster pawnMaster = pawn.gameObject.GetComponent<PawnMaster>();
+                if (pawnMaster != null) GameEvents.instance.HitPawn(damage, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, null);
             }
         }
     }

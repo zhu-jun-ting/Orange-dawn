@@ -31,12 +31,16 @@ public class GameEvents : MonoBehaviour
 
 
 
-    public event Action<float, PawnMaster, GameObject, DamageType, Transform, Gun> OnHitPawn;
-    public void HitPawn(float damage_, PawnMaster reciever_, GameObject instigator_ = null, DamageType damage_type_ = DamageType.Normal, Transform location_ = null, Gun source_ = null)
+    public event Action<float, PawnMaster, GameObject, DamageType, Transform, float, Gun> OnHitPawn;
+    public void HitPawn(float damage_, PawnMaster reciever_, GameObject instigator_ = null, DamageType damage_type_ = DamageType.Normal, Transform location_ = null, float hit_back_factor_ = 0f, Gun source_ = null)
     {
+
+        // calling the reciever's TakeDamage method
+        if (reciever_ != null) reciever_.TakeDamage(damage_, reciever_, instigator_, damage_type_, location_, hit_back_factor_, source_);
+
         if (OnHitPawn != null)
         {
-            OnHitPawn(damage_, reciever_, instigator_, damage_type_, location_, source_);
+            OnHitPawn(damage_, reciever_, instigator_, damage_type_, location_,  hit_back_factor_, source_);
         }
         if (onShowNumberUI != null && location_ != null)
         {
