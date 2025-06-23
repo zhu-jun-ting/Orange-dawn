@@ -179,8 +179,6 @@ public class NPCMaster : PawnMaster
             Destroy(gameObject);
             // Instantiate(explosionEffect, transform.position, transform.rotation);
         }
-
-        base.TakeDamage(_amount, damage_type_, _hit_back_factor, instigator, source);
     }
 
     public virtual void ChangeState(NPCMaster.State s) {

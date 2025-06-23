@@ -32,13 +32,8 @@ public class Timer : View {
             updateTimer( timeLeft );
 
             if ( timeLeft == 0 ) {
-                ( (CoinCounter)FindFirstObjectByType(typeof(CoinCounter)) ).addCoins( 1 );
                 isTimerActive = false;
-                // ( (ChunkManager)FindFirstObjectByType(typeof(ChunkManager)) ).lockPlayer();
-                // isTimerActive = false;
-
             }
-            
         }
     }
 

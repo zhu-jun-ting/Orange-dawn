@@ -8,10 +8,12 @@ public class UIDebugPanel : MonoBehaviour
     public Button button2;
     public Button button3;
 
+    public GameObject debugCardMasterPrefab;
+
     void Start()
     {
         button1.onClick.AddListener(CallMethod1);
-        // button2.onClick.AddListener(CallMethod2);
+        button2.onClick.AddListener(CallMethod2);
         // button3.onClick.AddListener(CallMethod3);
     }
 
@@ -23,8 +25,7 @@ public class UIDebugPanel : MonoBehaviour
 
     public void CallMethod2()
     {
-        Debug.Log("Method 2 called!");
-        // Your logic here
+        HandArea.instance.AddCardObject(debugCardMasterPrefab, null);
     }
 
     public void CallMethod3()

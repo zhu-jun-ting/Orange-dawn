@@ -77,4 +77,13 @@ public class GameEvents : MonoBehaviour
             OnLevelCleared();
         }
     }
+
+    public event Action<int> OnUpdateCoins;
+    public void UpdateCoins(int diffCoin)
+    {
+        if (OnUpdateCoins != null)
+        {
+            OnUpdateCoins(diffCoin);
+        }
+    }
 }

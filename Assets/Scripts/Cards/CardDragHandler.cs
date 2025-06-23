@@ -575,9 +575,8 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Set parent to hand area, but do not snap to center
             if (HandArea.instance != null)
             {
+                bool overlaps = false;
                 var handRect = HandArea.instance.GetComponent<RectTransform>();
-                rectTransform.SetParent(handRect, true);
-                HandArea.instance.AddCard(cardMaster);
                 // Check for overlap with other cards in hand area
                 foreach (Transform sibling in handRect)
                 {
@@ -587,10 +586,16 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     if (RectTransformOverlaps(rectTransform, otherRect))
                     {
                         // Move this card slightly to the right to separate
-                        rectTransform.anchoredPosition += new Vector2(otherRect.rect.width + 10f, 0);
+                        // rectTransform.anchoredPosition += new Vector2(otherRect.rect.width + 10f, 0);
+                        HandArea.instance.AddCardObject(gameObject, rectTransform); 
+                        overlaps = true;
                     }
                 }
-
+                if (!overlaps)
+                {
+                    rectTransform.SetParent(handRect, true);
+                    HandArea.instance.AddCard(cardMaster);
+                }
             }
             // Only trigger update after all changes
             TriggerUpdateCards();

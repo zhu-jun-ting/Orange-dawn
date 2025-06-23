@@ -10,6 +10,8 @@ public class CardMaster : MonoBehaviour
     public Sprite card_icon;
     public string card_id; // unique identifier for the card
     public string card_name;
+    public int card_cost = 0;
+    public int card_sell_price = 0;
     [TextArea(3, 10)] public string card_description;
     public Gun current_gun;
 
@@ -99,7 +101,7 @@ public class CardMaster : MonoBehaviour
 
 
 
-    protected CardMaster instance;
+    public CardMaster instance;
 
     protected virtual void Awake()
     {
@@ -159,6 +161,43 @@ public class CardMaster : MonoBehaviour
         OnUpdateCardTexts?.Invoke();
     }
 
+    public bool TryPurchaseCard()
+    {
+        var coinCounter = CoinCounter.instance;
+        if (coinCounter == null)
+        {
+            Debug.LogError("CoinCounter.instance not found in scene.");
+            return false;
+        }
+        if (!coinCounter.CanSpendCoins(card_cost))
+        {
+            Debug.LogError($"Not enough coins to purchase {card_name} (cost: {card_cost})");
+            return false;
+        }
+        // Deduct coins
+        GameEvents.instance.UpdateCoins(-card_cost);
+        // Add to hand
+        if (HandArea.instance != null)
+        {
+            HandArea.instance.AddCardObject(this.gameObject);
+        }
+        else
+        {
+            Debug.LogError("HandArea.instance is null");
+        }
+        return true;
+    }
+
+    public virtual void OnCardPurchased()
+    {
+        // do something when the card is purchased
+    }
+
+    public virtual void OnCardSold()
+    {
+        OnCardDestroyed();
+        GameEvents.instance.UpdateCoins(card_sell_price);
+    }
 
     public virtual void OnCardLevelCleared() {
         
