@@ -14,7 +14,8 @@ public class Gun : MonoBehaviour
     public int penetrate = 0; // number of enemies a bullet can penetrate
     public GameObject bulletPrefab;
     public GameObject shellPrefab;
-    protected Transform muzzlePos;
+    public GameObject owner; 
+    protected Transform muzzlePos; 
     protected Transform shellPos;
     protected Vector2 mousePos;
     protected Vector2 direction;
@@ -86,7 +87,7 @@ public class Gun : MonoBehaviour
             bullet.transform.position = muzzlePos.position;
             bullet.GetComponent<GunBullet>().trigger_tags.Add("Enemy");
             bullet.GetComponent<GunBullet>().att = damage;
-            bullet.GetComponent<GunBullet>().SetOwner(gameObject);
+            bullet.GetComponent<GunBullet>().SetOwner(owner);
             bullet.GetComponent<GunBullet>().gun = this;
 
             float angel = Random.Range(-recon, recon);

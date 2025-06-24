@@ -20,22 +20,27 @@
 - Made a runtime settings panel so you can tweak board size/colors live.
 - Board resizing is safe: it won’t shrink if cards are in the way.
 
----
 
-That’s the main stuff we tackled this week!
-
----
 
 # Upcoming Features & Schedule
 
-## June 23, 2025 (Tuesday)
+## June 22, 2025 (Monday)
 #### Codes
 - card purchase and sell
 - find vacancy in hand area
+- refactor all damage to through Action system 
+
+
+## June 23, 2025 (Tuesday)
+#### Codes
 - speam of line
 - spreading AOE 
+- fix action cost mana
+- on modify damage
 #### Docs
 - create the database for cards
+
+
 
 
 

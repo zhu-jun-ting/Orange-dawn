@@ -9,7 +9,6 @@ public class CardConditionOnHitTarget : CardMaster
 
     [Header("Card Settings")]
     public List<CardMaster.CardDir> triggerDirections;
-    public int manaCost = 5;
 
 
     public override void OnCardEnable()
@@ -32,8 +31,7 @@ public class CardConditionOnHitTarget : CardMaster
     {
         if (receiver != null && receiver.CompareTag("Enemy") && source == current_gun)
         {
-            if (!ManaBar.CanCostMana(-manaCost))
-                return;
+            
             bool hasTriggered = false;
             foreach (var dir in triggerDirections)
             {
@@ -56,7 +54,7 @@ public class CardConditionOnHitTarget : CardMaster
                     hasTriggered = true; // Mark that at least one action was triggered
                 }
             }
-            if(hasTriggered) GameEvents.instance.UpdateMana(-manaCost);
+            // if(hasTriggered) 
         }
     }
 
@@ -72,7 +70,7 @@ public class CardConditionOnHitTarget : CardMaster
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return string.Format(card_description, manaCost);
+        return string.Format(card_description);
     }
 
 
@@ -82,21 +80,7 @@ public class CardConditionOnHitTarget : CardMaster
 
         if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return;
 
-        // if source is a children of me, then I should take the buff from source
-        // TODO: decide whether to allow buffs from children or not
-        // if (!(source != null && IsChildren(source))) return;
-
-
-
         base.UpdateNumberValue(numberType, value, source);
 
-        if (numberType == CardMaster.NumberType.Mana)
-        {
-            manaCost += (int)value;
-        }
-        else
-        {
-            
-        }
     }
 }

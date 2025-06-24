@@ -11,6 +11,7 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
     public int spawn_count = 1;
     public float lifecycle = 10f;
     public int max_instances = 10;
+    public int manaCost = 5; // Mana cost for this action
 
     [Header("Spawm Settings")]
     public float spawn_radius = 5f;
@@ -34,9 +35,12 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
     public void TriggerAction(CardMaster source, Transform location)
     {
         if (npcShooterPrefab == null || location == null) return;
+
+        // Calculate mana cost
+        if (!ManaBar.CanCostMana(-manaCost)) return;
+        
         for (int i = 0; i < spawn_count; i++)
         {
-
             // Randomly position the NPC within a circle around the location
             Vector2 randCircle = Random.insideUnitCircle * spawn_radius;
             Vector3 spawnPos = location.position + new Vector3(randCircle.x, 0, randCircle.y);
@@ -66,6 +70,9 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
 
             // spawnedNPCs.Add(npc);
         }
+
+        // Deduct mana cost
+        GameEvents.instance.UpdateMana(-manaCost);
     }
 
     public override void OnCardEnable()
@@ -106,16 +113,23 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return string.Format(card_description, max_HP, attack, shoot_interval, spawn_count, max_instances);
+        return string.Format(card_description, max_HP, attack, shoot_interval, spawn_count, max_instances, manaCost);
     }
 
     public override void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
     {
+
         if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return;
+
         base.UpdateNumberValue(numberType, value, source);
-        if (numberType == CardMaster.NumberType.Damage)
+
+        if (numberType == CardMaster.NumberType.Mana)
         {
-            attack += value;
+            manaCost += (int)value;
+        }
+        else
+        {
+            
         }
     }
 }

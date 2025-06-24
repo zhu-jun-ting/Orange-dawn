@@ -1,0 +1,115 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LightBeam : MonoBehaviour, IDetectorHandler
+{
+    [Header("Beam Settings")]
+    public float maxLength = 10f;
+    public float damage = 10f;
+    public float duration = 0.2f;
+    public List<string> targetTags; // Tags to damage
+    public Detector detector; // Assign in inspector or via script
+    public LineRenderer lineRenderer; // Assign in inspector for beam visual
+
+    private HashSet<GameObject> hitObjects = new HashSet<GameObject>();
+    private List<GameObject> detectedTargets = new List<GameObject>();
+    private Vector2 beamStart;
+    private Vector2 beamEnd;
+    private bool hasDealtDamage = false;
+    private bool beamFired = false;
+
+    void Start()
+    {
+        beamStart = transform.position;
+        if (detector != null)
+        {
+            detector.collision_handler = this.gameObject;
+        }
+        // Wait for detector to collect targets, then fire beam in next frame
+        Invoke(nameof(FireBeam), 0.02f);
+        Destroy(gameObject, duration);
+    }
+
+    void FireBeam()
+    {
+        GameObject target = FindNearestTarget();
+        if (target != null)
+        {
+            Vector2 dir = ((Vector2)target.transform.position - beamStart).normalized;
+            beamEnd = beamStart + dir * maxLength;
+        }
+        else
+        {
+            beamEnd = beamStart + Vector2.right * maxLength;
+        }
+        DrawBeam();
+        DealDamageAlongBeam();
+        beamFired = true;
+    }
+
+    GameObject FindNearestTarget()
+    {
+        float minDist = float.MaxValue;
+        GameObject nearest = null;
+        foreach (var go in detectedTargets)
+        {
+            if (go == null) continue;
+            float dist = Vector2.Distance(transform.position, go.transform.position);
+            if (dist < minDist)
+            {
+                minDist = dist;
+                nearest = go;
+            }
+        }
+        return nearest;
+    }
+
+    void DrawBeam()
+    {
+        if (lineRenderer != null)
+        {
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPosition(0, beamStart);
+            lineRenderer.SetPosition(1, beamEnd);
+        }
+    }
+
+    void DealDamageAlongBeam()
+    {
+        if (hasDealtDamage) return;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(beamStart, (beamEnd - beamStart).normalized, maxLength);
+        foreach (var hit in hits)
+        {
+            if (hit.collider == null) continue;
+            GameObject go = hit.collider.gameObject;
+            if (hitObjects.Contains(go)) continue;
+            if (targetTags.Contains(go.tag))
+            {
+                PawnMaster pawn = go.GetComponent<PawnMaster>();
+                if (pawn != null)
+                {
+                    GameEvents.instance.HitPawn(damage, pawn, gameObject, GameEvents.DamageType.Normal, go.transform, 0f, null);
+                    hitObjects.Add(go);
+                }
+            }
+        }
+        hasDealtDamage = true;
+    }
+
+    // IDetectorHandler implementation
+    public void HandleOnTriggerEnter2D(int collider_id, GameObject self, GameObject other)
+    {
+        if (other != null && targetTags.Contains(other.tag) && !detectedTargets.Contains(other))
+        {
+            detectedTargets.Add(other);
+        }
+    }
+
+    public void HandleOnTriggerExit2D(int collider_id, GameObject self, GameObject other)
+    {
+        if (other != null && detectedTargets.Contains(other))
+        {
+            detectedTargets.Remove(other);
+        }
+    }
+}

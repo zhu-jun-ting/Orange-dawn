@@ -62,8 +62,14 @@ public class GunBullet : MonoBehaviour
                 exp.transform.position = transform.position;
 
                 PawnMaster pawnMaster = other.gameObject.GetComponent<PawnMaster>();
-                if (pawnMaster != null) GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, gun);
-
+                if (pawnMaster != null) 
+                {
+                    if (owner == PlayerController.instance.gameObject && GameEvents.OnModifyDamage != null) 
+                    {
+                        att = GameEvents.OnModifyDamage(att); 
+                    } 
+                    GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, gun);
+                } 
             }
             // ObjectPool.Instance.PushObject(gameObject);
             Destroy(gameObject);

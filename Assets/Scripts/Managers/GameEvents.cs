@@ -32,6 +32,7 @@ public class GameEvents : MonoBehaviour
 
 
     public event Action<float, PawnMaster, GameObject, DamageType, Transform, float, Gun> OnHitPawn;
+    public static Func<float, float> OnModifyDamage;
     public void HitPawn(float damage_, PawnMaster reciever_, GameObject instigator_ = null, DamageType damage_type_ = DamageType.Normal, Transform location_ = null, float hit_back_factor_ = 0f, Gun source_ = null)
     {
 

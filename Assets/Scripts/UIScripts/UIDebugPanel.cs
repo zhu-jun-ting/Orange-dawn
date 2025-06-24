@@ -1,36 +1,107 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System.Reflection;
 
 public class UIDebugPanel : MonoBehaviour
 {
-    // Assign these in the Inspector or find them at runtime
-    public Button button1;
-    public Button button2;
-    public Button button3;
 
+    [Header("Dynamic Method Execution")]
+    public TMP_InputField methodInputField; // Assign in inspector
+    public Button executeButton; // Assign in inspector
+    public Button recallButton; // Assign in inspector
+
+
+    [Header("Debug Fields")]
     public GameObject debugCardMasterPrefab;
+    public GameObject implusePrefab;
+
+
+    // private fields
+    private string lastExecutedMethod = null;
 
     void Start()
     {
-        button1.onClick.AddListener(CallMethod1);
-        button2.onClick.AddListener(CallMethod2);
-        // button3.onClick.AddListener(CallMethod3);
+        if (executeButton != null)
+            executeButton.onClick.AddListener(ExecuteMethodFromInput);
+        if (recallButton != null)
+            recallButton.onClick.AddListener(RecallLastMethod);
     }
 
     // Example methods to call
-    public void CallMethod1()
+    public void LevelCleared()
     {
         GameEvents.instance.LevelCleared();
     }
 
-    public void CallMethod2()
+    public void AddCardObject()
     {
-        HandArea.instance.AddCardObject(debugCardMasterPrefab, null);
+        HandArea.instance.AddCardObject(debugCardMasterPrefab, null); 
     }
 
-    public void CallMethod3()
+    public void ExecuteMethodFromInput()
     {
-        Debug.Log("Method 3 called!");
-        // Your logic here
+        if (methodInputField == null) return;
+        string methodName = methodInputField.text;
+        if (string.IsNullOrWhiteSpace(methodName)) return;
+        // Try to find and invoke a method on this class
+        MethodInfo method = GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        if (method != null)
+        {
+            method.Invoke(this, null);
+            lastExecutedMethod = methodName;
+            Debug.Log($"Executed method: {methodName}");
+        }
+        else
+        {
+            Debug.LogError($"No method found with name: {methodName}");
+        }
     }
+
+    public void RecallLastMethod()
+    {
+        if (string.IsNullOrWhiteSpace(lastExecutedMethod))
+        {
+            Debug.LogWarning("No method has been executed yet.");
+            return;
+        }
+        MethodInfo method = GetType().GetMethod(lastExecutedMethod, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        if (method != null)
+        {
+            method.Invoke(this, null);
+            Debug.Log($"Recalled and executed method: {lastExecutedMethod}");
+        }
+        else
+        {
+            Debug.LogError($"No method found with name: {lastExecutedMethod}");
+        }
+    }
+
+    public void SpawnImpulse()
+    {
+        if (implusePrefab == null)
+        {
+            Debug.LogError("Impulse prefab not assigned!");
+            return;
+        }
+
+        // Find the player GameObject by tag (make sure your player has the "Player" tag)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player object not found!");
+            return;
+        }
+
+        // Instantiate the impulsePrefab at the player's position and rotation
+        Instantiate(implusePrefab, player.transform.position, player.transform.rotation);
+        // Debug.Log("Impulse prefab instantiated at player's location.");
+    }
+
+    public void ActivateDoubleDamage() 
+    {
+        GameEvents.OnModifyDamage += DoubleDamage;
+    }
+
+    float DoubleDamage(float dmg) => dmg * 2f;
 }
