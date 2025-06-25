@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5582a7df4b0c4d859ad431d532b3ed6e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182650
+  packageName: 2D Character - Astronaut
+  packageVersion: 2.0
+  assetPath: Assets/COPY SPRIGHT/Comic Battle Royale/2D Character - Astronaut/Variant
+    A/Animations/idle_up.controller
+  uploadId: 624117

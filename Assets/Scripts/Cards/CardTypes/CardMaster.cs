@@ -31,9 +31,9 @@ public class CardMaster : MonoBehaviour
     public enum LinkType
     {
         Common,
-        Red,
-        Green,
-        Blue,
+        Value,
+        Condition,
+        Action,
     }
 
 
@@ -381,7 +381,8 @@ public class CardMaster : MonoBehaviour
 
 
     // --- Link Visuals ---
-    // Use CardDragHandler's link GameObjects only
+
+
     private GameObject GetLinkGameObject(string dir)
     {
         var dragHandler = GetComponent<CardDragHandler>();
@@ -453,28 +454,44 @@ public class CardMaster : MonoBehaviour
         if (go != null) SetLinkColor(go, color, alpha);
     }
 
+    public static void SetLinkColor(GameObject linkGO, Color color)
+    {
+        if (linkGO == null) return;
+        bool isTransparent = color.a <= 0.01f;
+        if (isTransparent)
+        {
+            linkGO.SetActive(false);
+        }
+        else
+        {
+            if (!linkGO.activeSelf)
+                linkGO.SetActive(true);
+            var renderer = linkGO.GetComponent<SpriteRenderer>();
+            if (renderer != null)
+                renderer.color = color;
+            // If using Image for UI, also support:
+            var img = linkGO.GetComponent<UnityEngine.UI.Image>();
+            if (img != null)
+                img.color = color;
+        }
+    }
+
     // Make SetLinkAlpha public for use by CardDragHandler
     public void SetLinkAlpha(GameObject go, float alpha)
     {
         if (go == null) return;
         var img = go.GetComponent<UnityEngine.UI.Image>();
-        if (img != null)
-        {
-            var c = img.color;
-            c.a = alpha;
-            img.color = c;
-        }
-        // Debug.Log("set link alpha: " + go.name + " to " + alpha);
+        var c = img.color;
+        c.a = alpha;
+        SetLinkColor(go, c);
     }
+
     private void SetLinkColor(GameObject go, Color color, float alpha)
     {
         if (go == null) return;
-        var img = go.GetComponent<UnityEngine.UI.Image>();
-        if (img != null)
-        {
-            color.a = alpha;
-            img.color = color;
-        }
+        color.a = alpha;
+        SetLinkColor(go, color);
+        
     }
 
     // Set a specific link (by direction) to black 50% transparent
@@ -482,11 +499,10 @@ public class CardMaster : MonoBehaviour
     {
         var go = GetLinkGameObject(dir);
         if (go == null) return;
-        var img = go.GetComponent<UnityEngine.UI.Image>();
-        if (img != null)
-        {
-            img.color = new Color(0f, 0f, 0f, 0.5f);
-        }
+
+        SetLinkColor(go, (GameSettings.instance != null && GameSettings.instance.colorLinkInactive != default(Color)) 
+                ? GameSettings.instance.colorLinkInactive 
+                : new Color(0f, 0f, 0f, 0.5f));
     }
 
     public static void ClearOnApplyValuesToGuns()
@@ -515,5 +531,13 @@ public class CardMaster : MonoBehaviour
         }
         current_gun = foundGun; // Set to found gun or null if none
         return foundGun;
+    }
+
+    // Custom LinkType comparison: Common matches any, others only match themselves
+    public static bool LinkTypesEqual(LinkType a, LinkType b)
+    {
+        if (a == LinkType.Common || b == LinkType.Common)
+            return true;
+        return a == b;
     }
 }

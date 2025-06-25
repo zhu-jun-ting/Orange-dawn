@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 110d9a1f15084a958bf46ceceb46b28f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182650
+  packageName: 2D Character - Astronaut
+  packageVersion: 2.0
+  assetPath: Assets/COPY SPRIGHT/Comic Battle Royale/2D Character - Astronaut/Variant
+    B/Animations/run_down.controller
+  uploadId: 624117

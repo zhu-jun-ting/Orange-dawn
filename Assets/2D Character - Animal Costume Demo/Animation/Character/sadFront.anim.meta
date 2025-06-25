@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6c9db29994e2bfa4ebdc74c898009ca2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300641
+  packageName: '2D Character - Cute Animal Party: Demo'
+  packageVersion: 1.0
+  assetPath: Assets/2D Character - Animal Costume Demo/Animation/Character/sadFront.anim
+  uploadId: 703448

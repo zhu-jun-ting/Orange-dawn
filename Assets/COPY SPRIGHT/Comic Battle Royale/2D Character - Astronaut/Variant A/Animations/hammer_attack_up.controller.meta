@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9b4d32aa16fa43b98f465ba1b258e4de
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182650
+  packageName: 2D Character - Astronaut
+  packageVersion: 2.0
+  assetPath: Assets/COPY SPRIGHT/Comic Battle Royale/2D Character - Astronaut/Variant
+    A/Animations/hammer_attack_up.controller
+  uploadId: 624117

@@ -38,8 +38,13 @@
 - fix action cost mana
 - on modify damage
 #### Docs
-- create the database for cards
+- create the database for cards ([Google Sheets link](https://docs.google.com/spreadsheets/d/1GaXHwFHD-3WsV7VRlSDeQys86-47Wm1iZmSscjiae2w/edit?gid=0#gid=0))
 
+## June 24, 2025 (Wednesday)
+#### Codes
+- 
+#### UI
+- card asset UI
 
 
 

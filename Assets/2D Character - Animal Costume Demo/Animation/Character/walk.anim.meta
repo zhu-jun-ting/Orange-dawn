@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ed55c742d7a828944bbb42193369b13d
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300641
+  packageName: '2D Character - Cute Animal Party: Demo'
+  packageVersion: 1.0
+  assetPath: Assets/2D Character - Animal Costume Demo/Animation/Character/walk.anim
+  uploadId: 703448

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1fee497e6ea04df5adcf2cb16188a3b4
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 182650
+  packageName: 2D Character - Astronaut
+  packageVersion: 2.0
+  assetPath: Assets/COPY SPRIGHT/Comic Battle Royale/2D Character - Astronaut/Variant
+    E/Animations/rifle_walk_down.controller
+  uploadId: 624117

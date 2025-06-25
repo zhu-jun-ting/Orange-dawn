@@ -92,7 +92,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (col > 0 && card.left_link_enabled)
         {
             var leftCard = grid[row, col - 1];
-            if (leftCard != null && leftCard.right_link_enabled && leftCard.right_link_type == card.left_link_type)
+            if (leftCard != null && leftCard.right_link_enabled && CardMaster.LinkTypesEqual(leftCard.right_link_type, cardMaster.left_link_type))
                 return true;
             hasAdjacent = hasAdjacent || (leftCard != null);
         }
@@ -100,7 +100,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (col < cols - 1 && card.right_link_enabled)
         {
             var rightCard = grid[row, col + 1];
-            if (rightCard != null && rightCard.left_link_enabled && rightCard.left_link_type == card.right_link_type)
+            if (rightCard != null && rightCard.left_link_enabled && CardMaster.LinkTypesEqual(rightCard.left_link_type, card.right_link_type))
                 return true;
             hasAdjacent = hasAdjacent || (rightCard != null);
         }
@@ -108,7 +108,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (row > 0 && card.up_link_enabled)
         {
             var upCard = grid[row - 1, col];
-            if (upCard != null && upCard.down_link_enabled && upCard.down_link_type == card.up_link_type)
+            if (upCard != null && upCard.down_link_enabled && CardMaster.LinkTypesEqual(upCard.down_link_type, card.up_link_type))
                 return true;
             hasAdjacent = hasAdjacent || (upCard != null);
         }
@@ -116,7 +116,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (row < rows - 1 && card.down_link_enabled)
         {
             var downCard = grid[row + 1, col];
-            if (downCard != null && downCard.up_link_enabled && downCard.up_link_type == card.down_link_type)
+            if (downCard != null && downCard.up_link_enabled && CardMaster.LinkTypesEqual(downCard.up_link_type, card.down_link_type))
                 return true;
             hasAdjacent = hasAdjacent || (downCard != null);
         }
@@ -176,7 +176,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (row > 0 && cardMaster.up_link_enabled)
         {
             var upCard = grid[row - 1, col];
-            up = upCard != null && upCard.down_link_enabled && upCard.down_link_type == cardMaster.up_link_type && cardMaster.up_link_type == upCard.down_link_type;
+            up = upCard != null && upCard.down_link_enabled && CardMaster.LinkTypesEqual(upCard.down_link_type, cardMaster.up_link_type);
             if (up && upCard != null)
                 upCard.GetComponent<CardMaster>()?.SetActiveLinksGreenAndVisible(false, false, false, true); // upCard's down
         }
@@ -184,7 +184,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (row < rows - 1 && cardMaster.down_link_enabled)
         {
             var downCard = grid[row + 1, col];
-            down = downCard != null && downCard.up_link_enabled && downCard.up_link_type == cardMaster.down_link_type && cardMaster.down_link_type == downCard.up_link_type;
+            down = downCard != null && downCard.up_link_enabled && CardMaster.LinkTypesEqual(downCard.up_link_type, cardMaster.down_link_type);
             if (down && downCard != null)
                 downCard.GetComponent<CardMaster>()?.SetActiveLinksGreenAndVisible(true, false, false, false); // downCard's up
         }
@@ -192,7 +192,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (col > 0 && cardMaster.left_link_enabled)
         {
             var leftCard = grid[row, col - 1];
-            left = leftCard != null && leftCard.right_link_enabled && leftCard.right_link_type == cardMaster.left_link_type && cardMaster.left_link_type == leftCard.right_link_type;
+            left = leftCard != null && leftCard.right_link_enabled && CardMaster.LinkTypesEqual(leftCard.right_link_type, cardMaster.left_link_type);
             if (left && leftCard != null)
                 leftCard.GetComponent<CardMaster>()?.SetActiveLinksGreenAndVisible(false, false, true, false); // leftCard's right
         }
@@ -200,7 +200,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (col < cols - 1 && cardMaster.right_link_enabled)
         {
             var rightCard = grid[row, col + 1];
-            right = rightCard != null && rightCard.left_link_enabled && rightCard.left_link_type == cardMaster.right_link_type && cardMaster.right_link_type == rightCard.left_link_type;
+            right = rightCard != null && rightCard.left_link_enabled && CardMaster.LinkTypesEqual(rightCard.left_link_type, cardMaster.right_link_type);
             if (right && rightCard != null)
                 rightCard.GetComponent<CardMaster>()?.SetActiveLinksGreenAndVisible(false, true, false, false); // rightCard's left
         }
@@ -218,7 +218,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (row > 0 && cardMaster.up_link_enabled)
         {
             var upCard = grid[row - 1, col];
-            up = upCard != null && upCard.down_link_enabled && upCard.down_link_type == cardMaster.up_link_type && cardMaster.up_link_type == upCard.down_link_type;
+            up = upCard != null && upCard.down_link_enabled && CardMaster.LinkTypesEqual(upCard.down_link_type, cardMaster.up_link_type);
             if (up && upCard != null)
                 upCard.GetComponent<CardMaster>()?.SetPlacedLinksGreenAndVisible(false, false, false, true); // upCard's down
             else if (upCard != null)
@@ -228,7 +228,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (row < rows - 1 && cardMaster.down_link_enabled)
         {
             var downCard = grid[row + 1, col];
-            down = downCard != null && downCard.up_link_enabled && downCard.up_link_type == cardMaster.down_link_type && cardMaster.down_link_type == downCard.up_link_type;
+            down = downCard != null && downCard.up_link_enabled && CardMaster.LinkTypesEqual(downCard.up_link_type, cardMaster.down_link_type);
             if (down && downCard != null)
                 downCard.GetComponent<CardMaster>()?.SetPlacedLinksGreenAndVisible(true, false, false, false); // downCard's up
             else if (downCard != null)
@@ -238,7 +238,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (col > 0 && cardMaster.left_link_enabled)
         {
             var leftCard = grid[row, col - 1];
-            left = leftCard != null && leftCard.right_link_enabled && leftCard.right_link_type == cardMaster.left_link_type && cardMaster.left_link_type == leftCard.right_link_type;
+            left = leftCard != null && leftCard.right_link_enabled && CardMaster.LinkTypesEqual(leftCard.right_link_type, cardMaster.left_link_type);
             if (left && leftCard != null)
                 leftCard.GetComponent<CardMaster>()?.SetPlacedLinksGreenAndVisible(false, false, true, false); // leftCard's right
             else if (leftCard != null)
@@ -248,7 +248,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (col < cols - 1 && cardMaster.right_link_enabled)
         {
             var rightCard = grid[row, col + 1];
-            right = rightCard != null && rightCard.left_link_enabled && rightCard.left_link_type == cardMaster.right_link_type && cardMaster.right_link_type == rightCard.left_link_type;
+            right = rightCard != null && rightCard.left_link_enabled && CardMaster.LinkTypesEqual(rightCard.left_link_type, cardMaster.right_link_type);
             if (right && rightCard != null)
                 rightCard.GetComponent<CardMaster>()?.SetPlacedLinksGreenAndVisible(false, true, false, false); // rightCard's left
             else if (rightCard != null)
@@ -667,7 +667,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (row > 0 && cardMaster.up_link_enabled)
                 {
                     var upCard = grid[row - 1, col];
-                    if (upCard != null && upCard.down_link_enabled && upCard.down_link_type == cardMaster.up_link_type && cardMaster.up_link_type == upCard.down_link_type)
+                    if (upCard != null && upCard.down_link_enabled && CardMaster.LinkTypesEqual(upCard.down_link_type, cardMaster.up_link_type))
                     {
                         cardMaster.up_link_cardmaster = upCard;
                         upCard.down_link_cardmaster = cardMaster;
@@ -678,7 +678,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (row < rows - 1 && cardMaster.down_link_enabled)
                 {
                     var downCard = grid[row + 1, col];
-                    if (downCard != null && downCard.up_link_enabled && downCard.up_link_type == cardMaster.down_link_type && cardMaster.down_link_type == downCard.up_link_type)
+                    if (downCard != null && downCard.up_link_enabled && CardMaster.LinkTypesEqual(downCard.up_link_type, cardMaster.down_link_type))
                     {
                         cardMaster.down_link_cardmaster = downCard;
                         downCard.up_link_cardmaster = cardMaster;
@@ -689,7 +689,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (col > 0 && cardMaster.left_link_enabled)
                 {
                     var leftCard = grid[row, col - 1];
-                    if (leftCard != null && leftCard.right_link_enabled && leftCard.right_link_type == cardMaster.left_link_type && cardMaster.left_link_type == leftCard.right_link_type)
+                    if (leftCard != null && leftCard.right_link_enabled && CardMaster.LinkTypesEqual(leftCard.right_link_type, cardMaster.left_link_type))
                     {
                         cardMaster.left_link_cardmaster = leftCard;
                         leftCard.right_link_cardmaster = cardMaster;
@@ -700,7 +700,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (col < cols - 1 && cardMaster.right_link_enabled)
                 {
                     var rightCard = grid[row, col + 1];
-                    if (rightCard != null && rightCard.left_link_enabled && rightCard.left_link_type == cardMaster.right_link_type && cardMaster.right_link_type == rightCard.left_link_type)
+                    if (rightCard != null && rightCard.left_link_enabled && CardMaster.LinkTypesEqual(rightCard.left_link_type, cardMaster.right_link_type))
                     {
                         cardMaster.right_link_cardmaster = rightCard;
                         rightCard.left_link_cardmaster = cardMaster;

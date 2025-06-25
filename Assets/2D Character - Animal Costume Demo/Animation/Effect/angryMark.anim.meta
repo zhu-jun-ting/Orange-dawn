@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2c7b2d8b3339ab04b96e2f5cfe624abc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300641
+  packageName: '2D Character - Cute Animal Party: Demo'
+  packageVersion: 1.0
+  assetPath: Assets/2D Character - Animal Costume Demo/Animation/Effect/angryMark.anim
+  uploadId: 703448

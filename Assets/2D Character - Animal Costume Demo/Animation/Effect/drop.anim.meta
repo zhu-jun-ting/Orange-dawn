@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e0b16c0ccb0724a41a1ccc745fec85ee
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 300641
+  packageName: '2D Character - Cute Animal Party: Demo'
+  packageVersion: 1.0
+  assetPath: Assets/2D Character - Animal Costume Demo/Animation/Effect/drop.anim
+  uploadId: 703448
