@@ -49,16 +49,13 @@ public class CardValueTestShouldDesotryAfterLevelCleared : CardMaster
 
     public override void OnCardLevelCleared()
     {
+        base.OnCardLevelCleared();
         OnCardDestroyed();
     }
 
 
     public override void OnCardDisable()
     {
-
-        // Add attack to the gun
-        // gun.damage -= attackToAdd;
-
         base.OnCardDisable(); // Call the base method to clear the current gun reference
     }
 
@@ -68,7 +65,6 @@ public class CardValueTestShouldDesotryAfterLevelCleared : CardMaster
         // card_description = string.Format(card_description, attackToAdd);
         base.Reset(); // Call the base reset method to reset other properties
         // Debug.Log("Reset ---" + string.Format(card_description, attackToAdd));
-
     }
     
     // return the formatted description of the card

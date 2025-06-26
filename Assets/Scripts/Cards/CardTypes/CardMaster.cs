@@ -24,6 +24,13 @@ public class CardMaster : MonoBehaviour
     public static event System.Action OnUpdateBaseDesctipion;
     public static event System.Action OnUpdateCardTexts;
 
+    // events that specifies for this card
+    public event System.Action OnThisCardEnable;
+    public event System.Action OnThisCardSold;
+    public event System.Action OnThisCardPurchased;
+    public event System.Action OnThisCardDestroyed;
+    public event System.Action OnThisCardLevelCleared;
+
 
 
 
@@ -110,15 +117,13 @@ public class CardMaster : MonoBehaviour
 
     public virtual void OnCardEnable()
     {
-        // OnUpdateCardValues?.Invoke();
-        // OnUpdateBaseDesctipion?.Invoke();
-        // OnUpdateCardTexts?.Invoke();
+        // Invoke the event for this card
+        OnThisCardEnable?.Invoke();
     }
+
     public virtual void OnCardDisable()
     {
-        // OnUpdateCardValues?.Invoke();
-        // OnUpdateBaseDesctipion?.Invoke();
-        // OnUpdateCardTexts?.Invoke(); 
+
     }
 
     public virtual void Reset()
@@ -129,6 +134,17 @@ public class CardMaster : MonoBehaviour
     public virtual void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
     {
 
+    }
+
+    public virtual void UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
+    {
+
+    }
+
+    public void AddBuffEntry(string buffName, string buffDescription, int order = 0) 
+    {
+        var cardCommon = GetComponent<CardCommon>();
+        if (cardCommon != null) cardCommon.AddBuffDescription(buffName, buffDescription, order);
     }
 
     // you should override this method to return the card's name and description
@@ -191,19 +207,27 @@ public class CardMaster : MonoBehaviour
     public virtual void OnCardPurchased()
     {
         // do something when the card is purchased
+        OnThisCardPurchased?.Invoke();
     }
 
     public virtual void OnCardSold()
     {
+        // do something when the card is sold
+        OnThisCardSold?.Invoke();
+
         OnCardDestroyed();
         GameEvents.instance.UpdateCoins(card_sell_price);
     }
 
     public virtual void OnCardLevelCleared() {
-        
+        // do something when the card is level cleared
+        OnThisCardLevelCleared?.Invoke();
     }
 
     public virtual void OnCardDestroyed() {
+        // do something when the card is destroyed
+        OnThisCardDestroyed?.Invoke();
+
         // Remove references from linked cards before destroying this card
         // Up
         if (up_link_cardmaster != null && up_link_cardmaster.down_link_cardmaster == this)

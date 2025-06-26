@@ -93,4 +93,19 @@ public class CardValueAddAttack : CardMaster
         }
 
     }
+
+    public override void UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
+    {
+        if (numberType == CardMaster.NumberType.Damage && isPermanent)
+        {
+            attackToAdd += value;
+            attackToAddDefault += value;
+        } 
+        else if (numberType == CardMaster.NumberType.Damage && !isPermanent)
+        {
+            attackToAdd += value;
+        }
+
+        base.UpdateSelfNumberValue(numberType, value);
+    }
 }

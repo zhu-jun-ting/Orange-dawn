@@ -437,7 +437,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor / UIContentScaler.instance.transform.localScale.x;
         // 1. Reset all links on all cards to black 50% transparent
         // ResetAllCardLinksHalfTransparentBlack();
         // 1a. Also reset this card's links to black 50% transparent only if enabled AND type is not Common; otherwise set invisible before hint
@@ -576,7 +576,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             if (HandArea.instance != null)
             {
                 bool overlaps = false;
-                var handRect = HandArea.instance.GetComponent<RectTransform>();
+                var handRect = BoardArea.instance.cardHolderTransform;
                 // Check for overlap with other cards in hand area
                 foreach (Transform sibling in handRect)
                 {
@@ -710,7 +710,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
                 // Actually Set the card in the grid. 
                 Vector2 snappedLocal = BoardArea.instance.GetGridCellPosition(cell.x, cell.y, cardSize);
-                rectTransform.SetParent(BoardArea.instance.transform, true);
+                rectTransform.SetParent(BoardArea.instance.cardHolderTransform, true);
                 rectTransform.DOAnchorPos(snappedLocal, 0.2f).SetEase(Ease.OutQuad);
                 BoardArea.instance.SetCell(cell.x, cell.y, cardMaster);
                 lastRow = cell.x;

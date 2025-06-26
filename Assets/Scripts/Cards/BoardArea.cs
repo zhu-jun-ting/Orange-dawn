@@ -9,6 +9,7 @@ public class BoardArea : MonoBehaviour
 {
     public static BoardArea instance;
     private RectTransform rectTransform;
+    public RectTransform cardHolderTransform; // Assign in inspector to the parent of all cards
 
     [Header("Grid Settings")]
     public int rows { get { return GameSettings.instance ? GameSettings.instance.boardRows : 3; } set { if (GameSettings.instance) GameSettings.instance.boardRows = value; } }
@@ -125,10 +126,22 @@ public class BoardArea : MonoBehaviour
 
     public Vector2Int GetNearestGridCell(Vector2 localPoint, Vector2 cardSize)
     {
-        float cellWidth = cardSize.x + margin;
-        float cellHeight = cardSize.y + margin;
-        Vector2 boardSize = rectTransform.rect.size;
-        Vector2 origin = new Vector2(-boardSize.x / 2f, boardSize.y / 2f);
+        // Consider board scaling
+        float scale = UIContentScaler.instance != null ? UIContentScaler.instance.transform.localScale.x : 1f;
+        float cellWidth = (cardSize.x + margin) * scale;
+        float cellHeight = (cardSize.y + margin) * scale;
+        Vector2 boardSize = cardHolderTransform.rect.size * scale;
+        Vector2 origin = new Vector2(-boardSize.x / 2f, boardSize.y / 2f) * scale;
+
+        // Offset by all parent RectTransforms up to Canvas
+        Vector2 parentOffset = Vector2.zero;
+        RectTransform t = cardHolderTransform;
+        while (t != null && t != t.root)
+        {
+            parentOffset += (Vector2)t.anchoredPosition;
+            t = t.parent as RectTransform;
+        }
+        origin += parentOffset;
         float x = Mathf.Clamp(localPoint.x, origin.x, origin.x + (columns - 1) * cellWidth);
         float y = Mathf.Clamp(localPoint.y, origin.y - (rows - 1) * cellHeight, origin.y);
         int col = Mathf.RoundToInt((x - origin.x) / cellWidth);
@@ -140,10 +153,12 @@ public class BoardArea : MonoBehaviour
 
     public Vector2 GetGridCellPosition(int row, int col, Vector2 cardSize)
     {
-        float cellWidth = cardSize.x + margin;
-        float cellHeight = cardSize.y + margin;
-        Vector2 boardSize = rectTransform.rect.size;
-        Vector2 origin = new Vector2(-boardSize.x / 2f, boardSize.y / 2f);
+        // Consider board scaling
+        float scale = UIContentScaler.instance != null ? UIContentScaler.instance.transform.localScale.x : 1f;
+        float cellWidth = (cardSize.x + margin) * scale;
+        float cellHeight = (cardSize.y + margin) * scale;
+        Vector2 boardSize = cardHolderTransform.rect.size * scale;
+        Vector2 origin = new Vector2(-boardSize.x / 2f, boardSize.y / 2f) * scale;
         float snappedX = origin.x + col * cellWidth;
         float snappedY = origin.y - row * cellHeight;
         return new Vector2(snappedX, snappedY);
@@ -186,7 +201,7 @@ public class BoardArea : MonoBehaviour
     {
         if (gridLinePrefab == null) return;
         gridGuidelinesParent = new GameObject("GridGuidelines");
-        gridGuidelinesParent.transform.SetParent(transform, false);
+        gridGuidelinesParent.transform.SetParent(cardHolderTransform, false);
         gridGuidelinesParent.transform.SetAsLastSibling();
         var rt = gridGuidelinesParent.AddComponent<RectTransform>();
         rt.anchorMin = Vector2.zero;
@@ -222,7 +237,7 @@ public class BoardArea : MonoBehaviour
         {
             for (int c = 0; c < columns; c++)
             {
-                var hint = Instantiate(cardHintPrefab, transform);
+                var hint = Instantiate(cardHintPrefab, cardHolderTransform);
                 hint.name = $"CardHint_{r}_{c}";
                 var hintRT = hint.GetComponent<RectTransform>();
                 hintRT.anchorMin = hintRT.anchorMax = new Vector2(0.5f, 0.5f);
