@@ -7,10 +7,15 @@ using DG.Tweening;
 public class HandArea : MonoBehaviour
 {
     public static HandArea instance;
-    private RectTransform rectTransform;
+    public RectTransform rectTransform; // this is the card holder
+    public Transform zoomableTransform; // Transform for zoomable cards, if any
 
     [Header("Hand State")]
     public List<CardMaster> handCards = new List<CardMaster>();
+
+    [Header("Discarded")]
+    public List<CardMaster> discardedCards = new List<CardMaster>();
+    public Transform DiscardedCardsParent; // Parent for discarded cards, if any
 
     void Awake()
     {
@@ -38,6 +43,12 @@ public class HandArea : MonoBehaviour
     {
         if (!handCards.Contains(card))
             handCards.Add(card);
+    }
+
+    public void AddDiscardedCard(CardMaster card)
+    {
+        if (!discardedCards.Contains(card))
+            discardedCards.Add(card);
     }
 
     public void RemoveCard(CardMaster card)
@@ -140,7 +151,7 @@ public class HandArea : MonoBehaviour
         if (rt == null) return null;
         float cardWidth = rt.rect.width;
         float cardHeight = rt.rect.height;
-        float spacing = GameSettings.instance ? GameSettings.instance.boardMargin : 10f;
+        float spacing = (GameSettings.instance ? GameSettings.instance.boardMargin : 10f) * zoomableTransform.localScale.x;
         float areaWidth = rectTransform.rect.width;
         float areaHeight = rectTransform.rect.height;
         // Offset so (0,0) is top-left in center-anchored HandArea

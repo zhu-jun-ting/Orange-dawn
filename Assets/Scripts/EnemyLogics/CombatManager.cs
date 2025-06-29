@@ -90,7 +90,7 @@ public class CombatManager : MonoBehaviour
         // make spawn interval a bit faster as game goes on
         spawn_wait_time *= (float)Math.Pow(spawn_interval_modifier_each_minute, 1.0 / 6);
         SetSpawnActivity(false);
-        SetSpawnActivity(true);
+        SetSpawnActivity(is_spawning);
     }
 
     public int GetCurrentFrame() {
@@ -154,12 +154,14 @@ public class CombatManager : MonoBehaviour
 }
 
     public void SetSpawnActivity(bool is_active) {
-        is_spawning = is_active;
         if (is_active) {
             spawn_timer = SpawnEnemy(spawn_wait_time);
             StartCoroutine(spawn_timer);
         } else {
-            StopCoroutine(spawn_timer);
+            if (spawn_timer != null) {
+                StopCoroutine(spawn_timer);
+                spawn_timer = null;
+            }
         }
     }
 

@@ -7,21 +7,37 @@ using UnityEngine;
 public class CardBasePistol : CardMaster
 {
     
-    public string gun_name = "Pistol";
+    // public string gun_name = "Pistol";
+    public GameObject gunPrefab; 
+
+    private PlayerController player;
 
     protected override void Awake()
     {
         base.Awake();
     }
+
+    private void Start()
+    {
+        player = PlayerController.instance;
+        if (player == null || gunPrefab == null) return;
+        
+        // Instantiate and parent under player, set inactive
+        var go = Instantiate(gunPrefab, player.transform);
+        go.SetActive(false);
+        current_gun = go.GetComponent<Gun>();
+        
+    }
     private void OnEnable()
     {
-        // UpdateDescriptionWithPistolStats();
-        // Debug.Log($"CardBasePistol OnEnaable: {instance.name}, current_gun: {current_gun}");
+        if (current_gun != null)
+            current_gun.gameObject.SetActive(true);
     }
 
     void OnDisable()
     {
-
+        if (current_gun != null)
+            current_gun.gameObject.SetActive(false);
     }
 
     public override void OnCardEnable()
@@ -30,13 +46,27 @@ public class CardBasePistol : CardMaster
         {
             current_gun = FindActivePistolOnPlayer();
         }
-        base.OnCardEnable(); // Call the base method to store the current gun reference
+        if (current_gun != null)
+            current_gun.gameObject.SetActive(true);
+        base.OnCardEnable();
     }
 
     public override void OnCardDisable()
     {
-        // Optionally clear or reset description here if needed
-        base.OnCardDisable(); // Call the base method to clear the current gun reference
+        if (current_gun != null)
+            current_gun.gameObject.SetActive(false);
+        base.OnCardDisable();
+    }
+
+    public override void OnCardDestroyed()
+    {
+        base.OnCardDestroyed();
+        if (current_gun != null)
+        {
+            Destroy(current_gun.gameObject);
+            current_gun = null;
+        }
+        
     }
 
     public override string GetDescription()
@@ -52,29 +82,13 @@ public class CardBasePistol : CardMaster
 
     private Gun FindActivePistolOnPlayer()
     {
-        var player = PlayerController.instance;
-        if (player != null && player.guns != null && player.guns.Length > 0)
-        {
-            var gunNumField = typeof(PlayerController).GetField("gunNum", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            int gunNum = gunNumField != null ? (int)gunNumField.GetValue(player) : 0;
-            if (gunNum >= 0 && gunNum < player.guns.Length && player.guns[gunNum] != null)
-            {
-                var gun = player.guns[gunNum].GetComponent<Gun>();
-                if (gun != null && gun.name.ToLower().Contains(gun_name.ToLower()))
-                    return gun;
-            }
-        }
-        return null;
+        // Always return the current_gun reference
+        return current_gun;
     }
 
     public override void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source)
     {
         if (IsBuffedFromSource(source, addToList:true, includeSelf:true))
-        {
-            return;
-        }
-
-        if (!(source != null && IsChildren(source)))
         {
             return;
         }
@@ -97,7 +111,8 @@ public class CardBasePistol : CardMaster
 
     public override void Reset()
     {
-        if(current_gun != null) current_gun.Reset(); 
+        if (current_gun != null) current_gun.Reset(); 
+        if (current_gun != null) current_gun.gameObject.SetActive(false);
         base.Reset(); // Call the base reset method to reset other properties
     }
 }

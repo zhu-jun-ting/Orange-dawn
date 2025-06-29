@@ -22,15 +22,15 @@ public class UIContentScaler : MonoBehaviour
 
     void Update()
     {
-        // float scroll = Input.GetAxis("Mouse ScrollWheel");
-        // if (Mathf.Abs(scroll) > 0.01f)
-        // {
-        //     Vector3 scale = transform.localScale;
-        //     scale += Vector3.one * scroll * scaleSpeed;
-        //     scale.x = Mathf.Clamp(scale.x, minScale, maxScale);
-        //     scale.y = Mathf.Clamp(scale.y, minScale, maxScale);
-        //     scale.z = 1f;
-        //     transform.localScale = scale;
-        // }
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(scroll) > 0.01f)
+        {
+            Vector3 scale = transform.localScale;
+            scale += Vector3.one * scroll * scaleSpeed;
+            scale.x = Mathf.Clamp(scale.x, minScale, maxScale);
+            scale.y = Mathf.Clamp(scale.y, minScale, maxScale);
+            scale.z = 1f;
+            transform.localScale = scale;
+        }
     }
 }

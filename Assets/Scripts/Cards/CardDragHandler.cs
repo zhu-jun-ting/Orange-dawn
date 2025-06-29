@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 using System;
+using System.Collections.Generic;
 
 public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -340,6 +341,11 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
     }
 
+    // --- Fields for drag UI layering ---
+    private Transform _originalParent;
+    private int _originalSiblingIndex;
+    private Canvas rootCanvas;
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         originalPosition = rectTransform.position;
@@ -348,6 +354,17 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // Scale up for feedback
         rectTransform.DOScale(1.1f, 0.2f).SetEase(Ease.OutBack);
         BoardArea.instance.ShowCardHints();
+
+        // --- Bring this card to the top of the root canvas (absolute top-most UI) ---
+        if (rootCanvas == null)
+            rootCanvas = canvas != null && canvas.rootCanvas != null ? canvas.rootCanvas : GetComponentInParent<Canvas>().rootCanvas;
+        _originalParent = rectTransform.parent;
+        _originalSiblingIndex = rectTransform.GetSiblingIndex();
+        if (rootCanvas != null)
+        {
+            rectTransform.SetParent(rootCanvas.transform, true);
+            rectTransform.SetAsLastSibling();
+        }
 
         // --- Reset all links to black 50% transparent on this card, but only if enabled AND type is not Common; otherwise set invisible ---
         if (cardMaster != null) {
@@ -437,7 +454,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor / UIContentScaler.instance.transform.localScale.x;
+        rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         // 1. Reset all links on all cards to black 50% transparent
         // ResetAllCardLinksHalfTransparentBlack();
         // 1a. Also reset this card's links to black 50% transparent only if enabled AND type is not Common; otherwise set invisible before hint
@@ -502,10 +519,21 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+
         canvasGroup.blocksRaycasts = true;
         rectTransform.DOScale(1f, 0.2f).SetEase(Ease.OutBack);
         if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();
         BoardArea.instance.HideCardHints();
+
+        // --- Restore original parent and sibling index if changed during drag ---
+        if (_originalParent != null && rectTransform.parent != _originalParent)
+        {
+            rectTransform.SetParent(_originalParent, true);
+        }
+        if (_originalParent != null && rectTransform.GetSiblingIndex() != _originalSiblingIndex)
+        {
+            rectTransform.SetSiblingIndex(Mathf.Min(_originalSiblingIndex, rectTransform.parent.childCount - 1));
+        }
 
         // Always reset this card's links to black 50% transparent first
         // if (cardMaster != null) {
@@ -576,7 +604,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             if (HandArea.instance != null)
             {
                 bool overlaps = false;
-                var handRect = BoardArea.instance.cardHolderTransform;
+                var handRect = HandArea.instance.rectTransform;
                 // Check for overlap with other cards in hand area
                 foreach (Transform sibling in handRect)
                 {
@@ -587,7 +615,9 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     {
                         // Move this card slightly to the right to separate
                         // rectTransform.anchoredPosition += new Vector2(otherRect.rect.width + 10f, 0);
-                        HandArea.instance.AddCardObject(gameObject, rectTransform); 
+                        // HandArea.instance.AddCardObject(gameObject, rectTransform); 
+                        rectTransform.SetParent(handRect, true);
+                        HandArea.instance.AddCard(cardMaster);
                         overlaps = true;
                     }
                 }
@@ -597,9 +627,6 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     HandArea.instance.AddCard(cardMaster);
                 }
             }
-            // Only trigger update after all changes
-            TriggerUpdateCards();
-            CardMaster.InvokeUpdateCardTexts();
         }
         else if (droppedOnBoard)
         {
@@ -716,28 +743,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 lastRow = cell.x;
                 lastCol = cell.y;
 
-
-
-                // If card is root, only add to BoardArea.roots if not already in any root's BFS traversal
-                if (cardMaster.is_root && BoardArea.instance.roots != null)
-                {
-                    bool foundInAnyTraversal = false;
-                    foreach (var root in BoardArea.instance.roots)
-                    {
-                        var traversed = BoardArea.GetOrderedBFSFromRoot(root);
-                        if (traversed.Contains(cardMaster))
-                        {
-                            foundInAnyTraversal = true;
-                            break;
-                        }
-                    }
-                    if (!foundInAnyTraversal && !BoardArea.instance.roots.Contains(cardMaster))
-                    {
-                        BoardArea.instance.roots.Add(cardMaster);
-                    }
-                }
-                // Only trigger update after all changes
-                TriggerUpdateCards();
+                
             }
             else
             {
@@ -754,12 +760,53 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             if (cardMaster != null) cardMaster.SetAllLinksHalfTransparent();
             rectTransform.DOAnchorPos(originalAnchoredPosition, 0.3f).SetEase(Ease.OutQuad);
         }
+
         pointerEnterBlockTime = Time.time + 0.5f;
         if (lastHintRow >= 0 && lastHintCol >= 0)
         {
             ResetHintColor(lastHintRow, lastHintCol);
             lastHintRow = lastHintCol = -1;
         }
+
+        // --- NEW LOGIC: Rebuild roots list based on BFS traversal from all is_root cards ---
+        // 1. Find all cards on the board with is_root == true
+        var gridState = BoardArea.instance.gridState;
+        int boardRows = BoardArea.instance.rows;
+        int boardCols = BoardArea.instance.columns;
+        var allRoots = new List<CardMaster>();
+        var traversedSet = new HashSet<CardMaster>();
+        // Collect all is_root cards
+        for (int r = 0; r < boardRows; r++)
+        {
+            for (int c = 0; c < boardCols; c++)
+            {
+                var card = gridState[r, c];
+                if (card != null && card.is_root)
+                {
+                    allRoots.Add(card);
+                }
+            }
+        }
+        var newRoots = new List<CardMaster>();
+        // Traverse each root if not already traversed
+        foreach (var root in allRoots)
+        {
+            if (!traversedSet.Contains(root))
+            {
+                var bfs = BoardArea.GetOrderedBFSFromRoot(root);
+                foreach (var card in bfs)
+                {
+                    traversedSet.Add(card);
+                }
+                newRoots.Add(root);
+            }
+        }
+        // Set the roots list to the new list
+        BoardArea.instance.roots = newRoots;
+
+        // Only trigger update after all changes
+        TriggerUpdateCards();
+
         // After all, update all board cards' links to green if actively connected
         SetActiveBoardLinksGreen();
     }
@@ -778,10 +825,15 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (Time.time < pointerEnterBlockTime) return; // Block shake if within threshold
-        // Start shake feedback
-        if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();
-        shakeTween = rectTransform.DOShakePosition(0.3f, strength: new Vector3(2f, 2f, 0), vibrato: 20, randomness: 90, snapping: false, fadeOut: true);
+        // // Check for nulls before accessing components
+        // var cardCommon = GetComponent<CardCommon>();
+        // if (cardCommon == null) return;
+        // if (Time.time < pointerEnterBlockTime && !cardCommon.CanInteract) return; // Block shake if within threshold
+
+        // // Start shake feedback
+        // if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();
+        // if (rectTransform != null)
+        //     shakeTween = rectTransform.DOShakePosition(0.3f, strength: new Vector3(2f, 2f, 0), vibrato: 20, randomness: 90, snapping: false, fadeOut: true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -791,6 +843,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     private static float lastUpdateCardsTime = -100f;
+
+    // --- Fields for drag UI layering ---
+    private Transform originalParent;
+    private int originalSiblingIndex;
     public static void TriggerUpdateCards()
     {
         if (Time.time - lastUpdateCardsTime < 0.1f) return;

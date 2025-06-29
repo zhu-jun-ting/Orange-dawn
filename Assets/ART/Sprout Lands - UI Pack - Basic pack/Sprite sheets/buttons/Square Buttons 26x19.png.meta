@@ -124,12 +124,12 @@ TextureImporter:
       name: Square Buttons 26x19_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 102
-        width: 28
-        height: 21
+        x: 0
+        y: 96
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -146,12 +146,12 @@ TextureImporter:
       name: Square Buttons 26x19_1
       rect:
         serializedVersion: 2
-        x: 58
-        y: 102
-        width: 28
-        height: 20
+        x: 48
+        y: 96
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -168,12 +168,12 @@ TextureImporter:
       name: Square Buttons 26x19_2
       rect:
         serializedVersion: 2
-        x: 10
-        y: 70
-        width: 28
-        height: 21
+        x: 0
+        y: 64
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -190,12 +190,12 @@ TextureImporter:
       name: Square Buttons 26x19_3
       rect:
         serializedVersion: 2
-        x: 58
-        y: 70
-        width: 28
-        height: 20
+        x: 48
+        y: 64
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,12 +212,12 @@ TextureImporter:
       name: Square Buttons 26x19_4
       rect:
         serializedVersion: 2
-        x: 10
-        y: 38
-        width: 28
-        height: 21
+        x: 0
+        y: 32
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,12 +234,12 @@ TextureImporter:
       name: Square Buttons 26x19_5
       rect:
         serializedVersion: 2
-        x: 58
-        y: 38
-        width: 28
-        height: 20
+        x: 48
+        y: 32
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -256,12 +256,12 @@ TextureImporter:
       name: Square Buttons 26x19_6
       rect:
         serializedVersion: 2
-        x: 10
-        y: 6
-        width: 28
-        height: 21
+        x: 0
+        y: 0
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -278,13 +278,13 @@ TextureImporter:
       name: Square Buttons 26x19_7
       rect:
         serializedVersion: 2
-        x: 58
-        y: 6
-        width: 28
-        height: 20
+        x: 48
+        y: 0
+        width: 48
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 15, y: 11, z: 15, w: 11}
       customData: 
       outline: []
       physicsShape: []
@@ -300,7 +300,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: bc7f522750f86c14f9bd8f64d1bb63fb
     internalID: 0
     vertices: []
     indices: 
@@ -308,7 +308,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":4.0},"gridSpriteSize":{"x":48.0,"y":32.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Square Buttons 26x19_0: 4143683250699916955
       Square Buttons 26x19_1: 7787724450018884072

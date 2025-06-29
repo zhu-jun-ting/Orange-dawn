@@ -6,7 +6,21 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : PawnMaster
 {
-    private float health;
+
+
+    [Header("Player Stats")]
+    public float initial_max_health = 50000f;
+    public float initial_move_speed = 3f;
+    public float initial_dash_speed_multiplier = 3f;
+    public float initial_dash_duration = 0.1f;
+    public float initial_dodge = 0.05f;
+    public float max_health = 50000f;
+    public float health = 50000f;
+    public float moveSpeed = 3f;
+    public float dodge = 0.05f;
+
+
+    [Header("Player Components")]
     public PlayerStat player_stat;
     public GameObject test;
     public int Blinks;
@@ -20,7 +34,7 @@ public class PlayerController : PawnMaster
     private Rigidbody2D rb;
     private float moveH, moveV;
     private float dashMoveH, dashMoveV;
-    private float moveSpeed;
+
 
     private GameObject shadowPrefab;
 
@@ -59,23 +73,31 @@ public class PlayerController : PawnMaster
     [Header("DO NOT MODIFY")]
     public GameObject fire_aoe;
 
+    private void Awake()
+    {
+        // register the instance
+        instance = this;
+    }
+
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
         //    Debug.Log("hello");
         myRender = GetComponent<Renderer>();
-        health = player_stat.max_health;
+        max_health = initial_max_health;
+        health = max_health;
 
         HealthBar.HealthCurrent = health;
-        HealthBar.HealthMax = health;
+        HealthBar.HealthMax = max_health;
 
         rb = GetComponent<Rigidbody2D>();
         frameCount = 0;
 
-        moveSpeed = player_stat.move_speed;
-        dashSpeedMultiplier = player_stat.dash_speed_multiplier;
-        dashDuration = player_stat.dash_duration;
+        moveSpeed = initial_move_speed;
+        dodge = initial_dodge;
+        dashSpeedMultiplier = initial_dash_speed_multiplier;
+        dashDuration = initial_dash_duration;
 
         // isntantiate fire aoe prefab and setup parameters 
         UpdateFireAOE();
@@ -86,10 +108,9 @@ public class PlayerController : PawnMaster
         // ApplyBuff(buff);
 
         // register all events handlers
-        GameEvents.instance.onHitEnemy += OnHitEnemy;
+        // GameEvents.instance.onHitEnemy += OnHitEnemy;
 
-        // register the instance
-        instance = this;
+
 
         // Register input events
         if (InputManager.Instance != null)
@@ -98,6 +119,17 @@ public class PlayerController : PawnMaster
             InputManager.Instance.OnPause += HandlePause;
             // Add more as needed (e.g., OnFire)
         }
+    }
+
+    public void Reset()
+    {
+        max_health = initial_max_health;
+        moveSpeed = initial_move_speed;
+        dodge = initial_dodge;
+        dashSpeedMultiplier = initial_dash_speed_multiplier;
+        dashDuration = initial_dash_duration;
+
+        UpdateMaxHealth();
     }
 
     private void OnEnable()
@@ -217,7 +249,7 @@ public class PlayerController : PawnMaster
     void OnDestroy()
     {
         // deregister all events
-        GameEvents.instance.onHitEnemy -= OnHitEnemy;
+        // GameEvents.instance.onHitEnemy -= OnHitEnemy;
     }
 
     void SwitchGun()
@@ -279,7 +311,11 @@ public class PlayerController : PawnMaster
 
 
 
-
+    public void UpdateMaxHealth()
+    {
+        HealthBar.HealthCurrent = health;
+        HealthBar.HealthMax = max_health;
+    }
 
     private void OnHitEnemy(float damage_, EnemyMaster enemy_)
     {
@@ -287,7 +323,7 @@ public class PlayerController : PawnMaster
         if (use_lifesteal) {
             // here player can recover from the damage made with a percentage
             GainHealth(lifesteal_percent * damage_);
-        } 
+        }
     }
 
     public void GainHealth(float health)

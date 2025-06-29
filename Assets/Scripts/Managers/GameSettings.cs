@@ -20,6 +20,8 @@ public class GameSettings : MonoBehaviour
     public string healColor = "#00FF00"; // Green
     public string probColor  = "#0000FF"; // Blue
     public string numColor  = "#FFFF00"; // Yellow
+    [Header("Card Colors")]
+    public float destroyEffectDuration = 0.5f;
 
     void Awake()
     {

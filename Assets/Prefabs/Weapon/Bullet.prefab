@@ -174,7 +174,7 @@ MonoBehaviour:
   - Enemy
   - Player
   bounce_randomness: 10
-  inertia: 0
+  inertia: 0.5
   hit_back: 5
   gun: {fileID: 0}
   bounceLayers:

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CardValueAddAttack : CardMaster
+public class CardValueAddHealth : CardMaster
 {
 
     [Header("Card Add Attack Settings")]
@@ -29,12 +29,12 @@ public class CardValueAddAttack : CardMaster
                 if (link.card_type == CardType.Gun)
                 {
                     // If the link is a gun card, we should apply the buff at the very end
-                    CardMaster.OnApplyValuesToGuns += () => link.UpdateNumberValue(CardMaster.NumberType.Damage, attackToAdd, instance);
+                    CardMaster.OnApplyValuesToGuns += () => link.UpdateNumberValue(CardMaster.NumberType.Health, attackToAdd, instance);
                 }
                 else
                 {
                     // If the link is a value card, we can add attack to it
-                    link.UpdateNumberValue(CardMaster.NumberType.Damage, attackToAdd, instance);
+                    link.UpdateNumberValue(CardMaster.NumberType.Health, attackToAdd, instance);
                 }
 
             }
@@ -67,7 +67,7 @@ public class CardValueAddAttack : CardMaster
         if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return;
         base.UpdateNumberValue(numberType, value, source);
 
-        if (numberType == CardMaster.NumberType.Damage)
+        if (numberType == CardMaster.NumberType.Health)
         {
             attackToAdd += value;
         }
@@ -76,12 +76,12 @@ public class CardValueAddAttack : CardMaster
 
     public override void UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
     {
-        if (numberType == CardMaster.NumberType.Damage && isPermanent)
+        if (numberType == CardMaster.NumberType.Health && isPermanent)
         {
             attackToAdd += value;
             attackToAddDefault += value;
         } 
-        else if (numberType == CardMaster.NumberType.Damage && !isPermanent)
+        else if (numberType == CardMaster.NumberType.Health && !isPermanent)
         {
             attackToAdd += value;
         }

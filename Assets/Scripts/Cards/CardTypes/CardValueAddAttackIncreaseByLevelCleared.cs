@@ -22,7 +22,7 @@ public class CardValueAddAttackIncreaseByLevelCleared : CardMaster
         // Debug.Log($"CardAddAttack OnEnaable: {instance.name}, current_gun: {current_gun}");
 
         // Try to find the gun reference from linked cards
-        current_gun = GetLinkedGun();
+        current_gun = null;
 
         // Call UpdateNumberValue on all linked cards
         CardMaster[] linked = new CardMaster[] {up_link_cardmaster, left_link_cardmaster, right_link_cardmaster, down_link_cardmaster};
@@ -30,17 +30,16 @@ public class CardValueAddAttackIncreaseByLevelCleared : CardMaster
         {
             if (link != null)
             {
-                if (link.card_type == CardType.Value)
-                {
-                    // If the link is a value card, we can add attack to it
-                    link.UpdateNumberValue(CardMaster.NumberType.Damage, attackToAdd, instance);
-                }
-                else
+                if (link.card_type == CardType.Gun)
                 {
                     // If the link is a gun card, we should apply the buff at the very end
                     CardMaster.OnApplyValuesToGuns += () => link.UpdateNumberValue(CardMaster.NumberType.Damage, attackToAdd, instance);
                 }
-
+                else
+                {
+                    // If the link is a value card, we can add attack to it
+                    link.UpdateNumberValue(CardMaster.NumberType.Damage, attackToAdd, instance);
+                }
             }
         }
 

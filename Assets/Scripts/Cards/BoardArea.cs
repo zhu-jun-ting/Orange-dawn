@@ -154,11 +154,11 @@ public class BoardArea : MonoBehaviour
     public Vector2 GetGridCellPosition(int row, int col, Vector2 cardSize)
     {
         // Consider board scaling
-        float scale = UIContentScaler.instance != null ? UIContentScaler.instance.transform.localScale.x : 1f;
-        float cellWidth = (cardSize.x + margin) * scale;
-        float cellHeight = (cardSize.y + margin) * scale;
-        Vector2 boardSize = cardHolderTransform.rect.size * scale;
-        Vector2 origin = new Vector2(-boardSize.x / 2f, boardSize.y / 2f) * scale;
+        // float scale = UIContentScaler.instance != null ? UIContentScaler.instance.transform.localScale.x : 1f;
+        float cellWidth = (cardSize.x + margin);
+        float cellHeight = (cardSize.y + margin);
+        Vector2 boardSize = cardHolderTransform.rect.size;
+        Vector2 origin = new Vector2(-boardSize.x / 2f, boardSize.y / 2f);
         float snappedX = origin.x + col * cellWidth;
         float snappedY = origin.y - row * cellHeight;
         return new Vector2(snappedX, snappedY);

@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    public float damage;
-    public float speed;
-    public float recon;
-    public float interval;
+    public float damage = 100f;
+    public float speed = 10f;
+    public float recon = 4f;
+    public float interval = 2f;
     public int bulletNum = 1; // number of bullets fired per shot (if > 1, it will be a shotgun-like spread)
     public float bulletAngle = 15f; // angle between bullets in shotgun spread
     public float critChance = 0.05f; // critical hit chance
@@ -29,17 +29,21 @@ public class Gun : MonoBehaviour
     private float initialRecon;
     private float initialInterval;
 
+    private void Awake()
+    {
+        // Store initial values
+        initialDamage = damage;
+        initialSpeed = speed;
+        initialRecon = recon;
+        initialInterval = interval;
+    }
+
     protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         muzzlePos = transform.Find("Muzzle");
         shellPos = transform.Find("BulletShell");
         flipY = transform.localScale.y;
-        // Store initial values
-        initialDamage = damage;
-        initialSpeed = speed;
-        initialRecon = recon;
-        initialInterval = interval;
     }
 
     protected virtual void Update()

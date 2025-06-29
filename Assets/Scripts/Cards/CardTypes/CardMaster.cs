@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using DG.Tweening;
 
 public class CardMaster : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CardMaster : MonoBehaviour
     public int card_cost = 0;
     public int card_sell_price = 0;
     [TextArea(3, 10)] public string card_description;
+    private float destroyEffectDuration => GameSettings.instance ? GameSettings.instance.destroyEffectDuration : 0.5f;
     public Gun current_gun;
 
     // events to update card values and texts
@@ -51,6 +53,7 @@ public class CardMaster : MonoBehaviour
         Probablity,
         Amount,
         Mana,
+        Speed,
     }
 
     public enum CardType
@@ -223,8 +226,74 @@ public class CardMaster : MonoBehaviour
         // do something when the card is level cleared
         OnThisCardLevelCleared?.Invoke();
     }
+    
+    public void DissolveAllImagesAndTMPs(GameObject root, float duration)
+    {
+        var images = root.GetComponentsInChildren<UnityEngine.UI.Image>(true);
+        foreach (var img in images)
+        {
+            if (img.material != null && img.material.HasProperty("_DissolveAmount"))
+            {
+                DOTween.To(
+                    () => img.material.GetFloat("_DissolveAmount"),
+                    x => img.material.SetFloat("_DissolveAmount", x),
+                    1f, duration
+                ).SetEase(Ease.InQuad);
+            }
+        }
+        // Also dissolve all TMP_Text components if using a compatible dissolve material
+        var tmps = root.GetComponentsInChildren<TMPro.TMP_Text>(true);
+        foreach (var tmp in tmps)
+        {
+            if (tmp.fontMaterial != null && tmp.fontMaterial.HasProperty("_DissolveAmount"))
+            {
+                DOTween.To(
+                    () => tmp.fontMaterial.GetFloat("_DissolveAmount"),
+                    x => tmp.fontMaterial.SetFloat("_DissolveAmount", x),
+                    1f, duration
+                ).SetEase(Ease.InQuad);
+            }
+        }
+    }
 
-    public virtual void OnCardDestroyed() {
+    public virtual void OnCardDestroyed()
+    {
+
+        // --- DOTween Effect: Dissolve before moving card away ---
+        var canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        // Try to find a material with a _DissolveAmount property
+        var renderer = GetComponent<UnityEngine.UI.Image>() ?? (Component)GetComponent<SpriteRenderer>();
+        Material mat = null;
+        if (renderer is UnityEngine.UI.Image img && img.material.HasProperty("_DissolveAmount"))
+            mat = img.material;
+        else if (renderer is SpriteRenderer sr && sr.material.HasProperty("_DissolveAmount"))
+            mat = sr.material;
+        // If dissolve material found, animate dissolve
+        if (mat != null)
+        {
+            DissolveAllImagesAndTMPs(gameObject, destroyEffectDuration);
+        }
+        else
+        {
+            // fallback: fade out
+            canvasGroup.DOFade(0f, destroyEffectDuration).SetEase(Ease.InQuad);
+        }
+        // Optionally scale up for extra feedback
+        transform.DOScale(1.6f, destroyEffectDuration).SetEase(Ease.InQuad);
+        canvasGroup.DOFade(0f, destroyEffectDuration).SetEase(Ease.InQuad);
+        // Wait for the effect to finish before moving far away
+        DOVirtual.DelayedCall(destroyEffectDuration, () =>
+        {
+            this.transform.position = new Vector3(10000, 10000, 10000);
+            // Move this card to the hand area before destroying
+            if (HandArea.instance != null)
+            {
+                this.transform.SetParent(HandArea.instance.DiscardedCardsParent, false);
+                HandArea.instance.AddDiscardedCard(this);
+            }
+        });
+
         // do something when the card is destroyed
         OnThisCardDestroyed?.Invoke();
 
@@ -321,16 +390,6 @@ public class CardMaster : MonoBehaviour
                 }
             }
         }
-
-        // Move this card to the hand area before destroying
-        if (HandArea.instance != null)
-        {
-            this.transform.SetParent(HandArea.instance.transform, false);
-            HandArea.instance.AddCard(this);
-        }
-
-        // make the destroyed card invisible
-        this.transform.position = new Vector3(10000, 10000, 10000);
 
         CardDragHandler.TriggerUpdateCards();
 
@@ -553,8 +612,19 @@ public class CardMaster : MonoBehaviour
                 break;
             }
         }
-        current_gun = foundGun; // Set to found gun or null if none
         return foundGun;
+    }
+    
+    public Gun GetLinkedGun(CardDir dir)
+    {
+        switch (dir)
+        {
+            case CardDir.Up: return up_link_cardmaster?.current_gun;
+            case CardDir.Left: return left_link_cardmaster?.current_gun;
+            case CardDir.Right: return right_link_cardmaster?.current_gun;
+            case CardDir.Down: return down_link_cardmaster?.current_gun;
+            default: return null;
+        }
     }
 
     // Custom LinkType comparison: Common matches any, others only match themselves
