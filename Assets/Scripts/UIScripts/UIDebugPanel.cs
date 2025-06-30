@@ -103,5 +103,24 @@ public class UIDebugPanel : MonoBehaviour
         GameEvents.OnModifyDamage += DoubleDamage;
     }
 
+    public void ShowMsgInfo() 
+    {
+        GameEvents.instance.ShowMessage("This is a debug message", GameEvents.MessageType.FullInfo, Vector2.zero);
+    }
+
+        public void ShowMsgWarning() 
+    {
+        GameEvents.instance.ShowMessage("This is a debug message", GameEvents.MessageType.FullWarning, Vector2.zero);
+    }
+
+    public void ShowMsgLocal() 
+    {
+        GameEvents.instance.ShowMessage(
+            "This is a debug message",
+            GameEvents.MessageType.LocalInfo,
+            new Vector2(Screen.width / 2f, Screen.height / 2f)
+        );
+    }
+
     float DoubleDamage(float dmg) => dmg * 2f;
 }

@@ -41,7 +41,7 @@ public class GameEvents : MonoBehaviour
 
         if (OnHitPawn != null)
         {
-            OnHitPawn(damage_, reciever_, instigator_, damage_type_, location_,  hit_back_factor_, source_);
+            OnHitPawn(damage_, reciever_, instigator_, damage_type_, location_, hit_back_factor_, source_);
         }
         if (onShowNumberUI != null && location_ != null)
         {
@@ -89,6 +89,16 @@ public class GameEvents : MonoBehaviour
         if (OnUpdateCoins != null)
         {
             OnUpdateCoins(diffCoin);
+        }
+    }
+
+    public enum MessageType { FullInfo, FullWarning, LocalInfo }
+    public event Action<string, MessageType, Vector2> OnShowMessage;
+    public void ShowMessage(string message, MessageType type = MessageType.FullInfo, Vector2 position = default(Vector2))
+    {
+        if (OnShowMessage != null)
+        {
+            OnShowMessage(message, type, position);
         }
     }
 }

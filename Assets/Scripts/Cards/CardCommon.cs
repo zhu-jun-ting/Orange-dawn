@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -516,7 +517,7 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             return;
         if (UIStarParent != null) UIStarParent.gameObject.SetActive(false);
     }
-    
+
     /// <summary>
     /// Clears all UIStar states and destroys their GameObjects.
     /// </summary>
@@ -529,5 +530,26 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
         uiStarObjects.Clear();
         uiStarStates.Clear();
+    }
+
+    /// <summary>
+    /// Shows a popup (UIMessageLocal) above this card with a given message.
+    /// </summary>
+    /// <param name="message">The text to display in the popup.</param>
+    /// <param name="margin">Vertical margin above the card in local space (default 5f).</param>
+    /// <summary>
+    /// Shows a popup (UIMessageLocal) above this card with a given message.
+    /// </summary>
+    /// <param name="message">The text to display in the popup.</param>
+    /// <param name="margin">Vertical margin above the card in local space (default 5f).</param>
+    public void ShowPopup(string message, float margin = 5f)
+    {
+        // Get the top center world position of this card
+        var rect = GetComponent<RectTransform>();
+        if (rect == null) return;
+        Vector3 worldTop = rect.TransformPoint(new Vector3(0, rect.rect.height * 0.5f + margin, 0));
+        // Convert to screen position
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldTop);
+        GameEvents.instance.ShowMessage(message, GameEvents.MessageType.LocalInfo, screenPos);
     }
 }

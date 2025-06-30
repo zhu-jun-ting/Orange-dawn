@@ -30,6 +30,12 @@ public class BoardArea : MonoBehaviour
     public List<CardMaster> roots = new List<CardMaster>();
 
     private static bool isUpdateRootsRegistered = false;
+    private CardMaster _lastDraggedCard;
+    public CardMaster lastDraggedCard
+    {
+        get => _lastDraggedCard;
+        set => _lastDraggedCard = value;
+    }
 
     void Awake()
     {

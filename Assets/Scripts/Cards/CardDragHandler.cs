@@ -535,6 +535,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         rectTransform.DOScale(1f, 0.2f).SetEase(Ease.OutBack);
         if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();
         BoardArea.instance.HideCardHints();
+        BoardArea.instance.lastDraggedCard = cardMaster;
 
         // --- Restore original parent and sibling index if changed during drag ---
         if (_originalParent != null && rectTransform.parent != _originalParent)

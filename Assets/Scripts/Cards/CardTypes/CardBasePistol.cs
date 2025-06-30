@@ -101,11 +101,28 @@ public class CardBasePistol : CardMaster
         if (numberType == CardMaster.NumberType.Damage)
         {
             current_gun.damage += value;
+
+            // Only show popup if this card or source card is lastDraggedCard
+            var lastDragged = BoardArea.instance != null ? BoardArea.instance.lastDraggedCard : null;
+            if (lastDragged == this || (source != null && lastDragged == source))
+            {
+                var cardCommon = GetComponent<CardCommon>();
+                if (cardCommon != null) cardCommon.ShowPopup($"+ {value} Damage");
+            }
             return true;
         }
         else
         {
-            Debug.LogError($"UpdateNumberValue not implemented for {instance.name}. NumberType: {numberType}, Value: {value}");
+            // Only show warning if this card or source card is lastDraggedCard
+            var lastDragged = BoardArea.instance != null ? BoardArea.instance.lastDraggedCard : null;
+            if (lastDragged == this || (source != null && lastDragged == source))
+            {
+                GameEvents.instance.ShowMessage(
+                    $"UpdateNumberValue not implemented for {instance.name}. NumberType: {numberType}, Value: {value}",
+                    GameEvents.MessageType.FullWarning,
+                    Vector2.zero
+                );
+            }
             return false;
         }
     }

@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,26 +7,144 @@ using System;
 using DG.Tweening;
 
 public class CanvasManager : MonoBehaviour, ICanvasManager {
-    private static CanvasManager s_instance;
+	private static CanvasManager s_instance;
 	[SerializeField] private View[] _views;
 
 	[Serializable]
 	public class KeyValuePair {
-  		public string key;
-  		public GameObject val;
+		public string key;
+		public GameObject val;
 	}
 
- 	[SerializeField] private List<KeyValuePair> popupList = new List<KeyValuePair>();
+	[SerializeField] private List<KeyValuePair> popupList = new List<KeyValuePair>();
 	public Dictionary<string, GameObject> popupAssets = new Dictionary<string, GameObject>();
 
 	// public GameObject damagePrefab;
 	public Canvas canvas;
 
-	public static T GetView<T>() where T : View {
-		for (int i = 0; i < s_instance._views.Length; i++) {
+	[Header("Message UI")]
+	public Transform messageEntryParent;
+	public GameObject messageEntryFullInfo;
+	public GameObject messageEntryFullWarning;
+	public GameObject messageEntryLocalInfo;
+	public Transform popupParent; // Parent for popups
+	public float fadeTime = 0.5f; // fading in out time
+	public float showDuration = 1f; // how long this message is shown before fading out
+
+
+	void Awake()
+	{
+		s_instance = this;
+	}
+
+	// Handler for OnShowMessage event
+	void Start()
+	{
+		if (GameEvents.instance != null)
+		{
+			// register all events handlers
+			GameEvents.instance.onShowNumberUI += DisplayDamage;
+			GameEvents.instance.OnShowMessage += HandleShowMessage;
+		}
+			
+
+		for (int i = 0; i < _views.Length; i++) {
+			_views[i].Initialize();
+		}
+
+		
+
+		foreach (var kvp in popupList) {
+			popupAssets[kvp.key] = kvp.val;
+			// Debug.Log( kvp.key );
+			// Debug.Log( kvp.val );
+		}
+	}
+
+	void OnDisable()
+	{
+		if (GameEvents.instance != null)
+			GameEvents.instance.OnShowMessage -= HandleShowMessage;
+	}
+
+	private void HandleShowMessage(string message, GameEvents.MessageType type, Vector2 position)
+	{
+		if (messageEntryParent == null) return;
+
+		if (type == GameEvents.MessageType.FullInfo || type == GameEvents.MessageType.FullWarning){
+			// Choose prefab based on type
+			GameObject prefab = null;
+			switch (type)
+			{
+				case GameEvents.MessageType.FullInfo:
+					prefab = messageEntryFullInfo;
+					break;
+				case GameEvents.MessageType.FullWarning:
+					prefab = messageEntryFullWarning;
+					break;
+				default:
+					prefab = messageEntryFullInfo;
+					break;
+			}
+			if (prefab == null) return;
+
+			// Activate parent if not active
+			if (!messageEntryParent.gameObject.activeSelf)
+				messageEntryParent.gameObject.SetActive(true);
+
+			// Ensure parent is fully opaque
+			var parentCanvasGroup = messageEntryParent.GetComponent<CanvasGroup>();
+			if (parentCanvasGroup != null && parentCanvasGroup.alpha < 1f)
+				parentCanvasGroup.alpha = 1f;
+
+			// Instantiate message entry
+			GameObject entry = Instantiate(prefab, messageEntryParent);
+			var uiMsg = entry.GetComponent<UIMessageFull>();
+			if (uiMsg != null)
+			{
+				uiMsg.SetText(message);
+				uiMsg.SetDurationAndFade(showDuration, fadeTime);
+			}
+		}
+		else if (type == GameEvents.MessageType.LocalInfo)
+		{
+			if (messageEntryLocalInfo == null || popupParent == null) return;
+			GameObject entry = Instantiate(messageEntryLocalInfo, popupParent);
+			var uiMsg = entry.GetComponent<UIMessageLocal>();
+			if (uiMsg != null)
+			{
+				uiMsg.SetText(message);
+			}
+			// Set position in screen space
+			RectTransform entryRect = entry.transform as RectTransform;
+			if (entryRect != null)
+			{
+				// Convert screen position (Vector2) to local position in popupParent's RectTransform
+				Vector2 localPos;
+				RectTransform parentRect = popupParent as RectTransform;
+				if (parentRect != null && RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, position, null, out localPos))
+				{
+					entryRect.anchoredPosition = localPos;
+				}
+				else
+				{
+					entryRect.anchoredPosition = position;
+				}
+			}
+		}
+	}
+
+
+
+
+
+	public static T GetView<T>() where T : View
+	{
+		for (int i = 0; i < s_instance._views.Length; i++)
+		{
 
 			if (s_instance._views[i] is T tView) { return tView; }
-        }
+		}
 
 		return null;
 	}
@@ -39,30 +158,13 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 		}
 	}
 
-    public static void Hide<T>() where T : View {
+	public static void Hide<T>() where T : View {
 		for (int i = 0; i < s_instance._views.Length; i++) {
 			if (s_instance._views[i] is T) {
 
 				s_instance._views[i].Hide();
 			}
 		}
-	}
-
-	void Awake() => s_instance = this;
-
-	void Start() {
-        for (int i = 0; i < _views.Length; i++) {
-			_views[i].Initialize();
-		}
-
-		// register all events handlers
-        GameEvents.instance.onShowNumberUI += DisplayDamage;
-
-		foreach (var kvp in popupList) {
-    		popupAssets[kvp.key] = kvp.val;
-			// Debug.Log( kvp.key );
-			// Debug.Log( kvp.val );
-  		}
 	}
 
 	void Update() { 
@@ -113,9 +215,9 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	}
 
 
-    void OnDestroy()
-    {
-        // deregister all events
-        GameEvents.instance.onShowNumberUI -= DisplayDamage;
-    }
+	void OnDestroy()
+	{
+		// deregister all events
+		GameEvents.instance.onShowNumberUI -= DisplayDamage;
+	}
 }
