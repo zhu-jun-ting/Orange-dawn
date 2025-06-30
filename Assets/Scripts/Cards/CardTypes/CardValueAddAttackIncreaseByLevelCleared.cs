@@ -80,10 +80,10 @@ public class CardValueAddAttackIncreaseByLevelCleared : CardMaster
         return string.Format(card_description, attackToAdd, attackToAddDefault);
     }
 
-    public override void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
+    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
     {
 
-        if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return;
+        if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;
 
         // if source is a children of me, then I should take the buff from source
         // TODO: decide whether to allow buffs from children or not
@@ -96,9 +96,9 @@ public class CardValueAddAttackIncreaseByLevelCleared : CardMaster
         if (numberType == CardMaster.NumberType.Damage)
         {
             attackToAdd += value;
-            // card_description = string.Format(card_description, attackToAdd);
-            // Debug.Log(string.Format(card_description, attackToAdd));
+            return true;
         }
-
+        
+        return false;
     }
 }

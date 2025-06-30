@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ public class CardValueAddAttack : CardMaster
     public float attackToAdd = 10f;
     private float attackToAddDefault = 10f;
 
-    protected override void Awake() {
+    protected override void Awake()
+    {
         base.Awake();
         attackToAddDefault = attackToAdd;
     }
@@ -21,7 +23,7 @@ public class CardValueAddAttack : CardMaster
         current_gun = null;
 
         // Call UpdateNumberValue on all linked cards
-        CardMaster[] linked = new CardMaster[] {up_link_cardmaster, left_link_cardmaster, right_link_cardmaster, down_link_cardmaster};
+        CardMaster[] linked = new CardMaster[] { up_link_cardmaster, left_link_cardmaster, right_link_cardmaster, down_link_cardmaster };
         foreach (var link in linked)
         {
             if (link != null)
@@ -54,38 +56,58 @@ public class CardValueAddAttack : CardMaster
         attackToAdd = attackToAddDefault;
         base.Reset(); // Call the base reset method to reset other properties
     }
-    
+
     // return the formatted description of the card
     public override string GetDescription()
     {
         return string.Format(card_description, attackToAdd);
     }
 
-    public override void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
+    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
     {
 
-        if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return;
+        if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;
         base.UpdateNumberValue(numberType, value, source);
 
         if (numberType == CardMaster.NumberType.Damage)
         {
             attackToAdd += value;
+            return true;
         }
+
+        return false;
 
     }
 
-    public override void UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
+    public override bool UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
     {
+        base.UpdateSelfNumberValue(numberType, value, isPermanent);
+
         if (numberType == CardMaster.NumberType.Damage && isPermanent)
         {
             attackToAdd += value;
             attackToAddDefault += value;
-        } 
+
+            return true;
+        }
         else if (numberType == CardMaster.NumberType.Damage && !isPermanent)
         {
             attackToAdd += value;
+
+            return true;
         }
 
-        base.UpdateSelfNumberValue(numberType, value);
+        return false;
+    }
+    
+    public override UIStar.StarType GetStarType(CardMaster cardMaster = null)
+    {
+        if (cardMaster == null)
+            return UIStar.StarType.White;
+        if (cardMaster.numberTypesCanBeModified != null && cardMaster.numberTypesCanBeModified.Contains(NumberType.Damage))
+        {
+            return UIStar.StarType.Yellow;
+        }
+        return UIStar.StarType.White;
     }
 }

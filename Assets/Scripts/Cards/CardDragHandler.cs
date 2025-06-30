@@ -367,7 +367,8 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
 
         // --- Reset all links to black 50% transparent on this card, but only if enabled AND type is not Common; otherwise set invisible ---
-        if (cardMaster != null) {
+        if (cardMaster != null)
+        {
             if (cardMaster.up_link_enabled)
                 cardMaster.SetLinkHalfTransparentBlack("up");
             else
@@ -448,17 +449,24 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         {
             tmpCardMaster = BoardArea.instance.GetCell(lastRow, lastCol);
             BoardArea.instance.ClearCell(lastRow, lastCol);
-        } 
-        
+        }
     }
-
+        
+    private bool isDragging;
+    public bool IsDragging
+    {
+        get { return isDragging; }
+        set { isDragging = value; }
+    }
     public void OnDrag(PointerEventData eventData)
     {
+        isDragging = true;
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         // 1. Reset all links on all cards to black 50% transparent
         // ResetAllCardLinksHalfTransparentBlack();
         // 1a. Also reset this card's links to black 50% transparent only if enabled AND type is not Common; otherwise set invisible before hint
-        if (cardMaster != null) {
+        if (cardMaster != null)
+        {
             if (cardMaster.up_link_enabled)
                 cardMaster.SetLinkHalfTransparentBlack("up");
             else
@@ -472,7 +480,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             else
                 cardMaster.SetLinkAlpha(left_link_gameobject, 0f);
             if (cardMaster.right_link_enabled)
-                cardMaster.SetLinkHalfTransparentBlack("right"); 
+                cardMaster.SetLinkHalfTransparentBlack("right");
             else
                 cardMaster.SetLinkAlpha(right_link_gameobject, 0f);
         }
@@ -504,14 +512,17 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             {
                 if (lastHintRow >= 0 && lastHintCol >= 0)
                     ResetHintColor(lastHintRow, lastHintCol);
+
                 canPlace = !BoardArea.instance.IsCellOccupied(cell.x, cell.y) && CanPlaceCardAtCell(cell.x, cell.y, cardMaster);
                 SetHintColor(cell.x, cell.y, canPlace ? colorCanPlace : colorCannotPlace);
-                // if (canPlace) PreviewLinkVisuals(cell.x, cell.y); // This will set green links for the drag preview
+                if (canPlace) cardMaster.UpdateUIStars(new Vector2Int(cell.x, cell.y)); // Update stars based on placement
+                else cardMaster.ResetUIStars(); // Reset stars if cannot place
+
                 lastHintRow = cell.x;
                 lastHintCol = cell.y;
             }
             if (canPlace) PreviewLinkVisuals(cell.x, cell.y); // This will set green links for the drag preview
-            
+
         }
         // After all, update all board cards' links to green if actively connected
         SetActiveBoardLinksGreen();
@@ -519,7 +530,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-
+        isDragging = false;
         canvasGroup.blocksRaycasts = true;
         rectTransform.DOScale(1f, 0.2f).SetEase(Ease.OutBack);
         if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();

@@ -86,26 +86,27 @@ public class CardBasePistol : CardMaster
         return current_gun;
     }
 
-    public override void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source)
+    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source)
     {
         if (IsBuffedFromSource(source, addToList:true, includeSelf:true))
         {
-            return;
+            return false;
         }
 
         base.UpdateNumberValue(numberType, value, source);
 
 
-        if (current_gun == null) return;
+        if (current_gun == null) return false;
 
         if (numberType == CardMaster.NumberType.Damage)
         {
             current_gun.damage += value;
-            // Debug.Log($"UpdateNumberValue from: {source.card_name} - Damage increase {value} New Damage: {current_gun.damage}");
+            return true;
         }
         else
         {
             Debug.LogError($"UpdateNumberValue not implemented for {instance.name}. NumberType: {numberType}, Value: {value}");
+            return false;
         }
     }
 

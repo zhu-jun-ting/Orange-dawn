@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using DG.Tweening;
+using System.Numerics;
 
 public class CardMaster : MonoBehaviour
 {
+    [Header("Card Settings")]
     // common for all cards
     public Sprite card_icon;
     public string card_id; // unique identifier for the card
@@ -15,7 +17,14 @@ public class CardMaster : MonoBehaviour
     public int card_sell_price = 0;
     [TextArea(3, 10)] public string card_description;
     private float destroyEffectDuration => GameSettings.instance ? GameSettings.instance.destroyEffectDuration : 0.5f;
-    public Gun current_gun;
+
+    [Header("Card UIStars")]
+    public List<UnityEngine.Vector2Int> uiStarPositions = new List<UnityEngine.Vector2Int>(); // Positions for UI stars, if any
+    public List<NumberType> numberTypesCanBeModified = new List<NumberType>(); // Types of numbers that can be buffed by this card
+
+
+    // current gun reference, used for gun cards
+    [HideInInspector] public Gun current_gun;
 
     // events to update card values and texts
     //   OnUpdateCardValues: perform a BFS from root card to update all linked cards' values
@@ -118,6 +127,11 @@ public class CardMaster : MonoBehaviour
         instance = this;
     }
 
+    void Start()
+    {
+        ResetUIStars();
+    }
+
     public virtual void OnCardEnable()
     {
         // Invoke the event for this card
@@ -134,14 +148,14 @@ public class CardMaster : MonoBehaviour
         ClearUpdateSources();
     }
 
-    public virtual void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
+    public virtual bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
     {
-
+        return false;
     }
 
-    public virtual void UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
+    public virtual bool UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
     {
-
+        return false;
     }
 
     public void AddBuffEntry(string buffName, string buffDescription, int order = 0) 
@@ -226,6 +240,44 @@ public class CardMaster : MonoBehaviour
         // do something when the card is level cleared
         OnThisCardLevelCleared?.Invoke();
     }
+
+    public virtual UIStar.StarType GetStarType(CardMaster cardMaster = null)
+    {
+        // Default implementation returns None, override in derived classes
+        return UIStar.StarType.White;
+    } 
+
+    public void UpdateUIStars(UnityEngine.Vector2Int thisCardPosition = default)
+    {
+        if (uiStarPositions == null || uiStarPositions.Count == 0) return;
+
+        // Create new stars at specified positions
+        foreach (var pos in uiStarPositions)
+        {
+            var cardCommon = GetComponent<CardCommon>();
+            if (cardCommon != null)
+            {
+                int row = (thisCardPosition.x - pos.x);
+                int col = (thisCardPosition.y + pos.y);
+                cardCommon.SetUIStar(pos, GetStarType(BoardArea.instance.GetCell(row, col)));
+            }
+        }
+    }
+
+    public void ResetUIStars()
+    {
+        if (uiStarPositions == null || uiStarPositions.Count == 0) return;
+
+        // Create new stars at specified positions
+        foreach (var pos in uiStarPositions)
+        {
+            var cardCommon = GetComponent<CardCommon>();
+            if (cardCommon != null)
+            {
+                cardCommon.SetUIStar(pos, UIStar.StarType.White); // set white for reset
+            }
+        }
+    }
     
     public void DissolveAllImagesAndTMPs(GameObject root, float duration)
     {
@@ -285,7 +337,7 @@ public class CardMaster : MonoBehaviour
         // Wait for the effect to finish before moving far away
         DOVirtual.DelayedCall(destroyEffectDuration, () =>
         {
-            this.transform.position = new Vector3(10000, 10000, 10000);
+            this.transform.position = new UnityEngine.Vector3(10000, 10000, 10000);
             // Move this card to the hand area before destroying
             if (HandArea.instance != null)
             {

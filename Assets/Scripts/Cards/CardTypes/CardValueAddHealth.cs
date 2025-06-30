@@ -61,31 +61,37 @@ public class CardValueAddHealth : CardMaster
         return string.Format(card_description, attackToAdd);
     }
 
-    public override void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
+    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
     {
 
-        if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return;
+        if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;
         base.UpdateNumberValue(numberType, value, source);
 
         if (numberType == CardMaster.NumberType.Health)
         {
             attackToAdd += value;
+            return true;
         }
+
+        return false;
 
     }
 
-    public override void UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
+    public override bool UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
     {
         if (numberType == CardMaster.NumberType.Health && isPermanent)
         {
             attackToAdd += value;
             attackToAddDefault += value;
-        } 
+            return true;
+        }
         else if (numberType == CardMaster.NumberType.Health && !isPermanent)
         {
             attackToAdd += value;
+            return true;
         }
 
         base.UpdateSelfNumberValue(numberType, value);
+        return false;
     }
 }

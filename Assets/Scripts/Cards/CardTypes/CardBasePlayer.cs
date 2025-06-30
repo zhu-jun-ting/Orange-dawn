@@ -44,33 +44,29 @@ public class CardBasePlayer : CardMaster
         return "";
     }
 
-    public override void UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source)
+    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source)
     {
-        if (IsBuffedFromSource(source, addToList: true, includeSelf: true))
-        {
-            return;
-        }
+        if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;
 
         base.UpdateNumberValue(numberType, value, source);
 
         if (player == null) player = PlayerController.instance;
-        if (player == null) return;
+        if (player == null) return false;
 
         switch (numberType)
         {
             case NumberType.Health:
                 player.max_health += value;
                 player.UpdateMaxHealth();
-                break;
+                return true;
             case NumberType.Probablity:
                 player.dodge += value;
-                break;
+                return true;
             case NumberType.Speed:
                 player.moveSpeed += value;
-                break;
+                return true;
             default:
-                Debug.LogError($"UpdateNumberValue not implemented for {instance.name}. NumberType: {numberType}, Value: {value}");
-                break;
+                return false;
         }
     }
 

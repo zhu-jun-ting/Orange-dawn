@@ -35,6 +35,10 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public float showDelay = 0.1f; // Delay before showing buff entry
     public float fadeInDuration = 0.3f; // Duration for fade-in effect
     public List<Transform> transformsToShowOnHover; // Positions for buff entries
+    public GameObject UIStarPrefab; // Prefab for UI star that hints player for effective card links 
+    public Transform UIStarParent; // Parent for UI stars
+    // public List<Vector2> UIStarPositions; // Positions for UI stars
+
 
     // private variables for hover behavior
     private bool isHovering = false;
@@ -68,7 +72,7 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     // private variables for card master
     private CardMaster cardMaster;
-    
+
     public bool IsSpotlighted => isSpotlighted;
     public bool CanInteract => !isSpotlighted && !isTweening && Time.time - lastInteractionTime >= MinInteractionTimeDiff;
 
@@ -236,8 +240,10 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (hoverScaleTween != null && hoverScaleTween.IsActive()) hoverScaleTween.Kill();
         transform.SetAsLastSibling();
         hoverScaleTween = transform.DOScale(hoverScale, hoverScaleDuration).SetEase(Ease.OutBack);
-    }
 
+        // Show all UIStars only if not spotlighted
+        if (!isSpotlighted) ShowAllUIStars();
+    }
 
     public void OnPointerExit(PointerEventData eventData)
     {
@@ -250,6 +256,9 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         // --- DOTween scale back to normal ---
         if (hoverScaleTween != null && hoverScaleTween.IsActive()) hoverScaleTween.Kill();
         hoverScaleTween = transform.DOScale(1.0f, hoverScaleDuration).SetEase(Ease.InQuad);
+
+        // Hide all UIStars
+        HideAllUIStars();
     }
 
     private IEnumerator ShowTransformsSequence()
@@ -412,7 +421,7 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void AddBuffDescription(string buffName, string buffDescription, int order = 0)
     {
         if (buffPanelLayout == null || buffEntryPrefab == null || string.IsNullOrEmpty(buffName)) return;
-        
+
         // Search for existing buff entry by name
         BuffEntry existing = null;
         foreach (Transform child in buffPanelLayout.transform)
@@ -456,4 +465,69 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         newEntryGO.transform.SetSiblingIndex(insertIndex);
     }
 
+    // Use UIStar.StarType for all star logic
+    private Dictionary<Vector2, UIStar.StarType> uiStarStates = new Dictionary<Vector2, UIStar.StarType>();
+    private Dictionary<Vector2, GameObject> uiStarObjects = new Dictionary<Vector2, GameObject>();
+
+    /// <summary>
+    /// Set a UIStar at a relative position with a given type. Creates or updates as needed.
+    /// </summary>
+    public void SetUIStar(Vector2 pos, UIStar.StarType type)
+    {
+        if (UIStarParent == null || UIStarPrefab == null) return;
+        // If already exists, update type
+        if (uiStarObjects.TryGetValue(pos, out var starGO))
+        {
+            var star = starGO.GetComponent<UIStar>();
+            if (star != null) star.SetStarType(type);
+            uiStarStates[pos] = type;
+            return;
+        }
+        // Otherwise, create new
+        var newStarGO = Instantiate(UIStarPrefab, UIStarParent);
+        var newStar = newStarGO.GetComponent<UIStar>();
+        if (newStar != null) newStar.SetStarType(type);
+        // Positioning: relative to this card's RectTransform
+        var rt = GetComponent<RectTransform>();
+        var starRT = newStarGO.GetComponent<RectTransform>();
+        if (rt != null && starRT != null)
+        {
+            float margin = 10f;
+            if (GameSettings.instance != null && GameSettings.instance.GetType().GetField("boardMargin") != null)
+                margin = (float)GameSettings.instance.GetType().GetField("boardMargin").GetValue(GameSettings.instance);
+            Vector2 cardSize = rt.rect.size;
+            Vector2 offset = new Vector2(-pos.x * (cardSize.x + margin), pos.y * (cardSize.y + margin));
+            starRT.anchoredPosition = offset;
+        }
+        uiStarObjects[pos] = newStarGO;
+        uiStarStates[pos] = type;
+    }
+
+    // Show/hide all UIStars on hover or drag
+    private void ShowAllUIStars()
+    {
+        if (UIStarParent != null) UIStarParent.gameObject.SetActive(true);
+    }
+    private void HideAllUIStars()
+    {
+        // Only hide if not dragging
+        var dragHandler = GetComponent<CardDragHandler>();
+        if (dragHandler != null && dragHandler.IsDragging)
+            return;
+        if (UIStarParent != null) UIStarParent.gameObject.SetActive(false);
+    }
+    
+    /// <summary>
+    /// Clears all UIStar states and destroys their GameObjects.
+    /// </summary>
+    public void ClearUIStarStates()
+    {
+        foreach (var starGO in uiStarObjects.Values)
+        {
+            if (starGO != null)
+                Destroy(starGO);
+        }
+        uiStarObjects.Clear();
+        uiStarStates.Clear();
+    }
 }
