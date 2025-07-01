@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ public class CombatManager : MonoBehaviour
     public List<GameObject> enemy_types;
     public List<float> enemy_spawn_chances;
 
+    [Header("Spawn Area Checks")]
+    public List<Transform> allowedSpawnAreas; // Assign in Inspector
+
     [Header("spawn parameters")]
     public float spawn_wait_time;
     public float spawn_distance;
@@ -19,7 +23,7 @@ public class CombatManager : MonoBehaviour
     public bool is_spawning;
 
     [Header("dropping objects")]
-    
+
     public List<GameObject> drops;
     public List<float> drop_chances;
     private Dictionary<float, GameObject> random_drops; // TODO: unity can not serialize this, maybe setup another structure
@@ -29,11 +33,11 @@ public class CombatManager : MonoBehaviour
 
 
     // private Transform canvas_manager_object;
-    private ICanvasManager canvas_manager; 
+    private ICanvasManager canvas_manager;
     private GameObject player;
     private IEnumerator spawn_timer;
-    private List<GameObject> current_enemies; 
-    private List<GameObject> current_drops; 
+    private List<GameObject> current_enemies;
+    private List<GameObject> current_drops;
 
 
     [Header("game running parameters")]
@@ -41,7 +45,7 @@ public class CombatManager : MonoBehaviour
     // [Tooltip("the time between each UpdateBuff is called")]
     public static float TICK_INTERVAL = 0.5f;
     public static float WARNING_TIME = 1f;
-    
+
 
 
     [Header("DO NOT MODIFY")]
@@ -57,7 +61,7 @@ public class CombatManager : MonoBehaviour
 
 
 
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -80,11 +84,12 @@ public class CombatManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        FRAME_COUNT ++;
+        FRAME_COUNT++;
         if (FRAME_COUNT % (60 * 10) == 0) OnTenSecondsTick();
     }
 
-    private void OnTenSecondsTick() {
+    private void OnTenSecondsTick()
+    {
         // called when comes to integer minutes (1 min, 2 min)
 
         // make spawn interval a bit faster as game goes on
@@ -93,15 +98,18 @@ public class CombatManager : MonoBehaviour
         SetSpawnActivity(is_spawning);
     }
 
-    public int GetCurrentFrame() {
+    public int GetCurrentFrame()
+    {
         return FRAME_COUNT;
     }
 
-    public void HandleEnemyDeath(GameObject enemy) {
+    public void HandleEnemyDeath(GameObject enemy)
+    {
         kill_count += 1;
         if (canvas_manager != null) canvas_manager.UpdateKillCount(kill_count);
 
-        if (current_enemies.Contains(enemy)) {
+        if (current_enemies.Contains(enemy))
+        {
             current_enemies.Remove(current_enemies.Find((x) => x.Equals(enemy)));
             // Debug.Log("removed enemy" + enemy.ToString());
         }
@@ -111,7 +119,8 @@ public class CombatManager : MonoBehaviour
         // Debug.Log("kill count now is " + kill_count); // TODO: get ref to update UI
     }
 
-    private bool RollChance(float chance_) {
+    private bool RollChance(float chance_)
+    {
         return UnityEngine.Random.Range(0f, 1f) < chance_;
     }
 
@@ -126,8 +135,10 @@ public class CombatManager : MonoBehaviour
             Vector2 location = GetRandomSpawnLocation();
 
             // wait for the alert to stop to generate enemy
-            for(int i = 0; i < enemy_types.Count; i++) {
-                if (RollChance(enemy_spawn_chances[i])) {
+            for (int i = 0; i < enemy_types.Count; i++)
+            {
+                if (RollChance(enemy_spawn_chances[i]))
+                {
                     Vector2 displacement = new Vector2(UnityEngine.Random.Range(0.1f, 0.2f), UnityEngine.Random.Range(0.1f, 0.2f));
                     IEnumerator cr_spawn_enemy = CR_SpawnThisEnemy(WARNING_TIME, enemy_types[i], location + displacement);
                     StartCoroutine(cr_spawn_enemy);
@@ -142,54 +153,67 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private IEnumerator CR_SpawnThisEnemy(float wait_time_, GameObject enemy_, Vector2 location_) {
+    private IEnumerator CR_SpawnThisEnemy(float wait_time_, GameObject enemy_, Vector2 location_)
+    {
         yield return new WaitForSeconds(wait_time_);
         SpawnThisEnemy(enemy_, location_);
     }
 
-    private void SpawnThisEnemy(GameObject enemy_, Vector2 location_) {
+    private void SpawnThisEnemy(GameObject enemy_, Vector2 location_)
+    {
         var enemy_obj = Instantiate(enemy_, location_, Quaternion.identity);
         enemy_obj.GetComponent<EnemyMaster>().target = player.transform;
         current_enemies.Add(enemy_obj);
-}
+    }
 
-    public void SetSpawnActivity(bool is_active) {
-        if (is_active) {
+    public void SetSpawnActivity(bool is_active)
+    {
+        if (is_active)
+        {
             spawn_timer = SpawnEnemy(spawn_wait_time);
             StartCoroutine(spawn_timer);
-        } else {
-            if (spawn_timer != null) {
+        }
+        else
+        {
+            if (spawn_timer != null)
+            {
                 StopCoroutine(spawn_timer);
                 spawn_timer = null;
             }
         }
     }
 
-    public void HandleShowDamageUI(int damage_, PawnMaster reciever_, GameEvents.DamageType damage_type_, Vector2 location) {
+    public void HandleShowDamageUI(int damage_, PawnMaster reciever_, GameEvents.DamageType damage_type_, Vector2 location)
+    {
         canvas_manager.DisplayDamage(damage_, reciever_, damage_type_, location);
     }
 
-    private Vector2 GetRandomSpawnLocation() {
+    private Vector2 GetRandomSpawnLocation()
+    {
         Vector2 player_location = player.transform.position;
-        float angle = UnityEngine.Random.Range(0.0f, Mathf.PI*2);
+        float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
         Vector2 offset = (spawn_distance + UnityEngine.Random.Range(-spawn_tolerance, spawn_tolerance)) * new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
         return player_location + offset;
     }
 
-    private Vector2 GetRandomLocationInCircle(Vector2 initial_location, float radius) {
-        float angle = UnityEngine.Random.Range(0.0f, Mathf.PI*2);
+    private Vector2 GetRandomLocationInCircle(Vector2 initial_location, float radius)
+    {
+        float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
         Vector2 offset = UnityEngine.Random.Range(0f, radius) * new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
         return initial_location + offset;
     }
 
-    private void SpawnDrops(GameObject enemy) {
+    private void SpawnDrops(GameObject enemy)
+    {
         Vector2 initial_location = enemy.transform.position;
 
         // apply DOTween sequence for items in drops and random spread within a range
         var seq = DOTween.Sequence();
 
-        for (int i = 0; i < drops.Count; i++) {
-            if (RollChance(drop_chances[i])) {
+        for (int i = 0; i < drops.Count; i++)
+        {
+            if (RollChance(drop_chances[i]))
+            {
                 GameObject drop = drops[i];
                 var drop_obj = Instantiate(drop, initial_location, Quaternion.identity);
                 Vector2 end_location = GetRandomLocationInCircle(initial_location, drop_radius);
@@ -198,4 +222,60 @@ public class CombatManager : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Try to get a spawnable location within a circle, checking against allowed areas.
+    /// Returns null if no valid location found after maxIteration attempts.
+    /// </summary>
+    public Vector2? TryGetSpawnLocation(Vector2 origin, float radius, int maxIteration = 5)
+    {
+        for (int i = 0; i < maxIteration; i++)
+        {
+            // Generate random point in circle
+            float angle = UnityEngine.Random.Range(0f, Mathf.PI * 2);
+            float dist = UnityEngine.Random.Range(0f, radius);
+            Vector2 candidate = origin + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * dist;
+
+            if (IsInsideAllowedAreas(candidate))
+                return candidate;
+
+            // Mirror over origin
+            Vector2 mirror = origin - (candidate - origin);
+            if (IsInsideAllowedAreas(mirror))
+                return mirror;
+
+            // Mirror X
+            Vector2 mirrorX = new Vector2(origin.x - (candidate.x - origin.x), candidate.y);
+            if (IsInsideAllowedAreas(mirrorX))
+                return mirrorX;
+
+            // Mirror Y
+            Vector2 mirrorY = new Vector2(candidate.x, origin.y - (candidate.y - origin.y));
+            if (IsInsideAllowedAreas(mirrorY))
+                return mirrorY;
+        }
+        // No valid location found
+        return null;
+    }
+
+    /// <summary>
+    /// Checks if a point is inside any allowed spawn area (using RectTransform or Collider2D).
+    /// </summary>
+    private bool IsInsideAllowedAreas(Vector2 point)
+    {
+        foreach (var t in allowedSpawnAreas)
+        {
+            if (t == null) continue;
+            var collider = t.GetComponent<Collider2D>();
+            if (collider != null && collider.OverlapPoint(point))
+                return true;
+            var rect = t as RectTransform;
+            if (rect != null)
+            {
+                Vector2 localPoint = rect.InverseTransformPoint(point);
+                if (rect.rect.Contains(localPoint))
+                    return true;
+            }
+        }
+        return false;
+    }
 }

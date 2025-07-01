@@ -49,7 +49,7 @@ public class EnemyShooter : EnemyMaster
     public override void Update()
     {
         base.Update();
-        FollowTarget(target);
+        if (!isBeingHitBack) FollowTarget(target);
 
         
     }

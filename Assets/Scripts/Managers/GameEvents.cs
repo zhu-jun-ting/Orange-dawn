@@ -33,7 +33,7 @@ public class GameEvents : MonoBehaviour
 
     public event Action<float, PawnMaster, GameObject, DamageType, Transform, float, Gun> OnHitPawn;
     public static Func<float, float> OnModifyDamage;
-    public void HitPawn(float damage_, PawnMaster reciever_, GameObject instigator_ = null, DamageType damage_type_ = DamageType.Normal, Transform location_ = null, float hit_back_factor_ = 0f, Gun source_ = null)
+    public void HitPawn(float damage_, PawnMaster reciever_, GameObject instigator_ = null, DamageType damage_type_ = DamageType.Normal, Transform location_ = null, float hit_back_factor_ = 0f, Gun source_ = null, string prefix = "")
     {
 
         // calling the reciever's TakeDamage method
@@ -45,7 +45,7 @@ public class GameEvents : MonoBehaviour
         }
         if (onShowNumberUI != null && location_ != null)
         {
-            onShowNumberUI((int)damage_, reciever_, damage_type_, (Vector2)location_.position);
+            onShowNumberUI((int)damage_, reciever_, damage_type_, (Vector2)location_.position, prefix);
         }
     }
 
@@ -54,12 +54,12 @@ public class GameEvents : MonoBehaviour
 
     public enum DamageType { Normal, Crit, Heal, DotDamage }
 
-    public event Action<int, PawnMaster, DamageType, Vector2> onShowNumberUI;
-    public void ShowNumberUI(int damage_, PawnMaster reciever_, DamageType damage_type_, Vector2 location_)
+    public event Action<int, PawnMaster, DamageType, Vector2, string> onShowNumberUI;
+    public void ShowNumberUI(int damage_, PawnMaster reciever_, DamageType damage_type_, Vector2 location_, string prefix = "")
     {
-        if (onHitEnemy != null)
+        if (onShowNumberUI != null)
         {
-            onShowNumberUI(damage_, reciever_, damage_type_, location_);
+            onShowNumberUI(damage_, reciever_, damage_type_, location_, prefix);
         }
     }
 

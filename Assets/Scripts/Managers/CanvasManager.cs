@@ -175,7 +175,7 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 
 	// Receive damage number and location
 	// TODO: implement HEAL and CRIT UI
-	public void DisplayDamage( int damage_, PawnMaster reciever_, GameEvents.DamageType damage_type_, Vector2 location_ ) {
+	public void DisplayDamage( int damage_, PawnMaster reciever_, GameEvents.DamageType damage_type_, Vector2 location_, string prefix = "" ) {
 		GameObject popupPrefab = null;
 
 		// Check if receiver is player
@@ -201,6 +201,12 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 		if ( popupPrefab != null ) {
 			GameObject damageDisplay = Instantiate( popupPrefab, location_, Quaternion.identity );
 			damageDisplay.GetComponent<TextMeshPro>().text = damage_.ToString();
+			if (damageDisplay.transform.childCount > 0)
+			{
+				var childTMP = damageDisplay.transform.GetChild(0).GetComponent<TextMeshPro>();
+				if (childTMP != null)
+					childTMP.text = prefix;
+			}
 
 			var seq = DOTween.Sequence();
 			seq.Append(damageDisplay.transform.DOJump(location_ + new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), 0), 0.3f, 3, 1.5f));

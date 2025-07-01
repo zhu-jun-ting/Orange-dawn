@@ -517,6 +517,12 @@ MonoBehaviour:
   stat: {fileID: 11400000, guid: af88fa7f586c0164a9bc8e59137a744c, type: 2}
   target: {fileID: 0}
   health_bar: {fileID: 1012180735389192541}
+  collidableObjectsTags:
+  - Enemy
+  collidableObjectsLayers:
+  - Wall
+  minCollisionDamage: 2
+  collisionDamageScale: 3
 --- !u!58 &1012180736909545083
 CircleCollider2D:
   m_ObjectHideFlags: 0

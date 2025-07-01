@@ -8059,6 +8059,22 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 9140468723106498572}
+    - target: {fileID: 4321068798391446449, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
+      propertyPath: collidableObjectsTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321068798391446449, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
+      propertyPath: collidableObjectsLayers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321068798391446449, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
+      propertyPath: 'collidableObjectsTags.Array.data[0]'
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321068798391446449, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
+      propertyPath: 'collidableObjectsLayers.Array.data[0]'
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 4321068798391446450, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.67
@@ -11848,14 +11864,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3235738135625849625, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3235738135625849625, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3235738136384544128, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
       propertyPath: target
       value: 
@@ -11863,10 +11871,6 @@ PrefabInstance:
     - target: {fileID: 3235738136384544176, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
       propertyPath: m_Name
       value: ShooterEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 3235738136384544176, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3235738136384544191, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
       propertyPath: m_LocalPosition.x
@@ -14282,10 +14286,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2128891383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 28.449005, y: -8.025}
+  m_SizeDelta: {x: 44.89801, y: 6.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1922440776
 MonoBehaviour:
@@ -15475,10 +15479,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2128891383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 28.449005, y: -23.08}
+  m_SizeDelta: {x: 44.89801, y: 23.66}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1997429880
 MonoBehaviour:
@@ -18094,7 +18098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2128891383
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18114,7 +18118,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 20.5, y: -244.9}
-  m_SizeDelta: {x: 55.89801, y: 0}
+  m_SizeDelta: {x: 55.89801, y: 39.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2128891384
 MonoBehaviour:
@@ -20160,6 +20164,22 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 9140468723106498572}
+    - target: {fileID: 1012180736909545085, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
+      propertyPath: collidableObjectsTags.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012180736909545085, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
+      propertyPath: collidableObjectsLayers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012180736909545085, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
+      propertyPath: 'collidableObjectsTags.Array.data[0]'
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012180736909545085, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
+      propertyPath: 'collidableObjectsLayers.Array.data[0]'
+      value: Wall
+      objectReference: {fileID: 0}
     - target: {fileID: 1012180736909545086, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.29

@@ -15,15 +15,8 @@ public class MeleeEnemy : EnemyMaster
     public override void Update()
     {
         base.Update();
-        FollowTarget(target);
+        if (!isBeingHitBack) FollowTarget(target);
 
-        
     }
 
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.tag == "Player") {
-            HurtPlayer(target.gameObject, 10f); // TODO: update parameter
-        }
-    }
 }

@@ -343,7 +343,7 @@ RectTransform:
   m_Father: {fileID: 3235738134679634589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -405,7 +405,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3235738136384544191
 Transform:
   m_ObjectHideFlags: 0
@@ -581,6 +581,12 @@ MonoBehaviour:
   stat: {fileID: 0}
   target: {fileID: 0}
   health_bar: {fileID: 3235738134679634588}
+  collidableObjectsTags:
+  - Enemy
+  collidableObjectsLayers:
+  - Wall
+  minCollisionDamage: 2
+  collisionDamageScale: 3
   shooter_stat: {fileID: 11400000, guid: 22f4138a457ded646b96c23e59547f5f, type: 2}
 --- !u!1 &8655908523751691681
 GameObject:
