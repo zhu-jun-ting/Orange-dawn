@@ -55,30 +55,6 @@ public class GunBullet : MonoBehaviour
 
     }
 
-    
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // if (trigger_tags.Contains(other.tag))
-        // {
-        //     if (other != null)
-        //     {
-        //         // Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        //         // other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Normal, hit_back, owner.gameObject, gun);
-        //         GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
-        //         exp.transform.position = transform.position;
-
-        //         PawnMaster pawnMaster = other.gameObject.GetComponent<PawnMaster>();
-        //         if (pawnMaster != null) 
-        //         {
-        //             if (owner == PlayerController.instance.gameObject && GameEvents.OnModifyDamage != null) 
-        //             {
-        //                 att = GameEvents.OnModifyDamage(att); 
-        //             } 
-        //             GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
-        //         } 
-        //     }
-        // }
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -117,6 +93,11 @@ public class GunBullet : MonoBehaviour
             if (inertia > 0f)
                 speed *= Mathf.Clamp01(1f - inertia * Time.fixedDeltaTime);
             rigidbody.linearVelocity = reflected.normalized * speed;
+            // If the collided object's layer is "Wall", trigger GameEvents.HitWall
+            if (LayerMask.LayerToName(collision.collider.gameObject.layer) == "Wall" && GameEvents.instance != null)
+            {
+                GameEvents.instance.HitWall(this, collision.contacts[0].point, collision.collider.gameObject);
+            }
         }
     }
 
@@ -126,6 +107,16 @@ public class GunBullet : MonoBehaviour
         if (inertia > 0f && rigidbody.linearVelocity.magnitude > 0.01f)
         {
             rigidbody.linearVelocity *= Mathf.Clamp01(1f - inertia * Time.fixedDeltaTime);
+        }
+        // Destroy the bullet if it is not moving
+        if (rigidbody.linearVelocity.sqrMagnitude < 0.01f)
+        {
+            Destroy(gameObject);
+            if (explosionPrefab != null)
+            {
+                GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
+                exp.transform.position = transform.position;
+            }
         }
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - Experience
   - NPC
   - Card
+  - Bullet
   layers:
   - Default
   - TransparentFX

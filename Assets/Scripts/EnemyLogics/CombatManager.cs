@@ -193,7 +193,15 @@ public class CombatManager : MonoBehaviour
         Vector2 player_location = player.transform.position;
         float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
         Vector2 offset = (spawn_distance + UnityEngine.Random.Range(-spawn_tolerance, spawn_tolerance)) * new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
-        return player_location + offset;
+        if (TryGetSpawnLocation(player_location, offset.magnitude, 5) is Vector2 spawn_location)
+        {
+            // if we can find a valid spawn location, return it
+            return spawn_location;
+        }
+        else
+        {
+            return player_location + offset;
+        }
     }
 
     private Vector2 GetRandomLocationInCircle(Vector2 initial_location, float radius)
@@ -221,7 +229,7 @@ public class CombatManager : MonoBehaviour
             }
         }
     }
-    
+
     /// <summary>
     /// Try to get a spawnable location within a circle, checking against allowed areas.
     /// Returns null if no valid location found after maxIteration attempts.
@@ -277,5 +285,13 @@ public class CombatManager : MonoBehaviour
             }
         }
         return false;
+    }
+    
+    public static void PlayFx(GameObject fx, Vector2 location, float scale, float duration = 1f)
+    {
+        if (fx == null) return;
+        GameObject fxObj = Instantiate(fx, location, Quaternion.identity);
+        fxObj.transform.localScale = Vector3.one * scale;
+        Destroy(fxObj, duration);
     }
 }

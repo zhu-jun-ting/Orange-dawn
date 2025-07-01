@@ -101,4 +101,13 @@ public class GameEvents : MonoBehaviour
             OnShowMessage(message, type, position);
         }
     }
+
+    public event Action<GunBullet, Vector2, GameObject> OnHitWall;
+    public void HitWall(GunBullet bullet, Vector2 hitPosition, GameObject wall)
+    {
+        if (OnHitWall != null)
+        {
+            OnHitWall(bullet, hitPosition, wall);
+        }
+    }
 }
