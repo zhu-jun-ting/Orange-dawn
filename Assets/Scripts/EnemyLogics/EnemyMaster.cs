@@ -261,7 +261,7 @@ public class EnemyMaster : PawnMaster
         // Allow designer to scale how velocity translates to damage
 
         float collisionDamage = relVel * collisionDamageScale;
-        Debug.Log($"[EnemyMaster] Collision damage calculated: {collisionDamage} = {relVel} * {collisionDamageScale} (min required: {minCollisionDamage})");
+        // Debug.Log($"[EnemyMaster] Collision damage calculated: {collisionDamage} = {relVel} * {collisionDamageScale} (min required: {minCollisionDamage})");
 
         if (collisionDamage < minCollisionDamage) return; // Ignore weak collisions
 

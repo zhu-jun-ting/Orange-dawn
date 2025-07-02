@@ -183,15 +183,15 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 			switch( damage_type_ ) {
 				case GameEvents.DamageType.Normal:
 					popupPrefab = popupAssets[ "Damage" ];
-
 					break;
 				case GameEvents.DamageType.Crit:
 					popupPrefab = popupAssets[ "Crit" ];
-
 					break;
 				case GameEvents.DamageType.Heal:
 					popupPrefab = popupAssets[ "Heal" ];
-
+					break;
+				case GameEvents.DamageType.Aoe:
+					popupPrefab = popupAssets[ "Damage" ];
 					break;
 				default:
 					break;

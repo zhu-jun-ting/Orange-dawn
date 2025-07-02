@@ -52,7 +52,7 @@ public class GameEvents : MonoBehaviour
 
 
 
-    public enum DamageType { Normal, Crit, Heal, DotDamage }
+    public enum DamageType { Normal, Crit, Heal, DotDamage, Aoe }
 
     public event Action<int, PawnMaster, DamageType, Vector2, string> onShowNumberUI;
     public void ShowNumberUI(int damage_, PawnMaster reciever_, DamageType damage_type_, Vector2 location_, string prefix = "")

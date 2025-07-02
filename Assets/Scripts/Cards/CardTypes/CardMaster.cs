@@ -62,7 +62,8 @@ public class CardMaster : MonoBehaviour
         Probablity,
         Amount,
         Mana,
-        Speed,
+        Speed, 
+        Time
     }
 
     public enum CardType
