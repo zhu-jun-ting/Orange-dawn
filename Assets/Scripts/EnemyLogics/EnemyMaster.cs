@@ -47,7 +47,8 @@ public class EnemyMaster : PawnMaster
     protected GameEvents game_events;
     protected bool is_alive;
 
-    protected float lastDamageTime = -1f;
+    // Per-instigator damage cooldown
+    protected Dictionary<GameObject, float> lastDamageTimes = new Dictionary<GameObject, float>();
     protected float damageCooldown = 0.1f;
 
     protected bool isFlashing = false;
@@ -142,10 +143,17 @@ public class EnemyMaster : PawnMaster
         // transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
     }
 
-    public override void TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
+    public override bool TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
     {
-        if (Time.time - lastDamageTime < damageCooldown) return; // Prevent double damage in short period
-        lastDamageTime = Time.time;
+        GameObject dealer = instigator != null ? instigator : null;
+        if (dealer != null)
+        {
+            if (lastDamageTimes.TryGetValue(dealer, out float lastTime))
+            {
+                if (Time.time - lastTime < damageCooldown) return false;
+            }
+            lastDamageTimes[dealer] = Time.time;
+        }
 
         hitBackFactor = _hit_back_factor;
         curHP -= _amount;
@@ -157,23 +165,16 @@ public class EnemyMaster : PawnMaster
         // invoke this game event
         GameEvents.instance.HitEnemy(_amount, this);
 
-
         if (curHP <= 0 && is_alive)
         {
             combat_manager.HandleEnemyDeath(gameObject);
-            // set a 1 second timer wait it to desotry itself, and let it cannot move
             moveSpeed = 0f;
             Invoke("DestroyMyself", 1.0f);
-            // Debug.Log("died");
             is_alive = false;
-
-            // Instantiate(explosionEffect, transform.position, transform.rotation);
         }
 
-        // if (gameObject)
-        // CombatManager.instance.HandleShowDamageUI((int)_amount, this, damage_type_, transform.position);
-
         base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source);
+        return true; // Return true to indicate damage was taken
     }
 
     // called when the actual time of destorying this pawn

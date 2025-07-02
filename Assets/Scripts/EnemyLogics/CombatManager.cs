@@ -286,12 +286,62 @@ public class CombatManager : MonoBehaviour
         }
         return false;
     }
-    
     public static void PlayFx(GameObject fx, Vector2 location, float scale, float duration = 1f)
     {
         if (fx == null) return;
-        GameObject fxObj = Instantiate(fx, location, Quaternion.identity);
-        fxObj.transform.localScale = Vector3.one * scale;
-        Destroy(fxObj, duration);
+
+        GameObject fxObj;
+
+        // If fx is already in the scene (instantiated), just move and scale it
+        if (fx.scene.IsValid())
+        {
+            fxObj = fx;
+            fxObj.transform.position = location;
+            fxObj.transform.localScale = Vector3.one * scale;
+        }
+        else
+        {
+            fxObj = Instantiate(fx, location, Quaternion.identity);
+            fxObj.transform.localScale = Vector3.one * scale;
+        }
+
+        // Destroy after duration (only if not already scheduled)
+        if (duration > 0)
+        {
+            // Only destroy if this is a new instance
+            if (!fx.scene.IsValid())
+                Destroy(fxObj, duration);
+        }
+    }
+
+    /// <summary>
+    /// /// Returns the vector from the given location to the nearest enemy in current_enemies.
+    /// If no enemies exist, returns Vector2.zero.
+    /// </summary>
+    public Vector2 GetVectorToNearestEnemy(Vector2 location)
+    {
+        if (current_enemies == null || current_enemies.Count == 0)
+            return Vector2.zero;
+
+        GameObject nearestEnemy = null;
+        float minDistSqr = float.MaxValue;
+
+        foreach (var enemy in current_enemies)
+        {
+            if (enemy == null) continue;
+            Vector2 enemyPos = enemy.transform.position;
+            float distSqr = (enemyPos - location).sqrMagnitude;
+            if (distSqr < minDistSqr)
+            {
+                minDistSqr = distSqr;
+                nearestEnemy = enemy;
+            }
+        }
+
+        if (nearestEnemy != null)
+            return ((Vector2)nearestEnemy.transform.position - location).normalized;
+        else
+            // Return a random unit vector if no enemies exist
+            return UnityEngine.Random.insideUnitCircle.normalized;
     }
 }

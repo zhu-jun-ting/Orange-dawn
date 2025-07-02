@@ -16,11 +16,21 @@ public class CardActionBulletAoe : CardMaster, ICardAction
     public float AoeSize = 1f; // Probability (100% = 1.0)
     public int manaCost = 2; // Mana
 
+    // Store initial values for reset
+    private float _initAoeDamage;
+    private float _initAoeDuration;
+    private float _initAoeSize;
+    private int _initManaCost;
+
     private float lastAoeTime = -10f;
 
     protected override void Awake()
     {
         base.Awake();
+        _initAoeDamage = AoeDamage;
+        _initAoeDuration = AoeDuration;
+        _initAoeSize = AoeSize;
+        _initManaCost = manaCost;
     }
 
     public override void OnCardEnable()
@@ -89,7 +99,7 @@ public class CardActionBulletAoe : CardMaster, ICardAction
             AoeDuration += value;
             return true;
         }
-        else if (numberType.ToString().ToLower().Contains("prob"))
+        else if (numberType == CardMaster.NumberType.Probablity)
         {
             AoeSize += value;
             return true;
@@ -105,6 +115,11 @@ public class CardActionBulletAoe : CardMaster, ICardAction
     public override void Reset()
     {
         base.Reset();
+        // Reset all public parameters to their initial values
+        AoeDamage = _initAoeDamage;
+        AoeDuration = _initAoeDuration;
+        AoeSize = _initAoeSize;
+        manaCost = _initManaCost;
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall -= HandleOnHitWall;
         OnTrigger -= TriggerAction; // Unsubscribe to avoid duplicates

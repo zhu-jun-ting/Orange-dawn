@@ -23,16 +23,31 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     [Tooltip("Layers that the bullet will bounce off like pinball")]
     public LayerMask bounceLayers;
 
+    private Collider2D _collider2D;
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        _collider2D = GetComponent<Collider2D>();
+        if (_collider2D != null)
+        {
+            _collider2D.enabled = false;
+            StartCoroutine(EnableColliderAfterDelay(0.1f));
+        }
         // att = 5;
         // owner = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    private System.Collections.IEnumerator EnableColliderAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (_collider2D != null)
+            _collider2D.enabled = true;
     }
 
     protected virtual void Start()
     {
         SetAoe(false); // Disable AOE by default
+        Destroy(gameObject, 15f); // Destroy the bullet after 15 seconds if not used
     }
     
     public void SetAoe(bool active)
@@ -81,7 +96,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
         // Handle collision exit
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if the collision is with a trigger tag to deal damage
         if (trigger_tags.Contains(collision.collider.tag))
@@ -128,11 +143,21 @@ public class GunBullet : MonoBehaviour, IColliderHandler
 
     public void SetSpeed(Vector2 direction)
     {
+        if (direction == Vector2.zero || float.IsNaN(direction.x) || float.IsNaN(direction.y))
+        {
+            rigidbody.linearVelocity = Vector2.zero;
+            return;
+        }
         rigidbody.linearVelocity = Normalize(direction) * speed;
     }
 
     public void SetSpeed(Vector2 direction, float speed)
     {
+        if (direction == Vector2.zero || float.IsNaN(direction.x) || float.IsNaN(direction.y))
+        {
+            rigidbody.linearVelocity = Vector2.zero;
+            return;
+        }
         rigidbody.linearVelocity = Normalize(direction) * speed;
     }
 
@@ -141,7 +166,10 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     }
 
     private Vector2 Normalize(Vector2 vec) {
-        return vec / (vec.magnitude);
+        float mag = vec.magnitude;
+        if (mag == 0f || float.IsNaN(mag))
+            return Vector2.zero;
+        return vec / mag;
     }
 
     void Update()

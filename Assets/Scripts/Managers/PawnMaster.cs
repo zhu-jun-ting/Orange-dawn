@@ -130,10 +130,11 @@ public class PawnMaster : MonoBehaviour, IBuffable
         }
     }
 
-    public virtual void TakeDamage(float damage, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type, Transform location, float hit_back_factor_, Gun source)
+    public virtual bool TakeDamage(float damage, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type, Transform location, float hit_back_factor_, Gun source)
     {
         // Trigger the hit event
         // GameEvents.instance.HitPawn(damage_:damage, reciever_:this, instigator_:instigator_, damage_type_:damage_type_, location_:transform, source_:source);
+        return false;
     }
 
 

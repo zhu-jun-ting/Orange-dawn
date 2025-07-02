@@ -170,19 +170,20 @@ MonoBehaviour:
   owner: {fileID: 0}
   speed: 15
   explosionPrefab: {fileID: 3217125097851079088, guid: 2be4eb6338a97ad42bf2801937e8fb6b, type: 3}
-  trigger_tags: []
+  trigger_tags:
+  - Enemy
   bounce_tags:
   - Enemy
   - Player
   bounce_randomness: 10
   inertia: 0.5
   Aoe: {fileID: 5497648995151665385}
+  AoeDamage: 5
   hit_back: 5
   gun: {fileID: 0}
   bounceLayers:
     serializedVersion: 2
     m_Bits: 64
-  AoeDamage: 5
 --- !u!1 &7871115166820737656
 GameObject:
   m_ObjectHideFlags: 0

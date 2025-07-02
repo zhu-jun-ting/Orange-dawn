@@ -5,43 +5,25 @@ using UnityEngine;
 public class CameraMotor : MonoBehaviour
 {
     public Transform lookAt;
-    public float boundX = 0.15f;
-    public float boundY = 0.05f;
+    [Tooltip("How far the camera zooms out. 1 = default, >1 = zoom out, <1 = zoom in")]
+    public float cameraZoom = 1f;
 
     // Start is called before
     // the first frame update
 
     private void LateUpdate()
     {
-        Vector3 delta = Vector3.zero;
+        if (lookAt == null) return;
+        // Center camera on player
+        Vector3 newPos = new Vector3(lookAt.position.x, lookAt.position.y, transform.position.z);
+        transform.position = newPos;
 
-        float deltaX = lookAt.position.x - transform.position.x;
-        if (deltaX > boundX || deltaX < -boundX) 
+        // Adjust camera zoom (orthographic size)
+        Camera cam = GetComponent<Camera>();
+        if (cam != null && cam.orthographic)
         {
-            if (transform.position.x < lookAt.position.x)
-            {
-                delta.x = deltaX - boundX;
-            }
-            else
-            {
-                delta.x = deltaX + boundX;
-            }
+            cam.orthographicSize = cameraZoom;
         }
-
-        float deltaY = lookAt.position.y - transform.position.y;
-        if (deltaY > boundY || deltaY < -boundY)
-        {
-            if (transform.position.y < lookAt.position.y)
-            {
-                delta.y = deltaY - boundY;
-            }
-            else
-            {
-                delta.y = deltaY + boundY;
-            }
-        }
-
-        transform.position += new Vector3(delta.x,delta.y,0);
     }
     void Start()
     {

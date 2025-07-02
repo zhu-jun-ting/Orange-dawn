@@ -230,7 +230,7 @@ public class PlayerController : PawnMaster
     
 
 
-    public override void TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
+    public override bool TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
     {
         health -= _amount;
         HealthBar.HealthCurrent = health;
@@ -243,7 +243,8 @@ public class PlayerController : PawnMaster
         BlinkPlayer(Blinks, time);
 
         base.TakeDamage(_amount, reciever,instigator, damage_type_, location, _hit_back_factor, source);
-        
+
+        return true; // Return true to indicate damage was taken
     }
 
     void OnDestroy()
