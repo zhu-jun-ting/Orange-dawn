@@ -255,24 +255,24 @@ public class PlayerController : PawnMaster
 
     void SwitchGun()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            guns[gunNum].SetActive(false);
-            if (--gunNum < 0)
-            {
-                gunNum = guns.Length - 1;
-            }
-            guns[gunNum].SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            guns[gunNum].SetActive(false);
-            if (++gunNum > guns.Length - 1)
-            {
-                gunNum = 0;
-            }
-            guns[gunNum].SetActive(true);
-        }
+        // if (Input.GetKeyDown(KeyCode.Q))
+        // {
+        //     guns[gunNum].SetActive(false);
+        //     if (--gunNum < 0)
+        //     {
+        //         gunNum = guns.Length - 1;
+        //     }
+        //     guns[gunNum].SetActive(true);
+        // }
+        // if (Input.GetKeyDown(KeyCode.E))
+        // {
+        //     guns[gunNum].SetActive(false);
+        //     if (++gunNum > guns.Length - 1)
+        //     {
+        //         gunNum = 0;
+        //     }
+        //     guns[gunNum].SetActive(true);
+        // }
     }
 
     public override void UpdatePlayerContinuousAOE(ContiniousAOEStat stat)

@@ -16,6 +16,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     public float inertia = 0f; // how much inertia the bullet has, 0 means no inertia
     public Transform Aoe;
     public float AoeDamage = 5f;
+    public float lifetime = 10f; // how long the bullet lasts before it is destroyed
 
     public float hit_back = 5f;
     public Gun gun; // the gun that fired this bullet, used for source of damage and other effects
@@ -47,7 +48,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     protected virtual void Start()
     {
         SetAoe(false); // Disable AOE by default
-        Destroy(gameObject, 15f); // Destroy the bullet after 15 seconds if not used
+        Destroy(gameObject, lifetime); // Destroy the bullet after 15 seconds if not used
     }
     
     public void SetAoe(bool active)
@@ -75,7 +76,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     {
         // Handle collision enter
         PawnMaster pawnMaster = other.gameObject.GetComponent<PawnMaster>();
-        GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
+        if (pawnMaster != null) GameEvents.instance.HitPawn(AoeDamage, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
     }
 
     public void HandleTriggerExit2D(Collider2D other)
@@ -87,7 +88,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     {
         // Handle collision enter
         PawnMaster pawnMaster = collision.gameObject.GetComponent<PawnMaster>();
-        GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
+        if (pawnMaster != null) GameEvents.instance.HitPawn(AoeDamage, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
     }
 
 

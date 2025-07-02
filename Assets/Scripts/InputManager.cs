@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance { get; private set; }
 
     public event Action OnYKeyPressed;
+    public event Action OnTabKeyPressed; // For backward compatibility with Tab key
     public event Action<Vector2> OnMove; // WASD movement
     public event Action OnFire; // Mouse left click
     public event Action OnPause; // ESC
@@ -55,6 +56,12 @@ public class InputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Y))
         {
             OnYKeyPressed?.Invoke();
+        }
+
+        // Retain Tab key event for backward compatibility
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            OnTabKeyPressed?.Invoke();
         }
     }
 }

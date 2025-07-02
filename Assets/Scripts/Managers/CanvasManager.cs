@@ -31,6 +31,16 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	public float fadeTime = 0.5f; // fading in out time
 	public float showDuration = 1f; // how long this message is shown before fading out
 
+	[Header("Board/Hand Panel Animation")]
+	public Transform boardArea;
+	public Transform handArea;
+	public Transform boardAnchorOutside;
+	public Transform handAnchorOutside;
+	private bool panelsVisible = false;
+	private Vector3 boardAreaInPos;
+	private Vector3 handAreaInPos;
+	
+
 
 	void Awake()
 	{
@@ -42,22 +52,33 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	{
 		if (GameEvents.instance != null)
 		{
-			// register all events handlers
 			GameEvents.instance.onShowNumberUI += DisplayDamage;
 			GameEvents.instance.OnShowMessage += HandleShowMessage;
 		}
-			
+
+		// Store the in-view positions for animation
+		if (boardArea != null)
+			boardAreaInPos = boardArea.position;
+		if (handArea != null)
+			handAreaInPos = handArea.position;
+
+		// Move panels to outside anchors and hide at start
+		if (boardArea != null && boardAnchorOutside != null)
+			boardArea.position = boardAnchorOutside.position;
+		if (handArea != null && handAnchorOutside != null)
+			handArea.position = handAnchorOutside.position;
+		panelsVisible = false;
+
+		// Register tab toggle event
+		if (InputManager.Instance != null)
+			InputManager.Instance.OnTabKeyPressed += TogglePanels;
 
 		for (int i = 0; i < _views.Length; i++) {
 			_views[i].Initialize();
 		}
 
-		
-
 		foreach (var kvp in popupList) {
 			popupAssets[kvp.key] = kvp.val;
-			// Debug.Log( kvp.key );
-			// Debug.Log( kvp.val );
 		}
 	}
 
@@ -65,13 +86,59 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	{
 		if (GameEvents.instance != null)
 			GameEvents.instance.OnShowMessage -= HandleShowMessage;
+		if (InputManager.Instance != null)
+			InputManager.Instance.OnTabKeyPressed -= TogglePanels;
+	}
+	
+	private void TogglePanels()
+	{
+		if (panelsVisible)
+		{
+			// Move panels out and pause game logic (but not UI)
+			DOTween.defaultTimeScaleIndependent = true;
+			if (boardArea != null && boardAnchorOutside != null)
+				boardArea.DOMove(boardAnchorOutside.position, 0.5f).SetEase(Ease.InOutBack).SetUpdate(true);
+			if (handArea != null && handAnchorOutside != null)
+				handArea.DOMove(handAnchorOutside.position, 0.5f).SetEase(Ease.InOutBack).SetUpdate(true);
+			panelsVisible = false;
+			DOTween.defaultTimeScaleIndependent = false;
+			// Pause only gameplay, not UI
+			// ResumeGameOnly();
+		}
+		else
+		{
+			// Move panels in and unpause
+			DOTween.defaultTimeScaleIndependent = true;
+			if (boardArea != null)
+				boardArea.DOMove(boardAreaInPos, 0.5f).SetEase(Ease.InOutBack).SetUpdate(true);
+			if (handArea != null)
+				handArea.DOMove(handAreaInPos, 0.5f).SetEase(Ease.InOutBack).SetUpdate(true);
+			panelsVisible = true;
+			DOTween.defaultTimeScaleIndependent = false;
+			// PauseGameOnly();
+		}
+	}
+
+	// Pauses gameplay but not UI/tweens
+	private void PauseGameOnly()
+	{
+		// Set timeScale to 0 for gameplay, but keep UI running
+		Time.timeScale = 0f;
+		// Optionally, pause other game systems here if needed
+	}
+
+	private void ResumeGameOnly()
+	{
+		Time.timeScale = 1f;
+		// Optionally, resume other game systems here if needed
 	}
 
 	private void HandleShowMessage(string message, GameEvents.MessageType type, Vector2 position)
 	{
 		if (messageEntryParent == null) return;
 
-		if (type == GameEvents.MessageType.FullInfo || type == GameEvents.MessageType.FullWarning){
+		if (type == GameEvents.MessageType.FullInfo || type == GameEvents.MessageType.FullWarning)
+		{
 			// Choose prefab based on type
 			GameObject prefab = null;
 			switch (type)

@@ -12,6 +12,7 @@ public class CircularBullet : GunBullet
 
     private float currentAngle;
 
+
     protected override void Start()
     {
         base.Start();
@@ -28,7 +29,7 @@ public class CircularBullet : GunBullet
         currentAngle = initialAngle;
     }
 
-    void FixedUpdate()
+    protected void FixedUpdate()
     {
         // Update angle
         currentAngle += angularSpeed * Time.deltaTime;
