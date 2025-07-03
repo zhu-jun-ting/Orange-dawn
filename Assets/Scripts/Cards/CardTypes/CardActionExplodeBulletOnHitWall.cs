@@ -18,6 +18,8 @@ public class CardActionExplodeBulletOnHitWall : CardMaster, ICardAction
     public float Damage = 10f; // Damage for each bullet (modifies ImpulseAOE)
     public int Amount = 1; // How many bullets to spawn
     public int ManaCost = 2; // Mana cost
+    [Tooltip("Maximum random angle offset (degrees) for bullet inaccuracy")]
+    public float randomAngleOffset = 10f;
 
     // Store initial values for reset
     private float _initDamage;
@@ -80,6 +82,9 @@ public class CardActionExplodeBulletOnHitWall : CardMaster, ICardAction
                 Vector2 dir = CombatManager.instance.GetVectorToNearestEnemy(spawnPos);
                 if (dir == Vector2.zero)
                     dir = UnityEngine.Random.insideUnitCircle.normalized; // fallback
+                // Add random angle offset for inaccuracy
+                float angleOffset = UnityEngine.Random.Range(-randomAngleOffset, randomAngleOffset);
+                dir = Quaternion.Euler(0, 0, angleOffset) * dir;
                 bullet.SetSpeed(dir, bullet.speed);
                 // Set damage for ImpulseAOE if present
                 bullet.explosionDamage = Damage;
@@ -90,7 +95,7 @@ public class CardActionExplodeBulletOnHitWall : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return $"On bullet hit wall, spawn {Amount} explode bullet(s) (Damage: {Damage}) towards nearest enemy. Mana: {ManaCost}, Chance: {triggerProbability * 100f}%";
+        return $"On bullet hit wall, spawn {Amount} explode bullet(s) (Damage: {Damage}) towards nearest enemy. Mana: {ManaCost}, Chance: {triggerProbability * 100f}%, Inaccuracy: ±{randomAngleOffset}°";
     }
 
     public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
@@ -107,7 +112,7 @@ public class CardActionExplodeBulletOnHitWall : CardMaster, ICardAction
             Amount += (int)value;
             return true;
         }
-        else if (numberType == CardMaster.NumberType.Probablity)
+        else if (numberType == CardMaster.NumberType.Probability)
         {
             triggerProbability += value;
             return true;

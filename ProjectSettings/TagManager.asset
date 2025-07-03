@@ -9,17 +9,21 @@ TagManager:
   - NPC
   - Card
   - Bullet
+  - Object
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Item
+  - 
   - Water
   - UI
   - Wall
   - Enemy
-  - Board
-  - Card
+  - NPC
+  - Player
+  - Item
+  - Object
+  - Bullet
   - 
   - 
   - 
@@ -38,10 +42,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Detector
   m_SortingLayers:
   - name: Floor
     uniqueID: 841323991

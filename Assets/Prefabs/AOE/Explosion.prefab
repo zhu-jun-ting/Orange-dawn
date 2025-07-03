@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3386984739967500204}
   - component: {fileID: 6285335255786618185}
   - component: {fileID: 552545946937230810}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

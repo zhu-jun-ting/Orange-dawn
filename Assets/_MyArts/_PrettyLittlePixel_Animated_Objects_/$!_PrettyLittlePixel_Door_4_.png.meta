@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: d6ca279550711ff4abaa2647b343ada9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7400843316732196285
+    second: $!_PrettyLittlePixel_Door_4__0
+  - first:
+      213: -1926057770673249820
+    second: $!_PrettyLittlePixel_Door_4__1
+  - first:
+      213: 7535745876579994338
+    second: $!_PrettyLittlePixel_Door_4__2
+  - first:
+      213: -6671436655197954809
+    second: $!_PrettyLittlePixel_Door_4__3
+  - first:
+      213: -8877789991435603737
+    second: $!_PrettyLittlePixel_Door_4__4
+  - first:
+      213: 8551329375730592282
+    second: $!_PrettyLittlePixel_Door_4__5
+  - first:
+      213: 8392917620896169124
+    second: $!_PrettyLittlePixel_Door_4__6
+  - first:
+      213: -6119749036712147592
+    second: $!_PrettyLittlePixel_Door_4__7
+  - first:
+      213: -1141488390588820185
+    second: $!_PrettyLittlePixel_Door_4__8
+  - first:
+      213: -5343412223349425481
+    second: $!_PrettyLittlePixel_Door_4__9
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 439
+        width: 144
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db5752409c315b660800000000000000
+      internalID: 7400843316732196285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 295
+        width: 41
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e1e32a89a44545e0800000000000000
+      internalID: -1926057770673249820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__2
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 295
+        width: 42
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ea4a2bd2f8549860800000000000000
+      internalID: 7535745876579994338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__3
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 295
+        width: 41
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70dd76975bb4a63a0800000000000000
+      internalID: -6671436655197954809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 151
+        width: 35
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e076f11a01cbc480800000000000000
+      internalID: -8877789991435603737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__5
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 151
+        width: 36
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1ae8c5a2cc6ca670800000000000000
+      internalID: 8551329375730592282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__6
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 151
+        width: 35
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4acf1aecb12a97470800000000000000
+      internalID: 8392917620896169124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7
+        width: 7
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 875cb38cca8421ba0800000000000000
+      internalID: -6119749036712147592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__8
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 7
+        width: 8
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72598bb4b5e9820f0800000000000000
+      internalID: -1141488390588820185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: $!_PrettyLittlePixel_Door_4__9
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 7
+        width: 7
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7baf6cab4e268d5b0800000000000000
+      internalID: -5343412223349425481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      $!_PrettyLittlePixel_Door_4__0: 7400843316732196285
+      $!_PrettyLittlePixel_Door_4__1: -1926057770673249820
+      $!_PrettyLittlePixel_Door_4__2: 7535745876579994338
+      $!_PrettyLittlePixel_Door_4__3: -6671436655197954809
+      $!_PrettyLittlePixel_Door_4__4: -8877789991435603737
+      $!_PrettyLittlePixel_Door_4__5: 8551329375730592282
+      $!_PrettyLittlePixel_Door_4__6: 8392917620896169124
+      $!_PrettyLittlePixel_Door_4__7: -6119749036712147592
+      $!_PrettyLittlePixel_Door_4__8: -1141488390588820185
+      $!_PrettyLittlePixel_Door_4__9: -5343412223349425481
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

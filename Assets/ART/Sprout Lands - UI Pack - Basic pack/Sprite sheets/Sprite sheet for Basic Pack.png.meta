@@ -6382,13 +6382,13 @@ TextureImporter:
       name: Sprite sheet for Basic Pack_240
       rect:
         serializedVersion: 2
-        x: 615
-        y: 67
-        width: 37
-        height: 43
+        x: 616
+        y: 68
+        width: 35
+        height: 17
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 12, y: 4, z: 3, w: 3}
       customData: 
       outline: []
       physicsShape: []
@@ -8455,7 +8455,7 @@ TextureImporter:
         width: 94
         height: 146
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemExp : MonoBehaviour
+public class ItemExp : MonoBehaviour, IColliderHandler
 {
     PLayerExp gainExp;
     private GameObject Player;
@@ -18,20 +18,14 @@ public class ItemExp : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if ((transform.position-Player.transform.position).magnitude <= 0.3) 
-        {
-            gainExp.GainExp(10);
-            Destroy(gameObject);
-        }
-
-        if (inPlayer == true) 
+        if (inPlayer == true)
         {
             transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed * Time.deltaTime);
         }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -40,5 +34,43 @@ public class ItemExp : MonoBehaviour
             inPlayer = true;
         }
     }
-    
+
+    public void HandleTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Player") == true)
+        {
+            gainExp.GainExp(10);
+            Destroy(gameObject);
+        }
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void HandleTriggerExit2D(Collider2D collider)
+    {
+        // Add logic if needed, or leave empty
+    }
+
+    public void HandleCollisionEnter2D(Collision2D collision)
+    {
+        // Add logic if needed, or leave empty
+    }
+
+    public void HandleCollisionExit2D(Collision2D collision)
+    {
+        // Add logic if needed, or leave empty
+    }
 }

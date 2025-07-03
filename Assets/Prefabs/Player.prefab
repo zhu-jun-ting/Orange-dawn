@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 79642785}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,13 +43,13 @@ GameObject:
   - component: {fileID: 225704927}
   - component: {fileID: 225704926}
   - component: {fileID: 225704925}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &225704924
 Transform:
   m_ObjectHideFlags: 0
@@ -160,8 +160,14 @@ MonoBehaviour:
   speed: 10
   recon: 4
   interval: 0.5
+  bulletNum: 1
+  bulletAngle: 15
+  critChance: 0.05
+  critDamage: 2
+  penetrate: 0
   bulletPrefab: {fileID: 4028690415889179283, guid: 6a77567889405c04bab756a2dedd6d88, type: 3}
   shellPrefab: {fileID: 1831042765911411841, guid: 6fd882a57b06f6b4e9261f019f95d1d0, type: 3}
+  owner: {fileID: 0}
 --- !u!1 &298807997
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +180,7 @@ GameObject:
   - component: {fileID: 298808001}
   - component: {fileID: 298808000}
   - component: {fileID: 298807999}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RocketLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,8 +296,14 @@ MonoBehaviour:
   speed: 0
   recon: 0
   interval: 1
+  bulletNum: 1
+  bulletAngle: 15
+  critChance: 0.05
+  critDamage: 2
+  penetrate: 0
   bulletPrefab: {fileID: 6294976117922640083, guid: 0f372f08d2dd09c44aa735bedb594fb2, type: 3}
-  shellPrefab: {fileID: 0}
+  shellPrefab: {fileID: 1831042765911411841, guid: 6fd882a57b06f6b4e9261f019f95d1d0, type: 3}
+  owner: {fileID: 0}
   rocketNum: 4
   rocketAngle: 30
 --- !u!1 &378190945
@@ -303,7 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 378190946}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -337,7 +349,7 @@ GameObject:
   - component: {fileID: 468882679}
   - component: {fileID: 468882678}
   - component: {fileID: 468882677}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,10 +466,14 @@ MonoBehaviour:
   speed: 7
   recon: 0
   interval: 1
-  bulletPrefab: {fileID: 4028690415889179283, guid: 6a77567889405c04bab756a2dedd6d88, type: 3}
-  shellPrefab: {fileID: 1831042765911411841, guid: 6fd882a57b06f6b4e9261f019f95d1d0, type: 3}
   bulletNum: 5
   bulletAngle: 15
+  critChance: 0.05
+  critDamage: 2
+  penetrate: 0
+  bulletPrefab: {fileID: 4028690415889179283, guid: 6a77567889405c04bab756a2dedd6d88, type: 3}
+  shellPrefab: {fileID: 1831042765911411841, guid: 6fd882a57b06f6b4e9261f019f95d1d0, type: 3}
+  owner: {fileID: 0}
 --- !u!1 &549655284
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 549655285}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BulletShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 557490078}
   - component: {fileID: 557490079}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +653,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1004832467}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -668,7 +684,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1123463025}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,7 +718,7 @@ GameObject:
   - component: {fileID: 1428263330}
   - component: {fileID: 1428263329}
   - component: {fileID: 1428263328}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -819,8 +835,14 @@ MonoBehaviour:
   speed: 0
   recon: 0
   interval: 0.2
+  bulletNum: 1
+  bulletAngle: 15
+  critChance: 0.05
+  critDamage: 2
+  penetrate: 0
   bulletPrefab: {fileID: 90225008408377363, guid: d89f4757d0fdb044290e9f2e61dec658, type: 3}
   shellPrefab: {fileID: 1831042765911411841, guid: 6fd882a57b06f6b4e9261f019f95d1d0, type: 3}
+  owner: {fileID: 0}
 --- !u!1 &1429624002
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1429624003}
   - component: {fileID: 1429624004}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PostLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -981,7 +1003,7 @@ GameObject:
   - component: {fileID: 1645237875}
   - component: {fileID: 1645237874}
   - component: {fileID: 1645237873}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Lasergun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1098,9 +1120,15 @@ MonoBehaviour:
   speed: 0
   recon: 0
   interval: 0
+  bulletNum: 1
+  bulletAngle: 15
+  critChance: 0.05
+  critDamage: 2
+  penetrate: 0
   bulletPrefab: {fileID: 0}
   shellPrefab: {fileID: 0}
-  maxLaserLength: 5
+  owner: {fileID: 0}
+  maxLaserLength: 20
   damagePerSecond: 1000
   damageInterval: 0.2
   enemyLayer:
@@ -1109,7 +1137,7 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 64
-  maxReflectionCount: 2
+  maxReflectionCount: 5
   laserRenderer: {fileID: 557490079}
   effect: {fileID: 0}
 --- !u!1 &1685901678
@@ -1121,7 +1149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1685901679}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BulletShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1152,7 +1180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1900173227}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BulletShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1183,7 +1211,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1941380942}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1218,7 +1246,7 @@ GameObject:
   - component: {fileID: 9140468723097064492}
   - component: {fileID: 9140468723097064481}
   - component: {fileID: 9140468723097064480}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SwordAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1384,7 +1412,7 @@ GameObject:
   - component: {fileID: 9140468724303677703}
   - component: {fileID: 2083645870}
   - component: {fileID: 2083645871}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1459,7 +1487,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1c4cef858b2af4c4286d21aa32d58492, type: 3}
+  m_Sprite: {fileID: 5296944262663640658, guid: 6c8cc5355cd5bb144bc6bc68cb4088d0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1480,7 +1508,7 @@ Animator:
   m_GameObject: {fileID: 9140468724303677699}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9b31e1148dbd74e48828acf9abe42c02, type: 2}
+  m_Controller: {fileID: 9100000, guid: e3b06ec16bdfc2045aecf9fb6cf77baa, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1553,17 +1581,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.042396456, y: -0.013228431}
+  m_Offset: {x: -0.005171269, y: -0.077920735}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.0666667, y: 1.6}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.51039416, y: 0.79244256}
+  m_Size: {x: 0.4152587, y: 1.0131572}
   m_EdgeRadius: 0
 --- !u!114 &2083645870
 MonoBehaviour:
@@ -1580,16 +1608,27 @@ MonoBehaviour:
   buff_icon_grid: {fileID: 0}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
   dot_stat: {fileID: 11400000, guid: 2114965e00ff07a479078043f04431e1, type: 2}
+  initial_max_health: 500
+  initial_move_speed: 3
+  initial_dash_speed_multiplier: 3
+  initial_dash_duration: 0.1
+  initial_dodge: 0.05
+  max_health: 50000
+  health: 50000
+  moveSpeed: 3
+  dodge: 0.05
   player_stat: {fileID: 11400000, guid: 79d92c20c3b842f4ca10337079050640, type: 2}
   test: {fileID: 0}
   Blinks: 3
   time: 0.1
   guns:
+  - {fileID: 0}
   - {fileID: 225704923}
   - {fileID: 468882675}
   - {fileID: 1645237871}
   - {fileID: 1428263326}
   - {fileID: 9140468724553623913}
+  animator: {fileID: 9140468724303677698}
   have_fire_aoe: 0
   use_lifesteal: 1
   fire_aoe: {fileID: 3976053301497448939}
@@ -1617,7 +1656,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9140468724553623912}
   - component: {fileID: 9140468724553623919}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SwordHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1663,6 +1702,10 @@ PrefabInstance:
     - target: {fileID: 1994323218770277061, guid: 4535257ae6585a34d9229d9fe4e54fa6, type: 3}
       propertyPath: m_Name
       value: Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 1994323218770277061, guid: 4535257ae6585a34d9229d9fe4e54fa6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7875257308660582535, guid: 4535257ae6585a34d9229d9fe4e54fa6, type: 3}
       propertyPath: m_RootOrder
@@ -1726,6 +1769,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9140468724303677696}
     m_Modifications:
+    - target: {fileID: 8436850498848389049, guid: def3b33598d165248ab4fb286ce5756f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 8436850499978830978, guid: def3b33598d165248ab4fb286ce5756f, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1775,8 +1822,16 @@ PrefabInstance:
       value: fire aoe
       objectReference: {fileID: 0}
     - target: {fileID: 8436850499978830980, guid: def3b33598d165248ab4fb286ce5756f, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8436850499978830980, guid: def3b33598d165248ab4fb286ce5756f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8436850500258974484, guid: def3b33598d165248ab4fb286ce5756f, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8436850500258974491, guid: def3b33598d165248ab4fb286ce5756f, type: 3}
       propertyPath: lifetime

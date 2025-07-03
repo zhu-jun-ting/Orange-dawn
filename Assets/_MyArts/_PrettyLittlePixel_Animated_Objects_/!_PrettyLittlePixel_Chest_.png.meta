@@ -1,0 +1,2613 @@
+fileFormatVersion: 2
+guid: fbc813dbecf383e4098896d7c8fdc050
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -3846691238114954004
+    second: '!_PrettyLittlePixel_Chest__0'
+  - first:
+      213: 7411932297737417889
+    second: '!_PrettyLittlePixel_Chest__1'
+  - first:
+      213: 2331515678130976875
+    second: '!_PrettyLittlePixel_Chest__2'
+  - first:
+      213: 5916510255503629056
+    second: '!_PrettyLittlePixel_Chest__3'
+  - first:
+      213: 6192204197673798400
+    second: '!_PrettyLittlePixel_Chest__4'
+  - first:
+      213: 8573450358566748879
+    second: '!_PrettyLittlePixel_Chest__5'
+  - first:
+      213: 673604096294032255
+    second: '!_PrettyLittlePixel_Chest__6'
+  - first:
+      213: -221084940970065398
+    second: '!_PrettyLittlePixel_Chest__7'
+  - first:
+      213: -5595760366775868803
+    second: '!_PrettyLittlePixel_Chest__8'
+  - first:
+      213: -1308347074351955660
+    second: '!_PrettyLittlePixel_Chest__9'
+  - first:
+      213: 8738595348649582286
+    second: '!_PrettyLittlePixel_Chest__10'
+  - first:
+      213: 1362272920432497857
+    second: '!_PrettyLittlePixel_Chest__11'
+  - first:
+      213: 6210248093383656578
+    second: '!_PrettyLittlePixel_Chest__12'
+  - first:
+      213: 4498036011153430698
+    second: '!_PrettyLittlePixel_Chest__13'
+  - first:
+      213: -7641357205086196004
+    second: '!_PrettyLittlePixel_Chest__14'
+  - first:
+      213: 1629403696030093137
+    second: '!_PrettyLittlePixel_Chest__15'
+  - first:
+      213: 3687066396432018053
+    second: '!_PrettyLittlePixel_Chest__16'
+  - first:
+      213: -5849302338102459248
+    second: '!_PrettyLittlePixel_Chest__17'
+  - first:
+      213: 6212811013123755830
+    second: '!_PrettyLittlePixel_Chest__18'
+  - first:
+      213: 8274998372415507407
+    second: '!_PrettyLittlePixel_Chest__19'
+  - first:
+      213: -2445195258027791402
+    second: '!_PrettyLittlePixel_Chest__20'
+  - first:
+      213: -4536143665941186124
+    second: '!_PrettyLittlePixel_Chest__21'
+  - first:
+      213: -1522782985712083829
+    second: '!_PrettyLittlePixel_Chest__22'
+  - first:
+      213: -8131526090971159302
+    second: '!_PrettyLittlePixel_Chest__23'
+  - first:
+      213: -1889338429009097700
+    second: '!_PrettyLittlePixel_Chest__24'
+  - first:
+      213: -7375231770089068469
+    second: '!_PrettyLittlePixel_Chest__25'
+  - first:
+      213: 2640768589684300721
+    second: '!_PrettyLittlePixel_Chest__26'
+  - first:
+      213: -3688226557846426983
+    second: '!_PrettyLittlePixel_Chest__27'
+  - first:
+      213: -3877790141307664664
+    second: '!_PrettyLittlePixel_Chest__28'
+  - first:
+      213: 3434651085055302761
+    second: '!_PrettyLittlePixel_Chest__29'
+  - first:
+      213: 4824098099709778730
+    second: '!_PrettyLittlePixel_Chest__30'
+  - first:
+      213: 4824852224934585177
+    second: '!_PrettyLittlePixel_Chest__31'
+  - first:
+      213: -6986854035731054838
+    second: '!_PrettyLittlePixel_Chest__32'
+  - first:
+      213: 241365861704255594
+    second: '!_PrettyLittlePixel_Chest__33'
+  - first:
+      213: 7692515306645722976
+    second: '!_PrettyLittlePixel_Chest__34'
+  - first:
+      213: -3376221561914268912
+    second: '!_PrettyLittlePixel_Chest__35'
+  - first:
+      213: 997159849537391212
+    second: '!_PrettyLittlePixel_Chest__36'
+  - first:
+      213: -6771350022332126683
+    second: '!_PrettyLittlePixel_Chest__37'
+  - first:
+      213: 2607237943500277078
+    second: '!_PrettyLittlePixel_Chest__38'
+  - first:
+      213: -1107643699882888030
+    second: '!_PrettyLittlePixel_Chest__39'
+  - first:
+      213: 3414287584651534809
+    second: '!_PrettyLittlePixel_Chest__40'
+  - first:
+      213: -1960909454646611045
+    second: '!_PrettyLittlePixel_Chest__41'
+  - first:
+      213: 3145812960018656440
+    second: '!_PrettyLittlePixel_Chest__42'
+  - first:
+      213: -5208337511250924762
+    second: '!_PrettyLittlePixel_Chest__43'
+  - first:
+      213: 6353729901378911792
+    second: '!_PrettyLittlePixel_Chest__44'
+  - first:
+      213: -914189727529153279
+    second: '!_PrettyLittlePixel_Chest__45'
+  - first:
+      213: -494035658180853309
+    second: '!_PrettyLittlePixel_Chest__46'
+  - first:
+      213: -6937403546699426987
+    second: '!_PrettyLittlePixel_Chest__47'
+  - first:
+      213: 935912682240373698
+    second: '!_PrettyLittlePixel_Chest__48'
+  - first:
+      213: 3000256288002921693
+    second: '!_PrettyLittlePixel_Chest__49'
+  - first:
+      213: 8249623960913350636
+    second: '!_PrettyLittlePixel_Chest__50'
+  - first:
+      213: -2149468004814977809
+    second: '!_PrettyLittlePixel_Chest__51'
+  - first:
+      213: -4944014422421837488
+    second: '!_PrettyLittlePixel_Chest__52'
+  - first:
+      213: 2428529006046704932
+    second: '!_PrettyLittlePixel_Chest__53'
+  - first:
+      213: -6475995909426955092
+    second: '!_PrettyLittlePixel_Chest__54'
+  - first:
+      213: -6459474104938735639
+    second: '!_PrettyLittlePixel_Chest__55'
+  - first:
+      213: -9146775817930730059
+    second: '!_PrettyLittlePixel_Chest__56'
+  - first:
+      213: 6485402829441872662
+    second: '!_PrettyLittlePixel_Chest__57'
+  - first:
+      213: 3960119323915773769
+    second: '!_PrettyLittlePixel_Chest__58'
+  - first:
+      213: -4887742793398969097
+    second: '!_PrettyLittlePixel_Chest__59'
+  - first:
+      213: -8024068364975838032
+    second: '!_PrettyLittlePixel_Chest__60'
+  - first:
+      213: -6810634381119104097
+    second: '!_PrettyLittlePixel_Chest__61'
+  - first:
+      213: 9171556816130638288
+    second: '!_PrettyLittlePixel_Chest__62'
+  - first:
+      213: -1660531896693927805
+    second: '!_PrettyLittlePixel_Chest__63'
+  - first:
+      213: -7477940070261366912
+    second: '!_PrettyLittlePixel_Chest__64'
+  - first:
+      213: 588712867591202188
+    second: '!_PrettyLittlePixel_Chest__65'
+  - first:
+      213: 3814312421279682214
+    second: '!_PrettyLittlePixel_Chest__66'
+  - first:
+      213: -8045655338858921871
+    second: '!_PrettyLittlePixel_Chest__67'
+  - first:
+      213: -6959335007843554162
+    second: '!_PrettyLittlePixel_Chest__68'
+  - first:
+      213: -953098995291307849
+    second: '!_PrettyLittlePixel_Chest__69'
+  - first:
+      213: 3885342455151688087
+    second: '!_PrettyLittlePixel_Chest__70'
+  - first:
+      213: -3332388974571931391
+    second: '!_PrettyLittlePixel_Chest__71'
+  - first:
+      213: -3658157149419346924
+    second: '!_PrettyLittlePixel_Chest__72'
+  - first:
+      213: -4027564084955703290
+    second: '!_PrettyLittlePixel_Chest__73'
+  - first:
+      213: 1144383388010659815
+    second: '!_PrettyLittlePixel_Chest__74'
+  - first:
+      213: 4650321120476982202
+    second: '!_PrettyLittlePixel_Chest__75'
+  - first:
+      213: -9015655627060492832
+    second: '!_PrettyLittlePixel_Chest__76'
+  - first:
+      213: -148164849344329512
+    second: '!_PrettyLittlePixel_Chest__77'
+  - first:
+      213: -8168730531916568359
+    second: '!_PrettyLittlePixel_Chest__78'
+  - first:
+      213: -4378998132834260434
+    second: '!_PrettyLittlePixel_Chest__79'
+  - first:
+      213: -6400013432960873127
+    second: '!_PrettyLittlePixel_Chest__80'
+  - first:
+      213: -2977727151960936693
+    second: '!_PrettyLittlePixel_Chest__81'
+  - first:
+      213: -8855164923696906810
+    second: '!_PrettyLittlePixel_Chest__82'
+  - first:
+      213: 598518038289561820
+    second: '!_PrettyLittlePixel_Chest__83'
+  - first:
+      213: 375256054272864224
+    second: '!_PrettyLittlePixel_Chest__84'
+  - first:
+      213: 7861887169537855671
+    second: '!_PrettyLittlePixel_Chest__85'
+  - first:
+      213: 1207773071765954968
+    second: '!_PrettyLittlePixel_Chest__86'
+  - first:
+      213: -1007315798105321275
+    second: '!_PrettyLittlePixel_Chest__87'
+  - first:
+      213: -7075106733044707591
+    second: '!_PrettyLittlePixel_Chest__88'
+  - first:
+      213: -5639637544681965558
+    second: '!_PrettyLittlePixel_Chest__89'
+  - first:
+      213: 4910588166938494721
+    second: '!_PrettyLittlePixel_Chest__90'
+  - first:
+      213: -6404895395329844568
+    second: '!_PrettyLittlePixel_Chest__91'
+  - first:
+      213: -3554504457281586016
+    second: '!_PrettyLittlePixel_Chest__92'
+  - first:
+      213: 1440665680373604019
+    second: '!_PrettyLittlePixel_Chest__93'
+  - first:
+      213: 4781977563654488773
+    second: '!_PrettyLittlePixel_Chest__94'
+  - first:
+      213: -2806475107100213807
+    second: '!_PrettyLittlePixel_Chest__95'
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__0'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ce4fc8713becd9ac0800000000000000
+      internalID: -3846691238114954004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__1'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a432e997297cd660800000000000000
+      internalID: 7411932297737417889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__2'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b68304708253b5020800000000000000
+      internalID: 2331515678130976875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__3'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00bdf39fabaab1250800000000000000
+      internalID: 5916510255503629056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__4'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00b870bf8e02fe550800000000000000
+      internalID: 6192204197673798400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__5'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc201d15da30bf670800000000000000
+      internalID: 8573450358566748879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__6'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f739ade4b5f195900800000000000000
+      internalID: 673604096294032255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__7'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a028a44ea6c8eecf0800000000000000
+      internalID: -221084940970065398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__8'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d726d12189dd752b0800000000000000
+      internalID: -5595760366775868803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__9'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 431845e8441d7dde0800000000000000
+      internalID: -1308347074351955660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__10'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ece9328ab2ab54970800000000000000
+      internalID: 8738595348649582286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__11'
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 335
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c45385e004c7e210800000000000000
+      internalID: 1362272920432497857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__12'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2840e25dcbb3f2650800000000000000
+      internalID: 6210248093383656578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__13'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa817b7abeb3c6e30800000000000000
+      internalID: 4498036011153430698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__14'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cde27fc8b1274f590800000000000000
+      internalID: -7641357205086196004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__15'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15f0591570ecc9610800000000000000
+      internalID: 1629403696030093137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__16'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58a2c964a571b2330800000000000000
+      internalID: 3687066396432018053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__17'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0948a81b38a13dea0800000000000000
+      internalID: -5849302338102459248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__18'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63f40e513b6583650800000000000000
+      internalID: 6212811013123755830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__19'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcb03c84d23b6d270800000000000000
+      internalID: 8274998372415507407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__20'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6dba8c63edbe01ed0800000000000000
+      internalID: -2445195258027791402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__21'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b9ff6d8e516c01c0800000000000000
+      internalID: -4536143665941186124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__22'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8c5f9a41fcfddae0800000000000000
+      internalID: -1522782985712083829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__23'
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 287
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af4e7d95a14072f80800000000000000
+      internalID: -8131526090971159302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__24'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c0b6e75b8b7c5e0800000000000000
+      internalID: -1889338429009097700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__25'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b486aafd7c9e5a990800000000000000
+      internalID: -7375231770089068469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__26'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bb542a7a05e5a420800000000000000
+      internalID: 2640768589684300721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__27'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99ae6689c79c0dcc0800000000000000
+      internalID: -3688226557846426983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__28'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e648d179625f2ac0800000000000000
+      internalID: -3877790141307664664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__29'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96c912cd6f45aaf20800000000000000
+      internalID: 3434651085055302761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__30'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2b96da99a3a2f240800000000000000
+      internalID: 4824098099709778730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__31'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 953aaf0198155f240800000000000000
+      internalID: 4824852224934585177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__32'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0ffebeb545b90f90800000000000000
+      internalID: -6986854035731054838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__33'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a68c9cfe8f0895300800000000000000
+      internalID: 241365861704255594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__34'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0679fd92aed41ca60800000000000000
+      internalID: 7692515306645722976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__35'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 013e51f90604521d0800000000000000
+      internalID: -3376221561914268912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__36'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6a45f7999f96dd00800000000000000
+      internalID: 997159849537391212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__37'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52a6f05e7055702a0800000000000000
+      internalID: -6771350022332126683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__38'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 655014b8815ce2420800000000000000
+      internalID: 2607237943500277078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__39'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a4f7ca6cebd0a0f0800000000000000
+      internalID: -1107643699882888030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__40'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d16e24f77cf16f20800000000000000
+      internalID: 3414287584651534809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__41'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9375178d3379c4e0800000000000000
+      internalID: -1960909454646611045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__42'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bc6bbb483c28ab20800000000000000
+      internalID: 3145812960018656440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__43'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62beb83e0a448b7b0800000000000000
+      internalID: -5208337511250924762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__44'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03eb77a8eabfc2850800000000000000
+      internalID: 6353729901378911792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__45'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10d405159452053f0800000000000000
+      internalID: -914189727529153279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__46'
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 239
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c101c7bf25d429f0800000000000000
+      internalID: -494035658180853309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__47'
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 191
+        width: 42
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 553127fea3469bf90800000000000000
+      internalID: -6937403546699426987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__48'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c378b530a70dfc00800000000000000
+      internalID: 935912682240373698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__49'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd4db89a23d03a920800000000000000
+      internalID: 3000256288002921693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__50'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cef8ac8b84d8c7270800000000000000
+      internalID: 8249623960913350636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__51'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe48fecec3e8b22e0800000000000000
+      internalID: -2149468004814977809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__52'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 059632bc315536bb0800000000000000
+      internalID: -4944014422421837488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__53'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 425752c934ed3b120800000000000000
+      internalID: 2428529006046704932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__54'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cac39bb1804a026a0800000000000000
+      internalID: -6475995909426955092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__55'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e7da4b76865b56a0800000000000000
+      internalID: -6459474104938735639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__56'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b51b14fadf101180800000000000000
+      internalID: -9146775817930730059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__57'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61332322387c00a50800000000000000
+      internalID: 6485402829441872662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__58'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 947e8222b8b25f630800000000000000
+      internalID: 3960119323915773769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__59'
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 143
+        width: 42
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fc9af563df3b2cb0800000000000000
+      internalID: -4887742793398969097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__60'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bc6a2cd558c4a090800000000000000
+      internalID: -8024068364975838032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__61'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9b555a5d14cb71a0800000000000000
+      internalID: -6810634381119104097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__62'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d187cec45ae74f70800000000000000
+      internalID: 9171556816130638288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__63'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3805a5fa90b94f8e0800000000000000
+      internalID: -1660531896693927805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__64'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08f596c3025093890800000000000000
+      internalID: -7477940070261366912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__65'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c85a973eb378b2800800000000000000
+      internalID: 588712867591202188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__66'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ae4cb420f82fe430800000000000000
+      internalID: 3814312421279682214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__67'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 170c616d817185090800000000000000
+      internalID: -8045655338858921871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__68'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8c6b88bea97b6f90800000000000000
+      internalID: -6959335007843554162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__69'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b041e57389e5c2f0800000000000000
+      internalID: -953098995291307849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__70'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7997f06a0628be530800000000000000
+      internalID: 3885342455151688087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__71'
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 95
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 109363522e9f0c1d0800000000000000
+      internalID: -3332388974571931391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__72'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 414ed40547d9b3dc0800000000000000
+      internalID: -3658157149419346924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__73'
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 608181ebdc73b18c0800000000000000
+      internalID: -4027564084955703290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__74'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7efbb31d0aaa1ef00800000000000000
+      internalID: 1144383388010659815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__75'
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abbe68dab62498040800000000000000
+      internalID: 4650321120476982202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__76'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e5cec369f4f1e280800000000000000
+      internalID: -9015655627060492832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__77'
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d8c1a2cadc91fdf0800000000000000
+      internalID: -148164849344329512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__78'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d8a93b6cd6d2ae80800000000000000
+      internalID: -8168730531916568359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__79'
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2aa05c266caa33c0800000000000000
+      internalID: -4378998132834260434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__80'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95d83a201b59e27a0800000000000000
+      internalID: -6400013432960873127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__81'
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0f25559eecfca6d0800000000000000
+      internalID: -2977727151960936693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__82'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cdfb872b622c1580800000000000000
+      internalID: -8855164923696906810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__83'
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd8b9e71cfc5e4800800000000000000
+      internalID: 598518038289561820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__84'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0efafb6a46d253500800000000000000
+      internalID: 375256054272864224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__85'
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b051840ab80b1d60800000000000000
+      internalID: 7861887169537855671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__86'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89164efa53fd2c010800000000000000
+      internalID: 1207773071765954968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__87'
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c01b4d5e9b4502f0800000000000000
+      internalID: -1007315798105321275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__88'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fe45ec69eb20dd90800000000000000
+      internalID: -7075106733044707591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__89'
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a08764f788bfbb1b0800000000000000
+      internalID: -5639637544681965558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__90'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1070b90abe9e52440800000000000000
+      internalID: 4910588166938494721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__91'
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8aa54d1929d3d17a0800000000000000
+      internalID: -6404895395329844568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__92'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ac3037570ddbaec0800000000000000
+      internalID: -3554504457281586016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__93'
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bed3c6adc54ef310800000000000000
+      internalID: 1440665680373604019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__94'
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 47
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c28385124ffc5240800000000000000
+      internalID: 4781977563654488773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: '!_PrettyLittlePixel_Chest__95'
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 0
+        width: 42
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ddb05a62c56d09d0800000000000000
+      internalID: -2806475107100213807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      '!_PrettyLittlePixel_Chest__0': -3846691238114954004
+      '!_PrettyLittlePixel_Chest__1': 7411932297737417889
+      '!_PrettyLittlePixel_Chest__10': 8738595348649582286
+      '!_PrettyLittlePixel_Chest__11': 1362272920432497857
+      '!_PrettyLittlePixel_Chest__12': 6210248093383656578
+      '!_PrettyLittlePixel_Chest__13': 4498036011153430698
+      '!_PrettyLittlePixel_Chest__14': -7641357205086196004
+      '!_PrettyLittlePixel_Chest__15': 1629403696030093137
+      '!_PrettyLittlePixel_Chest__16': 3687066396432018053
+      '!_PrettyLittlePixel_Chest__17': -5849302338102459248
+      '!_PrettyLittlePixel_Chest__18': 6212811013123755830
+      '!_PrettyLittlePixel_Chest__19': 8274998372415507407
+      '!_PrettyLittlePixel_Chest__2': 2331515678130976875
+      '!_PrettyLittlePixel_Chest__20': -2445195258027791402
+      '!_PrettyLittlePixel_Chest__21': -4536143665941186124
+      '!_PrettyLittlePixel_Chest__22': -1522782985712083829
+      '!_PrettyLittlePixel_Chest__23': -8131526090971159302
+      '!_PrettyLittlePixel_Chest__24': -1889338429009097700
+      '!_PrettyLittlePixel_Chest__25': -7375231770089068469
+      '!_PrettyLittlePixel_Chest__26': 2640768589684300721
+      '!_PrettyLittlePixel_Chest__27': -3688226557846426983
+      '!_PrettyLittlePixel_Chest__28': -3877790141307664664
+      '!_PrettyLittlePixel_Chest__29': 3434651085055302761
+      '!_PrettyLittlePixel_Chest__3': 5916510255503629056
+      '!_PrettyLittlePixel_Chest__30': 4824098099709778730
+      '!_PrettyLittlePixel_Chest__31': 4824852224934585177
+      '!_PrettyLittlePixel_Chest__32': -6986854035731054838
+      '!_PrettyLittlePixel_Chest__33': 241365861704255594
+      '!_PrettyLittlePixel_Chest__34': 7692515306645722976
+      '!_PrettyLittlePixel_Chest__35': -3376221561914268912
+      '!_PrettyLittlePixel_Chest__36': 997159849537391212
+      '!_PrettyLittlePixel_Chest__37': -6771350022332126683
+      '!_PrettyLittlePixel_Chest__38': 2607237943500277078
+      '!_PrettyLittlePixel_Chest__39': -1107643699882888030
+      '!_PrettyLittlePixel_Chest__4': 6192204197673798400
+      '!_PrettyLittlePixel_Chest__40': 3414287584651534809
+      '!_PrettyLittlePixel_Chest__41': -1960909454646611045
+      '!_PrettyLittlePixel_Chest__42': 3145812960018656440
+      '!_PrettyLittlePixel_Chest__43': -5208337511250924762
+      '!_PrettyLittlePixel_Chest__44': 6353729901378911792
+      '!_PrettyLittlePixel_Chest__45': -914189727529153279
+      '!_PrettyLittlePixel_Chest__46': -494035658180853309
+      '!_PrettyLittlePixel_Chest__47': -6937403546699426987
+      '!_PrettyLittlePixel_Chest__48': 935912682240373698
+      '!_PrettyLittlePixel_Chest__49': 3000256288002921693
+      '!_PrettyLittlePixel_Chest__5': 8573450358566748879
+      '!_PrettyLittlePixel_Chest__50': 8249623960913350636
+      '!_PrettyLittlePixel_Chest__51': -2149468004814977809
+      '!_PrettyLittlePixel_Chest__52': -4944014422421837488
+      '!_PrettyLittlePixel_Chest__53': 2428529006046704932
+      '!_PrettyLittlePixel_Chest__54': -6475995909426955092
+      '!_PrettyLittlePixel_Chest__55': -6459474104938735639
+      '!_PrettyLittlePixel_Chest__56': -9146775817930730059
+      '!_PrettyLittlePixel_Chest__57': 6485402829441872662
+      '!_PrettyLittlePixel_Chest__58': 3960119323915773769
+      '!_PrettyLittlePixel_Chest__59': -4887742793398969097
+      '!_PrettyLittlePixel_Chest__6': 673604096294032255
+      '!_PrettyLittlePixel_Chest__60': -8024068364975838032
+      '!_PrettyLittlePixel_Chest__61': -6810634381119104097
+      '!_PrettyLittlePixel_Chest__62': 9171556816130638288
+      '!_PrettyLittlePixel_Chest__63': -1660531896693927805
+      '!_PrettyLittlePixel_Chest__64': -7477940070261366912
+      '!_PrettyLittlePixel_Chest__65': 588712867591202188
+      '!_PrettyLittlePixel_Chest__66': 3814312421279682214
+      '!_PrettyLittlePixel_Chest__67': -8045655338858921871
+      '!_PrettyLittlePixel_Chest__68': -6959335007843554162
+      '!_PrettyLittlePixel_Chest__69': -953098995291307849
+      '!_PrettyLittlePixel_Chest__7': -221084940970065398
+      '!_PrettyLittlePixel_Chest__70': 3885342455151688087
+      '!_PrettyLittlePixel_Chest__71': -3332388974571931391
+      '!_PrettyLittlePixel_Chest__72': -3658157149419346924
+      '!_PrettyLittlePixel_Chest__73': -4027564084955703290
+      '!_PrettyLittlePixel_Chest__74': 1144383388010659815
+      '!_PrettyLittlePixel_Chest__75': 4650321120476982202
+      '!_PrettyLittlePixel_Chest__76': -9015655627060492832
+      '!_PrettyLittlePixel_Chest__77': -148164849344329512
+      '!_PrettyLittlePixel_Chest__78': -8168730531916568359
+      '!_PrettyLittlePixel_Chest__79': -4378998132834260434
+      '!_PrettyLittlePixel_Chest__8': -5595760366775868803
+      '!_PrettyLittlePixel_Chest__80': -6400013432960873127
+      '!_PrettyLittlePixel_Chest__81': -2977727151960936693
+      '!_PrettyLittlePixel_Chest__82': -8855164923696906810
+      '!_PrettyLittlePixel_Chest__83': 598518038289561820
+      '!_PrettyLittlePixel_Chest__84': 375256054272864224
+      '!_PrettyLittlePixel_Chest__85': 7861887169537855671
+      '!_PrettyLittlePixel_Chest__86': 1207773071765954968
+      '!_PrettyLittlePixel_Chest__87': -1007315798105321275
+      '!_PrettyLittlePixel_Chest__88': -7075106733044707591
+      '!_PrettyLittlePixel_Chest__89': -5639637544681965558
+      '!_PrettyLittlePixel_Chest__9': -1308347074351955660
+      '!_PrettyLittlePixel_Chest__90': 4910588166938494721
+      '!_PrettyLittlePixel_Chest__91': -6404895395329844568
+      '!_PrettyLittlePixel_Chest__92': -3554504457281586016
+      '!_PrettyLittlePixel_Chest__93': 1440665680373604019
+      '!_PrettyLittlePixel_Chest__94': 4781977563654488773
+      '!_PrettyLittlePixel_Chest__95': -2806475107100213807
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

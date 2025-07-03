@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemHealth : MonoBehaviour
+public class ItemHealth : MonoBehaviour, IColliderHandler
 {
     PlayerController gainhealth;
     private GameObject Player;
@@ -18,14 +18,8 @@ public class ItemHealth : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if ((transform.position - Player.transform.position).magnitude <= 0.3)
-        {
-            gainhealth.GainHealth(5);
-            Destroy(gameObject);
-        }
-
         if (inPlayer == true)
         {
             transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed * Time.deltaTime);
@@ -39,5 +33,44 @@ public class ItemHealth : MonoBehaviour
         {
             inPlayer = true;
         }
+    }
+
+    public void HandleTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Player") == true)
+        {
+            gainhealth.GainHealth(5);
+            Destroy(gameObject);
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void HandleTriggerExit2D(Collider2D collider)
+    {
+        // Add logic if needed, or leave empty
+    }
+
+    public void HandleCollisionEnter2D(Collision2D collision)
+    {
+        // Add logic if needed, or leave empty
+    }
+
+    public void HandleCollisionExit2D(Collision2D collision)
+    {
+        // Add logic if needed, or leave empty
     }
 }

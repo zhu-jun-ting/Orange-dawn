@@ -29,24 +29,7 @@ public class FragileWall : MonoBehaviour
 
     void Start()
     {
-        // // Wait for DOTween to finish, then enable collider
-        // // If no tween, enable immediately
-        // if (col2D != null)
-        // {
-        //     if (DOTween.IsTweening(transform))
-        //     {
-        //         // Use a dummy tween to listen for all tweens to complete
-        //         transform.DOMove(transform.position, 0.01f).OnComplete(() =>
-        //         {
-        //             OnTweenComplete();
-        //         });
-        //     }
-        //     else
-        //     {
-        //         col2D.enabled = true;
-        //         if (fxSmoke != null && fxSmokePosition != null) CombatManager.PlayFx(fxSmoke, fxSmokePosition.position, 1.8f);
-        //     }
-        // }
+
     }
 
     // Called when DOTween jump is complete

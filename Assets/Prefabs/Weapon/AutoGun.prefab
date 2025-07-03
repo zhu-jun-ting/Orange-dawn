@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 9148357295658281508}
   - component: {fileID: 8975115000396889167}
   - component: {fileID: 4412438816564903344}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: ShootRangeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

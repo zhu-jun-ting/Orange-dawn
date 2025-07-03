@@ -59,7 +59,7 @@ public class CardMaster : MonoBehaviour
     {
         Damage,
         Health,
-        Probablity,
+        Probability,
         Amount,
         Mana,
         Speed, 

@@ -18,7 +18,7 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
     public GameObject impulseAOEPrefab; // Assign in inspector
     public float spawnRadius = 2f;
     public int spawnCount = 3;
-    public float spawnChance = 1f;
+    // public float spawnChance = 1f; // (Removed, use triggerProbability)
     public float spawnDamage = 10f;
     public float impulseRadius = 1f;
     public float impulseDuration = 0.3f;
@@ -36,15 +36,15 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
 
     // Store initial values for reset
     private int initialSpawnCount;
-    private float initialSpawnChance;
     private float initialSpawnDamage;
+    private float initialTriggerProbability;
 
 
     protected override void Awake()
     {
         initialSpawnCount = spawnCount;
-        initialSpawnChance = spawnChance;
         initialSpawnDamage = spawnDamage;
+        initialTriggerProbability = triggerProbability;
     }
 
 
@@ -58,7 +58,7 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
         lastWallSpawnTime = Time.time;
         // Mana cost check
         if (!ManaBar.CanCostMana(-manaCost)) return;
-        if (UnityEngine.Random.value > spawnChance) return;
+        if (UnityEngine.Random.value > triggerProbability) return;
         for (int i = 0; i < spawnCount; i++)
         {
             // Try to get a valid random spawn location inside the circle
@@ -137,13 +137,13 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall -= HandleOnHitWall;
         spawnCount = initialSpawnCount;
-        spawnChance = initialSpawnChance;
         spawnDamage = initialSpawnDamage;
+        triggerProbability = initialTriggerProbability;
     }
 
     public override string GetDescription()
     {
-        return string.Format(card_description, spawnCount, spawnChance, spawnDamage, manaCost);
+        return string.Format(card_description, spawnCount, triggerProbability, spawnDamage, manaCost);
     }
 
     public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
@@ -156,10 +156,10 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
             return true;
         }
         // If you have a Probability type, use it. Otherwise, treat as a float (customize as needed)
-        else if (numberType.ToString().ToLower().Contains("prob"))
+        else if (numberType == CardMaster.NumberType.Probability)
         {
-            spawnChance += value;
-            spawnChance = Mathf.Clamp01(spawnChance);
+            triggerProbability += value;
+            triggerProbability = Mathf.Clamp01(triggerProbability);
             return true;
         }
         else if (numberType == CardMaster.NumberType.Damage)

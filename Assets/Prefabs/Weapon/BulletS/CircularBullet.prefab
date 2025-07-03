@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2691200651072546786}
   - component: {fileID: 7758898671440419400}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 5688019745130764630}
   - component: {fileID: 5843784062252597678}
   - component: {fileID: 5626005198434428261}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: CircularBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d491f731ef4873645b6fdf368da8eaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDirectional: 0
   att: 3
   owner: {fileID: 0}
   speed: 15
@@ -288,7 +289,7 @@ GameObject:
   - component: {fileID: 1422615760621765368}
   - component: {fileID: 6839545974598226910}
   - component: {fileID: 811486319077690669}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: AOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}

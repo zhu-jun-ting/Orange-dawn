@@ -5,55 +5,89 @@ using UnityEngine.UI;
 
 public class ManaBar : MonoBehaviour
 {
-    public Text manaText;
-    public static int ManaCurrent = 10;
-    public static int ManaMax = 10;
-    private static float manaRegen = 0.5f; // Backing field for ManaRegen
+    public static int manaCurrent = 10;
+    public static int manaMax = 10;
+    private static float _manaRegen = 0.5f; // Backing field for manaRegen 
 
-    public static float ManaRegen
+
+    public TMPro.TextMeshProUGUI manaText;
+
+    public Image manaResponsive; // Assign in inspector: the falling bar image
+    public float fallingSpeed = 2f; // Units per second
+
+    private Image manaBar;
+    private float responsiveFill = 1f;
+
+    public Transform maxWidth;
+
+
+    public static float manaRegen
     {
-        get { return manaRegen; }
-        set { manaRegen = value; }
+        get { return _manaRegen; }
+        set { _manaRegen = value; }
     }
 
-    private Image healthBar;
     // Start is called before the first frame update
     void Start()
     {
-        healthBar = GetComponent<Image>();
+        manaBar = GetComponent<Image>();
         GameEvents.instance.OnUpdateMana += OnUpdateMana;
-        //HealthCurrent = HealthMax;
+        responsiveFill = 1f;
     }
 
     void OnEnable()
     {
-        // GameEvents.instance.OnUpdateMana += OnUpdateMana;
+        // GameEvents.instance.OnUpdatemana += OnUpdatemana;
     }
 
     void OnDisable()
     {
-        GameEvents.instance.OnUpdateMana -= OnUpdateMana;  
+        GameEvents.instance.OnUpdateMana -= OnUpdateMana;
     }
 
     // Update is called once per frame
     void Update()
     {
-        healthBar.fillAmount = (float)ManaCurrent / (float)ManaMax;
-        manaText.text = ManaCurrent.ToString() + "/" + ManaMax.ToString();
+        float fillAmount = (manaMax == 0) ? 1f : (float)manaCurrent / (float)manaMax;
+        fillAmount = Mathf.Clamp01(fillAmount);
+
+        // Main mana bar instantly matches mana
+        var rectTransform = manaBar.rectTransform;
+        float parentWidth = maxWidth.GetComponent<RectTransform>().rect.width;
+        rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, fillAmount * parentWidth);
+
+        // Responsive bar falls slowly to match mana
+        if (manaResponsive != null)
+        {
+            // Lerp the responsive fill down to the current fill
+            if (responsiveFill > fillAmount)
+            {
+                responsiveFill -= fallingSpeed * Time.deltaTime;
+                if (responsiveFill < fillAmount) responsiveFill = fillAmount;
+            }
+            else
+            {
+                responsiveFill = fillAmount; // Snap up instantly if healing
+            }
+            var responsiveRect = manaResponsive.rectTransform;
+            responsiveRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, responsiveFill * parentWidth);
+        }
+
+        manaText.text = manaCurrent.ToString() + "/" + manaMax.ToString();
     }
 
-    public void OnUpdateMana(int diffMana_, int maxMana_)
+    public void OnUpdateMana(int diffmana_, int maxmana_)
     {
-        if (maxMana_ > 0) ManaMax = maxMana_;
+        if (maxmana_ > 0) manaMax = maxmana_;
 
-        ManaCurrent = ManaCurrent + diffMana_;
-        if (ManaCurrent < 0) ManaCurrent = 0; // Ensure current mana doesn't go below 0
-        if (ManaCurrent > ManaMax) ManaCurrent = ManaMax; // Ensure current mana doesn't exceed max mana
+        manaCurrent = manaCurrent + diffmana_;
+        if (manaCurrent < 0) manaCurrent = 0; // Ensure current mana doesn't go below 0
+        if (manaCurrent > manaMax) manaCurrent = manaMax; // Ensure current mana doesn't exceed max mana
     }
 
-    public static bool CanCostMana(int diffMana_)
+    public static bool CanCostMana(int diffmana_)
     {
-        return ManaCurrent + diffMana_ >= 0; // Check if the mana cost can be afforded
+        return manaCurrent + diffmana_ >= 0; // Check if the mana cost can be afforded
     }
     
     private float manaRegenAccumulator = 0f;
@@ -61,11 +95,11 @@ public class ManaBar : MonoBehaviour
     void FixedUpdate()
     {
         // Accumulate mana regeneration over time
-        manaRegenAccumulator += ManaRegen * Time.fixedDeltaTime;
+        manaRegenAccumulator += manaRegen * Time.fixedDeltaTime;
         if (manaRegenAccumulator >= 1f)
         {
             int regenAmount = Mathf.FloorToInt(manaRegenAccumulator);
-            ManaCurrent = Mathf.Min(ManaCurrent + regenAmount, ManaMax);
+            manaCurrent = Mathf.Min(manaCurrent + regenAmount, manaMax);
             manaRegenAccumulator -= regenAmount;
         }
     }

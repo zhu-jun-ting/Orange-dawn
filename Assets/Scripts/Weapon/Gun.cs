@@ -89,18 +89,25 @@ public class Gun : MonoBehaviour
             // GameObject bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
             GameObject bullet = ObjectPool.Instance.GetObject(bulletPrefab);
             bullet.transform.position = muzzlePos.position;
-            bullet.GetComponent<GunBullet>().trigger_tags.Add("Enemy");
-            bullet.GetComponent<GunBullet>().att = damage;
-            bullet.GetComponent<GunBullet>().SetOwner(owner);
-            bullet.GetComponent<GunBullet>().gun = this;
+            var gunBullet = bullet.GetComponent<GunBullet>();
+            if (gunBullet != null)
+            {
+                gunBullet.trigger_tags.Add("Enemy");
+                gunBullet.att = damage;
+                gunBullet.hit_back = 0.1f;
+                gunBullet.SetOwner(gameObject);
+                gunBullet.gun = this;
+                // gunBullet.AddIgnore("Player, NPC"); // Ignore self
 
-            float angel = Random.Range(-recon, recon);
-            bullet.GetComponent<GunBullet>().SetSpeed(Quaternion.AngleAxis(angel, Vector3.forward) * direction, speed);
+                float angel = Random.Range(-recon, recon);
+                bullet.GetComponent<GunBullet>().SetSpeed(Quaternion.AngleAxis(angel, Vector3.forward) * direction, speed);
 
-            // Instantiate(shellPrefab, shellPos.position, shellPos.rotation);
-            GameObject shell = ObjectPool.Instance.GetObject(shellPrefab);
-            shell.transform.position = shellPos.position;
-            shell.transform.rotation = shellPos.rotation;
+                // Instantiate(shellPrefab, shellPos.position, shellPos.rotation);
+                GameObject shell = ObjectPool.Instance.GetObject(shellPrefab);
+                shell.transform.position = shellPos.position;
+                shell.transform.rotation = shellPos.rotation;
+            }
+            
         }
         else
         {
@@ -111,18 +118,25 @@ public class Gun : MonoBehaviour
             {
                 GameObject bullet = ObjectPool.Instance.GetObject(bulletPrefab);
                 bullet.transform.position = muzzlePos.position;
-                bullet.GetComponent<GunBullet>().trigger_tags.Add("Enemy");
-                bullet.GetComponent<GunBullet>().att = damage;
-                bullet.GetComponent<GunBullet>().hit_back = 0.1f;
-                bullet.GetComponent<GunBullet>().SetOwner(gameObject);
+                var gunBullet = bullet.GetComponent<GunBullet>();
+                if (gunBullet != null)
+                {
+                    gunBullet.trigger_tags.Add("Enemy");
+                    gunBullet.att = damage;
+                    gunBullet.hit_back = 0.1f;
+                    gunBullet.SetOwner(gameObject);
+                    gunBullet.gun = this;
+                    // gunBullet.AddIgnore("Player, NPC"); // Ignore self
 
-                if (bulletNum % 2 == 1)
-                {
-                    bullet.GetComponent<GunBullet>().SetSpeed(Quaternion.AngleAxis(bulletAngle * (i - median), Vector3.forward) * direction,speed);
-                }
-                else
-                {
-                    bullet.GetComponent<GunBullet>().SetSpeed(Quaternion.AngleAxis(bulletAngle * (i - median) + bulletAngle / 2, Vector3.forward) * direction,speed);
+                    
+                    if (bulletNum % 2 == 1)
+                    {
+                        gunBullet.SetSpeed(Quaternion.AngleAxis(bulletAngle * (i - median), Vector3.forward) * direction, speed);
+                    }
+                    else
+                    {
+                        gunBullet.SetSpeed(Quaternion.AngleAxis(bulletAngle * (i - median) + bulletAngle / 2, Vector3.forward) * direction, speed);
+                    }
                 }
             }
 

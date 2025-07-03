@@ -1,9 +1,15 @@
-﻿using System.Collections;
+﻿
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GunBullet : MonoBehaviour, IColliderHandler
 {
+
+    [Header("Direction Settings")]
+    public bool isDirectional = false; // If true, bullet rotates to face its velocity (x=1 is forward)
     [SerializeField] public float att;
     [SerializeField] private GameObject owner;
     public float speed;
@@ -25,6 +31,9 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     public LayerMask bounceLayers;
 
     private Collider2D _collider2D;
+
+    // List of transforms to ignore for collision/trigger (including their children)
+    protected HashSet<Transform> ignoreTransforms = new HashSet<Transform>();
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -32,10 +41,8 @@ public class GunBullet : MonoBehaviour, IColliderHandler
         if (_collider2D != null)
         {
             _collider2D.enabled = false;
-            StartCoroutine(EnableColliderAfterDelay(0.1f));
+            StartCoroutine(EnableColliderAfterDelay(0.03f));
         }
-        // att = 5;
-        // owner = GameObject.FindGameObjectWithTag("Player");
     }
 
     private System.Collections.IEnumerator EnableColliderAfterDelay(float delay)
@@ -49,6 +56,33 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     {
         SetAoe(false); // Disable AOE by default
         Destroy(gameObject, lifetime); // Destroy the bullet after 15 seconds if not used
+    }
+
+    /// <summary>
+    /// Add a transform (and all its children) to be ignored by this bullet for collision and trigger events.
+    /// </summary>
+    public void AddIgnore(Transform t)
+    {
+        if (t == null) return;
+        ignoreTransforms.Add(t);
+        foreach (Transform child in t.GetComponentsInChildren<Transform>(true))
+        {
+            ignoreTransforms.Add(child);
+        }
+    }
+
+    /// <summary>
+    /// Add a tag (or comma/semicolon/space separated tags) to be ignored by this bullet for collision and trigger events.
+    /// </summary>
+    protected HashSet<string> ignoreTags = new HashSet<string>();
+    public void AddIgnore(string tags)
+    {
+        if (string.IsNullOrWhiteSpace(tags)) return;
+        var split = tags.Split(new char[] { ',', ';', ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
+        foreach (var tag in split)
+        {
+            ignoreTags.Add(tag.Trim());
+        }
     }
     
     public void SetAoe(bool active)
@@ -74,6 +108,8 @@ public class GunBullet : MonoBehaviour, IColliderHandler
 
     public void HandleTriggerEnter2D(Collider2D other)
     {
+        // Ignore if the collider's transform or any parent is in ignoreTransforms or tag is in ignoreTags
+        if (IsIgnored(other.transform) || ignoreTags.Contains(other.tag)) return;
         // Handle collision enter
         PawnMaster pawnMaster = other.gameObject.GetComponent<PawnMaster>();
         if (pawnMaster != null) GameEvents.instance.HitPawn(AoeDamage, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
@@ -86,9 +122,22 @@ public class GunBullet : MonoBehaviour, IColliderHandler
 
     public void HandleCollisionEnter2D(Collision2D collision)
     {
+        // Ignore if the collider's transform or any parent is in ignoreTransforms or tag is in ignoreTags
+        if (IsIgnored(collision.transform) || ignoreTags.Contains(collision.collider.tag)) return;
         // Handle collision enter
         PawnMaster pawnMaster = collision.gameObject.GetComponent<PawnMaster>();
         if (pawnMaster != null) GameEvents.instance.HitPawn(AoeDamage, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
+    }
+
+    // Helper to check if a transform or any of its parents is in ignoreTransforms
+    protected bool IsIgnored(Transform t)
+    {
+        while (t != null)
+        {
+            if (ignoreTransforms.Contains(t)) return true;
+            t = t.parent;
+        }
+        return false;
     }
 
 
@@ -99,6 +148,9 @@ public class GunBullet : MonoBehaviour, IColliderHandler
 
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
+        // Ignore if the collider's transform or any parent is in ignoreTransforms or tag is in ignoreTags
+        if (IsIgnored(collision.transform) || ignoreTags.Contains(collision.collider.tag)) return;
+
         // Check if the collision is with a trigger tag to deal damage
         if (trigger_tags.Contains(collision.collider.tag))
         {
@@ -180,6 +232,16 @@ public class GunBullet : MonoBehaviour, IColliderHandler
 
     void FixedUpdate()
     {
+        if (isDirectional && rigidbody != null)
+        {
+            Vector2 vel = rigidbody.linearVelocity;
+            if (vel.sqrMagnitude > 0.001f)
+            {
+                float angle = Mathf.Atan2(vel.y, vel.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, angle);
+            }
+        }
+
         // Apply inertia damping every physics step
         if (inertia > 0f && rigidbody.linearVelocity.magnitude > 0.01f)
         {

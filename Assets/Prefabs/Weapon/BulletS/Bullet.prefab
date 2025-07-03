@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5688019745130764630}
   - component: {fileID: 5843784062252597678}
   - component: {fileID: 2866389288798764952}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d57a78e8f608441bae3f171f142751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDirectional: 0
   att: 0
   owner: {fileID: 0}
   speed: 15
@@ -179,11 +180,12 @@ MonoBehaviour:
   inertia: 0.5
   Aoe: {fileID: 5497648995151665385}
   AoeDamage: 5
+  lifetime: 10
   hit_back: 5
   gun: {fileID: 0}
   bounceLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2112
 --- !u!1 &7871115166820737656
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +199,7 @@ GameObject:
   - component: {fileID: 1422615760621765368}
   - component: {fileID: 6839545974598226910}
   - component: {fileID: 811486319077690669}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: AOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -18,6 +18,8 @@ public class CardActionCircularBulletOnHitWall : CardMaster, ICardAction
     public int Amount = 1; // How many bullets to spawn
     public int ManaCost = 2; // Mana cost
     public float bulletRadius = 1f; // Radius of the circular bullets
+    [Tooltip("Maximum random offset added to bullet radius")] 
+    public float randomRadiusOffset = 0.2f;
     public float bulletDuration = 3f; // Duration for which the bullets exist (if needed)
 
     // Store initial values for reset
@@ -76,10 +78,12 @@ public class CardActionCircularBulletOnHitWall : CardMaster, ICardAction
             if (bullet != null)
             {
                 bullet.center = spawnPos;
-                bullet.radius = bulletRadius > 0 ? bulletRadius : 1f; // Ensure radius is positive
+                float radiusRand = UnityEngine.Random.Range(-randomRadiusOffset, randomRadiusOffset);
+                float finalRadius = bulletRadius + radiusRand;
+                bullet.radius = finalRadius > 0 ? finalRadius : 0.01f; // Ensure radius is positive
                 bullet.initialAngle = i * angleStep;
                 bullet.lifetime = bulletDuration; // Set lifetime if needed
-                bullet.angularSpeed = bullet.angularSpeed; // Use prefab value or set here
+                // bullet.angularSpeed = bullet.angularSpeed; // Use prefab value or set here (remove redundant assignment)
                 bullet.att = Damage; // Set bullet damage directly
             }
         }
@@ -105,7 +109,7 @@ public class CardActionCircularBulletOnHitWall : CardMaster, ICardAction
             Amount += (int)value;
             return true;
         }
-        else if (numberType == CardMaster.NumberType.Probablity)
+        else if (numberType == CardMaster.NumberType.Probability)
         {
             triggerProbability += value;
             return true;

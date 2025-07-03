@@ -59,7 +59,7 @@ public class CardBasePlayer : CardMaster
                 player.max_health += value;
                 player.UpdateMaxHealth();
                 return true;
-            case NumberType.Probablity:
+            case NumberType.Probability:
                 player.dodge += value;
                 return true;
             case NumberType.Speed:

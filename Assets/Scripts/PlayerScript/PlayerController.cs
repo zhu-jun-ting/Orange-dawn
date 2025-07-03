@@ -1,3 +1,4 @@
+
 using System.Security.AccessControl;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,6 +55,12 @@ public class PlayerController : PawnMaster
 
     public static PlayerController instance;
 
+    [Header("Animation")]
+    public Animator animator;
+    private bool isHurt = false;
+    private bool isRunning = false;
+    private bool isCharging = false;
+
 
 
     // ----------------------- buffs modifiers
@@ -77,6 +84,13 @@ public class PlayerController : PawnMaster
     {
         // register the instance
         instance = this;
+        // Set default animation state to idle
+        if (animator != null)
+        {
+            animator.SetBool("isHurt", false);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isCharging", false);
+        }
     }
 
     // Start is called before the first frame update
@@ -173,26 +187,19 @@ public class PlayerController : PawnMaster
     // Update is called once per frame
     void Update()
     {
-        SwitchGun();
-        // Remove direct Input axis usage, movement is now handled by HandleMove
-        // moveH = Input.GetAxis("Horizontal") * moveSpeed;
-        // moveV = Input.GetAxis("Vertical") * moveSpeed;
-
         // Dash
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing) {
             ProcessDash();
         }
+    }
 
-        // test buff key
-        if (Input.GetKeyDown(KeyCode.F)) {
-            ContiniousAOEStat s = ScriptableObject.CreateInstance(typeof(ContiniousAOEStat)) as ContiniousAOEStat;
-            s.additional_aoe_damage_per_tick = 5f;
-            s.additional_aoe_range = 5f;
-            s.buff_duration = 999f;
-            s.buff_icon = null;
-            Buff buff = new Buff(s);
-            ApplyBuff(buff);
-        }
+    private void ProcessDash()
+    {
+        isDashing = true;
+        startDashTime = Time.time;
+        dashMoveH = rb.linearVelocity.x * dashSpeedMultiplier;
+        dashMoveV = rb.linearVelocity.y * dashSpeedMultiplier;
+        StartCharging();
     }
 
     public override void FixedUpdate()
@@ -214,24 +221,47 @@ public class PlayerController : PawnMaster
             if (Time.time >= startDashTime + dashDuration)
             {
                 isDashing = false;
+                StopCharging();
             }
         }
+
         Flip();
 
-        // spawn aoe under player's feet
-        // fire_aoe.SetActive(have_fire_aoe);
-        // fire_aoe.transform.position = transform.GetChild(0).transform.position;
+        // Animation: running
+        bool moving = Mathf.Abs(moveH) > 0.01f || Mathf.Abs(moveV) > 0.01f;
+        if (animator != null)
+        {
+            if (moving && !isCharging)
+            {
+                isRunning = true;
+                animator.SetBool("isRunning", true);
+            }
+            else if (!moving && !isCharging)
+            {
+                isRunning = false;
+                animator.SetBool("isRunning", false);
+            }
+        }
+        // Debug.Log("isRunning: " + isRunning + " moveH: " + moveH + " moveV: " + moveV);
 
-        // Reset move to prevent continuous movement
         moveH = 0f;
         moveV = 0f;
     }
 
-    
+
 
 
     public override bool TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
     {
+
+        // Animation: hurt
+        if (animator != null)
+        {
+            isHurt = true;
+            animator.SetBool("isHurt", true);
+            StartCoroutine(ResetHurtFlag(0.3f)); // Reset after 0.3s (adjust as needed)
+        }
+
         health -= _amount;
         HealthBar.HealthCurrent = health;
 
@@ -240,12 +270,39 @@ public class PlayerController : PawnMaster
             Instantiate(test, gameObject.transform.position, gameObject.transform.rotation);
             gameObject.SetActive(false);
         }
-        BlinkPlayer(Blinks, time);
+        // BlinkPlayer(Blinks, time);
 
         base.TakeDamage(_amount, reciever,instigator, damage_type_, location, _hit_back_factor, source);
 
         return true; // Return true to indicate damage was taken
     }
+    private System.Collections.IEnumerator ResetHurtFlag(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isHurt = false;
+        if (animator != null) animator.SetBool("isHurt", false);
+    }
+
+    // Call this to start charging animation
+    public void StartCharging()
+    {
+        if (animator != null && !isCharging)
+        {
+            isCharging = true;
+            animator.SetBool("isCharging", true);
+        }
+    }
+
+    // Call this to stop charging animation
+    public void StopCharging()
+    {
+        if (animator != null && isCharging)
+        {
+            isCharging = false;
+            animator.SetBool("isCharging", false);
+        }
+    }
+
 
     void OnDestroy()
     {
@@ -255,24 +312,7 @@ public class PlayerController : PawnMaster
 
     void SwitchGun()
     {
-        // if (Input.GetKeyDown(KeyCode.Q))
-        // {
-        //     guns[gunNum].SetActive(false);
-        //     if (--gunNum < 0)
-        //     {
-        //         gunNum = guns.Length - 1;
-        //     }
-        //     guns[gunNum].SetActive(true);
-        // }
-        // if (Input.GetKeyDown(KeyCode.E))
-        // {
-        //     guns[gunNum].SetActive(false);
-        //     if (++gunNum > guns.Length - 1)
-        //     {
-        //         gunNum = 0;
-        //     }
-        //     guns[gunNum].SetActive(true);
-        // }
+
     }
 
     public override void UpdatePlayerContinuousAOE(ContiniousAOEStat stat)
@@ -368,14 +408,7 @@ public class PlayerController : PawnMaster
     [SerializeField] private GameObject afterimagePrefab;
     private Coroutine dashShadowCoroutine;
 
-    private void ProcessDash()
-    {
-        isDashing = true;
-        startDashTime = Time.time;
-        dashMoveH = rb.linearVelocity.x * dashSpeedMultiplier;
-        dashMoveV = rb.linearVelocity.y * dashSpeedMultiplier;
 
-    }
 
 
     private void Flip()

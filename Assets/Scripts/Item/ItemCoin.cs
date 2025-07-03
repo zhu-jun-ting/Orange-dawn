@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemCoin : MonoBehaviour
+public class ItemCoin : MonoBehaviour, IColliderHandler
 {
-    //PlayerCoin gainCoin;
+    PlayerController gainhealth;
     private GameObject Player;
     private bool inPlayer;
     public float moveSpeed;
@@ -12,20 +12,14 @@ public class ItemCoin : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        //gainExp = GameObject.FindGameObjectWithTag("Player").GetComponent<PLayerExp>();
+        gainhealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         moveSpeed = 5.0f;
         inPlayer = false;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if ((transform.position - Player.transform.position).magnitude <= 0.3)
-        {
-            //gainExp.GainExp(10);
-            Destroy(gameObject);
-        }
-
         if (inPlayer == true)
         {
             transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, moveSpeed * Time.deltaTime);
@@ -41,4 +35,46 @@ public class ItemCoin : MonoBehaviour
         }
     }
 
+    public void HandleTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.CompareTag("Player") == true)
+        {
+            if (GameEvents.instance != null)
+            {
+                GameEvents.instance.UpdateCoins(1); // Assuming you have a method to handle coin collection
+                Destroy(gameObject);
+            }
+        }
+        
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void HandleTriggerExit2D(Collider2D collider)
+    {
+        // Add logic if needed, or leave empty
+    }
+
+    public void HandleCollisionEnter2D(Collision2D collision)
+    {
+        // Add logic if needed, or leave empty
+    }
+
+    public void HandleCollisionExit2D(Collision2D collision)
+    {
+        // Add logic if needed, or leave empty
+    }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9033090872348905015}
   - component: {fileID: 414845229745710433}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Impulse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8997644145283417722}
   - component: {fileID: 435447641797034600}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

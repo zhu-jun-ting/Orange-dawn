@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6608411085655875818}
   - component: {fileID: 8063771265980036966}
   - component: {fileID: 789945696910006715}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 1553643036673401875}
   - component: {fileID: 7616488002133524593}
   - component: {fileID: 281022312193197534}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: LandingSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}

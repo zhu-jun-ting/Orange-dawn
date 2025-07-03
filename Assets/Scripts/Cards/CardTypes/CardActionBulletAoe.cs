@@ -99,7 +99,7 @@ public class CardActionBulletAoe : CardMaster, ICardAction
             AoeDuration += value;
             return true;
         }
-        else if (numberType == CardMaster.NumberType.Probablity)
+        else if (numberType == CardMaster.NumberType.Probability)
         {
             AoeSize += value;
             return true;

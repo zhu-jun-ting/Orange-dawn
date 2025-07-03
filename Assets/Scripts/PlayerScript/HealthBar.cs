@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    public Text healthText;
+    public TMPro.TextMeshProUGUI healthText;
     public static float HealthCurrent;
     public static float HealthMax;
 
@@ -25,7 +25,7 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        float fillAmount = (float)HealthCurrent / (float)HealthMax;
+        float fillAmount = (HealthMax == 0f) ? 1f : (float)HealthCurrent / (float)HealthMax;
         fillAmount = Mathf.Clamp01(fillAmount);
 
         // Main health bar instantly matches health
@@ -37,7 +37,7 @@ public class HealthBar : MonoBehaviour
         if (healthResponsive != null)
         {
             // Lerp the responsive fill down to the current fill
-            if (responsiveFill > fillAmount)
+            if (responsiveFill > fillAmount) 
             {
                 responsiveFill -= fallingSpeed * Time.deltaTime;
                 if (responsiveFill < fillAmount) responsiveFill = fillAmount;

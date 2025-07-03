@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7743876210988896605}
   - component: {fileID: 4187715339135892447}
   - component: {fileID: 880368373836551997}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ExplodeBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb184f953a093641b651087673c8c95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDirectional: 0
   att: 0
   owner: {fileID: 0}
   speed: 15
@@ -179,11 +180,12 @@ MonoBehaviour:
   inertia: 0.5
   Aoe: {fileID: 3408881903274663724}
   AoeDamage: 5
+  lifetime: 10
   hit_back: 5
   gun: {fileID: 0}
   bounceLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 2112
   destroyDelay: 0.1
   explosionFx: {fileID: 6178667847290294827, guid: 4ffdbed82c2357049918e3b6fa246772, type: 3}
   explosionScale: 5
@@ -201,7 +203,7 @@ GameObject:
   - component: {fileID: 1870505515887143478}
   - component: {fileID: 4504763543839714963}
   - component: {fileID: 6341814534584543892}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: AOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
