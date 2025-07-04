@@ -1,4 +1,5 @@
 
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,6 +46,11 @@ public class CombatManager : MonoBehaviour
     // [Tooltip("the time between each UpdateBuff is called")]
     public static float TICK_INTERVAL = 0.5f;
     public static float WARNING_TIME = 1f;
+
+
+    [Header("Common Fx Management")]
+    [SerializeField] private GameObject oneTimeFx; // Assign in Inspector
+    [SerializeField] private GameObject lineFx; // Assign in Inspector
 
 
 
@@ -267,6 +273,47 @@ public class CombatManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns a random spawnable location within any allowed area.
+    /// </summary>
+    public Vector2? TryGetSpawnLocation(int maxIteration = 5)
+    {
+        for (int i = 0; i < maxIteration; i++)
+        {
+            if (allowedSpawnAreas == null || allowedSpawnAreas.Count == 0)
+                return null;
+
+            // Pick a random allowed area
+            var area = allowedSpawnAreas[UnityEngine.Random.Range(0, allowedSpawnAreas.Count)];
+            if (area == null) continue;
+
+            var collider = area.GetComponent<Collider2D>();
+            if (collider != null)
+            {
+                // Pick a random point within the collider's bounds
+                var bounds = collider.bounds;
+                Vector2 candidate = new Vector2(
+                    UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
+                    UnityEngine.Random.Range(bounds.min.y, bounds.max.y)
+                );
+                if (collider.OverlapPoint(candidate))
+                    return candidate;
+            }
+            else if (area is RectTransform rect)
+            {
+                // Pick a random point within the RectTransform
+                Vector2 local = new Vector2(
+                    UnityEngine.Random.Range(rect.rect.xMin, rect.rect.xMax),
+                    UnityEngine.Random.Range(rect.rect.yMin, rect.rect.yMax)
+                );
+                Vector2 world = rect.TransformPoint(local);
+                if (rect.rect.Contains(local))
+                    return world;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
     /// Checks if a point is inside any allowed spawn area (using RectTransform or Collider2D).
     /// </summary>
     private bool IsInsideAllowedAreas(Vector2 point)
@@ -312,6 +359,132 @@ public class CombatManager : MonoBehaviour
             // Only destroy if this is a new instance
             if (!fx.scene.IsValid())
                 Destroy(fxObj, duration);
+        }
+    }
+
+
+
+    public static void PlayFx(string fxName, Vector2 location, float scale, float duration = 1f)
+    {
+        var instance = CombatManager.instance;
+        if (instance == null || instance.oneTimeFx == null) return;
+
+        // Instantiate a new FX object from the prefab
+        GameObject fxObj = Instantiate(instance.oneTimeFx);
+        fxObj.transform.position = location;
+        fxObj.transform.localScale = Vector3.one * scale;
+
+        // Find the only child with an Animator
+        Animator childAnimator = null;
+        if (fxObj.transform.childCount == 1)
+        {
+            var child = fxObj.transform.GetChild(0);
+            childAnimator = child.GetComponent<Animator>();
+        }
+        else
+        {
+            // Fallback: search all children for the only Animator
+            var animators = fxObj.GetComponentsInChildren<Animator>();
+            if (animators.Length == 1)
+                childAnimator = animators[0];
+        }
+
+        float destroyDelay = duration;
+        if (childAnimator != null)
+        {
+            // Try to play the animation with the given name
+            RuntimeAnimatorController controller = childAnimator.runtimeAnimatorController;
+            AnimationClip foundClip = null;
+            if (controller != null)
+            {
+                foreach (var clip in controller.animationClips)
+                {
+                    if (clip != null && clip.name == fxName)
+                    {
+                        foundClip = clip;
+                        break;
+                    }
+                }
+            }
+            if (foundClip != null)
+            {
+                childAnimator.Play(fxName, 0, 0f);
+                destroyDelay = foundClip.length;
+            }
+            else
+            {
+                // fallback: play default state
+                childAnimator.Play(0, 0, 0f);
+            }
+        }
+
+        if (destroyDelay > 0)
+        {
+            Destroy(fxObj, destroyDelay);
+        }
+    }
+
+    /// <summary>
+    /// Plays a segmented line FX using prefab lineFx, with each segment playing the animation named fxName.
+    /// The line is split into as many segments as needed so that height/width <= maxRatio for each segment.
+    /// All segments are destroyed after the animation duration or the given duration.
+    /// </summary>
+    public static void PlayFxLine(string fxName, Vector2 startPos, Vector2 endPos, float width = 1f, float maxRatio = 4f, float duration = 1f)
+    {
+        var instance = CombatManager.instance;
+        if (instance == null || instance.lineFx == null || width <= 0f || maxRatio <= 0f) return;
+
+        float totalLength = Vector2.Distance(startPos, endPos);
+        float maxSegmentLength = width * maxRatio;
+        int segment = Mathf.Max(1, Mathf.CeilToInt(totalLength / maxSegmentLength));
+        float segmentLength = totalLength / segment;
+        Vector2 dir = (endPos - startPos).normalized;
+        float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+
+        float destroyDelay = duration;
+        AnimationClip foundClip = null;
+
+        // Animator is now directly on the prefab (pivot at center)
+        Animator prefabAnim = instance.lineFx.GetComponent<Animator>();
+        if (prefabAnim != null && prefabAnim.runtimeAnimatorController != null)
+        {
+            foreach (var clip in prefabAnim.runtimeAnimatorController.animationClips)
+            {
+                if (clip != null && clip.name == fxName)
+                {
+                    foundClip = clip;
+                    break;
+                }
+            }
+            if (foundClip != null)
+                destroyDelay = foundClip.length;
+        }
+
+        for (int i = 0; i < segment; i++)
+        {
+            float t0 = (float)i / segment;
+            float t1 = (float)(i + 1) / segment;
+            Vector2 segStart = Vector2.Lerp(startPos, endPos, t0);
+            Vector2 segEnd = Vector2.Lerp(startPos, endPos, t1);
+            Vector2 mid = (segStart + segEnd) * 0.5f;
+            float segLen = Vector2.Distance(segStart, segEnd);
+
+            GameObject fxObj = GameObject.Instantiate(instance.lineFx, mid, Quaternion.identity);
+            fxObj.transform.localScale = new Vector3(width, segLen, 1f);
+            fxObj.transform.rotation = Quaternion.Euler(0, 0, -angle);
+
+            // Play animation on the attached Animator
+            Animator segAnim = fxObj.GetComponent<Animator>();
+            if (segAnim != null && foundClip != null)
+            {
+                segAnim.Play(fxName, 0, 0f);
+            }
+            else if (segAnim != null)
+            {
+                segAnim.Play(0, 0, 0f);
+            }
+
+            GameObject.Destroy(fxObj, destroyDelay);
         }
     }
 

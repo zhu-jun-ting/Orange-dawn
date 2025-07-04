@@ -53,12 +53,10 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
     {
         // location: where to spawn the walls (center)
         if (fragileWallPrefab == null || location == null) return;
-        // Prevent too frequent wall spawning
-        if (Time.time - lastWallSpawnTime < triggerCooldown) return;
+        
         lastWallSpawnTime = Time.time;
         // Mana cost check
         if (!ManaBar.CanCostMana(-manaCost)) return;
-        if (UnityEngine.Random.value > triggerProbability) return;
         for (int i = 0; i < spawnCount; i++)
         {
             // Try to get a valid random spawn location inside the circle
@@ -105,6 +103,8 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
     {
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall += HandleOnHitWall;
+        OnTrigger -= TriggerAction; // Unsubscribe to avoid duplicates
+        OnTrigger += TriggerAction; // Subscribe to the trigger event
         base.OnCardEnable();
     }
 
@@ -112,13 +112,18 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
     {
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall -= HandleOnHitWall;
+        OnTrigger -= TriggerAction;
         base.OnCardDisable();
     }
 
     private void HandleOnHitWall(GunBullet bullet, Vector2 hitPosition, GameObject wall)
     {
+        // Prevent too frequent wall spawning
+        if (Time.time - lastWallSpawnTime < triggerCooldown) return;
+        if (UnityEngine.Random.value > triggerProbability) return;
+
         // Use TriggerAction to spawn walls at hitPosition
-        TriggerAction(this, CreateTempTransformAt(hitPosition));
+        OnTrigger?.Invoke(this, CreateTempTransformAt(hitPosition));
     }
 
     // Helper to create a temporary transform at a position
@@ -136,6 +141,7 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
         base.Reset();
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall -= HandleOnHitWall;
+        OnTrigger -= TriggerAction;
         spawnCount = initialSpawnCount;
         spawnDamage = initialSpawnDamage;
         triggerProbability = initialTriggerProbability;

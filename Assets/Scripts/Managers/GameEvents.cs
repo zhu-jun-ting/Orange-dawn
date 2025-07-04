@@ -110,4 +110,13 @@ public class GameEvents : MonoBehaviour
             OnHitWall(bullet, hitPosition, wall);
         }
     }
+
+    public event Action<int> OnLevelStart;
+    public void LevelStart(int levelIndex = 0)
+    {
+        if (OnLevelStart != null)
+        {
+            OnLevelStart(levelIndex);
+        }
+    }
 }

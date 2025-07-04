@@ -59,15 +59,17 @@ public class CardActionCircularBulletOnHitWall : CardMaster, ICardAction
     private void HandleOnHitWall(GunBullet bullet, Vector2 hitPosition, GameObject wall)
     {
         if (Time.time - lastActionTime < actionCooldown) return;
-        if (!ManaBar.CanCostMana(-ManaCost)) return;
         if (UnityEngine.Random.value > triggerProbability) return;
-        lastActionTime = Time.time;
+        
         OnTrigger?.Invoke(this, bullet.transform);
     }
 
     public void TriggerAction(CardMaster card, Transform target)
     {
         if (circularBulletPrefab == null || target == null) return;
+        if (!ManaBar.CanCostMana(-ManaCost)) return;
+
+        lastActionTime = Time.time;
         Vector2 spawnPos = target.position;
         float angleStep = 360f / Amount;
         for (int i = 0; i < Amount; i++)

@@ -9,7 +9,8 @@ public class LightBeam : MonoBehaviour, IDetectorHandler
     public float duration = 0.2f;
     public List<string> targetTags; // Tags to damage
     public Detector detector; // Assign in inspector or via script
-    public LineRenderer lineRenderer; // Assign in inspector for beam visual
+    [Header("Beam Visual")]
+    public SpriteRenderer beamSprite; // Assign in inspector: the beam sprite to stretch/animate
 
     private HashSet<GameObject> hitObjects = new HashSet<GameObject>();
     private List<GameObject> detectedTargets = new List<GameObject>();
@@ -66,12 +67,10 @@ public class LightBeam : MonoBehaviour, IDetectorHandler
 
     void DrawBeam()
     {
-        if (lineRenderer != null)
-        {
-            lineRenderer.positionCount = 2;
-            lineRenderer.SetPosition(0, beamStart);
-            lineRenderer.SetPosition(1, beamEnd);
-        }
+        // Use the new FX segmented line method for lightning beam
+        float width = 1f; // You can expose this as a field if needed
+        float maxRatio = 4f; // You can expose this as a field if needed
+        CombatManager.PlayFxLine("FxLightning", beamStart, beamEnd, width, maxRatio, duration);
     }
 
     void DealDamageAlongBeam()

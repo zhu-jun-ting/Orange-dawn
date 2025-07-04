@@ -47,9 +47,9 @@ public class CardActionSpawnSpikeOnHitWall : CardMaster, ICardAction
     public void TriggerAction(CardMaster source = null, Transform location = null)
     {
         if (spikePrefab == null || location == null) return;
-        if (Time.time - lastSpikeSpawnTime < triggerCooldown) return;
-        lastSpikeSpawnTime = Time.time;
         if (!ManaBar.CanCostMana(-manaCost)) return;
+
+        lastSpikeSpawnTime = Time.time;
         if (UnityEngine.Random.value > triggerProbability) return;
         for (int i = 0; i < spawnCount; i++)
         {
@@ -84,6 +84,8 @@ public class CardActionSpawnSpikeOnHitWall : CardMaster, ICardAction
     {
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall += HandleOnHitWall;
+        OnTrigger -= TriggerAction; // Unsubscribe to avoid duplicates
+        OnTrigger += TriggerAction; // Subscribe to the trigger event
         base.OnCardEnable();
     }
 
@@ -91,12 +93,17 @@ public class CardActionSpawnSpikeOnHitWall : CardMaster, ICardAction
     {
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall -= HandleOnHitWall;
+        OnTrigger -= TriggerAction;
         base.OnCardDisable();
     }
 
     private void HandleOnHitWall(GunBullet bullet, Vector2 hitPosition, GameObject wall)
     {
-        TriggerAction(this, CreateTempTransformAt(hitPosition));
+        // Prevent too frequent spawning
+        if (Time.time - lastSpikeSpawnTime < triggerCooldown) return;
+        if (UnityEngine.Random.value > triggerProbability) return;
+        
+        OnTrigger?.Invoke(this, CreateTempTransformAt(hitPosition));
     }
 
     private Transform CreateTempTransformAt(Vector2 pos)
@@ -112,6 +119,7 @@ public class CardActionSpawnSpikeOnHitWall : CardMaster, ICardAction
         base.Reset();
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall -= HandleOnHitWall;
+        OnTrigger -= TriggerAction;
         spawnCount = initialSpawnCount;
         spikeDamage = initialSpikeDamage;
         manaCost = initialManaCost;

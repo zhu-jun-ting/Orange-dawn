@@ -15,6 +15,8 @@ public class UIDebugPanel : MonoBehaviour
     [Header("Debug Fields")]
     public GameObject debugCardMasterPrefab;
     public GameObject implusePrefab;
+    public GameObject LightningTower; // Assign in inspector
+    public GameObject lightBeam; // Assign in inspector
 
 
     // private fields
@@ -120,6 +122,29 @@ public class UIDebugPanel : MonoBehaviour
             GameEvents.MessageType.LocalInfo,
             new Vector2(Screen.width / 2f, Screen.height / 2f)
         );
+    }
+
+    public void Lightning()
+    {
+        LightningTower.GetComponent<ItemLightningTower>().PerformAttack();
+    }
+
+    public void LevelStart()
+    {
+        GameEvents.instance.LevelStart(0);
+    }
+
+    public void Beam()
+    {
+        // Find the player GameObject by tag (make sure your player has the "Player" tag)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player object not found!");
+            return;
+        }
+
+        GameObject beam = Instantiate(lightBeam, player.transform.position, Quaternion.identity);
     }
 
     float DoubleDamage(float dmg) => dmg * 2f;

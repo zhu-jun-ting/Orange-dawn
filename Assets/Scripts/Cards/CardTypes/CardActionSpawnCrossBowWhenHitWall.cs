@@ -46,10 +46,9 @@ public class CardActionSpawnCrossBowWhenHitWall : CardMaster, ICardAction
     public void TriggerAction(CardMaster source = null, Transform location = null)
     {
         if (crossBowPrefab == null || location == null) return;
-        if (Time.time - lastSpawnTime < triggerCooldown) return;
-        lastSpawnTime = Time.time;
         if (!ManaBar.CanCostMana(-manaCost)) return;
-        if (UnityEngine.Random.value > triggerProbability) return;
+
+        lastSpawnTime = Time.time;
         for (int i = 0; i < spawnCount; i++)
         {
             Vector2? validPos = CombatManager.instance != null
@@ -81,6 +80,8 @@ public class CardActionSpawnCrossBowWhenHitWall : CardMaster, ICardAction
     {
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall += HandleOnHitWall;
+        OnTrigger -= TriggerAction; // Unsubscribe to avoid duplicates
+        OnTrigger += TriggerAction; // Subscribe to the trigger event
         base.OnCardEnable();
     }
 
@@ -88,12 +89,17 @@ public class CardActionSpawnCrossBowWhenHitWall : CardMaster, ICardAction
     {
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall -= HandleOnHitWall;
+        OnTrigger -= TriggerAction;
         base.OnCardDisable();
     }
 
     private void HandleOnHitWall(GunBullet bullet, Vector2 hitPosition, GameObject wall)
     {
-        TriggerAction(this, CreateTempTransformAt(hitPosition));
+        // Prevent too frequent spawning
+        if (Time.time - lastSpawnTime < triggerCooldown) return;
+        if (UnityEngine.Random.value > triggerProbability) return;
+        lastSpawnTime = Time.time;
+        OnTrigger?.Invoke(this, CreateTempTransformAt(hitPosition));
     }
 
     private Transform CreateTempTransformAt(Vector2 pos)
@@ -109,6 +115,7 @@ public class CardActionSpawnCrossBowWhenHitWall : CardMaster, ICardAction
         base.Reset();
         if (GameEvents.instance != null)
             GameEvents.instance.OnHitWall -= HandleOnHitWall;
+        OnTrigger -= TriggerAction;
         spawnCount = initialSpawnCount;
         crossBowDamage = initialCrossBowDamage;
         manaCost = initialManaCost;

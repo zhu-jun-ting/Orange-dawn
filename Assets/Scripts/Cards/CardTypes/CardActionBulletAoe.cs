@@ -50,26 +50,30 @@ public class CardActionBulletAoe : CardMaster, ICardAction
         base.OnCardDisable();
     }
 
-    private void HandleOnHitWall(GunBullet bullet, Vector2 hitPosition, GameObject wall)
+    private GunBullet bullet;
+    private void HandleOnHitWall(GunBullet _bullet, Vector2 hitPosition, GameObject wall)
     {
-        if (bullet == null || bullet.Aoe == null) return;
-        if (bullet.IsAoeActive()) return; // Already active, do nothing
+        if (_bullet == null || _bullet.Aoe == null) return;
         if (Time.time - lastAoeTime < actionCooldown) return;
-        if (!ManaBar.CanCostMana(-manaCost)) return;
         if (UnityEngine.Random.value > triggerProbability) return; // Always triggers, but keep for extensibility
-        lastAoeTime = Time.time;
+
+        bullet = _bullet; // Store the bullet reference
         OnTrigger?.Invoke(this, bullet.transform);
     }
 
     public void TriggerAction(CardMaster card, Transform target)
     {
-        if (target != null && target.TryGetComponent<GunBullet>(out var bullet))
+        if (!ManaBar.CanCostMana(-manaCost)) return;
+        if (bullet != null && bullet.IsAoeActive()) return; // Already active, do nothing
+
+        lastAoeTime = Time.time;
+        if (target != null && target.TryGetComponent<GunBullet>(out var localBullet))
         {
-            bullet.AoeDamage = AoeDamage;
-            bullet.SetAoeSize(AoeSize);
-            bullet.SetAoe(true);
+            localBullet.AoeDamage = AoeDamage;
+            localBullet.SetAoeSize(AoeSize);
+            localBullet.SetAoe(true);
             GameEvents.instance.UpdateMana(-manaCost);
-            bullet.StartCoroutine(DisableAoeAfterDuration(bullet));
+            localBullet.StartCoroutine(DisableAoeAfterDuration(localBullet));
         }
     }
 
