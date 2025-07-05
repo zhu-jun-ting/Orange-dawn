@@ -4,13 +4,12 @@ using UnityEngine;
 public class LightBeam : MonoBehaviour, IDetectorHandler
 {
     [Header("Beam Settings")]
+    public bool useMaxLength = true; // Whether to use max length or not
     public float maxLength = 10f;
     public float damage = 10f;
     public float duration = 0.2f;
     public List<string> targetTags; // Tags to damage
     public Detector detector; // Assign in inspector or via script
-    [Header("Beam Visual")]
-    public SpriteRenderer beamSprite; // Assign in inspector: the beam sprite to stretch/animate
 
     private HashSet<GameObject> hitObjects = new HashSet<GameObject>();
     private List<GameObject> detectedTargets = new List<GameObject>();
@@ -34,14 +33,28 @@ public class LightBeam : MonoBehaviour, IDetectorHandler
     void FireBeam()
     {
         GameObject target = FindNearestTarget();
-        if (target != null)
+        if (useMaxLength)
         {
-            Vector2 dir = ((Vector2)target.transform.position - beamStart).normalized;
-            beamEnd = beamStart + dir * maxLength;
+            if (target != null)
+            {
+                Vector2 dir = ((Vector2)target.transform.position - beamStart).normalized;
+                beamEnd = beamStart + dir * maxLength;
+            }
+            else
+            {
+                beamEnd = beamStart + Vector2.right * maxLength;
+            }
         }
         else
         {
-            beamEnd = beamStart + Vector2.right * maxLength;
+            if (target != null)
+            {
+                beamEnd = target.transform.position;
+            }
+            else
+            {
+                beamEnd = beamStart;
+            }
         }
         DrawBeam();
         DealDamageAlongBeam();
@@ -76,19 +89,23 @@ public class LightBeam : MonoBehaviour, IDetectorHandler
     void DealDamageAlongBeam()
     {
         if (hasDealtDamage) return;
-        RaycastHit2D[] hits = Physics2D.RaycastAll(beamStart, (beamEnd - beamStart).normalized, maxLength);
-        foreach (var hit in hits)
+        float rayLength = useMaxLength ? maxLength : Vector2.Distance(beamStart, beamEnd);
+        if (rayLength > 0.01f)
         {
-            if (hit.collider == null) continue;
-            GameObject go = hit.collider.gameObject;
-            if (hitObjects.Contains(go)) continue;
-            if (targetTags.Contains(go.tag))
+            RaycastHit2D[] hits = Physics2D.RaycastAll(beamStart, (beamEnd - beamStart).normalized, rayLength);
+            foreach (var hit in hits)
             {
-                PawnMaster pawn = go.GetComponent<PawnMaster>();
-                if (pawn != null)
+                if (hit.collider == null) continue;
+                GameObject go = hit.collider.gameObject;
+                if (hitObjects.Contains(go)) continue;
+                if (targetTags.Contains(go.tag))
                 {
-                    GameEvents.instance.HitPawn(damage, pawn, gameObject, GameEvents.DamageType.Normal, go.transform, 0f, null);
-                    hitObjects.Add(go);
+                    PawnMaster pawn = go.GetComponent<PawnMaster>();
+                    if (pawn != null)
+                    {
+                        if (damage >= 1f) GameEvents.instance.HitPawn(damage, pawn, gameObject, GameEvents.DamageType.Normal, go.transform, 0f, null);
+                        hitObjects.Add(go);
+                    }
                 }
             }
         }

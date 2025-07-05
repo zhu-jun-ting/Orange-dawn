@@ -232,7 +232,7 @@ public class CombatManager : MonoBehaviour
                 var drop_obj = Instantiate(drop, initial_location, Quaternion.identity);
                 Vector2 end_location = GetRandomLocationInCircle(initial_location, drop_radius);
                 seq.Join(drop_obj.transform.DOMove(end_location, 1f));
-                Debug.Log("Spawned drop: " + drop.name + " at " + end_location);
+                // Debug.Log("Spawned drop: " + drop.name + " at " + end_location);
             }
         }
     }

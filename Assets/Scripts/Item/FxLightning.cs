@@ -19,7 +19,7 @@ public class FxLightning : MonoBehaviour
         else
             transform.position = pos;
         if (animator != null)
-            animator.Play("FxLightning", 0, 0f);
+            animator.Play("FxLightningAoe", 0, 0f);
     }
 
     // Called by animation event when lightning hits ground

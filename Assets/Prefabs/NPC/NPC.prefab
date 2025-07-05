@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 138855509770857573}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.1099854, y: -1.8500061, z: 0}
   m_LocalScale: {x: 1.2512, y: 1.1954, z: 1}
   m_ConstrainProportionsScale: 0
@@ -162,9 +162,9 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
+  m_UseAutoMass: 1
+  m_Mass: 0.004426351
+  m_LinearDamping: 10
   m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -193,13 +193,16 @@ MonoBehaviour:
   buff_icon_grid: {fileID: 560888535092973890}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
   dot_stat: {fileID: 0}
+  moveSpeed: 1
   follow_range: 3
-  maxHP: 0
+  maxHP: 200
+  meleeAttack: 10
+  hurtDuration: 0.3
   health_bar: {fileID: 3990384345945787230}
   shooter_stat: {fileID: 11400000, guid: 084938dbb9bd5d946b299fe6803845bf, type: 2}
   shoot_range: 0
   shoot_interval: 0
-  attack: 10
+  attack: 2
 --- !u!1 &939698678601117807
 GameObject:
   m_ObjectHideFlags: 0

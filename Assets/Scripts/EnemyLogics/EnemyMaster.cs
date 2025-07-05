@@ -201,7 +201,7 @@ public class EnemyMaster : PawnMaster
     {
         // _player.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, gameObject);
         PawnMaster pawnMaster = _player.gameObject.GetComponent<PawnMaster>();
-        if (pawnMaster != null) GameEvents.instance.HitPawn(_amount, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, null);
+        if (pawnMaster != null && _amount >= 1f) GameEvents.instance.HitPawn(_amount, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, null);
 
     }
     
@@ -216,7 +216,7 @@ public class EnemyMaster : PawnMaster
         }
 
         // Only process collision damage if currently being hit back
-        if (!isBeingHitBack) return;
+        // if (!isBeingHitBack) return;
 
         UnityEngine.GameObject other = collision.gameObject;
         // Check tag match
@@ -269,7 +269,7 @@ public class EnemyMaster : PawnMaster
         // Deal collision damage to self, source is the other object
         // Use GameEvents.HitPawn, prefix = "Collision"
         PawnMaster selfPawn = this;
-        GameEvents.instance.HitPawn(collisionDamage, selfPawn, other, GameEvents.DamageType.Normal, transform, 0f, null, "Collision");
+        if (collisionDamage >= 1f) GameEvents.instance.HitPawn(collisionDamage, selfPawn, other, GameEvents.DamageType.Normal, transform, 0f, null, "Collision");
         // Optionally, you could set isBeingHitBack = false here if you want to only allow one collision damage per hitback
     }
 

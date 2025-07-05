@@ -26,7 +26,7 @@ public class NPCShooter : NPCMaster, IDetectorHandler
 
         moveSpeed = shooter_stat.move_speed;
         maxHP = shooter_stat.max_health;
-        melee_damage = shooter_stat.melee_damage;
+        meleeAttack = shooter_stat.melee_damage;
         hurtDuration = shooter_stat.hurtDuration;
 
         shoot_range = shooter_stat.shoot_range;

@@ -7,7 +7,7 @@ public class NPCMaster : PawnMaster
 {
     [Header("Parameters")]
     // public NPCShooterStat stat;
-    protected float moveSpeed;
+    public float moveSpeed;
     // public Transform target;
     public float follow_range; // how far away can NPC stay with player
 
@@ -15,14 +15,14 @@ public class NPCMaster : PawnMaster
     public float maxHP;
     protected float curHP;
     protected Rigidbody2D rb;
-    protected float melee_damage;
+    public float meleeAttack;
 
     [Header("Hurt Effects")]
     protected SpriteRenderer sr;
-    protected float hurtDuration;
+    public float hurtDuration = 0.3f;
     protected float hurtCounter;
 
-    [Header("Gam Objects")]
+[Header("Game Objects")]
     protected GameObject explosionEffect;
     public GameObject health_bar;
 

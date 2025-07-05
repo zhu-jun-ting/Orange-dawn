@@ -31,7 +31,7 @@ public class Splash : MonoBehaviour
         {
             // Debug.Log("enemy");
             PawnMaster pawnMaster = other.gameObject.GetComponent<PawnMaster>();
-            if (pawnMaster != null) GameEvents.instance.HitPawn(att, pawnMaster, owner.gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back_factor, null);
+            if (pawnMaster != null && att >= 1f) GameEvents.instance.HitPawn(att, pawnMaster, owner.gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back_factor, null);
         }
     }
 }

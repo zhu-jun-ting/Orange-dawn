@@ -1,6 +1,7 @@
 ﻿
 
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +14,14 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     [SerializeField] public float att;
     [SerializeField] private GameObject owner;
     public float speed;
+    public float speedDamageModifier = 1f; // You can expose this as a public variable if needed
     public GameObject explosionPrefab;
 
     new private Rigidbody2D rigidbody;
     public List<string> trigger_tags; 
     public List<string> bounce_tags; 
     public float bounce_randomness = 10f; // how much angle the bullet can randomly bounce off walls, 0 means no randomness
+    public float bounce_speed_modifier = 3f; // speed of the bullet when it bounces off walls
     public float inertia = 0f; // how much inertia the bullet has, 0 means no inertia
     public Transform Aoe;
     public float AoeDamage = 5f;
@@ -31,9 +34,16 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     public LayerMask bounceLayers;
 
     private Collider2D _collider2D;
+    private float lastBounceTime = -1f;
+    private const float bounceCooldown = 0.5f;
 
+    [Header ("Ignore Settings")]
     // List of transforms to ignore for collision/trigger (including their children)
     protected HashSet<Transform> ignoreTransforms = new HashSet<Transform>();
+    // Tags to ignore for collision/trigger events
+    // Use HashSet for fast lookup and avoid duplicates
+    public List<string> ignoreTags = new List<string>() { "Bullet" }; // Tags to ignore for collision/trigger events
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
@@ -74,7 +84,6 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     /// <summary>
     /// Add a tag (or comma/semicolon/space separated tags) to be ignored by this bullet for collision and trigger events.
     /// </summary>
-    protected HashSet<string> ignoreTags = new HashSet<string>();
     public void AddIgnore(string tags)
     {
         if (string.IsNullOrWhiteSpace(tags)) return;
@@ -112,7 +121,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
         if (IsIgnored(other.transform) || ignoreTags.Contains(other.tag)) return;
         // Handle collision enter
         PawnMaster pawnMaster = other.gameObject.GetComponent<PawnMaster>();
-        if (pawnMaster != null) GameEvents.instance.HitPawn(AoeDamage, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
+        if (pawnMaster != null && AoeDamage >= 1f) GameEvents.instance.HitPawn(AoeDamage, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
     }
 
     public void HandleTriggerExit2D(Collider2D other)
@@ -126,7 +135,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
         if (IsIgnored(collision.transform) || ignoreTags.Contains(collision.collider.tag)) return;
         // Handle collision enter
         PawnMaster pawnMaster = collision.gameObject.GetComponent<PawnMaster>();
-        if (pawnMaster != null) GameEvents.instance.HitPawn(AoeDamage, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
+        if (pawnMaster != null && AoeDamage >= 1f) GameEvents.instance.HitPawn(AoeDamage, pawnMaster, gameObject, GameEvents.DamageType.Aoe, pawnMaster.gameObject.transform, 0f, null, "AOE");
     }
 
     // Helper to check if a transform or any of its parents is in ignoreTransforms
@@ -156,8 +165,6 @@ public class GunBullet : MonoBehaviour, IColliderHandler
         {
             if (collision != null)
             {
-                // Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-                // other.gameObject.GetComponent<IBuffable>().TakeDamage(att, GameEvents.DamageType.Normal, hit_back, owner.gameObject, gun);
                 GameObject exp = ObjectPool.Instance.GetObject(explosionPrefab);
                 exp.transform.position = transform.position;
 
@@ -168,24 +175,31 @@ public class GunBullet : MonoBehaviour, IColliderHandler
                     {
                         att = GameEvents.OnModifyDamage(att);
                     }
-                    GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+
+                    // Calculate relative velocity along the direction of impact
+                    Rigidbody2D otherRb = collision.collider.attachedRigidbody;
+                    Vector2 myVelocity = rigidbody != null ? rigidbody.linearVelocity : Vector2.zero;
+                    Vector2 otherVelocity = otherRb != null ? otherRb.linearVelocity : Vector2.zero;
+                    Vector2 relativeVelocity = myVelocity - otherVelocity;
+
+                    // Use the collision normal to get the component of relative velocity in the direction of impact
+                    Vector2 collisionNormal = collision.contacts.Length > 0 ? collision.contacts[0].normal : Vector2.zero;
+                    float impactSpeed = Vector2.Dot(relativeVelocity, -collisionNormal); // negative because normal points out of the surface
+                    var speedDamage = Math.Abs(impactSpeed * speedDamageModifier);
+
+                    if (att >= 1f) GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+
+                    if (att >= 1f) GameEvents.instance.HitPawn(speedDamage, pawnMaster, pawnMaster.gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun, "Speed");
+
                 }
             }
         }
 
-        // Check for bounce by tag or by layer
+        // // Check for bounce by tag or by layer
         bool shouldBounce = bounce_tags.Contains(collision.collider.tag) || ((bounceLayers.value & (1 << collision.collider.gameObject.layer)) != 0);
-        if (shouldBounce)
+        float now = Time.time;
+        if (shouldBounce && (now - lastBounceTime > bounceCooldown))
         {
-            Vector2 normal = collision.contacts[0].normal;
-            Vector2 incoming = rigidbody.linearVelocity;
-            float speed = incoming.magnitude;
-            float angle = Random.Range(-bounce_randomness, bounce_randomness);
-            Vector2 reflected = Vector2.Reflect(incoming, normal);
-            reflected = Quaternion.Euler(0, 0, angle) * reflected;
-            if (inertia > 0f)
-                speed *= Mathf.Clamp01(1f - inertia * Time.fixedDeltaTime);
-            rigidbody.linearVelocity = reflected.normalized * speed;
             // If the collided object's layer is "Wall", trigger GameEvents.HitWall
             if (LayerMask.LayerToName(collision.collider.gameObject.layer) == "Wall" && GameEvents.instance != null)
             {

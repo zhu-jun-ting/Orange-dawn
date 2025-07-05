@@ -101,7 +101,7 @@ public class NPCLasergun : MonoBehaviour
                             if (enemyHitTimers[enemy] >= damageInterval)
                             {
                                 PawnMaster pawnMaster = enemy;
-                                if (pawnMaster != null) GameEvents.instance.HitPawn(damagePerSecond * damageInterval, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, null);
+                                if (pawnMaster != null && damagePerSecond * damageInterval >= 1f) GameEvents.instance.HitPawn(damagePerSecond * damageInterval, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, null);
                                 enemyHitTimers[enemy] = 0f;
                             }
                         }

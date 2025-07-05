@@ -6,8 +6,8 @@ using UnityEngine;
 public class PawnMaster : MonoBehaviour, IBuffable
 {
     [Header("Pawn Master : the buff list UI panel game object and the buff icon prefab")]
-    public Transform buff_icon_grid;
-    public GameObject icon_prefab;
+    [HideInInspector] public Transform buff_icon_grid;
+    [HideInInspector] public GameObject icon_prefab;
 
     public class BuffController
     {
@@ -22,7 +22,7 @@ public class PawnMaster : MonoBehaviour, IBuffable
     protected int FRAME_PER_TICK;
     protected int current_buff_frame_count;
 
-    public DOTStat dot_stat;
+    [HideInInspector] public DOTStat dot_stat;
 
     public virtual void Start()
     {

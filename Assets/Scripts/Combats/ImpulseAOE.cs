@@ -56,7 +56,7 @@ public class ImpulseAOE : MonoBehaviour
             float damage = Mathf.Lerp(maxDamage, 0, dist / maxRadius);
             var pawn = other.GetComponent<PawnMaster>();
             if (pawn != null)
-                GameEvents.instance.HitPawn(damage, pawn, gameObject, GameEvents.DamageType.Normal, other.transform, 0f, null);
+                if (damage >= 1f) GameEvents.instance.HitPawn(damage, pawn, gameObject, GameEvents.DamageType.Normal, other.transform, 0f, null);
             hitObjects.Add(other.gameObject);
         }
     }

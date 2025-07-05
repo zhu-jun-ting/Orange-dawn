@@ -16,7 +16,7 @@ public class NormalBullet : GunBullet
             PawnMaster pawnMaster = collision.gameObject.GetComponent<PawnMaster>();
             if (pawnMaster != null)
             {
-                GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+                if (att >= 1f) GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
             }
             Destroy(gameObject); // Destroy immediately
             if (explosionPrefab != null)
@@ -39,7 +39,7 @@ public class NormalBullet : GunBullet
             PawnMaster pawnMaster = collision.gameObject.GetComponent<PawnMaster>();
             if (pawnMaster != null)
             {
-                GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+                if (att >= 1f) GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
             }
             Destroy(gameObject); // Destroy immediately
             if (explosionPrefab != null)

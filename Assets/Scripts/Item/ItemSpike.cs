@@ -48,7 +48,7 @@ public class ItemSpike : MonoBehaviour
         var pawn = other.GetComponent<PawnMaster>();
         if (pawn != null)
         {
-            GameEvents.instance.HitPawn(damage, pawn, gameObject, GameEvents.DamageType.Normal, transform, 0f, null, "Trap");
+            if (damage >= 1f) GameEvents.instance.HitPawn(damage, pawn, gameObject, GameEvents.DamageType.Normal, transform, 0f, null, "Trap");
         }
 
         // Play FX

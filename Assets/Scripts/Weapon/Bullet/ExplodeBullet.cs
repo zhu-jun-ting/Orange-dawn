@@ -12,13 +12,15 @@ public class ExplodeBullet : GunBullet
 
     public override void OnCollisionEnter2D(Collision2D collision)
     {
+        if (IsIgnored(collision.transform) || ignoreTags.Contains(collision.collider.tag)) return;
+
         // Deal damage if trigger_tags match
         if (trigger_tags.Contains(collision.collider.tag))
         {
             PawnMaster pawnMaster = collision.gameObject.GetComponent<PawnMaster>();
             if (pawnMaster != null)
             {
-                GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+                if (att >= 1f) GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
             }
         }
 
