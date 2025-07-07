@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemCrossBow : MonoBehaviour, IColliderHandler
+public class ItemCrossBow : ItemMaster, IColliderHandler
 {
 	[Header("CrossBow Settings")]
-	public int maxHitPoints = 3;
 	public float shootDamage = 2f;
 	public float shootSpeed = 1.5f; // seconds per shot
 	public float shootSpeedBoost = 0.5f; // faster shoot speed when hit
@@ -15,16 +14,14 @@ public class ItemCrossBow : MonoBehaviour, IColliderHandler
 	public List<string> triggerTags = new List<string> { "Enemy" };
 	public Animator animator;
 	public Transform shootPoint; // Where bullet spawns
-
-	private int currentHits = 0;
-	private bool isDestroyed = false;
 	private float shootTimer = 0f;
 	private float currentShootSpeed;
 	private float shootBoostTimer = 0f;
 	private List<Transform> targetsInRange = new List<Transform>();
 
-	void Awake()
+	protected override void Awake()
 	{
+		base.Awake();
 		if (animator == null)
 			animator = GetComponent<Animator>();
 		currentShootSpeed = shootSpeed;
@@ -98,21 +95,21 @@ public class ItemCrossBow : MonoBehaviour, IColliderHandler
 
 		GameObject bullet = Instantiate(bulletPrefab, shootOrigin, Quaternion.identity);
 		var normalBullet = bullet.GetComponent<NormalBullet>();
-        if (normalBullet != null)
-        {
-            normalBullet.att = shootDamage;
-            normalBullet.SetSpeed(dir, bulletSpeed);
-            normalBullet.hit_back = 0f;
-            normalBullet.SetOwner(gameObject); // Set owner to this crossbow
-            normalBullet.trigger_tags = triggerTags; // Ensure it can hit enemies
-            normalBullet.AddIgnore(transform); // Ignore self
+		if (normalBullet != null)
+		{
+			normalBullet.att = shootDamage;
+			normalBullet.SetSpeed(dir, bulletSpeed);
+			normalBullet.hit_back = 0f;
+			normalBullet.SetOwner(gameObject); // Set owner to this crossbow
+			normalBullet.trigger_tags = triggerTags; // Ensure it can hit enemies
+			normalBullet.AddIgnore(transform); // Ignore self
 		}
-        else
-        {
-            // fallback: set rigidbody velocity
-            var rb = bullet.GetComponent<Rigidbody2D>();
-            if (rb != null) rb.linearVelocity = dir * bulletSpeed;
-        }
+		else
+		{
+			// fallback: set rigidbody velocity
+			var rb = bullet.GetComponent<Rigidbody2D>();
+			if (rb != null) rb.linearVelocity = dir * bulletSpeed;
+		}
 		if (animator != null) animator.Play("AniCrossBowShoot", 0, 0f);
 	}
 
@@ -132,26 +129,18 @@ public class ItemCrossBow : MonoBehaviour, IColliderHandler
 			targetsInRange.Remove(other.transform);
 	}
 
-	void OnCollisionEnter2D(Collision2D collision)
+	// ItemMaster handles collision filtering and hit counting. Only custom logic here.
+	public override void OnHit(Collision2D collision)
 	{
-        // If hit by bullet, speed up shoot speed for a while
-        if (collision.gameObject.GetComponent<GunBullet>() != null)
-        {
-            currentShootSpeed = shootSpeedBoost;
-            shootBoostTimer = shootBoostDuration;
-            if (animator != null) animator.speed = 2f;
-            if (animator != null) animator.Play("AniCrossBowShoot", 0, 0f);
-		}
-		// Take damage if needed
-		currentHits++;
-		if (currentHits >= maxHitPoints && !isDestroyed)
+		// If hit by bullet, speed up shoot speed for a while
+		if (collision.gameObject.GetComponent<GunBullet>() != null)
 		{
-			isDestroyed = true;
-			if (animator != null)
-				animator.Play("AniCommonOnDestory", 0, 0f);
-			else
-				DestroySelf();
+			currentShootSpeed = shootSpeedBoost;
+			shootBoostTimer = shootBoostDuration;
+			if (animator != null) animator.speed = 2f;
+			if (animator != null) animator.Play("AniCrossBowShoot", 0, 0f);
 		}
+		// Destruction is handled by ItemMaster
 	}
 
 	public void HandleCollisionEnter2D(Collision2D collision)
@@ -164,9 +153,5 @@ public class ItemCrossBow : MonoBehaviour, IColliderHandler
 		// Not needed
 	}
 
-	// Call by animation event or fallback
-	public void DestroySelf()
-	{
-		Destroy(gameObject);
-	}
+	// DestroySelf is inherited from ItemMaster
 }

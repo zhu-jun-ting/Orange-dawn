@@ -18,9 +18,7 @@ public class CardActionSpawnCrossBowWhenHitWall : CardMaster, ICardAction
     public float crossBowDamage = 10f; // Damage dealt by each crossbow
     public int spawnCount = 1; // How many crossbows to spawn
     public float spawnRadius = 2f;
-    public float bounceDuration = 0.5f;
-    public float jumpPower = 1.5f;
-    public int numJumps = 2;
+    // Removed: public float bounceDuration, jumpPower, numJumps
 
     [Header("Mana Cost")]
     public int manaCost = 1;
@@ -60,18 +58,13 @@ public class CardActionSpawnCrossBowWhenHitWall : CardMaster, ICardAction
             else
                 targetPos = (Vector2)location.position + UnityEngine.Random.insideUnitCircle * spawnRadius;
 
-            GameObject crossbowObj = Instantiate(crossBowPrefab, location.position, Quaternion.identity);
-            float duration = bounceDuration > 0 ? bounceDuration : 0.5f;
-            crossbowObj.transform.DOJump(targetPos, jumpPower, numJumps, duration, false)
-                .SetEase(Ease.OutQuad)
-                .OnComplete(() =>
-                {
-                    var crossbow = crossbowObj.GetComponent<ItemCrossBow>();
-                    if (crossbow != null)
-                    {
-                        crossbow.shootDamage = crossBowDamage;
-                    }
-                });
+            // Instantly spawn at target position (no DOTween animation)
+            GameObject crossbowObj = Instantiate(crossBowPrefab, targetPos, Quaternion.identity);
+            var crossbow = crossbowObj.GetComponent<ItemCrossBow>();
+            if (crossbow != null)
+            {
+                crossbow.shootDamage = crossBowDamage;
+            }
         }
         GameEvents.instance.UpdateMana(-manaCost);
     }

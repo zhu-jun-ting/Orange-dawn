@@ -187,10 +187,23 @@ public class GunBullet : MonoBehaviour, IColliderHandler
                     float impactSpeed = Vector2.Dot(relativeVelocity, -collisionNormal); // negative because normal points out of the surface
                     var speedDamage = Math.Abs(impactSpeed * speedDamageModifier);
 
-                    if (att >= 1f) GameEvents.instance.HitPawn(att, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+                    if (att >= 1f)
+                    {
+                        GameEvents.instance.HitPawn(att + speedDamage, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+                        // att and speedDamage are combined? 
 
-                    if (att >= 1f) GameEvents.instance.HitPawn(speedDamage, pawnMaster, pawnMaster.gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun, "Speed");
-
+                        // --- Spawn debris based on relative velocity ---
+                        float impactStrength = relativeVelocity.magnitude;
+                        int particleCount = Mathf.Clamp(Mathf.RoundToInt(impactStrength * 2f), 5, 20);
+                        float scatterForce = Mathf.Clamp(impactStrength, 1f, 10f);
+                        DebriManager.ScatterPixels(
+                            collision.contacts.Length > 0 ? collision.contacts[0].point : (Vector2)collision.transform.position,
+                            -collisionNormal,
+                            particleCount: particleCount,
+                            scatterForce: scatterForce
+                        );
+                    }
+                    
                 }
             }
         }
@@ -200,10 +213,30 @@ public class GunBullet : MonoBehaviour, IColliderHandler
         float now = Time.time;
         if (shouldBounce && (now - lastBounceTime > bounceCooldown))
         {
-            // If the collided object's layer is "Wall", trigger GameEvents.HitWall
-            if (LayerMask.LayerToName(collision.collider.gameObject.layer) == "Wall" && GameEvents.instance != null)
+            // If the collided object's layer is "Wall" or "Object", trigger GameEvents.HitWall
+            string layerName = LayerMask.LayerToName(collision.collider.gameObject.layer);
+            if ((layerName == "Wall" || layerName == "Object") && GameEvents.instance != null)
             {
                 GameEvents.instance.HitWall(this, collision.contacts[0].point, collision.collider.gameObject);
+
+                // --- Spawn debris based on relative velocity ---
+                Rigidbody2D otherRb = collision.collider.attachedRigidbody;
+                Vector2 myVelocity = rigidbody != null ? rigidbody.linearVelocity : Vector2.zero;
+                Vector2 otherVelocity = otherRb != null ? otherRb.linearVelocity : Vector2.zero;
+                Vector2 relativeVelocity = myVelocity - otherVelocity;
+                Vector2 collisionNormal = collision.contacts.Length > 0 ? collision.contacts[0].normal : Vector2.zero;
+                // Debris scatter direction: away from wall (along normal)
+                Vector2 scatterDir = -collisionNormal;
+                float impactStrength = relativeVelocity.magnitude;
+                // Optionally scale particle count/force by impact
+                int particleCount = Mathf.Clamp(Mathf.RoundToInt(impactStrength * 2f), 5, 20);
+                float scatterForce = Mathf.Clamp(impactStrength, 1f, 10f);
+                DebriManager.ScatterPixels(
+                    collision.contacts[0].point,
+                    scatterDir,
+                    particleCount: particleCount,
+                    scatterForce: scatterForce
+                );
             }
         }
     }

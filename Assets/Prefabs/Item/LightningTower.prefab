@@ -371,9 +371,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eed07f63ba2b8a4a91e02cb6537629e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHits: 3
+  lifetime: -1
+  invulnerabilityDuration: 1
+  breakableByTags: []
+  spawnFxName: FxSpawn
+  spawnFxScale: 3
   aoeDamage: 10
   aoeRange: 1
-  maxHitPoints: 30
   triggerTags:
   - Enemy
   animator: {fileID: 8563771125470055524}

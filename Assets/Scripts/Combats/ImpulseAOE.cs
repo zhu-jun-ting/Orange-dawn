@@ -4,6 +4,7 @@ using UnityEngine;
 public class ImpulseAOE : MonoBehaviour
 {
     [Header("AOE Settings")]
+    public bool isPlayingFx = false; // Whether to play the expanding circle effect
     public float maxRadius = 5f;
     public float duration = 1f;
     public float maxDamage = 20f;
@@ -12,7 +13,7 @@ public class ImpulseAOE : MonoBehaviour
     [Header("Visuals")]
     public SpriteRenderer circleSprite; // Assign a SpriteRenderer (circle sprite) as a child in the editor
 
-    private float currentRadius = 0f;
+    protected float currentRadius = 0f;
     private float timer = 0f;
     private HashSet<GameObject> hitObjects = new HashSet<GameObject>();
     private CircleCollider2D aoeCollider;
@@ -24,6 +25,12 @@ public class ImpulseAOE : MonoBehaviour
         aoeCollider.radius = 0f;
         if (circleSprite != null)
             circleSprite.transform.localScale = Vector3.zero;
+    }
+
+    void Start()
+    {
+        // if (isPlayingFx)
+        //     CombatManager.PlayFx("FxExpandingCircle", transform.position, maxRadius * 2, 1f); 
     }
 
     void Update()

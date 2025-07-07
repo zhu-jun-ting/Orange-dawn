@@ -17,11 +17,8 @@ public class CardActionSpawnSpikeOnHitWall : CardMaster, ICardAction
     public GameObject spikePrefab; // Assign in inspector
     public float spikeDamage = 10f; // Damage dealt by each spike
     public int spawnCount = 3; // How many spikes to spawn
-    // public float spawnChance = 1f; // (Removed, use triggerProbability)
     public float spawnRadius = 2f;
-    public float bounceDuration = 0.5f;
-    public float jumpPower = 1.5f;
-    public int numJumps = 2;
+    // Removed: public float bounceDuration, jumpPower, numJumps
 
     [Header("Mana Cost")]
     public int manaCost = 1;
@@ -62,20 +59,14 @@ public class CardActionSpawnSpikeOnHitWall : CardMaster, ICardAction
             else
                 targetPos = (Vector2)location.position + UnityEngine.Random.insideUnitCircle * spawnRadius;
 
-            GameObject spikeObj = Instantiate(spikePrefab, location.position, Quaternion.identity);
-            float duration = bounceDuration > 0 ? bounceDuration : 0.5f;
-            spikeObj.transform.DOJump(targetPos, jumpPower, numJumps, duration, false)
-                .SetEase(Ease.OutQuad)
-                .OnComplete(() =>
-                {
-                    // Call OnTweenComplete if present
-                    var spike = spikeObj.GetComponent<ItemSpike>();
-                    if (spike != null)
-                    {
-                        spike.OnTweenComplete();
-                        spike.damage = spikeDamage;
-                    }
-                });
+            // Instantly spawn at target position (no DOTween animation)
+            GameObject spikeObj = Instantiate(spikePrefab, targetPos, Quaternion.identity);
+            // Call OnTweenComplete if present
+            var spike = spikeObj.GetComponent<ItemSpike>();
+            if (spike != null)
+            {
+                spike.damage = spikeDamage;
+            }
         }
         GameEvents.instance.UpdateMana(-manaCost);
     }

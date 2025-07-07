@@ -47,26 +47,26 @@ TagManager:
   - name: Floor
     uniqueID: 841323991
     locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: Wall
     uniqueID: 3814244361
-    locked: 0
-  - name: Item
-    uniqueID: 174745539
     locked: 0
   - name: Enemy
     uniqueID: 3852912915
     locked: 0
-  - name: Default
-    uniqueID: 0
-    locked: 0
-  - name: Effects
-    uniqueID: 2654380541
+  - name: Item
+    uniqueID: 174745539
     locked: 0
   - name: Board
     uniqueID: 405727931
     locked: 0
   - name: Card
     uniqueID: 2049826217
+    locked: 0
+  - name: Effects
+    uniqueID: 2654380541
     locked: 0
   - name: UI
     uniqueID: 2391504087

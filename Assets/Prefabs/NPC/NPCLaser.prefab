@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6905287244537943798}
   - component: {fileID: 4893101159581191797}
   - component: {fileID: 674853617078003697}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 4898332540207903363}
   - component: {fileID: 8470258604193522170}
   - component: {fileID: 3149731923677243296}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5926229030494395131}
   - component: {fileID: 7399551071309552190}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: WorldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 4925852852562630504}
   - component: {fileID: 3502960743870066293}
   - component: {fileID: 1572523463203262535}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: ShootRangeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 5504571411561792503}
   - component: {fileID: 8135705286622177846}
   - component: {fileID: 1962652550520549491}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NPCLaser
   m_TagString: NPC
   m_Icon: {fileID: 0}
@@ -616,8 +616,11 @@ MonoBehaviour:
   buff_icon_grid: {fileID: 5510570282589370252}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
   dot_stat: {fileID: 0}
+  moveSpeed: 0
   follow_range: 3
   maxHP: 0
+  meleeAttack: 0
+  hurtDuration: 0.3
   health_bar: {fileID: 997255982841731659}
   laser_stat: {fileID: 11400000, guid: 07424ebb283c0dc4db1818307d5ed00f, type: 2}
   npcLaserGunPrefab: {fileID: 1880290332718444128, guid: b1e5aa99cf525cb49b50eb97bf8b2e7f, type: 3}
@@ -632,7 +635,7 @@ GameObject:
   - component: {fileID: 9168453354753060422}
   - component: {fileID: 3764942551114120347}
   - component: {fileID: 7372896038964048432}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -799,6 +802,10 @@ PrefabInstance:
     - target: {fileID: 4314067619663630508, guid: ca57d20436fecab4faa1683372477684, type: 3}
       propertyPath: m_Name
       value: BuffIconGrid
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314067619663630508, guid: ca57d20436fecab4faa1683372477684, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

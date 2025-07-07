@@ -333,8 +333,9 @@ public class CombatManager : MonoBehaviour
             }
         }
         return false;
-    }
-    public static void PlayFx(GameObject fx, Vector2 location, float scale, float duration = 1f)
+            }
+
+    public static void PlayFx(GameObject fx, Vector2 location, float scale, float duration = 1f, bool isLooping = false)
     {
         if (fx == null) return;
 
@@ -353,6 +354,25 @@ public class CombatManager : MonoBehaviour
             fxObj.transform.localScale = Vector3.one * scale;
         }
 
+        // Handle looping if requested
+        if (isLooping)
+        {
+            var animators = fxObj.GetComponentsInChildren<Animator>(true);
+            foreach (var animator in animators)
+            {
+                if (animator.runtimeAnimatorController != null)
+                {
+                    foreach (var clip in animator.runtimeAnimatorController.animationClips)
+                    {
+                        if (clip != null)
+                        {
+                            clip.wrapMode = WrapMode.Loop;
+                        }
+                    }
+                }
+            }
+        }
+
         // Destroy after duration (only if not already scheduled)
         if (duration > 0)
         {
@@ -362,9 +382,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-
-
-    public static void PlayFx(string fxName, Vector2 location, float scale, float duration = 1f)
+    public static void PlayFx(string fxName, Vector2 location, float scale, float duration = 1f, bool isLooping = false)
     {
         var instance = CombatManager.instance;
         if (instance == null || instance.oneTimeFx == null) return;
@@ -402,6 +420,14 @@ public class CombatManager : MonoBehaviour
                     if (clip != null && clip.name == fxName)
                     {
                         foundClip = clip;
+                        if (isLooping)
+                        {
+                            clip.wrapMode = WrapMode.Loop;
+                        }
+                        else
+                        {
+                            clip.wrapMode = WrapMode.Default;
+                        }
                         break;
                     }
                 }
@@ -409,7 +435,10 @@ public class CombatManager : MonoBehaviour
             if (foundClip != null)
             {
                 childAnimator.Play(fxName, 0, 0f);
-                destroyDelay = foundClip.length;
+                if (!isLooping)
+                    destroyDelay = foundClip.length;
+                else
+                    destroyDelay = duration;
             }
             else
             {

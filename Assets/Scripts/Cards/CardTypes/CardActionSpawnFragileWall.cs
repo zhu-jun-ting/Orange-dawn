@@ -18,15 +18,10 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
     public GameObject impulseAOEPrefab; // Assign in inspector
     public float spawnRadius = 2f;
     public int spawnCount = 3;
-    // public float spawnChance = 1f; // (Removed, use triggerProbability)
     public float spawnDamage = 10f;
     public float impulseRadius = 1f;
     public float impulseDuration = 0.3f;
-    public float impulseMaxDamage = 10f;
-    public Ease bounceEase = Ease.OutBounce;
-    public float bounceDuration = 0.5f;
-    public float jumpPower = 1.5f; // world units, adjust as needed
-    public int numJumps = 2;
+    // Removed: public float impulseMaxDamage, bounceEase, bounceDuration, jumpPower, numJumps
 
     [Header("Mana Cost")]
     public int manaCost = 1;
@@ -69,31 +64,24 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
             else
                 targetPos = (Vector2)location.position + UnityEngine.Random.insideUnitCircle * spawnRadius;
 
-            GameObject wallObj = Instantiate(fragileWallPrefab, location.position, Quaternion.identity);
-            float duration = bounceDuration > 0 ? bounceDuration : 0.5f;
-            wallObj.transform.DOJump(targetPos, jumpPower, numJumps, duration, false)
-                .SetEase(Ease.OutQuad)
-                .OnComplete(() =>
+            // Instantly spawn at target position (no DOTween animation)
+            GameObject wallObj = Instantiate(fragileWallPrefab, targetPos, Quaternion.identity);
+
+            // Call FragileWall.OnTweenComplete if present (if needed for logic)
+            var fragileWall = wallObj.GetComponent<FragileWall>();
+
+            // Spawn ImpulseAOE at the final position
+            if (impulseAOEPrefab != null)
+            {
+                GameObject aoe = Instantiate(impulseAOEPrefab, wallObj.transform.position, Quaternion.identity);
+                var impulse = aoe.GetComponent<ImpulseAOE>();
+                if (impulse != null)
                 {
-                    // Call FragileWall.OnTweenComplete if present
-                    var fragileWall = wallObj.GetComponent<FragileWall>();
-                    if (fragileWall != null)
-                    {
-                        fragileWall.OnTweenComplete();
-                    }
-                    // Spawn ImpulseAOE at the final position
-                    if (impulseAOEPrefab != null)
-                    {
-                        GameObject aoe = Instantiate(impulseAOEPrefab, wallObj.transform.position, Quaternion.identity);
-                        var impulse = aoe.GetComponent<ImpulseAOE>();
-                        if (impulse != null)
-                        {
-                            impulse.maxRadius = impulseRadius;
-                            impulse.duration = impulseDuration;
-                            impulse.maxDamage = spawnDamage;
-                        }
-                    }
-                });
+                    impulse.maxRadius = impulseRadius;
+                    impulse.duration = impulseDuration;
+                    impulse.maxDamage = spawnDamage;
+                }
+            }
         }
         // Deduct mana cost
         GameEvents.instance.UpdateMana(-manaCost);

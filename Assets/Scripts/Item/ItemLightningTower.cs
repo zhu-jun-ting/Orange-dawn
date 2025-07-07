@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ItemLightningTower : MonoBehaviour, IColliderHandler
+public class ItemLightningTower : ItemMaster, IColliderHandler
 {
     [Header("Damage Stats")]
     public float aoeDamage = 10f;
     public float aoeRange = 2f;
 
     [Header("Lightning Tower Settings")]
-    public int maxHitPoints = 3;
     public List<string> triggerTags = new List<string> { "Enemy" };
     public Animator animator;
     public GameObject fxLightningPrefab; // Assign FxLightning prefab
@@ -21,18 +20,14 @@ public class ItemLightningTower : MonoBehaviour, IColliderHandler
     public float hitStretch = 1.05f;
     public float hitStretchDuration = 0.15f;
     public Collider2D rangeCollider; // Assign a trigger collider for detection
-
-    private int currentHits = 0;
-    private bool isDestroyed = false;
-    private Collider2D col2D;
     private List<Transform> targetsInRange = new List<Transform>();
     private bool isTriggerEnabled = false;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (animator == null)
             animator = GetComponent<Animator>();
-        col2D = GetComponent<Collider2D>();
         if (col2D != null)
             col2D.enabled = false;
         if (rangeCollider != null)
@@ -45,12 +40,11 @@ public class ItemLightningTower : MonoBehaviour, IColliderHandler
                 handle.ChangeColliderRange(attackRange);
             }
         }
-            
-            
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         // Fade in and play spawn smoke
         var sr = GetComponent<SpriteRenderer>();
         if (sr != null)
@@ -88,7 +82,8 @@ public class ItemLightningTower : MonoBehaviour, IColliderHandler
             targetsInRange.Remove(other.transform);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    // ItemMaster handles collision filtering and hit counting. Only custom logic here.
+    public override void OnHit(Collision2D collision)
     {
         if (isDestroyed) return;
         // If hit by bullet, attack
@@ -99,16 +94,7 @@ public class ItemLightningTower : MonoBehaviour, IColliderHandler
             transform.DOKill();
             transform.DOScaleY(hitStretch, hitStretchDuration).SetLoops(2, LoopType.Yoyo);
         }
-        // Take damage
-        currentHits++;
-        if (currentHits >= maxHitPoints && !isDestroyed)
-        {
-            isDestroyed = true;
-            if (animator != null)
-                animator.Play("AniCommonOnDestory", 0, 0f);
-            else
-                DestroySelf();
-        }
+        // Destruction is handled by ItemMaster
     }
 
     public void HandleCollisionEnter2D(Collision2D collision) { }
@@ -129,11 +115,7 @@ public class ItemLightningTower : MonoBehaviour, IColliderHandler
         Destroy(fx, 2f); // Destroy FX after 2 seconds
     }
 
-    // Called by animation event or fallback
-    public void DestroySelf()
-    {
-        Destroy(gameObject);
-    }
+    // DestroySelf is inherited from ItemMaster
 }
 
 // (FxLightning is now a separate script. See FxLightning.cs)

@@ -3,9 +3,9 @@ using UnityEngine;
 
 /// <summary>
 /// An item that accelerates bullets in its range by applying a centripetal force (like a gravity well),
-/// then throws the bullet out with increased speed. No collider, only a trigger for detection.
+/// then throws the bullet out with increased speed. Inherits from ItemMaster for common item logic.
 /// </summary>
-public class ItemBulletAccelerator : MonoBehaviour
+public class ItemBulletAccelerator : ItemMaster
 {
     [Header("Accelerator Settings")]
     public float range = 5f;
@@ -23,15 +23,16 @@ public class ItemBulletAccelerator : MonoBehaviour
     private Dictionary<Rigidbody2D, float> bulletOrbitProgress = new Dictionary<Rigidbody2D, float>();
     private CircleCollider2D triggerCollider;
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         // Setup trigger collider
         triggerCollider = gameObject.AddComponent<CircleCollider2D>();
         triggerCollider.isTrigger = true;
         triggerCollider.radius = range;
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         float now = Time.time;
         var toRelease = new List<Rigidbody2D>();
@@ -76,7 +77,7 @@ public class ItemBulletAccelerator : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (!IsBullet(other)) return;
         var rb = other.attachedRigidbody;
@@ -88,7 +89,7 @@ public class ItemBulletAccelerator : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    protected virtual void OnTriggerExit2D(Collider2D other)
     {
         if (!IsBullet(other)) return;
         var rb = other.attachedRigidbody;
@@ -100,7 +101,7 @@ public class ItemBulletAccelerator : MonoBehaviour
         }
     }
 
-    private bool IsBullet(Collider2D col)
+    protected bool IsBullet(Collider2D col)
     {
         if (((1 << col.gameObject.layer) & bulletLayer) == 0) return false;
         if (bulletTags == null || bulletTags.Count == 0) return true;

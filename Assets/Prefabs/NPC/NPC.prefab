@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8411730453550249859}
   - component: {fileID: 4285881911069971864}
   - component: {fileID: 7885860999492081742}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: NPC
   m_TagString: NPC
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 8451178963684789872}
   - component: {fileID: 7002251654243124613}
   - component: {fileID: 2199829675886812353}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,7 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8604834592040678067}
   - component: {fileID: 1147581054563029462}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: WorldCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,7 @@ GameObject:
   - component: {fileID: 8992313445243048185}
   - component: {fileID: 5375890825728540129}
   - component: {fileID: 1031603253876317466}
-  m_Layer: 0
+  m_Layer: 31
   m_Name: ShootRangeCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 7861703403780767377}
   - component: {fileID: 1692097166529074683}
   - component: {fileID: 6215486147203795863}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -637,7 +637,7 @@ GameObject:
   - component: {fileID: 4390541713505627045}
   - component: {fileID: 6514777252440767246}
   - component: {fileID: 4329514008591292073}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -804,6 +804,10 @@ PrefabInstance:
     - target: {fileID: 4314067619663630508, guid: ca57d20436fecab4faa1683372477684, type: 3}
       propertyPath: m_Name
       value: BuffIconGrid
+      objectReference: {fileID: 0}
+    - target: {fileID: 4314067619663630508, guid: ca57d20436fecab4faa1683372477684, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

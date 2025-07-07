@@ -460,7 +460,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b00ff0d5cfecf044afc253510f0be21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitPoints: 3
+  maxHits: 3
+  lifetime: -1
+  invulnerabilityDuration: 1
+  breakableByTags: []
+  spawnFxName: FxSpawn
+  spawnFxScale: 3
   shootDamage: 2
   shootSpeed: 1.5
   shootSpeedBoost: 0.5

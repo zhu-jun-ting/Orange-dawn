@@ -204,7 +204,7 @@ public class EnemyMaster : PawnMaster
         if (pawnMaster != null && _amount >= 1f) GameEvents.instance.HitPawn(_amount, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, 0f, null);
 
     }
-    
+
     // Handle collision-based damage when being hit back
     // This method is called by Unity when this enemy collides with another collider
     void OnCollisionEnter2D(UnityEngine.Collision2D collision)
@@ -252,15 +252,13 @@ public class EnemyMaster : PawnMaster
 
         // Compute the absolute difference between this enemy's velocity and the other's velocity
         // Use linearVelocity instead of velocity (Unity 2022+)
-        Vector2 myVel = rb != null ? rb.linearVelocity : Vector2.zero;
-        Vector2 otherVel = Vector2.zero;
         var otherRb = other.GetComponent<Rigidbody2D>();
-        if (otherRb != null)
-            otherVel = otherRb.linearVelocity;
-        float relVel = (myVel - otherVel).magnitude;
+        Vector2 myVelocity = rb != null ? rb.linearVelocity : Vector2.zero;
+        Vector2 otherVelocity = otherRb != null ? otherRb.linearVelocity : Vector2.zero;
+        Vector2 relativeVelocity = myVelocity - otherVelocity;
+        float relVel = relativeVelocity.magnitude;
 
         // Allow designer to scale how velocity translates to damage
-
         float collisionDamage = relVel * collisionDamageScale;
         // Debug.Log($"[EnemyMaster] Collision damage calculated: {collisionDamage} = {relVel} * {collisionDamageScale} (min required: {minCollisionDamage})");
 
@@ -270,7 +268,20 @@ public class EnemyMaster : PawnMaster
         // Use GameEvents.HitPawn, prefix = "Collision"
         PawnMaster selfPawn = this;
         if (collisionDamage >= 1f) GameEvents.instance.HitPawn(collisionDamage, selfPawn, other, GameEvents.DamageType.Normal, transform, 0f, null, "Collision");
-        // Optionally, you could set isBeingHitBack = false here if you want to only allow one collision damage per hitback
+
+        // --- Spawn debris based on relative velocity ---
+        Vector2 collisionNormal = collision.contacts.Length > 0 ? collision.contacts[0].normal : Vector2.zero;
+        // Debris scatter direction: away from collision (along normal)
+        Vector2 scatterDir = -collisionNormal;
+        float impactStrength = relVel;
+        int particleCount = Mathf.Clamp(Mathf.RoundToInt(impactStrength * 2f), 5, 20);
+        float scatterForce = Mathf.Clamp(impactStrength, 1f, 10f);
+        DebriManager.ScatterPixels(
+            collision.contacts.Length > 0 ? collision.contacts[0].point : (Vector2)transform.position,
+            scatterDir,
+            particleCount: particleCount,
+            scatterForce: scatterForce
+        );
     }
 
 }

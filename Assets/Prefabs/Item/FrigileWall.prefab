@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 657333977203277976}
   m_Layer: 11
   m_Name: FrigileWall
-  m_TagString: Untagged
+  m_TagString: Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -408,9 +408,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHits: 3
+  lifetime: -1
   invulnerabilityDuration: 1
   breakableByTags:
   - Bullet
+  spawnFxName: FxSpawn
+  spawnFxScale: 1
   animator: {fileID: 2600180583777495658}
   fxSmoke: {fileID: 8364358675438284418, guid: 9dd98c9fb1c000a41b99fdf79cb1ca9e, type: 3}
   fxSmokePosition: {fileID: 5348442221232346321}

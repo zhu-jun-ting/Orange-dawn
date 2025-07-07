@@ -1532,7 +1532,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 100
+  m_Mass: 10
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 0.1
@@ -1608,7 +1608,7 @@ MonoBehaviour:
   buff_icon_grid: {fileID: 0}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
   dot_stat: {fileID: 11400000, guid: 2114965e00ff07a479078043f04431e1, type: 2}
-  initial_max_health: 500
+  initial_max_health: 50000
   initial_move_speed: 3
   initial_dash_speed_multiplier: 3
   initial_dash_duration: 0.1
@@ -1622,7 +1622,6 @@ MonoBehaviour:
   Blinks: 3
   time: 0.1
   guns:
-  - {fileID: 0}
   - {fileID: 225704923}
   - {fileID: 468882675}
   - {fileID: 1645237871}
