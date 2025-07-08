@@ -11,6 +11,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
 
     [Header("Direction Settings")]
     public bool isDirectional = false; // If true, bullet rotates to face its velocity (x=1 is forward)
+    public bool canClone = true; // If true, bullet can be cloned by cloners (like the Bullet Cloner item)
     [SerializeField] public float att;
     [SerializeField] private GameObject owner;
     public float speed;

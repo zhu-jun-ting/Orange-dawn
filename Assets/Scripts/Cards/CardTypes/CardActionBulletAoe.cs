@@ -86,7 +86,7 @@ public class CardActionBulletAoe : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return string.Format(card_description, AoeDamage, AoeDuration, AoeSize, manaCost);
+        return GameSettings.AddIcon(string.Format(card_description, AoeDamage, AoeDuration, AoeSize, manaCost));
     }
 
     public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)

@@ -74,8 +74,8 @@ public class CardBasePistol : CardMaster
         if (current_gun == null) current_gun = FindActivePistolOnPlayer();
         if (current_gun != null)
         {
-            return String.Format(card_description,
-                current_gun.damage, current_gun.speed, current_gun.recon, current_gun.interval, current_gun.critChance, current_gun.critDamage, current_gun.bulletNum, current_gun.bulletAngle, current_gun.penetrate);
+            return GameSettings.AddIcon(String.Format(card_description,
+                current_gun.damage, current_gun.speed, current_gun.recon, current_gun.interval, current_gun.critChance, current_gun.critDamage, current_gun.bulletNum, current_gun.bulletAngle, current_gun.penetrate));
         }
         return "";
     }

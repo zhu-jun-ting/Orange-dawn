@@ -419,9 +419,9 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     /// <summary>
     /// Adds a buff entry to the buff panel. If a buff with the same name exists, stacks it. Otherwise, instantiates a new entry and arranges by descending order.
     /// </summary>
-    public void AddBuffDescription(string buffName, string buffDescription, int order = 0)
+    public BuffEntry AddBuffDescription(string buffName, string buffDescription, int order = 0)
     {
-        if (buffPanelLayout == null || buffEntryPrefab == null || string.IsNullOrEmpty(buffName)) return;
+        if (buffPanelLayout == null || buffEntryPrefab == null || string.IsNullOrEmpty(buffName)) return null;
 
         // Search for existing buff entry by name
         BuffEntry existing = null;
@@ -437,7 +437,7 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         if (existing != null)
         {
             existing.StackBuff();
-            return;
+            return existing;
         }
 
         // Instantiate new buff entry
@@ -464,6 +464,7 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             }
         }
         newEntryGO.transform.SetSiblingIndex(insertIndex);
+        return newEntry;
     }
 
     // Use UIStar.StarType for all star logic

@@ -137,7 +137,7 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return string.Format(card_description, spawnCount, triggerProbability, spawnDamage, manaCost);
+        return GameSettings.AddIcon(string.Format(card_description, spawnCount, triggerProbability, spawnDamage, manaCost));
     }
 
     public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)

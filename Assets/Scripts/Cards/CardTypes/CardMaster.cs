@@ -26,6 +26,9 @@ public class CardMaster : MonoBehaviour
     // current gun reference, used for gun cards
     [HideInInspector] public Gun current_gun;
 
+    // buff entry for Instant cards
+    protected BuffEntry buffEntry;
+
     // events to update card values and texts
     //   OnUpdateCardValues: perform a BFS from root card to update all linked cards' values
     //   OnUpdateBaseDesctipion: update the base description of the card
@@ -159,10 +162,11 @@ public class CardMaster : MonoBehaviour
         return false;
     }
 
-    public void AddBuffEntry(string buffName, string buffDescription, int order = 0) 
+    public BuffEntry AddBuffEntry(string buffName, string buffDescription, int order = 0) 
     {
         var cardCommon = GetComponent<CardCommon>();
-        if (cardCommon != null) cardCommon.AddBuffDescription(buffName, buffDescription, order);
+        if (cardCommon != null) return cardCommon.AddBuffDescription(buffName, buffDescription, order);
+        return null;
     }
 
     // you should override this method to return the card's name and description
@@ -443,9 +447,28 @@ public class CardMaster : MonoBehaviour
                 }
             }
         }
-
         CardDragHandler.TriggerUpdateCards();
+    }
 
+    public virtual string GetBuffEntryName() 
+    {
+        // should override this method to return the buff entry name
+        return string.Empty;
+    }
+
+    public virtual string GetBuffEntryText() 
+    {
+        // should override this method to return the buff entry text
+        return string.Empty;
+    }
+
+    public virtual void UpdateBuffEntry()
+    {
+        if (buffEntry != null)
+        {
+            buffEntry.SetBuffName(GetBuffEntryName());
+            buffEntry.SetBuffDescription(GetBuffEntryText());
+        }
     }
 
     // --- Events Callers ---

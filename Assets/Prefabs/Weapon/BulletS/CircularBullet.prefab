@@ -255,9 +255,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDirectional: 0
+  canClone: 0
   att: 3
   owner: {fileID: 0}
   speed: 15
+  speedDamageModifier: 1
   explosionPrefab: {fileID: 3217125097851079088, guid: 2be4eb6338a97ad42bf2801937e8fb6b, type: 3}
   trigger_tags:
   - Enemy
@@ -273,6 +275,8 @@ MonoBehaviour:
   bounceLayers:
     serializedVersion: 2
     m_Bits: 0
+  ignoreTags:
+  - Bullet
   center: {x: 0, y: 0}
   radius: 3
   angularSpeed: 180

@@ -60,7 +60,7 @@ public class CardValueAddAttack : CardMaster
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return string.Format(card_description, attackToAdd);
+        return GameSettings.AddIcon(string.Format(card_description, attackToAdd));
     }
 
     public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)

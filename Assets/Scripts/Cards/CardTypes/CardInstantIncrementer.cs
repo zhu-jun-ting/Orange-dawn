@@ -6,6 +6,11 @@ public class CardInstantIncrementer : CardMaster
 {
     [Header("Instant Incrementer Settings")]
     public float incrementValue = 1f;
+    private BuffEntry buffEntry;
+    [Header("Buff Entry Text")]
+    public string buffName = "Incrementer";
+    [TextArea (3, 10)]
+    public string buffDescription = "Increase damage value {0} at the end of the level";
 
     public override void OnCardEnable()
     {
@@ -20,15 +25,28 @@ public class CardInstantIncrementer : CardMaster
                 link.OnThisCardLevelCleared += () => link.UpdateSelfNumberValue(NumberType.Damage, incrementValue, true);
 
                 // Also give a new buff entry
-                link.AddBuffEntry("Incrementer", "Increase damage value at the end of the level", 0);
+                buffEntry = link.AddBuffEntry(GetBuffEntryName(), GetBuffEntryText(), 0);
+
+                // Register to update buffEntry's name and description when card texts update
+                CardMaster.OnUpdateCardTexts += UpdateBuffEntry;
             }
         }
         // Destroy self after registering
         OnCardDestroyed();
     }
 
+    public override string GetBuffEntryName()
+    {
+        return buffName;
+    }
+
+    public override string GetBuffEntryText()
+    {
+        return GameSettings.AddIcon(string.Format(buffDescription, incrementValue));
+    }
+
     public override string GetDescription()
     {
-        return string.Format(card_description, incrementValue);
+        return GameSettings.AddIcon(string.Format(card_description, incrementValue));
     }
 }

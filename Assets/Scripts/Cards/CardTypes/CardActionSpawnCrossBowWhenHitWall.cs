@@ -118,7 +118,8 @@ public class CardActionSpawnCrossBowWhenHitWall : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return $"On bullet hit wall, spawn {spawnCount} crossbow(s) (Damage: {crossBowDamage}). Mana: {manaCost}, Chance: {triggerProbability * 100f}%";
+        // return $"On bullet hit wall, spawn {spawnCount} crossbow(s) (Damage: {crossBowDamage}). Mana: {manaCost}, Chance: {triggerProbability * 100f}%";
+        return GameSettings.AddIcon("Damage: 10");
     }
 
     public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)

@@ -36,10 +36,10 @@ public class CardBasePlayer : CardMaster
         if (player == null) player = PlayerController.instance;
         if (player != null)
         {
-            return string.Format(card_description,
+            return GameSettings.AddIcon(string.Format(card_description,
                 player.max_health,
                 player.moveSpeed,
-                player.dodge);
+                player.dodge));
         }
         return "";
     }

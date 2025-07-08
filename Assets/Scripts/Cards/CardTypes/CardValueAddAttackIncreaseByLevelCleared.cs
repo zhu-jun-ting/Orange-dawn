@@ -77,7 +77,7 @@ public class CardValueAddAttackIncreaseByLevelCleared : CardMaster
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return string.Format(card_description, attackToAdd, attackToAddDefault);
+        return GameSettings.AddIcon(string.Format(card_description, attackToAdd, attackToAddDefault));
     }
 
     public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)

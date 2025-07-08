@@ -24,7 +24,11 @@ public class ItemBulletCloner : ItemMaster
     protected virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (!IsBullet(other)) return;
+        if (alreadyCloned.Contains(other.gameObject)) return; // Prevent multiple clones of the same bullet
         var bullet = other.gameObject;
+        if (bullet.GetComponent<GunBullet>() != null && !bullet.GetComponent<GunBullet>().canClone) return; // Skip if bullet cannot be cloned
+
+        alreadyCloned.Add(other.gameObject); // Mark this bullet as cloned to prevent further cloning
         var cd = bullet.GetComponent<BulletCloneCooldown>();
         if (cd == null)
         {
