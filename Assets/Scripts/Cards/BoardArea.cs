@@ -19,12 +19,17 @@ public class BoardArea : MonoBehaviour
     [Header("Grid Visuals")]
     public GameObject gridLinePrefab; // Assign a UI Image prefab for lines
     public GameObject cardHintPrefab; // Assign a prefab for card hint (e.g. a semi-transparent card slot)
+    public GameObject cardSlotPrefab; // Assign a prefab for card slot background
     private GameObject[,] cardHintObjects;
+    private GameObject[,] cardSlotObjects;
     private GameObject gridGuidelinesParent;
     private bool guidelinesVisible = false;
 
+
     [Header("Grid State")]
     public CardMaster[,] gridState;
+    // New: grid cell open/close state
+    public bool[,] gridOpenState;
 
     [Header("For test, mark ROOT as the left up most grid cell")]
     public List<CardMaster> roots = new List<CardMaster>();
@@ -42,10 +47,13 @@ public class BoardArea : MonoBehaviour
         instance = this;
         rectTransform = GetComponent<RectTransform>();
         gridState = new CardMaster[rows, columns];
+        gridOpenState = new bool[rows, columns];
+        // Initial 3x3 grid is open
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < columns; c++)
+                gridOpenState[r, c] = true;
         CreateCardHints();
         HideCardHints();
-        CreateGridGuidelines();
-        HideGridGuidelines();
     }
 
     void Start()
@@ -150,11 +158,31 @@ public class BoardArea : MonoBehaviour
         origin += parentOffset;
         float x = Mathf.Clamp(localPoint.x, origin.x, origin.x + (columns - 1) * cellWidth);
         float y = Mathf.Clamp(localPoint.y, origin.y - (rows - 1) * cellHeight, origin.y);
-        int col = Mathf.RoundToInt((x - origin.x) / cellWidth);
-        int row = Mathf.RoundToInt((origin.y - y) / cellHeight);
-        col = Mathf.Clamp(col, 0, columns - 1);
-        row = Mathf.Clamp(row, 0, rows - 1);
-        return new Vector2Int(row, col);
+        // Find the nearest open cell
+        float minDist = float.MaxValue;
+        int nearestRow = -1, nearestCol = -1;
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < columns; c++)
+            {
+                if (!IsCellOpen(r, c)) continue;
+                float cellCenterX = origin.x + c * cellWidth;
+                float cellCenterY = origin.y - r * cellHeight;
+                float dist = (new Vector2(cellCenterX, cellCenterY) - localPoint).sqrMagnitude;
+                if (dist < minDist)
+                {
+                    minDist = dist;
+                    nearestRow = r;
+                    nearestCol = c;
+                }
+            }
+        }
+        if (nearestRow == -1 || nearestCol == -1)
+        {
+            // fallback: return (0,0) if no open cell found
+            return new Vector2Int(0, 0);
+        }
+        return new Vector2Int(nearestRow, nearestCol);
     }
 
     public Vector2 GetGridCellPosition(int row, int col, Vector2 cardSize)
@@ -174,6 +202,61 @@ public class BoardArea : MonoBehaviour
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenPoint, uiCamera, out Vector2 localPoint);
         return localPoint;
+    }
+
+
+    public bool IsCellOpen(int row, int col)
+    {
+        if (gridOpenState == null) return false;
+        if (row < 0 || row >= rows || col < 0 || col >= columns) return false;
+        return gridOpenState[row, col];
+    }
+
+    public void ActivateCell(int row, int col)
+    {
+        if (gridOpenState == null) return;
+        // If cell is inside current grid, just activate
+        if (row >= 0 && row < rows && col >= 0 && col < columns)
+        {
+            gridOpenState[row, col] = true;
+            // Optionally, update hint visuals here if needed
+            return;
+        }
+
+        // If cell is outside, expand grid using UpdateGridSize
+        int newRows = Mathf.Max(rows, row + 1);
+        int newCols = Mathf.Max(columns, col + 1);
+
+        // Create new grid state with all cells inactive except the requested one
+        var newGridOpenState = new bool[newRows, newCols];
+        // Copy old data
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < columns; c++)
+            {
+                newGridOpenState[r, c] = gridOpenState[r, c]; 
+            }
+        }
+        // Only activate the requested cell
+        newGridOpenState[row, col] = true;
+        gridOpenState = newGridOpenState;
+
+        // Update rows/columns properties
+        if (GameSettings.instance != null)
+        {
+            GameSettings.instance.boardRows = newRows;
+            GameSettings.instance.boardColumns = newCols;
+        }
+
+        UpdateGridSize(newRows, newCols);
+    }
+
+    public void DeactivateCell(int row, int col)
+    {
+        if (gridOpenState == null) return;
+        if (row < 0 || row >= rows || col < 0 || col >= columns) return;
+        gridOpenState[row, col] = false;
+        // Optionally, update hint visuals here if needed
     }
 
     public bool IsCellOccupied(int row, int col)
@@ -202,55 +285,64 @@ public class BoardArea : MonoBehaviour
 
     }
 
-    // --- Grid Visuals ---
-    private void CreateGridGuidelines()
-    {
-        if (gridLinePrefab == null) return;
-        gridGuidelinesParent = new GameObject("GridGuidelines");
-        gridGuidelinesParent.transform.SetParent(cardHolderTransform, false);
-        gridGuidelinesParent.transform.SetAsLastSibling();
-        var rt = gridGuidelinesParent.AddComponent<RectTransform>();
-        rt.anchorMin = Vector2.zero;
-        rt.anchorMax = Vector2.one;
-        rt.offsetMin = Vector2.zero;
-        rt.offsetMax = Vector2.zero;
-        // Draw vertical lines
-        for (int c = 1; c < columns; c++)
-        {
-            var line = Instantiate(gridLinePrefab, gridGuidelinesParent.transform);
-            var lineRT = line.GetComponent<RectTransform>();
-            lineRT.anchorMin = new Vector2((float)c / columns, 0);
-            lineRT.anchorMax = new Vector2((float)c / columns, 1);
-            lineRT.sizeDelta = new Vector2(2, 0);
-        }
-        // Draw horizontal lines
-        for (int r = 1; r < rows; r++)
-        {
-            var line = Instantiate(gridLinePrefab, gridGuidelinesParent.transform);
-            var lineRT = line.GetComponent<RectTransform>();
-            lineRT.anchorMin = new Vector2(0, 1f - (float)r / rows);
-            lineRT.anchorMax = new Vector2(1, 1f - (float)r / rows);
-            lineRT.sizeDelta = new Vector2(0, 2);
-        }
-    }
-
     // --- Card Hint Visuals ---
     private void CreateCardHints()
     {
-        if (cardHintPrefab == null) return;
+        if (cardHintPrefab == null || cardSlotPrefab == null) return;
+
+        // Destroy existing hints and slots to avoid duplicates
+        if (cardHintObjects != null)
+        {
+            for (int r = 0; r < cardHintObjects.GetLength(0); r++)
+                for (int c = 0; c < cardHintObjects.GetLength(1); c++)
+                    if (cardHintObjects[r, c] != null)
+                        Destroy(cardHintObjects[r, c]);
+        }
+        if (cardSlotObjects != null)
+        {
+            for (int r = 0; r < cardSlotObjects.GetLength(0); r++)
+                for (int c = 0; c < cardSlotObjects.GetLength(1); c++)
+                    if (cardSlotObjects[r, c] != null)
+                        Destroy(cardSlotObjects[r, c]);
+        }
+
         cardHintObjects = new GameObject[rows, columns];
+        cardSlotObjects = new GameObject[rows, columns];
         for (int r = 0; r < rows; r++)
         {
             for (int c = 0; c < columns; c++)
             {
-                var hint = Instantiate(cardHintPrefab, cardHolderTransform);
-                hint.name = $"CardHint_{r}_{c}";
-                var hintRT = hint.GetComponent<RectTransform>();
-                hintRT.anchorMin = hintRT.anchorMax = new Vector2(0.5f, 0.5f);
-                Vector2 cardSize = hintRT.sizeDelta;
-                Vector2 pos = GetGridCellPosition(r, c, cardSize);
-                hintRT.anchoredPosition = pos;
-                cardHintObjects[r, c] = hint;
+                if (IsCellOpen(r, c))
+                {
+                    // Create card slot (background)
+                    var slot = Instantiate(cardSlotPrefab, cardHolderTransform);
+                    slot.name = $"CardSlot_{r}_{c}";
+                    var slotRT = slot.GetComponent<RectTransform>();
+                    slotRT.anchorMin = slotRT.anchorMax = new Vector2(0.5f, 0.5f);
+                    Vector2 slotSize = slotRT.sizeDelta;
+                    Vector2 slotPos = GetGridCellPosition(r, c, slotSize);
+                    slotRT.anchoredPosition = slotPos;
+                    cardSlotObjects[r, c] = slot;
+                    // Set sibling index to be at the back (behind hints and cards)
+                    slot.transform.SetSiblingIndex(0);
+
+                    // Create card hint (overlay, for highlight)
+                    var hint = Instantiate(cardHintPrefab, cardHolderTransform);
+                    hint.name = $"CardHint_{r}_{c}";
+                    var hintRT = hint.GetComponent<RectTransform>();
+                    hintRT.anchorMin = hintRT.anchorMax = new Vector2(0.5f, 0.5f);
+                    Vector2 hintSize = hintRT.sizeDelta;
+                    Vector2 hintPos = GetGridCellPosition(r, c, hintSize);
+                    hintRT.anchoredPosition = hintPos;
+                    cardHintObjects[r, c] = hint;
+                    // Only show hint if cell is open (default hidden)
+                    hint.SetActive(false);
+                }
+                else
+                {
+                    cardSlotObjects[r, c] = null;
+                    cardHintObjects[r, c] = null;
+                }
             }
         }
     }
@@ -261,7 +353,7 @@ public class BoardArea : MonoBehaviour
         for (int r = 0; r < rows; r++)
             for (int c = 0; c < columns; c++)
                 if (cardHintObjects[r, c] != null)
-                    cardHintObjects[r, c].SetActive(true);
+                    cardHintObjects[r, c].SetActive(IsCellOpen(r, c));
     }
     public void HideCardHints()
     {
@@ -270,17 +362,6 @@ public class BoardArea : MonoBehaviour
             for (int c = 0; c < columns; c++)
                 if (cardHintObjects[r, c] != null)
                     cardHintObjects[r, c].SetActive(false);
-    }
-
-    public void ShowGridGuidelines()
-    {
-        if (gridGuidelinesParent != null) gridGuidelinesParent.SetActive(true);
-        guidelinesVisible = true;
-    }
-    public void HideGridGuidelines()
-    {
-        if (gridGuidelinesParent != null) gridGuidelinesParent.SetActive(false);
-        guidelinesVisible = false;
     }
 
     /// <summary>
@@ -320,8 +401,6 @@ public class BoardArea : MonoBehaviour
         // Update hints and guides
         CreateCardHints();
         HideCardHints();
-        CreateGridGuidelines();
-        HideGridGuidelines();
         Debug.Log($"Grid resized to {newRows}x{newCols}");
     }
 
