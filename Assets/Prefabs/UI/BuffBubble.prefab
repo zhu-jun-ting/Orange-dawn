@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: dasddasdasdasdasdasdasda
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 53105a0468f4be84b86feb69125696ee, type: 2}
-  m_sharedMaterial: {fileID: 4644746099941260364, guid: 53105a0468f4be84b86feb69125696ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f3894726d65706d459c81e1c413a8aba, type: 2}
+  m_sharedMaterial: {fileID: 4743018449311830478, guid: f3894726d65706d459c81e1c413a8aba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -151,6 +151,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffName: {fileID: 0}
   buffDescription: {fileID: 0}
+  stackCount: 0
+  order: 0
+  description: 
+  name: 
 --- !u!1 &3335726095053592216
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +194,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 33.9627, y: -10.45}
+  m_AnchoredPosition: {x: 33.962646, y: -10.450012}
   m_SizeDelta: {x: 67.9254, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6054129507684274533
@@ -246,8 +250,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 6
     m_Right: 5
-    m_Top: 5
-    m_Bottom: 5
+    m_Top: 6
+    m_Bottom: 6
   m_ChildAlignment: 0
   m_Spacing: 0.2
   m_ChildForceExpandWidth: 1
@@ -285,6 +289,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffName: {fileID: 1809760090958832854}
   buffDescription: {fileID: 9216867827612943736}
+  stackCount: 0
+  order: 0
+  description: 
+  name: 
 --- !u!1 &7957374537390963786
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,8 +361,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Buff Name '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 53105a0468f4be84b86feb69125696ee, type: 2}
-  m_sharedMaterial: {fileID: 4644746099941260364, guid: 53105a0468f4be84b86feb69125696ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f3894726d65706d459c81e1c413a8aba, type: 2}
+  m_sharedMaterial: {fileID: 4743018449311830478, guid: f3894726d65706d459c81e1c413a8aba, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -436,3 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffName: {fileID: 0}
   buffDescription: {fileID: 0}
+  stackCount: 0
+  order: 0
+  description: 
+  name: 

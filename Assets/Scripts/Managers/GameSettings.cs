@@ -17,23 +17,34 @@ public class GameSettings : MonoBehaviour
     public Color colorLinkActive = new Color(0, 1, 0, 1f); // Green, fully opaque
 
     [Header("Card Icon Settings")]
-    public string damageColor = "#FF0000"; // Red
+    public Color damageColor = new Color(1f, 0f, 0f); // Red
     public string damageIcon = "Sword"; // Icon name for damage
-    public string healthColor = "#00FF00";
+    public Color healthColor = new Color(0f, 1f, 0f);
     public string healthIcon = "Heart";
-    public string speedColor = "#00FFFF";
+    public Color speedColor = new Color(0f, 1f, 1f);
     public string speedIcon = "Lightning";
-    public string manaColor = "#00BFFF";
+    public Color manaColor = new Color(0f, 0.75f, 1f);
     public string manaIcon = "Mana";
-    public string amountColor = "#FFFF00";
+    public Color amountColor = new Color(1f, 1f, 0f);
     public string amountIcon = "Cards";
-    public string probabilityColor = "#FFA500";
+    public Color probabilityColor = new Color(1f, 0.647f, 0f);
     public string probabilityIcon = "Dice";
-    public string timeColor = "#FF00FF";
+    public Color timeColor = new Color(1f, 0f, 1f);
     public string timeIcon = "Star";
 
+
     [Header("Card Colors")]
+    public Color mechColor = new Color(0.866f, 0.133f, 0.667f); // #DD22AA
+    public string mechIcon = "FrameMech";
+    public Color skullColor = new Color(1f, 0.867f, 0.933f); // #FFDDEE
+    public string skullIcon = "FrameSkull";
+    public Color humanColor = new Color(0.866f, 0.667f, 0.133f); // #DDAA22
+    public string humanIcon = "FrameHuman";
     public float destroyEffectDuration = 0.5f;
+
+    [Header("Other Icons")]
+    public Color starColor = new Color(1f, 0.843f, 0f); 
+    public string starIcon = "Star"; // Icon for STAR type
 
     void Awake()
     {
@@ -62,7 +73,7 @@ public class GameSettings : MonoBehaviour
         string result = raw;
 
         // Define all types and their icon/color fields using the instance
-        var types = new (string type, string icon, string color)[]
+        var types = new (string type, string icon, Color color)[]
         {
             ("Damage", instance.damageIcon, instance.damageColor),
             ("Health", instance.healthIcon, instance.healthColor),
@@ -71,6 +82,7 @@ public class GameSettings : MonoBehaviour
             ("Amount", instance.amountIcon, instance.amountColor),
             ("Probability", instance.probabilityIcon, instance.probabilityColor),
             ("Time", instance.timeIcon, instance.timeColor),
+            ("STAR", instance.starIcon, instance.starColor), // Add STAR as a type for icon replacement
         };
 
         foreach (var t in types)
@@ -80,9 +92,34 @@ public class GameSettings : MonoBehaviour
             result = System.Text.RegularExpressions.Regex.Replace(result, pattern, m =>
             {
                 string value = m.Groups[1].Value;
-                return $"<sprite name=\"{t.icon}\"> <color={t.color}>{value}</color>";
+                string colorHex = ColorUtility.ToHtmlStringRGB(t.color);
+                return $"<sprite name=\"{t.icon}\"> <color=#{colorHex}>{value}</color>";
             });
         }
+
+        // Add CardBond frame icons for all-caps words surrounded by spaces (e.g. " HUMAN ")
+        var bondFrames = new (string key, string icon)[]
+        {
+            ("HUMAN", instance.humanIcon),
+            ("MECH", instance.mechIcon),
+            ("SKULL", instance.skullIcon),
+            ("DAMAGE", instance.damageIcon),
+            ("HEALTH", instance.healthIcon),
+            ("SPEED", instance.speedIcon),
+            ("MANA", instance.manaIcon),
+            ("AMOUNT", instance.amountIcon),
+            ("PROBABILITY", instance.probabilityIcon),
+            ("TIME", instance.timeIcon),
+            ("STAR", instance.starIcon), // Add STAR as a frame icon
+        };
+        foreach (var b in bondFrames)
+        {
+            // Regex: match 'HUMAN' or 'MECH' or 'SKULL' etc.
+            // This will match the exact word, case-sensitive, surrounded by spaces or at the start
+            string pattern = $@"{b.key}";
+            result = System.Text.RegularExpressions.Regex.Replace(result, pattern, m => $"<sprite name=\"{b.icon}\">");
+        }
+
         return result;
     }
 }

@@ -66,6 +66,10 @@ public class CardActionSpawnFragileWall : CardMaster, ICardAction
 
             // Instantly spawn at target position (no DOTween animation)
             GameObject wallObj = Instantiate(fragileWallPrefab, targetPos, Quaternion.identity);
+            if (CombatManager.instance != null)
+            {
+                CombatManager.instance.AddObject(wallObj.transform);
+            }
 
             // Call FragileWall.OnTweenComplete if present (if needed for logic)
             var fragileWall = wallObj.GetComponent<FragileWall>();

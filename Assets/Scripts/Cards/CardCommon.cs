@@ -498,7 +498,7 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             if (GameSettings.instance != null && GameSettings.instance.GetType().GetField("boardMargin") != null)
                 margin = (float)GameSettings.instance.GetType().GetField("boardMargin").GetValue(GameSettings.instance);
             Vector2 cardSize = rt.rect.size;
-            Vector2 offset = new Vector2(-pos.x * (cardSize.x + margin), pos.y * (cardSize.y + margin));
+            Vector2 offset = new Vector2(pos.x * (cardSize.x + margin), pos.y * (cardSize.y + margin));
             starRT.anchoredPosition = offset;
         }
         uiStarObjects[pos] = newStarGO;

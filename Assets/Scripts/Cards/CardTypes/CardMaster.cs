@@ -71,9 +71,25 @@ public class CardMaster : MonoBehaviour
 
     public enum CardType
     {
-        Value,
+        Base,
         Gun,
-        Spawner,
+        Value,
+    }
+
+    public enum CardBond
+    {
+        Mech,
+        Skull,
+        Human
+    }
+
+    public enum CardRarity
+    {
+        Common,
+        Uncommon,
+        Rare,
+        Epic,
+        Legendary,
     }
 
     public enum CardDir
@@ -119,11 +135,13 @@ public class CardMaster : MonoBehaviour
     [Header("Card Properties")]
     public bool is_free_card = false; // If true, card can be placed anywhere regardless of link restrictions
     public bool is_root = false; // if true, this card is the root of the card tree that traverse from this card
-    public CardType card_type = CardType.Value; // if true, this card is the root of the card tree that traverse from this card
+    public CardType card_type = CardType.Base; // if true, this card is the root of the card tree that traverse from this card
+    public CardRarity card_rarity = CardRarity.Common; // Rarity of the card, used for UIStars
+    public List<CardBond> card_bonds = new List<CardBond>(); // List of card bonds this card has, used for UIStars
 
 
 
-
+    [HideInInspector] public Vector2Int gridLocation = new Vector2Int(-1, -1); // Location on the board grid, used for linking and positioning
     public CardMaster instance;
 
     protected virtual void Awake()
@@ -262,7 +280,7 @@ public class CardMaster : MonoBehaviour
             var cardCommon = GetComponent<CardCommon>();
             if (cardCommon != null)
             {
-                int row = (thisCardPosition.x - pos.x);
+                int row = (thisCardPosition.x + pos.x);
                 int col = (thisCardPosition.y + pos.y);
                 cardCommon.SetUIStar(pos, GetStarType(BoardArea.instance.GetCell(row, col)));
             }

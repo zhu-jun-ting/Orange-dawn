@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
-
+using TMPro;
 [RequireComponent(typeof(RectTransform))]
 public class BoardArea : MonoBehaviour
 {
@@ -24,6 +24,10 @@ public class BoardArea : MonoBehaviour
     private GameObject[,] cardSlotObjects;
     private GameObject gridGuidelinesParent;
     private bool guidelinesVisible = false;
+
+    [Header("Bond Hint Visuals")]
+    public GameObject bondHintPrefab; // Assign a prefab with TMP component for bond hints
+    private List<GameObject> bondHintObjects = new List<GameObject>();
 
 
     [Header("Grid State")]
@@ -54,6 +58,8 @@ public class BoardArea : MonoBehaviour
                 gridOpenState[r, c] = true;
         CreateCardHints();
         HideCardHints();
+        // Register bond check to card text update event
+        CardMaster.OnUpdateCardTexts += CheckBonds;
     }
 
     void Start()
@@ -88,7 +94,85 @@ public class BoardArea : MonoBehaviour
         {
             GameEvents.instance.OnLevelCleared -= HandleLevelCleared;
         }
+        CardMaster.OnUpdateCardTexts -= CheckBonds;
     }
+
+
+    // --- Bond Hint Logic ---
+    public void CheckBonds()
+    {
+        // Destroy previous bond hints
+        if (bondHintObjects != null)
+        {
+            foreach (var go in bondHintObjects)
+                if (go != null) Destroy(go);
+            bondHintObjects.Clear();
+        }
+        if (bondHintPrefab == null) return;
+        // Row bond hints (show at col = -1)
+        for (int r = 0; r < rows; r++)
+        {
+            var bondCounts = new Dictionary<CardMaster.CardBond, int>();
+            for (int c = 0; c < columns; c++)
+            {
+                var card = gridState[r, c];
+                if (card == null) continue;
+                if (card.card_bonds != null)
+                {
+                    foreach (var cb in card.card_bonds)
+                    {
+                        if (!bondCounts.ContainsKey(cb)) bondCounts[cb] = 0;
+                        bondCounts[cb]++;
+                    }
+                }
+            }
+            if (bondCounts.Count > 0)
+            {
+                string hintText = string.Join(" ", bondCounts.Select(kv => $"{kv.Key}: {kv.Value}"));
+                var hintGO = Instantiate(bondHintPrefab, cardHolderTransform);
+                hintGO.name = $"BondHint_Row_{r}";
+                var tmp = hintGO.GetComponent<TMPro.TMP_Text>();
+                if (tmp != null) tmp.text = hintText;
+                // Place to the left of the row (col = -1)
+                Vector2 cellSize = hintGO.GetComponent<RectTransform>().sizeDelta;
+                Vector2 pos = GetGridCellPosition(r, -1, cellSize);
+                hintGO.GetComponent<RectTransform>().anchoredPosition = pos;
+                bondHintObjects.Add(hintGO);
+            }
+        }
+        // Column bond hints (show at row = -1)
+        for (int c = 0; c < columns; c++)
+        {
+            var bondCounts = new Dictionary<CardMaster.CardBond, int>();
+            for (int r = 0; r < rows; r++)
+            {
+                var card = gridState[r, c];
+                if (card == null) continue;
+                if (card.card_bonds != null)
+                {
+                    foreach (var cb in card.card_bonds)
+                    {
+                        if (!bondCounts.ContainsKey(cb)) bondCounts[cb] = 0;
+                        bondCounts[cb]++;
+                    }
+                }
+            }
+            if (bondCounts.Count > 0)
+            {
+                string hintText = string.Join(" ", bondCounts.Select(kv => $"{kv.Key}: {kv.Value}"));
+                var hintGO = Instantiate(bondHintPrefab, cardHolderTransform);
+                hintGO.name = $"BondHint_Col_{c}";
+                var tmp = hintGO.GetComponent<TMPro.TMP_Text>();
+                if (tmp != null) tmp.text = hintText;
+                // Place above the column (row = -1)
+                Vector2 cellSize = hintGO.GetComponent<RectTransform>().sizeDelta;
+                Vector2 pos = GetGridCellPosition(-1, c, cellSize);
+                hintGO.GetComponent<RectTransform>().anchoredPosition = pos;
+                bondHintObjects.Add(hintGO);
+            }
+        }
+    }
+    
 
     // Handles propagation of OnCardLevelCleared and triggers card update
     private void HandleLevelCleared()

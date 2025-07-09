@@ -752,6 +752,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 rectTransform.SetParent(BoardArea.instance.cardHolderTransform, true);
                 rectTransform.DOAnchorPos(snappedLocal, 0.2f).SetEase(Ease.OutQuad);
                 BoardArea.instance.SetCell(cell.x, cell.y, cardMaster);
+                cardMaster.gridLocation = new Vector2Int(cell.x, cell.y);
                 lastRow = cell.x;
                 lastCol = cell.y;
 
@@ -763,6 +764,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (tmpCardMaster != null)
                 {
                     BoardArea.instance.SetCell(lastRow, lastCol, tmpCardMaster);
+                    cardMaster.gridLocation = new Vector2Int(cell.x, cell.y);
                     tmpCardMaster = null;
                 }
             }

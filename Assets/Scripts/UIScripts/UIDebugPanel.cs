@@ -147,5 +147,10 @@ public class UIDebugPanel : MonoBehaviour
         GameObject beam = Instantiate(lightBeam, player.transform.position, Quaternion.identity);
     }
 
+    public void Tip()
+    {
+        CanvasManager.ShowTip("Tip Title", "Tip description...");
+    }
+
     float DoubleDamage(float dmg) => dmg * 2f;
 }

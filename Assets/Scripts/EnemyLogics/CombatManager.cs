@@ -7,6 +7,7 @@ using DG.Tweening;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
+
 {
     private int kill_count = 0;
 
@@ -237,11 +238,28 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+
+
+
+    // -------- Spawn Logics --------
+
+    // Track spawned objects for minDistanceToOthers checks
+    private List<Transform> spawnedObjects = new List<Transform>();
+
+    /// <summary>
+    /// Call this when you spawn an object that should be considered for spawn distance checks.
+    /// </summary>
+    public void AddObject(Transform obj)
+    {
+        if (obj != null && !spawnedObjects.Contains(obj))
+            spawnedObjects.Add(obj);
+    }
+
     /// <summary>
     /// Try to get a spawnable location within a circle, checking against allowed areas.
     /// Returns null if no valid location found after maxIteration attempts.
     /// </summary>
-    public Vector2? TryGetSpawnLocation(Vector2 origin, float radius, int maxIteration = 5)
+    public Vector2? TryGetSpawnLocation(Vector2 origin, float radius, int maxIteration = 5, float minDistanceToOthers = 1f)
     {
         for (int i = 0; i < maxIteration; i++)
         {
@@ -250,27 +268,32 @@ public class CombatManager : MonoBehaviour
             float dist = UnityEngine.Random.Range(0f, radius);
             Vector2 candidate = origin + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * dist;
 
-            if (IsInsideAllowedAreas(candidate))
-                return candidate;
+            // Try candidate and its mirrors
+            Vector2[] candidates = new Vector2[] {
+                candidate,
+                origin - (candidate - origin), // mirror over origin
+                new Vector2(origin.x - (candidate.x - origin.x), candidate.y), // mirror X
+                new Vector2(candidate.x, origin.y - (candidate.y - origin.y)) // mirror Y
+            };
 
-            // Mirror over origin
-            Vector2 mirror = origin - (candidate - origin);
-            if (IsInsideAllowedAreas(mirror))
-                return mirror;
+            foreach (var cand in candidates)
+            {
+                if (IsInsideAllowedAreas(cand) && IsFarEnoughFromObjects(cand, minDistanceToOthers))
+                    return cand;
 
-            // Mirror X
-            Vector2 mirrorX = new Vector2(origin.x - (candidate.x - origin.x), candidate.y);
-            if (IsInsideAllowedAreas(mirrorX))
-                return mirrorX;
-
-            // Mirror Y
-            Vector2 mirrorY = new Vector2(candidate.x, origin.y - (candidate.y - origin.y));
-            if (IsInsideAllowedAreas(mirrorY))
-                return mirrorY;
+                // If not far enough, try to move away from the closest object and check again (does not consume iteration)
+                if (IsInsideAllowedAreas(cand))
+                {
+                    Vector2? moved = TryMoveAwayFromObjects(cand, minDistanceToOthers);
+                    if (moved.HasValue && IsInsideAllowedAreas(moved.Value) && IsFarEnoughFromObjects(moved.Value, minDistanceToOthers))
+                        return moved.Value;
+                }
+            }
         }
         // No valid location found
         return null;
     }
+
 
     /// <summary>
     /// Returns a random spawnable location within any allowed area.
@@ -312,6 +335,45 @@ public class CombatManager : MonoBehaviour
         }
         return null;
     }
+
+
+    // Helper: check if candidate is far enough from all spawned objects
+    private bool IsFarEnoughFromObjects(Vector2 candidate, float minDist)
+    {
+        foreach (var obj in spawnedObjects)
+        {
+            if (obj == null) continue;
+            if (Vector2.Distance(candidate, (Vector2)obj.position) < minDist)
+                return false;
+        }
+        return true;
+    }
+
+    // Helper: try to move candidate away from the closest object by the minimum distance
+    private Vector2? TryMoveAwayFromObjects(Vector2 candidate, float minDist)
+    {
+        Transform closest = null;
+        float closestDist = float.MaxValue;
+        foreach (var obj in spawnedObjects)
+        {
+            if (obj == null) continue;
+            float d = Vector2.Distance(candidate, (Vector2)obj.position);
+            if (d < closestDist)
+            {
+                closestDist = d;
+                closest = obj;
+            }
+        }
+        if (closest != null && closestDist < minDist && closestDist > 0.01f)
+        {
+            // Move candidate away from closest object by the needed amount
+            Vector2 dir = ((Vector2)candidate - (Vector2)closest.position).normalized;
+            Vector2 moved = (Vector2)closest.position + dir * minDist;
+            return moved;
+        }
+        return null;
+    }
+    
 
     /// <summary>
     /// Checks if a point is inside any allowed spawn area (using RectTransform or Collider2D).
