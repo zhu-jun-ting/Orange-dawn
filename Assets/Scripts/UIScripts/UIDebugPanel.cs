@@ -38,7 +38,7 @@ public class UIDebugPanel : MonoBehaviour
 
     public void AddCardObject()
     {
-        HandArea.instance.AddCardObject(debugCardMasterPrefab, null); 
+        HandArea.instance.AddCardObject(debugCardMasterPrefab); 
     }
 
     public void ExecuteMethodFromInput()

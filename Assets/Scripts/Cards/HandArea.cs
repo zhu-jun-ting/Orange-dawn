@@ -9,6 +9,11 @@ public class HandArea : MonoBehaviour
     public static HandArea instance;
     public RectTransform rectTransform; // this is the card holder
     public Transform zoomableTransform; // Transform for zoomable cards, if any
+    public Transform canvasTransform; // Transform for the canvas, if any
+
+    [Header("Prompt UI")]
+    public Transform cardPromptVeil; // Assign in inspector: veil overlay for prompt
+    public RectTransform horizontalLayoutGroup; // Assign in inspector: card holder for prompt
 
     [Header("Hand State")]
     public List<CardMaster> handCards = new List<CardMaster>();
@@ -78,37 +83,105 @@ public class HandArea : MonoBehaviour
     /// <summary>
     /// Adds a card GameObject to the hand area, handling instancing and animated placement.
     /// </summary>
-    public void AddCardObject(GameObject go, RectTransform rectTransform_ = null)
+    public void AddCardObject(GameObject go, float waitTime = 1f)
     {
-        // Return if no CardMaster component
-        var cardMaster = go.GetComponent<CardMaster>();
-        if (cardMaster == null) return;
-
-        // If CardMaster has no instance in the scene, create a new instance and move it to hand
-        if (cardMaster.instance == null)
+        // 1. Activate the cardPromptVeil transform to black out background with fade in
+        if (cardPromptVeil != null)
         {
-            // Instantiate a new card GameObject
-            // Instantiate the card at the center of the screen (in Canvas space)
-            Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(rectTransform, screenCenter, null, out Vector2 localPoint);
-            GameObject newCard = Instantiate(go, rectTransform.TransformPoint(localPoint), Quaternion.identity, rectTransform.parent);
+            cardPromptVeil.gameObject.SetActive(true);
+            var cg = cardPromptVeil.GetComponent<CanvasGroup>();
+            if (cg != null)
+            {
+                cg.alpha = 0f;
+                cg.DOFade(1f, 0.25f);
+            }
+        }
 
-            var newCardMaster = newCard.GetComponent<CardMaster>();
-            if (newCardMaster == null) return;
-            // Move to hand with animation
-            MoveCardToHand(newCardMaster, rectTransform_);
+        // 2. Create the card object and set it to child of horizontalLayoutGroup under cardPromptVeil
+        if (horizontalLayoutGroup == null)
+        {
+            Debug.LogError("HandArea: horizontalLayoutGroup not assigned!");
+            return;
+        }
+        GameObject newCard = Instantiate(go, horizontalLayoutGroup);
+        var cardMaster = newCard.GetComponent<CardMaster>();
+        if (cardMaster == null) return;
+        newCard.transform.SetAsLastSibling();
 
-            // AddCard(newCardMaster);
+        // 3. DebriManager.ScatterUIPixels at position of each card's position by passing its UI anchored position (local to parent)
+        if (horizontalLayoutGroup != null && newCard.TryGetComponent<RectTransform>(out var cardRect))
+        {
+            // Pass the RectTransform directly for perfect centering and parenting
+            DebriManager.ScatterUIPixels(cardRect);
+        }
+
+        // 4. Make cards stay at the center for waitTime to let players read cards
+        StartCoroutine(CardPromptSequence(newCard, cardMaster, waitTime));
+    }
+
+    // Helper coroutine for card prompt sequence
+    private System.Collections.IEnumerator CardPromptSequence(GameObject newCard, CardMaster cardMaster, float waitTime)
+    {
+        // Wait for the specified time
+        yield return new WaitForSeconds(waitTime);
+
+        // 5. Use DOTween to let the cardHolder (horizontalLayoutGroup) shrink and fall outside of the screen
+        if (horizontalLayoutGroup != null)
+        {
+            var rt = horizontalLayoutGroup.GetComponent<RectTransform>();
+            if (rt != null)
+            {
+                // Shrink and move down
+                var seq = DOTween.Sequence();
+                seq.Join(rt.DOAnchorPosY(-Screen.height, 0.4f));
+                seq.AppendInterval(0.1f);
+                seq.OnComplete(() => StartCoroutine(FinishCardPrompt(newCard, cardMaster, rt)));
+            }
+            else
+            {
+                // Fallback: just call finish
+                StartCoroutine(FinishCardPrompt(newCard, cardMaster, null));
+            }
         }
         else
         {
-            // Move the existing instance to hand with animation
-            MoveCardToHand(cardMaster.instance, rectTransform_);
-            // AddCard(cardMaster.instance);
+            StartCoroutine(FinishCardPrompt(newCard, cardMaster, null));
         }
     }
 
-    /// <summary>
+    // Helper coroutine to finish prompt and move card to hand
+    private System.Collections.IEnumerator FinishCardPrompt(GameObject newCard, CardMaster cardMaster, RectTransform cardHolderRT)
+    {
+        // 6. After falling out, use MoveCardToHand to move the created cards to the hand area
+        yield return new WaitForSeconds(0.1f);
+        if (cardMaster != null)
+        {
+            // Set parent to hand area before moving
+            var rt = cardMaster.GetComponent<RectTransform>();
+            if (rt != null)
+                rt.SetParent(rectTransform, true);
+            MoveCardToHand(cardMaster, null);
+        }
+
+        // 7. After all, reset the cardHolder(horizontalLayoutGroup) position and scale and then deactivate the cardPromptVeil
+        if (cardHolderRT != null)
+        {
+            cardHolderRT.localScale = Vector3.one;
+            cardHolderRT.anchoredPosition = Vector2.zero;
+        }
+        if (cardPromptVeil != null)
+        {
+            var cg = cardPromptVeil.GetComponent<CanvasGroup>();
+            if (cg != null)
+                cg.DOFade(0f, 0.2f).OnComplete(() => cardPromptVeil.gameObject.SetActive(false));
+            else
+                cardPromptVeil.gameObject.SetActive(false);
+        }
+    }
+
+
+
+/// <summary>
     /// Moves a CardMaster to the first available spot in the hand area with an ease animation.
     /// </summary>
     private void MoveCardToHand(CardMaster card, RectTransform rectTransform_)
@@ -132,11 +205,11 @@ public class HandArea : MonoBehaviour
         var rt = card.GetComponent<RectTransform>();
         if (rt != null)
         {
-            rt.SetParent(rectTransform, true);
-            rt.SetAsLastSibling();
             // Use DOTween for smooth animation
             rt.DOAnchorPos(targetPos, 0.4f).SetEase(DG.Tweening.Ease.OutBack);
         }
+        // Always bring card to top after move
+        card.transform.SetAsLastSibling();
         // Add to handCards if not already present
         AddCard(card);
     }

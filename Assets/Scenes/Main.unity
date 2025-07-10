@@ -2803,6 +2803,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 1
   _triggerProbability: 1
@@ -4097,6 +4098,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 0.5
   _triggerProbability: 1
@@ -4909,6 +4911,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   manaCost: 1
   triggerProbability: 1
@@ -5018,6 +5021,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   attackToAdd: 10
 --- !u!1 &513899211
@@ -5275,6 +5279,83 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7633863472519149119, guid: a84328939017d6f458196e4432818696, type: 3}
   m_PrefabInstance: {fileID: 5952954352680613606}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &540025458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 540025459}
+  - component: {fileID: 540025461}
+  - component: {fileID: 540025460}
+  m_Layer: 5
+  m_Name: CardPromptVeil
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &540025459
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540025458}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1565579783}
+  - {fileID: 550779811}
+  m_Father: {fileID: 624363240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 10000, y: 10000}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &540025460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540025458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.52156866}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &540025461
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540025458}
+  m_CullTransparentMesh: 1
 --- !u!1 &549690256
 GameObject:
   m_ObjectHideFlags: 0
@@ -5431,6 +5512,142 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 549690256}
+  m_CullTransparentMesh: 1
+--- !u!1 &550779810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 550779811}
+  - component: {fileID: 550779813}
+  - component: {fileID: 550779812}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &550779811
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550779810}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 540025459}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 85.6}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &550779812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550779810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Card
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: f3894726d65706d459c81e1c413a8aba, type: 2}
+  m_sharedMaterial: {fileID: 4743018449311830478, guid: f3894726d65706d459c81e1c413a8aba, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &550779813
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550779810}
   m_CullTransparentMesh: 1
 --- !u!1001 &569965295
 PrefabInstance:
@@ -6068,6 +6285,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 0.5
   _triggerProbability: 1
@@ -6467,6 +6685,8 @@ RectTransform:
   - {fileID: 1539490188}
   - {fileID: 1453767252}
   - {fileID: 1118942759}
+  - {fileID: 922872427}
+  - {fileID: 540025459}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7997,6 +8217,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   attackToAdd: 10
 --- !u!1 &833119244
@@ -8547,6 +8768,41 @@ MonoBehaviour:
   option2: {fileID: 1980139928}
   option3: {fileID: 145889854}
   buff_list: []
+--- !u!1 &922872426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 922872427}
+  m_Layer: 5
+  m_Name: Effects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &922872427
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922872426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 624363240}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &945428018
 GameObject:
   m_ObjectHideFlags: 0
@@ -9682,6 +9938,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   numberTypes: 000000000100000004000000
   numberValues:
@@ -11672,6 +11929,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
 --- !u!1001 &1186473322
 PrefabInstance:
@@ -12512,6 +12770,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   attackToAdd: 10
 --- !u!1 &1212488617
@@ -13948,6 +14207,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 01000000
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
 --- !u!1 &1273260245
 GameObject:
@@ -14664,6 +14924,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 1
   _triggerProbability: 1
@@ -15508,6 +15769,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 0.5
   _triggerProbability: 1
@@ -16437,6 +16699,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   attackToAdd: 1
   incrementAfterLevelCleared: 1
@@ -17353,6 +17616,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   incrementValue: 1
   buffName: Incrementer
@@ -18070,6 +18334,7 @@ MonoBehaviour:
   card_type: 2
   card_rarity: 0
   card_bonds: 02000000
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   numberTypes: 000000000200000001000000
   numberValues:
@@ -18823,6 +19088,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1565579782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1565579783}
+  - component: {fileID: 1565579784}
+  m_Layer: 5
+  m_Name: CardPromptHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1565579783
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565579782}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 540025459}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1565579784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565579782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: -5
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 50
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1575898710
 GameObject:
   m_ObjectHideFlags: 0
@@ -21029,6 +21356,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 0.5
   _triggerProbability: 1
@@ -21677,6 +22005,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 0.5
   _triggerProbability: 1
@@ -21942,6 +22271,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rectTransform: {fileID: 1851735987}
   zoomableTransform: {fileID: 1843835186}
+  canvasTransform: {fileID: 624363240}
+  cardPromptVeil: {fileID: 540025459}
+  horizontalLayoutGroup: {fileID: 1565579783}
   handCards: []
   discardedCards: []
   DiscardedCardsParent: {fileID: 1728397309}
@@ -22330,6 +22662,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c56012cf34305cf4db61c03fe88d66ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiParticlePrefab: {fileID: 7351256117723329650, guid: fc4f626f5dff36447ad45fcca11cd0a0, type: 3}
+  uiDefaultParticleScale: 16
+  uiDefaultScatterRadius: 32
+  uiDefaultParticleLifetime: 1.2
+  uiDefaultParticleCount: 30
+  uiDefaultScatterRandomness: 1
+  uiDefaultColors:
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
+  uiParticleParent: {fileID: 922872427}
   particlePrefab: {fileID: 2987263810763438053, guid: ea60cbe1c97151f4bbb30362f1c45661, type: 3}
   defaultParticleScale: 5
   defaultGravityScale: 0
@@ -23355,6 +23698,7 @@ MonoBehaviour:
   card_type: 2
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 0.5
   _triggerProbability: 0.1
@@ -24730,6 +25074,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   attackToAdd: 10
 --- !u!1 &2004562050
@@ -27018,6 +27363,7 @@ MonoBehaviour:
   card_type: 0
   card_rarity: 0
   card_bonds: 
+  gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   attackToAdd: 10
 --- !u!1 &2138805503

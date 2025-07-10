@@ -1,11 +1,105 @@
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening; // Required for DOTween extension methods
 
 /// <summary>
 /// Singleton manager for spawning impact debris/particles for hit effects.
 /// </summary>
 public class DebriManager : MonoBehaviour
 {
+    [Header("UI Debris Particle Settings")]
+    public GameObject uiParticlePrefab; // Assign a UI prefab (e.g. Image or TMP Sprite)
+    public float uiDefaultParticleScale = 24f;
+    public float uiDefaultScatterRadius = 32f;
+    public float uiDefaultParticleLifetime = 1.2f;
+    public int uiDefaultParticleCount = 12;
+    public float uiDefaultScatterRandomness = 1.0f;
+    public List<Color> uiDefaultColors = new List<Color> { Color.yellow, Color.cyan, Color.white };
+    public Transform uiParticleParent; // Assign to a Canvas transform for UI particles
+
+    /// <summary>
+    /// Spawns a burst of UI debris particles centered on the given RectTransform (e.g. a card), as children of that RectTransform.
+    /// </summary>
+    public static void ScatterUIPixels(
+        RectTransform targetRect,
+        int particleCount = -1,
+        float particleScale = -1f,
+        float scatterRadius = -1f,
+        float particleLifetime = -1f,
+        float scatterRandomness = -1f,
+        List<Color> colorPalette = null
+    )
+    {
+        if (instance == null || instance.uiParticlePrefab == null)
+        {
+            Debug.LogWarning("DebriManager: No instance or uiParticlePrefab assigned.");
+            return;
+        }
+        if (targetRect == null)
+        {
+            Debug.LogWarning("DebriManager: No target RectTransform provided for UI particles.");
+            return;
+        }
+        if (particleCount <= 0) particleCount = instance.uiDefaultParticleCount;
+        if (particleScale < 0f) particleScale = instance.uiDefaultParticleScale;
+        if (scatterRadius < 0f) scatterRadius = instance.uiDefaultScatterRadius;
+        if (particleLifetime < 0f) particleLifetime = instance.uiDefaultParticleLifetime;
+        if (scatterRandomness < 0f) scatterRandomness = instance.uiDefaultScatterRandomness;
+        if (colorPalette == null || colorPalette.Count == 0) colorPalette = instance.uiDefaultColors;
+
+        Vector2 localCenter = Vector2.zero; // Center of the RectTransform
+
+        for (int i = 0; i < particleCount; i++)
+        {
+            // Randomize spawn position within scatterRadius (in local space, centered at localCenter)
+            Vector2 spawnPos = localCenter + Random.insideUnitCircle * scatterRadius;
+            GameObject p = Object.Instantiate(instance.uiParticlePrefab, targetRect);
+            var rect = p.GetComponent<RectTransform>();
+            if (rect != null)
+            {
+                rect.anchoredPosition = spawnPos;
+                rect.localScale = Vector3.one * particleScale;
+            }
+            else
+            {
+                p.transform.localPosition = spawnPos;
+                p.transform.localScale = Vector3.one * particleScale;
+            }
+
+            // Set color
+            var img = p.GetComponent<UnityEngine.UI.Image>();
+            if (img != null)
+            {
+                Color baseColor = colorPalette[Random.Range(0, colorPalette.Count)];
+                float r = Mathf.Clamp01(baseColor.r + Random.Range(-0.1f, 0.1f));
+                float g = Mathf.Clamp01(baseColor.g + Random.Range(-0.1f, 0.1f));
+                float b = Mathf.Clamp01(baseColor.b + Random.Range(-0.1f, 0.1f));
+                float a = Mathf.Clamp01(baseColor.a + Random.Range(-0.1f, 0.1f));
+                img.color = new Color(r, g, b, a);
+            }
+
+            // Animate scatter (random direction, random force)
+            Vector2 dir = Random.insideUnitCircle.normalized;
+            float force = scatterRandomness * (0.5f + Random.value);
+            Vector2 target = localCenter + dir * force * scatterRadius;
+            float duration = particleLifetime * (0.8f + 0.4f * Random.value);
+            if (p.TryGetComponent<RectTransform>(out var rtr))
+            {
+                rtr.DOAnchorPos(target, duration).SetEase(Ease.OutQuad);
+                rtr.DOScale(0f, duration).SetEase(Ease.InQuad);
+                Object.Destroy(p, duration);
+            }
+            else
+            {
+                p.transform.DOLocalMove((Vector3)target, duration).SetEase(Ease.OutQuad);
+                p.transform.DOScale(0f, duration).SetEase(Ease.InQuad);
+                Object.Destroy(p, duration);
+            }
+        }
+    }
+
+
+
     public static DebriManager instance;
 
     [Header("Debris Particle Settings (Defaults)")]
