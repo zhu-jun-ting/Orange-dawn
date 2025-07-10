@@ -8,6 +8,15 @@ using UnityEngine.EventSystems;
 
 public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    // --- Card Selection Event for CardManager ---
+    /// <summary>
+    /// If true, this card is in selection mode and will notify listeners instead of spotlighting on click.
+    /// </summary>
+    public bool selectionMode = false;
+    /// <summary>
+    /// Event fired when this card is clicked in selection mode. Used by CardManager.SelectCardObjects.
+    /// </summary>
+    public event System.Action<CardCommon> OnCardSelected;
     public enum LinkType
     {
         Common,
@@ -88,6 +97,12 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (selectionMode)
+        {
+            // Fire selection event for CardManager
+            OnCardSelected?.Invoke(this);
+            return;
+        }
         if (isSpotlighted || isTweening || Time.time - lastInteractionTime < MinInteractionTimeDiff)
             return;
         lastInteractionTime = Time.time;
@@ -239,7 +254,7 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         // --- DOTween scale up and bring to top ---
         if (hoverScaleTween != null && hoverScaleTween.IsActive()) hoverScaleTween.Kill();
-        transform.SetAsLastSibling();
+        if(!selectionMode) transform.SetAsLastSibling();
         hoverScaleTween = transform.DOScale(hoverScale, hoverScaleDuration).SetEase(Ease.OutBack);
 
         // Show all UIStars only if not spotlighted

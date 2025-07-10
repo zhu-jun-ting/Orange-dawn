@@ -7,8 +7,10 @@ using System.Collections.Generic;
 
 public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    [Header("Drag Positioning")]
     private Canvas canvas;
     private RectTransform rectTransform;
+    private RectTransform rectTransformZoomableOffset; // RectTransform for link visuals, if different from card
     private CanvasGroup canvasGroup;
     private Vector3 originalPosition;
     private Vector2 originalAnchoredPosition;
@@ -37,6 +39,12 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         canvasGroup = GetComponent<CanvasGroup>();
         canvas = GetComponentInParent<Canvas>();
         cardMaster = GetComponent<CardMaster>(); // Assumes CardMasterHolder holds a CardMaster reference
+        // Find the first UIContentMover in parents and get its RectTransform
+        var mover = GetComponentInParent<UIContentMover>();
+        if (mover != null)
+            rectTransformZoomableOffset = mover.GetComponent<RectTransform>();
+        else
+            rectTransformZoomableOffset = null;
     }
 
     void Start()
@@ -528,6 +536,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         SetActiveBoardLinksGreen();
     }
 
+    // --- LEGACY: droppedOnHand and droppedOnBoard logic for compatibility ---
+    private bool droppedOnBoard = false;
+    private bool droppedOnHand = false;
+
     public void OnEndDrag(PointerEventData eventData)
     {
         isDragging = false;
@@ -547,16 +559,39 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             rectTransform.SetSiblingIndex(Mathf.Min(_originalSiblingIndex, rectTransform.parent.childCount - 1));
         }
 
-        // Always reset this card's links to black 50% transparent first
-        // if (cardMaster != null) {
-        //     cardMaster.SetLinkHalfTransparentBlack("up");
-        //     cardMaster.SetLinkHalfTransparentBlack("down");
-        //     cardMaster.SetLinkHalfTransparentBlack("left");
-        //     cardMaster.SetLinkHalfTransparentBlack("right");
-        // }
+        // --- Unified hand/board drop logic ---
+        Camera uiCamera = null;
+        if (BoardArea.instance != null && BoardArea.instance.gameObject.GetComponent<Canvas>() != null)
+            uiCamera = BoardArea.instance.gameObject.GetComponent<Canvas>().worldCamera;
+        Vector2 screenPoint = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector2 localPoint = Vector2.zero;
+        Vector2Int nearestCell = new Vector2Int(-1, -1);
+        Vector2 gridCellPos = Vector2.zero;
+        float dist = float.MaxValue;
+        droppedOnBoard = false;
+        droppedOnHand = false;
+        if (BoardArea.instance != null && BoardArea.instance.gameObject.TryGetComponent<RectTransform>(out var boardRect))
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(boardRect, screenPoint, uiCamera, out localPoint);
+            Vector2 cardSize = rectTransform != null ? rectTransform.sizeDelta : new Vector2(100, 140);
+            nearestCell = BoardArea.instance.GetNearestGridCell(localPoint, cardSize);
+            gridCellPos = BoardArea.instance.GetGridCellPosition(nearestCell.x, nearestCell.y, cardSize);
 
-        bool droppedOnHand = HandArea.instance != null && HandArea.instance.IsPointInside(Input.mousePosition, canvas.worldCamera);
-        bool droppedOnBoard = BoardArea.instance != null && BoardArea.instance.IsPointInside(Input.mousePosition, canvas.worldCamera);
+            var mover = GetComponentInParent<UIContentMover>();
+            if (mover != null) rectTransformZoomableOffset = mover.GetComponent<RectTransform>();
+            dist = Vector2.Distance(localPoint - rectTransformZoomableOffset.anchoredPosition, gridCellPos);
+            // Debug.Log($"CardDragHandler: OnEndDrag - local point: {localPoint}, grid cell pos: {gridCellPos}");
+        }
+        if (dist < 50f)
+        {
+            droppedOnBoard = true;
+            droppedOnHand = false;
+        }
+        else
+        {
+            droppedOnHand = true;
+            droppedOnBoard = false;
+        }
 
         if (droppedOnHand)
         {
@@ -642,9 +677,9 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         else if (droppedOnBoard)
         {
-            Vector2 localPoint = BoardArea.instance.ScreenToLocalPoint(Input.mousePosition, canvas.worldCamera);
+            Vector2 boardLocalPoint = BoardArea.instance.ScreenToLocalPoint(Input.mousePosition, canvas.worldCamera);
             Vector2 cardSize = rectTransform.rect.size;
-            Vector2Int cell = BoardArea.instance.GetNearestGridCell(localPoint, cardSize);
+            Vector2Int cell = BoardArea.instance.GetNearestGridCell(boardLocalPoint, cardSize);
             if (!BoardArea.instance.IsCellOccupied(cell.x, cell.y) && CanPlaceCardAtCell(cell.x, cell.y, cardMaster))
             {
                 // if (lastRow >= 0 && lastCol >= 0)
@@ -779,7 +814,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (lastHintRow >= 0 && lastHintCol >= 0)
         {
             ResetHintColor(lastHintRow, lastHintCol);
-            lastHintRow = lastHintCol = -1;
+            // lastHintRow = lastHintCol = -1;
         }
 
         // --- NEW LOGIC: Rebuild roots list based on BFS traversal from all is_root cards ---
@@ -824,6 +859,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         // After all, update all board cards' links to green if actively connected
         SetActiveBoardLinksGreen();
     }
+
 
     // Helper to check overlap between two RectTransforms (in local space of their parent)
     private bool RectTransformOverlaps(RectTransform a, RectTransform b)

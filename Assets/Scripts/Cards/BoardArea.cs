@@ -4,9 +4,11 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+
 [RequireComponent(typeof(RectTransform))]
 public class BoardArea : MonoBehaviour
 {
+    // Duplicate method removed: GetNearestGridCell(Vector2, Vector2)
     public static BoardArea instance;
     private RectTransform rectTransform;
     public RectTransform cardHolderTransform; // Assign in inspector to the parent of all cards

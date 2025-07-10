@@ -235,7 +235,7 @@ public class CardMaster : MonoBehaviour
         // Add to hand
         if (HandArea.instance != null)
         {
-            HandArea.instance.AddCardObject(this.gameObject);
+            CardManager.instance.AddCardObject(this.gameObject);
         }
         else
         {

@@ -9,6 +9,8 @@ public class GameSettings : MonoBehaviour
     public int boardRows = 3;
     public int boardColumns = 3;
     public float boardMargin = 10f;
+    public float cardSizeX = 60f;
+    public float cardSizeY = 60f;
 
     [Header("Card Drag Colors")]
     public Color colorCanPlace = Color.green;

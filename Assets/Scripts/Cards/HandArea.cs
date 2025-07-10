@@ -8,7 +8,6 @@ public class HandArea : MonoBehaviour
 {
     public static HandArea instance;
     public RectTransform rectTransform; // this is the card holder
-    public Transform zoomableTransform; // Transform for zoomable cards, if any
     public Transform canvasTransform; // Transform for the canvas, if any
 
     [Header("Prompt UI")]
@@ -81,110 +80,9 @@ public class HandArea : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a card GameObject to the hand area, handling instancing and animated placement.
-    /// </summary>
-    public void AddCardObject(GameObject go, float waitTime = 1f)
-    {
-        // 1. Activate the cardPromptVeil transform to black out background with fade in
-        if (cardPromptVeil != null)
-        {
-            cardPromptVeil.gameObject.SetActive(true);
-            var cg = cardPromptVeil.GetComponent<CanvasGroup>();
-            if (cg != null)
-            {
-                cg.alpha = 0f;
-                cg.DOFade(1f, 0.25f);
-            }
-        }
-
-        // 2. Create the card object and set it to child of horizontalLayoutGroup under cardPromptVeil
-        if (horizontalLayoutGroup == null)
-        {
-            Debug.LogError("HandArea: horizontalLayoutGroup not assigned!");
-            return;
-        }
-        GameObject newCard = Instantiate(go, horizontalLayoutGroup);
-        var cardMaster = newCard.GetComponent<CardMaster>();
-        if (cardMaster == null) return;
-        newCard.transform.SetAsLastSibling();
-
-        // 3. DebriManager.ScatterUIPixels at position of each card's position by passing its UI anchored position (local to parent)
-        if (horizontalLayoutGroup != null && newCard.TryGetComponent<RectTransform>(out var cardRect))
-        {
-            // Pass the RectTransform directly for perfect centering and parenting
-            DebriManager.ScatterUIPixels(cardRect);
-        }
-
-        // 4. Make cards stay at the center for waitTime to let players read cards
-        StartCoroutine(CardPromptSequence(newCard, cardMaster, waitTime));
-    }
-
-    // Helper coroutine for card prompt sequence
-    private System.Collections.IEnumerator CardPromptSequence(GameObject newCard, CardMaster cardMaster, float waitTime)
-    {
-        // Wait for the specified time
-        yield return new WaitForSeconds(waitTime);
-
-        // 5. Use DOTween to let the cardHolder (horizontalLayoutGroup) shrink and fall outside of the screen
-        if (horizontalLayoutGroup != null)
-        {
-            var rt = horizontalLayoutGroup.GetComponent<RectTransform>();
-            if (rt != null)
-            {
-                // Shrink and move down
-                var seq = DOTween.Sequence();
-                seq.Join(rt.DOAnchorPosY(-Screen.height, 0.4f));
-                seq.AppendInterval(0.1f);
-                seq.OnComplete(() => StartCoroutine(FinishCardPrompt(newCard, cardMaster, rt)));
-            }
-            else
-            {
-                // Fallback: just call finish
-                StartCoroutine(FinishCardPrompt(newCard, cardMaster, null));
-            }
-        }
-        else
-        {
-            StartCoroutine(FinishCardPrompt(newCard, cardMaster, null));
-        }
-    }
-
-    // Helper coroutine to finish prompt and move card to hand
-    private System.Collections.IEnumerator FinishCardPrompt(GameObject newCard, CardMaster cardMaster, RectTransform cardHolderRT)
-    {
-        // 6. After falling out, use MoveCardToHand to move the created cards to the hand area
-        yield return new WaitForSeconds(0.1f);
-        if (cardMaster != null)
-        {
-            // Set parent to hand area before moving
-            var rt = cardMaster.GetComponent<RectTransform>();
-            if (rt != null)
-                rt.SetParent(rectTransform, true);
-            MoveCardToHand(cardMaster, null);
-        }
-
-        // 7. After all, reset the cardHolder(horizontalLayoutGroup) position and scale and then deactivate the cardPromptVeil
-        if (cardHolderRT != null)
-        {
-            cardHolderRT.localScale = Vector3.one;
-            cardHolderRT.anchoredPosition = Vector2.zero;
-        }
-        if (cardPromptVeil != null)
-        {
-            var cg = cardPromptVeil.GetComponent<CanvasGroup>();
-            if (cg != null)
-                cg.DOFade(0f, 0.2f).OnComplete(() => cardPromptVeil.gameObject.SetActive(false));
-            else
-                cardPromptVeil.gameObject.SetActive(false);
-        }
-    }
-
-
-
-/// <summary>
     /// Moves a CardMaster to the first available spot in the hand area with an ease animation.
     /// </summary>
-    private void MoveCardToHand(CardMaster card, RectTransform rectTransform_)
+    public void MoveCardToHand(CardMaster card, RectTransform rectTransform_ = null)
     {
         // Find a vacant position in the hand area
         Vector2? vacantPos = FindVacantHandPosition(card);
@@ -205,10 +103,15 @@ public class HandArea : MonoBehaviour
         var rt = card.GetComponent<RectTransform>();
         if (rt != null)
         {
+            rt.anchorMin = new Vector2(0.5f, 0.5f);
+            rt.anchorMax = new Vector2(0.5f, 0.5f);
+            rt.pivot = new Vector2(0.5f, 0.5f);
             // Use DOTween for smooth animation
             rt.DOAnchorPos(targetPos, 0.4f).SetEase(DG.Tweening.Ease.OutBack);
+            if (GameSettings.instance != null) rt.DOSizeDelta(new Vector2(GameSettings.instance.cardSizeX, GameSettings.instance.cardSizeY), 0.4f).SetEase(DG.Tweening.Ease.OutBack);
         }
         // Always bring card to top after move
+        card.transform.SetParent(rectTransform, true);
         card.transform.SetAsLastSibling();
         // Add to handCards if not already present
         AddCard(card);
@@ -224,7 +127,7 @@ public class HandArea : MonoBehaviour
         if (rt == null) return null;
         float cardWidth = rt.rect.width;
         float cardHeight = rt.rect.height;
-        float spacing = (GameSettings.instance ? GameSettings.instance.boardMargin : 10f) * zoomableTransform.localScale.x;
+        float spacing = GameSettings.instance ? GameSettings.instance.boardMargin : 10f;
         float areaWidth = rectTransform.rect.width;
         float areaHeight = rectTransform.rect.height;
         // Offset so (0,0) is top-left in center-anchored HandArea

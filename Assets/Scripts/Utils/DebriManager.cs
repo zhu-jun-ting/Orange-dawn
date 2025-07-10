@@ -7,6 +7,13 @@ using DG.Tweening; // Required for DOTween extension methods
 /// </summary>
 public class DebriManager : MonoBehaviour
 {
+    [Header("Performance Settings")]
+    public int maxParticleCount = 100; // Limit to prevent excessive instantiation
+    public int updateFrameInterval = 2; // Update every N frames to reduce performance impact
+
+    private static int currentParticleCount = 0;
+    private static int frameCounter = 0;
+
     [Header("UI Debris Particle Settings")]
     public GameObject uiParticlePrefab; // Assign a UI prefab (e.g. Image or TMP Sprite)
     public float uiDefaultParticleScale = 24f;
@@ -14,6 +21,7 @@ public class DebriManager : MonoBehaviour
     public float uiDefaultParticleLifetime = 1.2f;
     public int uiDefaultParticleCount = 12;
     public float uiDefaultScatterRandomness = 1.0f;
+    public float uiDefaultGravityScale = 0f;
     public List<Color> uiDefaultColors = new List<Color> { Color.yellow, Color.cyan, Color.white };
     public Transform uiParticleParent; // Assign to a Canvas transform for UI particles
 
@@ -27,7 +35,8 @@ public class DebriManager : MonoBehaviour
         float scatterRadius = -1f,
         float particleLifetime = -1f,
         float scatterRandomness = -1f,
-        List<Color> colorPalette = null
+        List<Color> colorPalette = null,
+        float gravityScale = -1f
     )
     {
         if (instance == null || instance.uiParticlePrefab == null)
@@ -46,14 +55,21 @@ public class DebriManager : MonoBehaviour
         if (particleLifetime < 0f) particleLifetime = instance.uiDefaultParticleLifetime;
         if (scatterRandomness < 0f) scatterRandomness = instance.uiDefaultScatterRandomness;
         if (colorPalette == null || colorPalette.Count == 0) colorPalette = instance.uiDefaultColors;
+        if (gravityScale < 0f) gravityScale = instance.uiDefaultGravityScale;
+
+        // Performance: check max particle count
+        if (currentParticleCount >= instance.maxParticleCount)
+            return;
 
         Vector2 localCenter = Vector2.zero; // Center of the RectTransform
 
-        for (int i = 0; i < particleCount; i++)
+        int spawnCount = Mathf.Min(particleCount, instance.maxParticleCount - currentParticleCount);
+        for (int i = 0; i < spawnCount; i++)
         {
             // Randomize spawn position within scatterRadius (in local space, centered at localCenter)
             Vector2 spawnPos = localCenter + Random.insideUnitCircle * scatterRadius;
             GameObject p = Object.Instantiate(instance.uiParticlePrefab, targetRect);
+            currentParticleCount++;
             var rect = p.GetComponent<RectTransform>();
             if (rect != null)
             {
@@ -78,6 +94,13 @@ public class DebriManager : MonoBehaviour
                 img.color = new Color(r, g, b, a);
             }
 
+            // Optionally add gravity to UI particles (if they have Rigidbody2D)
+            var rb = p.GetComponent<Rigidbody2D>();
+            if (rb != null)
+            {
+                rb.gravityScale = gravityScale;
+            }
+
             // Animate scatter (random direction, random force)
             Vector2 dir = Random.insideUnitCircle.normalized;
             float force = scatterRandomness * (0.5f + Random.value);
@@ -95,7 +118,24 @@ public class DebriManager : MonoBehaviour
                 p.transform.DOScale(0f, duration).SetEase(Ease.InQuad);
                 Object.Destroy(p, duration);
             }
+            // Decrement count when destroyed
+            DelayedDecrementParticleCount(duration);
         }
+    }
+
+    private static async void DelayedDecrementParticleCount(float delay)
+    {
+        await System.Threading.Tasks.Task.Delay((int)(delay * 1000f));
+        currentParticleCount = Mathf.Max(0, currentParticleCount - 1);
+    }
+
+    void Update()
+    {
+        frameCounter++;
+        if (frameCounter < updateFrameInterval)
+            return;
+        frameCounter = 0;
+        // Place any per-frame update logic here (e.g. pooling, cleanup, etc.)
     }
 
 

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Reflection;
+using System.Collections.Generic;
 
 public class UIDebugPanel : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class UIDebugPanel : MonoBehaviour
 
 
     [Header("Debug Fields")]
-    public GameObject debugCardMasterPrefab;
+    public GameObject debugCardMasterPrefab1;
+    public GameObject debugCardMasterPrefab2;
+    public GameObject debugCardMasterPrefab3;
     public GameObject implusePrefab;
     public GameObject LightningTower; // Assign in inspector
     public GameObject lightBeam; // Assign in inspector
@@ -38,7 +41,12 @@ public class UIDebugPanel : MonoBehaviour
 
     public void AddCardObject()
     {
-        HandArea.instance.AddCardObject(debugCardMasterPrefab); 
+        CardManager.instance.AddCardObject(debugCardMasterPrefab1); 
+    }
+
+    public void AddCardObjects()
+    {
+        CardManager.instance.SelectCardObjects(new List<GameObject> { debugCardMasterPrefab1, debugCardMasterPrefab2, debugCardMasterPrefab3 }); 
     }
 
     public void ExecuteMethodFromInput()
