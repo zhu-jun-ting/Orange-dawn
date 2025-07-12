@@ -165,7 +165,7 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
         return GameSettings.AddIcon(string.Format(card_description, max_HP, attack, shoot_interval, spawn_count, max_instances, manaCost));
     }
 
-    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
+    public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)
     {
 
         if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;

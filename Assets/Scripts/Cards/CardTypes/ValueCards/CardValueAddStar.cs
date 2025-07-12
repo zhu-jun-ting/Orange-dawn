@@ -3,21 +3,9 @@ using UnityEngine;
 
 public class CardValueAddStar : CardMaster
 {
-    [Header("General Settings")]
-    public List<CardMaster.NumberType> numberTypes = new List<CardMaster.NumberType>();
-    public List<float> numberValues = new List<float>();
-    private List<float> defaultNumberValues = new List<float>();
-
-    protected override void Awake()
-    {
-        base.Awake();
-        defaultNumberValues = new List<float>(numberValues);
-        numberTypesCanBeModified = new List<CardMaster.NumberType>(numberTypes);
-    }
-
     public override void OnCardEnable()
     {
-        // For each uiStarPositions, use gridLocation as base and add offset, then apply all values
+        // For each uiStarPositions, use gridLocation as base and add offset, then apply all stat fields
         if (BoardArea.instance != null && uiStarPositions != null)
         {
             foreach (var offset in uiStarPositions)
@@ -27,93 +15,26 @@ public class CardValueAddStar : CardMaster
                 var card = BoardArea.instance.GetCell(targetRow, targetCol);
                 if (card != null)
                 {
-                    for (int i = 0; i < numberTypes.Count && i < numberValues.Count; i++)
+                    var valuePairs = new (NumberType, float)[] {
+                        (NumberType.Damage, damage),
+                        (NumberType.Health, health),
+                        (NumberType.Probability, probability),
+                        (NumberType.Amount, amount),
+                        (NumberType.Mana, mana),
+                        (NumberType.Speed, speed),
+                        (NumberType.Time, time),
+                        (NumberType.Coin, coin)
+                    };
+                    foreach (var (nType, nValue) in valuePairs)
                     {
-                        var nType = numberTypes[i];
-                        var nValue = numberValues[i];
-                        if (card.card_type == CardType.Gun)
+                        if (Mathf.Abs(nValue) > 0.0001f)
                         {
-                            CardMaster.OnApplyValuesToGuns += () => card.UpdateNumberValue(nType, nValue, instance);
-                        }
-                        else
-                        {
-                            card.UpdateNumberValue(nType, nValue, instance);
+                            card.UpdateNumberValue(nType, nValue, this);
                         }
                     }
                 }
             }
         }
         base.OnCardEnable();
-    }
-
-    public override void Reset()
-    {
-        for (int i = 0; i < numberValues.Count && i < defaultNumberValues.Count; i++)
-        {
-            numberValues[i] = defaultNumberValues[i];
-        }
-        base.Reset();
-    }
-
-    public override string GetDescription()
-    {
-        System.Text.StringBuilder sb = new System.Text.StringBuilder();
-        sb.AppendLine("update STAR values");
-        for (int i = 0; i < numberTypes.Count && i < numberValues.Count; i++)
-        {
-            sb.AppendFormat("{0}: {1}", numberTypes[i], numberValues[i]);
-            if (i < numberTypes.Count - 1) sb.Append("\n");
-        }
-        return GameSettings.AddIcon(sb.ToString());
-    }
-
-    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
-    {
-        if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;
-        base.UpdateNumberValue(numberType, value, source);
-        bool updated = false;
-        for (int i = 0; i < numberTypes.Count && i < numberValues.Count; i++)
-        {
-            if (numberTypes[i] == numberType)
-            {
-                numberValues[i] += value;
-                updated = true;
-            }
-        }
-        return updated;
-    }
-
-    public override bool UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
-    {
-        base.UpdateSelfNumberValue(numberType, value, isPermanent);
-        bool updated = false;
-        for (int i = 0; i < numberTypes.Count && i < numberValues.Count; i++)
-        {
-            if (numberTypes[i] == numberType)
-            {
-                numberValues[i] += value;
-                if (isPermanent && i < defaultNumberValues.Count)
-                {
-                    defaultNumberValues[i] += value;
-                }
-                updated = true;
-            }
-        }
-        return updated;
-    }
-
-    public override UIStar.StarType GetStarType(CardMaster cardMaster = null)
-    {
-        if (cardMaster == null)
-            return UIStar.StarType.White;
-        if (cardMaster.numberTypesCanBeModified != null && cardMaster.numberTypesCanBeModified.Count > 0)
-        {
-            foreach (var nType in numberTypes)
-            {
-                if (cardMaster.numberTypesCanBeModified.Contains(nType))
-                    return UIStar.StarType.Yellow;
-            }
-        }
-        return UIStar.StarType.White;
     }
 }

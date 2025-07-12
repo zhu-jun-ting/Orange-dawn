@@ -19,6 +19,7 @@ public class CardMaster : MonoBehaviour
     private float destroyEffectDuration => GameSettings.instance ? GameSettings.instance.destroyEffectDuration : 0.5f;
 
     [Header("Card UIStars")]
+    [Tooltip("Positions for UI stars, relative to the card's grid location (X is downwards and Y is rightwards). E.g. (0, 0) is the card's position, (1, 0) is one cell to the down.")]
     public List<UnityEngine.Vector2Int> uiStarPositions = new List<UnityEngine.Vector2Int>(); // Positions for UI stars, if any
     public List<NumberType> numberTypesCanBeModified = new List<NumberType>(); // Types of numbers that can be buffed by this card
 
@@ -31,9 +32,11 @@ public class CardMaster : MonoBehaviour
 
     // events to update card values and texts
     //   OnUpdateCardValues: perform a BFS from root card to update all linked cards' values
+    //   OnLateUpdateCardValues: applying card's self modifiers and board modifiers
     //   OnUpdateBaseDesctipion: update the base description of the card
     //   OnUpdateCardTexts: update the card texts in the UI
     public static event System.Action OnUpdateCardValues;
+    public static event System.Action OnLateUpdateCardValues;
     public static event System.Action OnApplyValuesToGuns;
     public static event System.Action OnUpdateBaseDesctipion;
     public static event System.Action OnUpdateCardTexts;
@@ -65,8 +68,9 @@ public class CardMaster : MonoBehaviour
         Probability,
         Amount,
         Mana,
-        Speed, 
-        Time
+        Speed,
+        Time, 
+        Coin
     }
 
     public enum CardType
@@ -74,6 +78,8 @@ public class CardMaster : MonoBehaviour
         Base,
         Gun,
         Value,
+        Action,
+        Instant
     }
 
     public enum CardBond
@@ -100,34 +106,35 @@ public class CardMaster : MonoBehaviour
         Down,
     }
 
+    public enum CardCondition
+    {
+        IsUndraggable, // If true, card cannot be dragged off the board
+        IsPowerful, // If true, card value is multiplied by 2
+        IsFrail, // If true, card value is halved
+        IsFragile, // If true, card may be destroyed when turn ends (probability in GameSettings)
+        IsTemporary, // If true, card is auto-destroyed after turn ends
+        IsVolatile, // If true, card may change to another card after turn ends
+        IsGrowing, // If true, card's values grow randomly each turn (possibly negative)
+    }
+
 
 
     // Grouped link settings in inspector
-    [Header("Up Link Settings")]
+    [Header("Link Settings")]
+    public bool useRandomLinks = false; // If true, links are randomly assigned when card is created
+    [Range(1, 4)] public int linkCount = 1; // how many random links to assign
     public bool up_link_enabled = false;
-    public CardMaster.LinkType up_link_type = CardMaster.LinkType.Common;
-    public CardMaster up_link_cardmaster = null;
-
-
-
-    [Header("Left Link Settings")]
+    [HideInInspector] public CardMaster.LinkType up_link_type = CardMaster.LinkType.Common;
+    [HideInInspector] public CardMaster up_link_cardmaster = null;
     public bool left_link_enabled = false;
-    public CardMaster.LinkType left_link_type = CardMaster.LinkType.Common;
-    public CardMaster left_link_cardmaster = null;
-
-
-
-    [Header("Right Link Settings")]
+    [HideInInspector] public CardMaster.LinkType left_link_type = CardMaster.LinkType.Common;
+    [HideInInspector] public CardMaster left_link_cardmaster = null;
     public bool right_link_enabled = false;
-    public CardMaster.LinkType right_link_type = CardMaster.LinkType.Common;
-    public CardMaster right_link_cardmaster = null;
-
-
-
-    [Header("Down Link Settings")]
+    [HideInInspector] public CardMaster.LinkType right_link_type = CardMaster.LinkType.Common;
+    [HideInInspector] public CardMaster right_link_cardmaster = null;
     public bool down_link_enabled = false;
-    public CardMaster.LinkType down_link_type = CardMaster.LinkType.Common;
-    public CardMaster down_link_cardmaster = null;
+    [HideInInspector] public CardMaster.LinkType down_link_type = CardMaster.LinkType.Common;
+    [HideInInspector] public CardMaster down_link_cardmaster = null;
 
 
 
@@ -138,8 +145,156 @@ public class CardMaster : MonoBehaviour
     public CardType card_type = CardType.Base; // if true, this card is the root of the card tree that traverse from this card
     public CardRarity card_rarity = CardRarity.Common; // Rarity of the card, used for UIStars
     public List<CardBond> card_bonds = new List<CardBond>(); // List of card bonds this card has, used for UIStars
+    public List<CardCondition> card_conditions = new List<CardCondition>(); // List of conditions this card has
 
+    [Header("Card Values")]
+    public float damage = 0f; // Damage value of the card, used for guns
+    public float health = 0f; // Health value of the card, used for health cards
+    public float probability = 0f; // Probability value of the card, used for dodge or crit chance
+    public float amount = 0f; // Amount value of the card, used for amount cards
+    public float mana = 0f; // Mana value of the card, used for mana cards
+    public float speed = 0f; // Speed value of the card, used for speed cards
+    public float time = 0f; // Time value of the card, used for time cards
+    public float coin = 0f; // Coin value of the card, used for coin cards
 
+    // Default values for permanent stat changes
+    [HideInInspector] public float default_damage;
+    [HideInInspector] public float default_health;
+    [HideInInspector] public float default_probability;
+    [HideInInspector] public float default_amount;
+    [HideInInspector] public float default_mana;
+    [HideInInspector] public float default_speed;
+    [HideInInspector] public float default_time;
+    [HideInInspector] public float default_coin;
+    [HideInInspector] public List<NumberType> myNumTypes = new List<NumberType>();
+
+    /// <summary>
+    /// Generic number update for this card. Supports add or multiply. Override in subclasses for custom logic.
+    /// </summary>
+    /// <param name="numberType">Which number to update</param>
+    /// <param name="value">Value to add or multiply</param>
+    /// <param name="source">Source card (for buff tracking)</param>
+    /// <param name="isMult">If true, multiply; else add</param>
+    /// <returns>True if updated</returns>
+    public virtual bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)
+    {
+        if (!numberTypesCanBeModified.Contains(numberType)) return false;
+
+        if (isMult)
+        {
+            switch (numberType)
+            {
+                case NumberType.Damage:
+                    damage *= value;
+                    if (isPermanent) default_damage *= value;
+                    ShowPopupOnUpdateValue(source, value, "Damage", "x", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Health:
+                    health *= value;
+                    if (isPermanent) default_health *= value;
+                    ShowPopupOnUpdateValue(source, value, "Health", "x", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Probability:
+                    probability *= value;
+                    if (isPermanent) default_probability *= value;
+                    ShowPopupOnUpdateValue(source, value, "Probability", "x", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Amount:
+                    amount *= value;
+                    if (isPermanent) default_amount *= value;
+                    ShowPopupOnUpdateValue(source, value, "Amount", "x", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Mana:
+                    mana *= value;
+                    if (isPermanent) default_mana *= value;
+                    ShowPopupOnUpdateValue(source, value, "Mana", "x", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Speed:
+                    speed *= value;
+                    if (isPermanent) default_speed *= value;
+                    ShowPopupOnUpdateValue(source, value, "Speed", "x", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Time:
+                    time *= value;
+                    if (isPermanent) default_time *= value;
+                    ShowPopupOnUpdateValue(source, value, "Time", "x", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Coin:
+                    coin *= value;
+                    if (isPermanent) default_coin *= value;
+                    ShowPopupOnUpdateValue(source, value, "Coin", "x", isPermanent ? "Permanent" : "");
+                    return true;
+                default: return false;
+            }
+        }
+        else
+        {
+            switch (numberType)
+            {
+                case NumberType.Damage:
+                    damage += value;
+                    if (isPermanent) default_damage += value;
+                    ShowPopupOnUpdateValue(source, value, "Damage", "+", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Health:
+                    health += value;
+                    if (isPermanent) default_health += value;
+                    ShowPopupOnUpdateValue(source, value, "Health", "+", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Probability:
+                    probability += value;
+                    if (isPermanent) default_probability += value;
+                    ShowPopupOnUpdateValue(source, value, "Probability", "+", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Amount:
+                    amount += value;
+                    if (isPermanent) default_amount += value;
+                    ShowPopupOnUpdateValue(source, value, "Amount", "+", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Mana:
+                    mana += value;
+                    if (isPermanent) default_mana += value;
+                    ShowPopupOnUpdateValue(source, value, "Mana", "+", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Speed:
+                    speed += value;
+                    if (isPermanent) default_speed += value;
+                    ShowPopupOnUpdateValue(source, value, "Speed", "+", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Time:
+                    time += value;
+                    if (isPermanent) default_time += value;
+                    ShowPopupOnUpdateValue(source, value, "Time", "+", isPermanent ? "Permanent" : "");
+                    return true;
+                case NumberType.Coin:
+                    coin += value;
+                    if (isPermanent) default_coin += value;
+                    ShowPopupOnUpdateValue(source, value, "Coin", "+", isPermanent ? "Permanent" : "");
+                    return true;
+                default: return false;
+            }
+        }
+    }
+
+    public void ShowPopupOnUpdateValue(CardMaster source, float value, string type, string sign, string isPermanent)
+    {
+        // Only show popup if this card or source card is lastDraggedCard
+        var lastDragged = BoardArea.instance != null ? BoardArea.instance.lastDraggedCard : null;
+        if (lastDragged == this || (source != null && lastDragged == source) || source == this)
+        {
+            var cardCommon = GetComponent<CardCommon>();
+            if (cardCommon != null) cardCommon.ShowPopup($"{type}: {sign}{value} {isPermanent}");
+        }
+    }
+
+    /// <summary>
+    /// Update this card's own number value (permanent if isPermanent). Supports add or multiply.
+    /// </summary>
+    public virtual bool UpdateSelfNumberValue(NumberType numberType, float value, bool isPermanent = false, bool isMult = false)
+    {
+        // For base, just call UpdateNumberValue
+        return UpdateNumberValue(numberType, value, this, isPermanent, isMult);
+    }
 
     [HideInInspector] public Vector2Int gridLocation = new Vector2Int(-1, -1); // Location on the board grid, used for linking and positioning
     public CardMaster instance;
@@ -147,6 +302,55 @@ public class CardMaster : MonoBehaviour
     protected virtual void Awake()
     {
         instance = this;
+        // Store initial values as defaults
+        default_damage = damage;
+        default_health = health;
+        default_probability = probability;
+        default_amount = amount;
+        default_mana = mana;
+        default_speed = speed;
+        default_time = time;
+        default_coin = coin;
+
+        if (damage != 0) myNumTypes.Add(NumberType.Damage);
+        if (health != 0) myNumTypes.Add(NumberType.Health);
+        if (probability != 0) myNumTypes.Add(NumberType.Probability);
+        if (amount != 0) myNumTypes.Add(NumberType.Amount);
+        if (mana != 0) myNumTypes.Add(NumberType.Mana);
+        if (speed != 0) myNumTypes.Add(NumberType.Speed);
+        if (time != 0) myNumTypes.Add(NumberType.Time);
+        if (coin != 0) myNumTypes.Add(NumberType.Coin);
+
+        OnLateUpdateCardValues += UpdateCardConditions;
+
+        if (useRandomLinks)
+        {
+            // List of all directions
+            var directions = new List<string> { "up", "left", "right", "down" };
+            // Shuffle directions
+            for (int i = 0; i < directions.Count; i++)
+            {
+                int j = UnityEngine.Random.Range(i, directions.Count);
+                var temp = directions[i];
+                directions[i] = directions[j];
+                directions[j] = temp;
+            }
+            // Enable only linkCount random directions, disable others
+            up_link_enabled = false;
+            left_link_enabled = false;
+            right_link_enabled = false;
+            down_link_enabled = false;
+            for (int i = 0; i < linkCount && i < directions.Count; i++)
+            {
+                switch (directions[i])
+                {
+                    case "up": up_link_enabled = true; break;
+                    case "left": left_link_enabled = true; break;
+                    case "right": right_link_enabled = true; break;
+                    case "down": down_link_enabled = true; break;
+                }
+            }
+        }
     }
 
     void Start()
@@ -156,6 +360,44 @@ public class CardMaster : MonoBehaviour
 
     public virtual void OnCardEnable()
     {
+        // If this card is a value card, update linked cards' numbers using UpdateNumberValue
+        if (card_type == CardType.Value)
+        {
+            CardMaster[] linked = new CardMaster[] { up_link_cardmaster, left_link_cardmaster, right_link_cardmaster, down_link_cardmaster };
+            // For each number type, if the value is not zero, apply to linked cards
+            var valuePairs = new (NumberType, float)[] {
+                (NumberType.Damage, damage),
+                (NumberType.Health, health),
+                (NumberType.Probability, probability),
+                (NumberType.Amount, amount),
+                (NumberType.Mana, mana),
+                (NumberType.Speed, speed),
+                (NumberType.Time, time),
+                (NumberType.Coin, coin)
+            };
+            foreach (var (nType, nValue) in valuePairs)
+            {
+                if (Mathf.Abs(nValue) > 0.0001f)
+                {
+                    foreach (var link in linked)
+                    {
+                        if (link != null)
+                        {
+                            if (link.card_type == CardType.Gun) 
+                            {
+                                // If the link is a gun card, we should apply the buff at the very end
+                                CardMaster.OnApplyValuesToGuns += () => link.UpdateNumberValue(nType, nValue, this);
+                            }
+                            else
+                            {
+                                // If the link is a value card, we can add attack to it
+                                link.UpdateNumberValue(nType, nValue, this);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         // Invoke the event for this card
         OnThisCardEnable?.Invoke();
     }
@@ -167,18 +409,19 @@ public class CardMaster : MonoBehaviour
 
     public virtual void Reset()
     {
+        // Reset all values to their defaults
+        damage = default_damage;
+        health = default_health;
+        probability = default_probability;
+        amount = default_amount;
+        mana = default_mana;
+        speed = default_speed;
+        time = default_time;
+        coin = default_coin;
         ClearUpdateSources();
     }
 
-    public virtual bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
-    {
-        return false;
-    }
-
-    public virtual bool UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
-    {
-        return false;
-    }
+    // (Removed duplicate UpdateNumberValue and UpdateSelfNumberValue)
 
     public BuffEntry AddBuffEntry(string buffName, string buffDescription, int order = 0) 
     {
@@ -196,7 +439,37 @@ public class CardMaster : MonoBehaviour
 
     public virtual string GetDescription()
     {
-        return card_description;
+        System.Text.StringBuilder sb = new System.Text.StringBuilder();
+        var numberTypes = myNumTypes;
+        var numberValues = new List<float>
+        {
+            damage,
+            health,
+            probability,
+            amount,
+            mana,
+            speed,
+            time,
+            coin
+        };
+        for (int i = 0; i < numberTypes.Count; i++)
+        {
+            float val = 0f;
+            switch (numberTypes[i])
+            {
+                case NumberType.Damage: val = damage; break;
+                case NumberType.Health: val = health; break;
+                case NumberType.Probability: val = probability; break;
+                case NumberType.Amount: val = amount; break;
+                case NumberType.Mana: val = mana; break;
+                case NumberType.Speed: val = speed; break;
+                case NumberType.Time: val = time; break;
+                case NumberType.Coin: val = coin; break;
+            }
+            sb.AppendFormat("{0}: {1}", numberTypes[i], val);
+            if (i < numberTypes.Count - 1) sb.Append("\n");
+        }
+        return GameSettings.AddIcon(sb.ToString());
     }
 
     // Call this at the start of each propagation/update cycle to clear the set
@@ -259,14 +532,89 @@ public class CardMaster : MonoBehaviour
         GameEvents.instance.UpdateCoins(card_sell_price);
     }
 
-    public virtual void OnCardLevelCleared() {
+    public virtual void OnCardLevelCleared()
+    {
         // do something when the card is level cleared
         OnThisCardLevelCleared?.Invoke();
+        UpdateConditionsWhenLevelCleared();
+    }
+
+    public void UpdateConditionsWhenLevelCleared()
+    {
+        // ...existing code...
+        // Fragile: chance to destroy
+        if (card_conditions != null && card_conditions.Contains(CardCondition.IsFragile))
+        {
+            float chance = 0.25f;
+            if (GameSettings.instance != null)
+            {
+                // You can add a field to GameSettings for fragileDestroyChance if desired
+                chance = Mathf.Clamp01(GameSettings.instance.fragileDestroyChance);
+            }
+            if (UnityEngine.Random.value < chance)
+            {
+                OnCardDestroyed();
+                return;
+            }
+        }
+        // Temporary: always destroy
+        if (card_conditions != null && card_conditions.Contains(CardCondition.IsTemporary))
+        {
+            OnCardDestroyed();
+            return;
+        }
+        // Volatile: change to another card of same rarity
+        if (card_conditions != null && card_conditions.Contains(CardCondition.IsVolatile))
+        {
+            var db = Resources.Load<CardDatabase>("CardDatabase");
+            if (db != null)
+            {
+                var candidates = db.FindCards(card => card.card_rarity == this.card_rarity && card.card_id != this.card_id);
+                if (candidates != null && candidates.Count > 0)
+                {
+                    var prefab = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+                    var newCard = Instantiate(prefab, this.transform.parent);
+                    newCard.transform.SetSiblingIndex(this.transform.GetSiblingIndex());
+                    Destroy(this.gameObject);
+                    return;
+                }
+            }
+        }
+
+        // Growing: update values randomly
+        // based on GameSettings, if it exists; values should be modified in GameSettings.Growth()
+        if (GameSettings.instance == null)
+        {
+            Debug.LogError("GameSettings.instance is null, cannot apply growth.");
+            return;
+        }
+        if (card_conditions != null && card_conditions.Contains(CardCondition.IsGrowing))
+        {
+            // Randomly change values by -1 to 1
+            if (numberTypesCanBeModified.Contains(NumberType.Damage)) damage += GameSettings.Growth(NumberType.Damage);
+            if (numberTypesCanBeModified.Contains(NumberType.Health)) health += GameSettings.Growth(NumberType.Health);
+            if (numberTypesCanBeModified.Contains(NumberType.Probability)) probability += GameSettings.Growth(NumberType.Probability);
+            if (numberTypesCanBeModified.Contains(NumberType.Amount)) amount += GameSettings.Growth(NumberType.Amount);
+            if (numberTypesCanBeModified.Contains(NumberType.Mana)) mana += GameSettings.Growth(NumberType.Mana);
+            if (numberTypesCanBeModified.Contains(NumberType.Speed)) speed += GameSettings.Growth(NumberType.Speed);
+            if (numberTypesCanBeModified.Contains(NumberType.Time)) time += GameSettings.Growth(NumberType.Time);
+            if (numberTypesCanBeModified.Contains(NumberType.Coin)) coin += GameSettings.Growth(NumberType.Coin);
+        }
     }
 
     public virtual UIStar.StarType GetStarType(CardMaster cardMaster = null)
     {
-        // Default implementation returns None, override in derived classes
+        if (cardMaster == null)
+            return UIStar.StarType.White;
+        if (cardMaster.numberTypesCanBeModified != null && cardMaster.numberTypesCanBeModified.Count > 0)
+        {
+            // Highlight if any of the types are present
+            foreach (var nType in myNumTypes)
+            {
+                if (cardMaster.numberTypesCanBeModified.Contains(nType))
+                    return UIStar.StarType.Yellow;
+            }
+        }
         return UIStar.StarType.White;
     } 
 
@@ -495,6 +843,10 @@ public class CardMaster : MonoBehaviour
     {
         OnUpdateCardValues?.Invoke();
     }
+    public static void InvokeLateUpdateCardValues()
+    {
+        OnLateUpdateCardValues?.Invoke();
+    }
     public static void InvokeUpdateBaseDesctipion()
     {
         OnUpdateBaseDesctipion?.Invoke();
@@ -508,6 +860,80 @@ public class CardMaster : MonoBehaviour
         OnApplyValuesToGuns?.Invoke();
     }
 
+    public void UpdateCardConditions()
+    {
+        // Powerful: double values
+        if (card_conditions != null && card_conditions.Contains(CardCondition.IsPowerful))
+        {
+            damage *= 2f;
+            health *= 2f;
+            probability *= 2f;
+            amount *= 2f;
+            mana *= 2f;
+            speed *= 2f;
+            time *= 2f;
+            coin *= 2f;
+        }
+        // Frail: halve values
+        if (card_conditions != null && card_conditions.Contains(CardCondition.IsFrail))
+        {
+            damage *= 0.5f;
+            health *= 0.5f;
+            probability *= 0.5f;
+            amount *= 0.5f;
+            mana *= 0.5f;
+            speed *= 0.5f;
+            time *= 0.5f;
+            coin *= 0.5f;
+        }
+    }
+
+    // --- Card Condition Management ---
+    // Adds a condition to the card if it doesn't already exist
+    // Returns true if the condition was added, false if it already existed
+    public bool AddCondition(CardCondition condition)
+    {
+        // Check if the condition can be added based on game settings
+        if (!CanAddCondition(condition)) return false;
+
+        if (card_conditions == null)
+            card_conditions = new List<CardCondition>();
+        if (!card_conditions.Contains(condition))
+        {
+            card_conditions.Add(condition);
+            OnUpdateCardTexts?.Invoke();
+            return true;
+        }
+        return false;
+    }
+
+    // Removes a condition from the card if it exists
+    // Returns true if the condition was removed, false if it didn't exist
+    public bool RemoveCondition(CardCondition condition)
+    {
+        if (card_conditions == null)
+            return false;
+        if (card_conditions.Contains(condition))
+        {
+            card_conditions.Remove(condition);
+            OnUpdateCardTexts?.Invoke();
+            return true;
+        }
+        return false;
+    }
+
+    protected bool CanAddCondition(CardCondition condition)
+    {
+        // Check if the condition can be added based on game settings or other logic
+        if (GameSettings.instance != null)
+        {
+            // Example: check if the condition is allowed in current game mode
+            return GameSettings.IsConditionAllowed(card_type, condition);
+        }
+        if (GameEvents.instance != null)
+            GameEvents.instance.ShowMessage("Cannot add condition: GameSettings not found.", GameEvents.MessageType.FullWarning);
+        return false; // Default to false if no specific logic
+    }
 
     // --- Helper Functions ---
     // Returns true if this card is a parent of the source card in the same tree (using reversed BFS order)

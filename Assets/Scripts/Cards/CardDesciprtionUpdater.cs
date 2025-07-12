@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using GLTFast.Schema;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class CardDesciprtionUpdater : MonoBehaviour
 {
@@ -14,6 +16,33 @@ public class CardDesciprtionUpdater : MonoBehaviour
     public TMP_Text cardModifiableValuesText;
     public TMP_Text cardRarityText;
     public UnityEngine.UI.Image backgroundImage;
+    public List<Transform> woodVisuals; // List of card links to update
+    public List<Transform> ironVisuals; // List of card links to update
+
+    [Header("Condition Visuals")]
+    public VerticalLayoutGroup conditionVisuals; // Parent for condition visuals
+    [System.Serializable]
+    public class ConditionPrefabPair
+    {
+        public CardMaster.CardCondition condition;
+        public GameObject prefab;
+    }
+
+    public List<ConditionPrefabPair> conditionPrefabList;
+    private Dictionary<CardMaster.CardCondition, GameObject> _conditionPrefabDict;
+    private void Awake()
+    {
+        // Build the dictionary from the list
+        _conditionPrefabDict = new Dictionary<CardMaster.CardCondition, GameObject>();
+        if (conditionPrefabList != null)
+        {
+            foreach (var pair in conditionPrefabList)
+            {
+                if (!_conditionPrefabDict.ContainsKey(pair.condition) && pair.prefab != null)
+                    _conditionPrefabDict.Add(pair.condition, pair.prefab);
+            }
+        }
+    }
 
 
 
@@ -113,37 +142,6 @@ public class CardDesciprtionUpdater : MonoBehaviour
                     bondText = string.Join(" ", cardMaster.card_bonds.ConvertAll(b => b.ToString().ToUpper()));
                 }
                 cardBondText.text = GameSettings.AddIcon(bondText);
-
-                // // Add mouse enter/exit events for tip
-                // var trigger = cardBondText.GetComponent<UnityEngine.EventSystems.EventTrigger>();
-                // if (trigger == null)
-                // {
-                //     trigger = cardBondText.gameObject.AddComponent<UnityEngine.EventSystems.EventTrigger>();
-                // }
-                // trigger.triggers ??= new System.Collections.Generic.List<UnityEngine.EventSystems.EventTrigger.Entry>();
-                // trigger.triggers.Clear();
-
-                // // PointerEnter
-                // var entryEnter = new UnityEngine.EventSystems.EventTrigger.Entry
-                // {
-                //     eventID = UnityEngine.EventSystems.EventTriggerType.PointerEnter
-                // };
-                // entryEnter.callback.AddListener((_) => {
-                //     string tipName = "Card Bond";
-                //     string tipDesc = bondText;
-                //     CanvasManager.ShowTip(tipName, tipDesc);
-                // });
-                // trigger.triggers.Add(entryEnter);
-
-                // // PointerExit
-                // var entryExit = new UnityEngine.EventSystems.EventTrigger.Entry
-                // {
-                //     eventID = UnityEngine.EventSystems.EventTriggerType.PointerExit
-                // };
-                // entryExit.callback.AddListener((_) => {
-                //     CanvasManager.HideTip();
-                // });
-                // trigger.triggers.Add(entryExit);
             }
 
             // Update cardModifiableValuesText with all caps NumberType names
@@ -184,6 +182,65 @@ public class CardDesciprtionUpdater : MonoBehaviour
                 {
                     // backgroundImage is declared as Image, so set color directly
                     backgroundImage.color = bondColor.Value;
+                }
+            }
+
+            // Show/hide visuals based on draggable
+            if (woodVisuals != null)
+            {
+                foreach (var t in woodVisuals)
+                {
+                    if (t != null) t.gameObject.SetActive(!cardMaster.card_conditions.Contains(CardMaster.CardCondition.IsUndraggable));
+                }
+            }
+            if (ironVisuals != null)
+            {
+                foreach (var t in ironVisuals)
+                {
+                    if (t != null) t.gameObject.SetActive(!!cardMaster.card_conditions.Contains(CardMaster.CardCondition.IsUndraggable));
+                }
+            }
+        
+
+            // --- Update card conditions UI ---
+            if (conditionVisuals != null && _conditionPrefabDict != null && cardMaster.card_conditions != null)
+            {
+                // Build a list of current drawn conditions and their GameObjects
+                var drawn = new List<(CardMaster.CardCondition, GameObject)>();
+                for (int i = 0; i < conditionVisuals.transform.childCount; i++)
+                {
+                    var go = conditionVisuals.transform.GetChild(i).gameObject;
+                    var holder = go.GetComponent<ConditionVisualHolder>();
+                    if (holder != null)
+                        drawn.Add((holder.condition, go));
+                }
+
+                // Remove visuals not in card_conditions
+                for (int i = drawn.Count - 1; i >= 0; i--)
+                {
+                    if (!cardMaster.card_conditions.Contains(drawn[i].Item1))
+                        DestroyImmediate(drawn[i].Item2);
+                }
+
+                // Insert or move visuals for each condition in order
+                int insertIndex = 0;
+                foreach (var cond in cardMaster.card_conditions)
+                {
+                    var existing = drawn.Find(x => x.Item1.Equals(cond));
+                    if (existing.Item2 != null)
+                    {
+                        // Move to correct order if needed
+                        if (existing.Item2.transform.GetSiblingIndex() != insertIndex)
+                            existing.Item2.transform.SetSiblingIndex(insertIndex);
+                    }
+                    else if (_conditionPrefabDict.TryGetValue(cond, out var prefab) && prefab != null)
+                    {
+                        var go = Instantiate(prefab, conditionVisuals.transform);
+                        go.transform.SetSiblingIndex(insertIndex);
+                        var holder = go.GetComponent<ConditionVisualHolder>();
+                        if (holder != null) holder.condition = cond;
+                    }
+                    insertIndex++;
                 }
             }
         }

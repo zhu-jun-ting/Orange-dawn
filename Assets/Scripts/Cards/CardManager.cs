@@ -18,6 +18,9 @@ public class CardManager : MonoBehaviour
     public Transform cardPromptVeilSelect;
     public RectTransform horizontalLayoutGroupSelect;
 
+    // Reference to the card database asset (assign in inspector)
+    public CardDatabase cardDatabase;
+
     void Awake()
     {
         instance = this;
@@ -210,5 +213,18 @@ public class CardManager : MonoBehaviour
         }
         // 9. Callback
         onSelected?.Invoke(selectedCard);
+    }
+
+    /// <summary>
+    /// Static method to get a card prefab by card id using the CardManager singleton.
+    /// </summary>
+    public static GameObject GetCardById(int cardId)
+    {
+        if (instance == null || instance.cardDatabase == null)
+        {
+            Debug.LogError("CardManager: No instance or cardDatabase assigned!");
+            return null;
+        }
+        return instance.cardDatabase.GetCard(cardId);
     }
 }

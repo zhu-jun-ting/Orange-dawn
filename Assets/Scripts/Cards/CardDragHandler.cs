@@ -356,6 +356,12 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if ((!cardMaster || cardMaster.card_conditions.Contains(CardMaster.CardCondition.IsUndraggable)) && (cardMaster.gridLocation.x != -1 || cardMaster.gridLocation.y != -1))
+        {
+            if (GameEvents.instance != null)
+                GameEvents.instance.ShowMessage("This card cannot be dragged off.", GameEvents.MessageType.FullWarning);
+            return; // If card is not draggable, do nothing
+        }
         originalPosition = rectTransform.position;
         originalAnchoredPosition = rectTransform.anchoredPosition;
         canvasGroup.blocksRaycasts = false;
@@ -468,6 +474,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
     public void OnDrag(PointerEventData eventData)
     {
+        if ((!cardMaster || cardMaster.card_conditions.Contains(CardMaster.CardCondition.IsUndraggable)) && (cardMaster.gridLocation.x != -1 || cardMaster.gridLocation.y != -1)) return;
         isDragging = true;
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         // 1. Reset all links on all cards to black 50% transparent
@@ -542,6 +549,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if ((!cardMaster || cardMaster.card_conditions.Contains(CardMaster.CardCondition.IsUndraggable)) && (cardMaster.gridLocation.x != -1 || cardMaster.gridLocation.y != -1)) return;
         isDragging = false;
         canvasGroup.blocksRaycasts = true;
         rectTransform.DOScale(1f, 0.2f).SetEase(Ease.OutBack);
@@ -674,6 +682,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                     HandArea.instance.AddCard(cardMaster);
                 }
             }
+            cardMaster.gridLocation = new Vector2Int(-1, -1); // Clear grid location since it's not on the board
         }
         else if (droppedOnBoard)
         {
@@ -693,39 +702,48 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
 
                 // --- Destroy links in all directions from the card's original board position ---
-                if (lastRow >= 0 && lastCol >= 0) {
+                if (lastRow >= 0 && lastCol >= 0)
+                {
                     var prevGrid = BoardArea.instance.gridState;
                     int prevRows = BoardArea.instance.rows;
                     int prevCols = BoardArea.instance.columns;
                     int prevRow = lastRow, prevCol = lastCol;
                     // Up
-                    if (prevRow > 0) {
+                    if (prevRow > 0)
+                    {
                         var upCard = prevGrid[prevRow - 1, prevCol];
-                        if (upCard != null && upCard.down_link_cardmaster == cardMaster) {
-                            upCard.down_link_cardmaster = null; 
+                        if (upCard != null && upCard.down_link_cardmaster == cardMaster)
+                        {
+                            upCard.down_link_cardmaster = null;
                         }
                         cardMaster.up_link_cardmaster = null;
                     }
                     // Down
-                    if (prevRow < prevRows - 1) {
+                    if (prevRow < prevRows - 1)
+                    {
                         var downCard = prevGrid[prevRow + 1, prevCol];
-                        if (downCard != null && downCard.up_link_cardmaster == cardMaster) {
+                        if (downCard != null && downCard.up_link_cardmaster == cardMaster)
+                        {
                             downCard.up_link_cardmaster = null;
                         }
                         cardMaster.down_link_cardmaster = null;
                     }
                     // Left
-                    if (prevCol > 0) {
+                    if (prevCol > 0)
+                    {
                         var leftCard = prevGrid[prevRow, prevCol - 1];
-                        if (leftCard != null && leftCard.right_link_cardmaster == cardMaster) {
+                        if (leftCard != null && leftCard.right_link_cardmaster == cardMaster)
+                        {
                             leftCard.right_link_cardmaster = null;
                         }
                         cardMaster.left_link_cardmaster = null;
                     }
                     // Right
-                    if (prevCol < prevCols - 1) {
+                    if (prevCol < prevCols - 1)
+                    {
                         var rightCard = prevGrid[prevRow, prevCol + 1];
-                        if (rightCard != null && rightCard.left_link_cardmaster == cardMaster) {
+                        if (rightCard != null && rightCard.left_link_cardmaster == cardMaster)
+                        {
                             rightCard.left_link_cardmaster = null;
                         }
                         cardMaster.right_link_cardmaster = null;
@@ -791,7 +809,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 lastRow = cell.x;
                 lastCol = cell.y;
 
-                
+
             }
             else
             {
@@ -799,7 +817,6 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 if (tmpCardMaster != null)
                 {
                     BoardArea.instance.SetCell(lastRow, lastCol, tmpCardMaster);
-                    cardMaster.gridLocation = new Vector2Int(cell.x, cell.y);
                     tmpCardMaster = null;
                 }
             }
@@ -902,6 +919,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (Time.time - lastUpdateCardsTime < 0.1f) return;
         lastUpdateCardsTime = Time.time;
         CardMaster.InvokeUpdateCardValues();
+        CardMaster.InvokeLateUpdateCardValues();
         CardMaster.InvokeApplyValuesToGuns();
         CardMaster.InvokeUpdateBaseDesctipion();
         CardMaster.InvokeUpdateCardTexts();

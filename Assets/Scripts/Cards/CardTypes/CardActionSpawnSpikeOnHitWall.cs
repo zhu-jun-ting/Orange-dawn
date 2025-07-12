@@ -123,7 +123,8 @@ public class CardActionSpawnSpikeOnHitWall : CardMaster, ICardAction
         return $"On bullet hit wall, spawn {spawnCount} spike(s) (Damage: {spikeDamage}) in a circle. Mana: {manaCost}, Chance: {triggerProbability * 100f}%";
     }
 
-    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
+    public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)
+
     {
         if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;
         base.UpdateNumberValue(numberType, value, source);

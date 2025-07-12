@@ -38,41 +38,67 @@ public class CardBasePlayer : CardMaster
         {
             return GameSettings.AddIcon(string.Format(card_description,
                 player.max_health,
-                player.moveSpeed,
-                player.dodge));
+                ManaBar.manaMax,
+                player.dodge*100 // Convert to percentage
+            ));
         }
         return "";
     }
 
-    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source)
+    public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)
     {
         if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;
-
-        base.UpdateNumberValue(numberType, value, source);
 
         if (player == null) player = PlayerController.instance;
         if (player == null) return false;
 
-        switch (numberType)
+        if (isMult)
         {
-            case NumberType.Health:
-                player.max_health += value;
-                player.UpdateMaxHealth();
-                return true;
-            case NumberType.Probability:
-                player.dodge += value;
-                return true;
-            case NumberType.Speed:
-                player.moveSpeed += value;
-                return true;
-            default:
-                return false;
+            switch (numberType)
+            {
+                case NumberType.Health:
+                    player.max_health *= value;
+                    if (isPermanent) player.max_health = Mathf.Max(player.max_health, player.initial_max_health);
+                    player.UpdateMaxHealth();
+                    return true;
+                case NumberType.Probability:
+                    player.dodge *= value;
+                    if (isPermanent) player.initial_dodge = player.dodge;
+                    return true;
+                case NumberType.Mana:
+                    ManaBar.manaMax = (int)(ManaBar.manaMax * value);
+                    if (isPermanent) ManaBar.initialManaMax = ManaBar.manaMax;
+                    return true;
+                default:
+                    return false;
+            }
         }
+        else
+        {
+            switch (numberType)
+            {
+                case NumberType.Health:
+                    player.max_health += value;
+                    if (isPermanent) player.max_health = Mathf.Max(player.max_health, player.initial_max_health);
+                    player.UpdateMaxHealth();
+                    return true;
+                case NumberType.Probability:
+                    player.dodge += value/100;  // Convert percentage to decimal
+                    if (isPermanent) player.initial_dodge = player.dodge;
+                    return true;
+                case NumberType.Mana:
+                    ManaBar.manaMax = (int)(ManaBar.manaMax + value);
+                    if (isPermanent) ManaBar.initialManaMax = ManaBar.manaMax;
+                    return true;
+                default:
+                    return false;
+            }
+        }
+        
     }
 
     public override void Reset()
     {
-        base.Reset();
         player.Reset();
     }
 }

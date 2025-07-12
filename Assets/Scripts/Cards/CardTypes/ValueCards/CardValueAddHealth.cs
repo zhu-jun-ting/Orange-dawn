@@ -61,7 +61,7 @@ public class CardValueAddHealth : CardMaster
         return GameSettings.AddIcon(string.Format(card_description, attackToAdd));
     }
 
-    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
+    public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)
     {
 
         if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;
@@ -77,7 +77,7 @@ public class CardValueAddHealth : CardMaster
 
     }
 
-    public override bool UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false)
+    public override bool UpdateSelfNumberValue(CardMaster.NumberType numberType, float value, bool isPermanent = false, bool isMult = false)
     {
         if (numberType == CardMaster.NumberType.Health && isPermanent)
         {

@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class CardInstantActivateSlot : CardMaster
 {
+    // id: 401
+    // name: Block Miner
+    // desc: Open a linked grid block"
+
+    // id: 402
+    // name: Block Miner
+    // desc: Open a linked grid block"
+
+    // id: 415
+    // name: Block Miner
+    // desc: Open a linked grid block"
+    
+    // id: 416
+    // name: Block Miner
+    // desc: Open a linked grid block"
+
     public override void OnCardEnable()
     {
         // Directions: Up, Down, Left, Right

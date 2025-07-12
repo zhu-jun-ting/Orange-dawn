@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f1c6587ad12d4848bcc19f0324b79a6, type: 3}
+  m_Name: CardDatabase
+  m_EditorClassIdentifier: 
+  cards:
+  - cardId: 1
+    cardPrefab: {fileID: 4104569939620857182, guid: 5f1560209f07ca641abe77095a2a6ec8, type: 3}
+  - cardId: 99
+    cardPrefab: {fileID: 596840412527419229, guid: 4ade1c9907ceaba4b92569a8e2848cab, type: 3}
+  - cardId: 201
+    cardPrefab: {fileID: 6658401908579154275, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+  - cardId: 202
+    cardPrefab: {fileID: 7501092998743045636, guid: 83794edc173201a47aa21eae2986ebf9, type: 3}
+  - cardId: 401
+    cardPrefab: {fileID: 6705360014326929814, guid: 2ffcc3f22c8fdbb49823340a40d3ec52, type: 3}
+  - cardId: 402
+    cardPrefab: {fileID: 6705360014326929814, guid: d8b9b5dde4fe7cb459da3fceae03fd10, type: 3}
+  - cardId: 403
+    cardPrefab: {fileID: 6705360014326929814, guid: ec4a2d32428edf8448f0415d89e329aa, type: 3}
+  - cardId: 404
+    cardPrefab: {fileID: 6705360014326929814, guid: a1dadd6c6f0719b488b4a13abd3485f3, type: 3}
+  - cardId: 405
+    cardPrefab: {fileID: 6705360014326929814, guid: 6c69f46532ecd6544acdd3ca611f44a2, type: 3}
+  - cardId: 406
+    cardPrefab: {fileID: 6705360014326929814, guid: 5f8dcc219afe10b4c9c1cbe0230d995a, type: 3}
+  - cardId: 407
+    cardPrefab: {fileID: 6705360014326929814, guid: 2258c4a9165f58d49a5013546e4c8682, type: 3}
+  - cardId: 408
+    cardPrefab: {fileID: 6705360014326929814, guid: 9081bc54fd4a2024bb92ae6b379358f0, type: 3}
+  - cardId: 413
+    cardPrefab: {fileID: 4395642331166343003, guid: 685c9f107b2f5db4eb2aec03378aff76, type: 3}
+  - cardId: 414
+    cardPrefab: {fileID: 6705360014326929814, guid: 648a441f5f783d244873129e6208dcb8, type: 3}
+  - cardId: 415
+    cardPrefab: {fileID: 6705360014326929814, guid: 9bfc5c4a0c8109e4c9509850547169ea, type: 3}
+  - cardId: 416
+    cardPrefab: {fileID: 6705360014326929814, guid: 06325a183ee9ed64683327ac381c76e0, type: 3}

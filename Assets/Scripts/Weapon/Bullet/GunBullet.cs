@@ -1,7 +1,4 @@
-﻿
-
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +11,9 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     public bool canClone = true; // If true, bullet can be cloned by cloners (like the Bullet Cloner item)
     [SerializeField] public float att;
     [SerializeField] private GameObject owner;
+    public float critChance = 0.05f; // Chance to crit, 0 means no crit chance
+    public float critDamage = 1.5f; // Damage multiplier on crit, 1 means no extra damage
+    public int penetrate = 0; // number of enemies a bullet can penetrate, 0 means no penetration
     public float speed;
     public float speedDamageModifier = 1f; // You can expose this as a public variable if needed
     public GameObject explosionPrefab;
@@ -190,7 +190,18 @@ public class GunBullet : MonoBehaviour, IColliderHandler
 
                     if (att >= 1f)
                     {
-                        GameEvents.instance.HitPawn(att + speedDamage, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+                        float finalDamage = att + speedDamage;
+                        bool isCrit = UnityEngine.Random.value < critChance;
+                        if (isCrit)
+                        {
+                            finalDamage = att * critDamage + speedDamage;
+                            GameEvents.instance.HitPawn(finalDamage, pawnMaster, gameObject, GameEvents.DamageType.Crit, pawnMaster.gameObject.transform, hit_back, gun);
+                        }
+                        else
+                        {
+                            GameEvents.instance.HitPawn(finalDamage, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+                        }
+                        
                         // att and speedDamage are combined? 
 
                         // --- Spawn debris based on relative velocity ---

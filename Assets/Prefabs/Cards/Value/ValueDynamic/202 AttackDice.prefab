@@ -1,0 +1,213 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3782558684129464167
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 852655659967438507, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1624510056803532823, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1624510056803532823, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1624510056803532823, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1624510056803532823, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459554170938118758, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459554170938118758, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459554170938118758, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459554170938118758, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855073477016861751, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: card_id
+      value: 201
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 894.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 95.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4132935281099016252, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981454060349920778, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6658401908579154275, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      propertyPath: m_Name
+      value: AttackDice Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2855073477016861751, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6658401908579154275, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2255595837256799189}
+  m_SourcePrefab: {fileID: 100100000, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+--- !u!1 &7501092998743045636 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6658401908579154275, guid: cec01eb344aba2342971cca04d574b54, type: 3}
+  m_PrefabInstance: {fileID: 3782558684129464167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2255595837256799189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7501092998743045636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f9f3d9e54bfd34bb4c004bde6b3427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card_icon: {fileID: 0}
+  card_id: 202
+  card_name: Attack Dice
+  card_cost: 7
+  card_sell_price: 3
+  card_description: 'add Damage: {1}~{2}, change at turn ends
+
+    Damage: {0}'
+  uiStarPositions: []
+  numberTypesCanBeModified: 00000000
+  current_gun: {fileID: 0}
+  up_link_enabled: 0
+  up_link_type: 0
+  up_link_cardmaster: {fileID: 0}
+  left_link_enabled: 1
+  left_link_type: 0
+  left_link_cardmaster: {fileID: 0}
+  right_link_enabled: 0
+  right_link_type: 0
+  right_link_cardmaster: {fileID: 0}
+  down_link_enabled: 0
+  down_link_type: 0
+  down_link_cardmaster: {fileID: 0}
+  draggable: 1
+  is_free_card: 0
+  is_root: 0
+  card_type: 2
+  card_rarity: 0
+  card_bonds: 
+  damage: 1
+  health: 0
+  probability: 0
+  amount: 0
+  mana: 0
+  speed: 0
+  time: 0
+  coin: 0
+  default_damage: 0
+  default_health: 0
+  default_probability: 0
+  default_amount: 0
+  default_mana: 0
+  default_speed: 0
+  default_time: 0
+  default_coin: 0
+  myNumTypes: 
+  gridLocation: {x: -1, y: -1}
+  instance: {fileID: 0}
+  diceRange: 10

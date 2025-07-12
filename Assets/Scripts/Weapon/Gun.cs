@@ -12,6 +12,7 @@ public class Gun : MonoBehaviour
     public float critChance = 0.05f; // critical hit chance
     public float critDamage = 2.0f; // critical hit damage multiplier
     public int penetrate = 0; // number of enemies a bullet can penetrate
+    public float hit_back = 1f; // knockback effect on hit
     public GameObject bulletPrefab;
     public GameObject shellPrefab;
     public GameObject owner; 
@@ -94,7 +95,7 @@ public class Gun : MonoBehaviour
             {
                 gunBullet.trigger_tags.Add("Enemy");
                 gunBullet.att = damage;
-                gunBullet.hit_back = 0.1f;
+                gunBullet.hit_back = hit_back;
                 gunBullet.SetOwner(gameObject);
                 gunBullet.gun = this;
                 // gunBullet.AddIgnore("Player, NPC"); // Ignore self
@@ -123,12 +124,15 @@ public class Gun : MonoBehaviour
                 {
                     gunBullet.trigger_tags.Add("Enemy");
                     gunBullet.att = damage;
-                    gunBullet.hit_back = 0.1f;
+                    gunBullet.hit_back = hit_back;
                     gunBullet.SetOwner(gameObject);
                     gunBullet.gun = this;
+                    gunBullet.penetrate = penetrate;
+                    gunBullet.critChance = critChance;   
+                    gunBullet.critDamage = critDamage; 
                     // gunBullet.AddIgnore("Player, NPC"); // Ignore self
 
-                    
+
                     if (bulletNum % 2 == 1)
                     {
                         gunBullet.SetSpeed(Quaternion.AngleAxis(bulletAngle * (i - median), Vector3.forward) * direction, speed);

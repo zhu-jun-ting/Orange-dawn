@@ -100,90 +100,90 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	private static RectTransform tipsLayoutRect;
 	private static List<TipEntry> activeTips = new List<TipEntry>();
 	private static Vector2 tipsOffset = new Vector2(32, -32); // Offset from lower right of cursor
-public static void ShowTip(string name, string description, float width = 60f, float spacing = 4f)
-{
-	if (s_instance == null || s_instance.tipsPrefab == null || s_instance.canvas == null) return;
-
-	// Create layout if not present
-	if (tipsLayoutInstance == null)
+	public static void ShowTip(string name, string description, float width = 60f, float spacing = 4f)
 	{
-		tipsLayoutInstance = new GameObject("TipsLayout", typeof(RectTransform), typeof(UnityEngine.UI.VerticalLayoutGroup), typeof(CanvasGroup));
-		tipsLayoutRect = tipsLayoutInstance.GetComponent<RectTransform>();
-		tipsLayoutRect.SetParent(s_instance.canvas.transform, false);
-		tipsLayoutRect.anchorMin = new Vector2(0, 1);
-		tipsLayoutRect.anchorMax = new Vector2(0, 1);
-		tipsLayoutRect.pivot = new Vector2(0, 1);
-		tipsLayoutRect.sizeDelta = new Vector2(width, 0);
-		var layout = tipsLayoutInstance.GetComponent<UnityEngine.UI.VerticalLayoutGroup>();
-		layout.childForceExpandHeight = false;
-		layout.childForceExpandWidth = true;
-		layout.childAlignment = TextAnchor.UpperLeft;
-		layout.spacing = spacing;
-		// Start following mouse
-		s_instance.StartCoroutine(FollowCursorRoutine());
-	}
-	else
-	{
-		// Update width and spacing if already present
-		tipsLayoutRect.sizeDelta = new Vector2(width, 0);
-		var layout = tipsLayoutInstance.GetComponent<UnityEngine.UI.VerticalLayoutGroup>();
-		if (layout != null) layout.spacing = spacing;
-	}
+		if (s_instance == null || s_instance.tipsPrefab == null || s_instance.canvas == null) return;
 
-	// Instantiate tip
-	GameObject tipGO = UnityEngine.Object.Instantiate(s_instance.tipsPrefab, tipsLayoutRect);
-	var tipEntry = tipGO.GetComponent<TipEntry>();
-	if (tipEntry != null)
-	{
-		tipEntry.SetTipName(name);
-		tipEntry.SetTipDescription(description);
-		activeTips.Add(tipEntry);
-		// Remove from list when destroyed
-		tipGO.AddComponent<TipAutoRemove>().Init(() => activeTips.Remove(tipEntry));
-
-		// Fade in using DOTween (override any existing alpha)
-		var cg = tipGO.GetComponent<CanvasGroup>();
-		if (cg == null) cg = tipGO.AddComponent<CanvasGroup>();
-		cg.alpha = 0f;
-		float fadeDuration = tipEntry.fadeDuration > 0f ? tipEntry.fadeDuration : 0.3f;
-		cg.DOFade(1f, fadeDuration);
-	}
-}
-
-/// <summary>
-/// Fades out and destroys all active tip entries and the tips layout.
-/// </summary>
-public static void HideTip(float fadeOutDuration = 0.3f)
-{
-	// Fade out all tips
-	foreach (var tip in activeTips)
-	{
-		if (tip != null)
+		// Create layout if not present
+		if (tipsLayoutInstance == null)
 		{
-			var cg = tip.GetComponent<CanvasGroup>();
-			if (cg == null) cg = tip.gameObject.AddComponent<CanvasGroup>();
+			tipsLayoutInstance = new GameObject("TipsLayout", typeof(RectTransform), typeof(UnityEngine.UI.VerticalLayoutGroup), typeof(CanvasGroup));
+			tipsLayoutRect = tipsLayoutInstance.GetComponent<RectTransform>();
+			tipsLayoutRect.SetParent(s_instance.canvas.transform, false);
+			tipsLayoutRect.anchorMin = new Vector2(0, 1);
+			tipsLayoutRect.anchorMax = new Vector2(0, 1);
+			tipsLayoutRect.pivot = new Vector2(0, 1);
+			tipsLayoutRect.sizeDelta = new Vector2(width, 0);
+			var layout = tipsLayoutInstance.GetComponent<UnityEngine.UI.VerticalLayoutGroup>();
+			layout.childForceExpandHeight = false;
+			layout.childForceExpandWidth = true;
+			layout.childAlignment = TextAnchor.UpperLeft;
+			layout.spacing = spacing;
+			// Start following mouse
+			s_instance.StartCoroutine(FollowCursorRoutine());
+		}
+		else
+		{
+			// Update width and spacing if already present
+			tipsLayoutRect.sizeDelta = new Vector2(width, 0);
+			var layout = tipsLayoutInstance.GetComponent<UnityEngine.UI.VerticalLayoutGroup>();
+			if (layout != null) layout.spacing = spacing;
+		}
+
+		// Instantiate tip
+		GameObject tipGO = UnityEngine.Object.Instantiate(s_instance.tipsPrefab, tipsLayoutRect);
+		var tipEntry = tipGO.GetComponent<TipEntry>();
+		if (tipEntry != null)
+		{
+			tipEntry.SetTipName(name);
+			tipEntry.SetTipDescription(description);
+			activeTips.Add(tipEntry);
+			// Remove from list when destroyed
+			tipGO.AddComponent<TipAutoRemove>().Init(() => activeTips.Remove(tipEntry));
+
+			// Fade in using DOTween (override any existing alpha)
+			var cg = tipGO.GetComponent<CanvasGroup>();
+			if (cg == null) cg = tipGO.AddComponent<CanvasGroup>();
+			cg.alpha = 0f;
+			float fadeDuration = tipEntry.fadeDuration > 0f ? tipEntry.fadeDuration : 0.3f;
+			cg.DOFade(1f, fadeDuration);
+		}
+	}
+
+	/// <summary>
+	/// Fades out and destroys all active tip entries and the tips layout.
+	/// </summary>
+	public static void HideTip(float fadeOutDuration = 0.3f)
+	{
+		// Fade out all tips
+		foreach (var tip in activeTips)
+		{
+			if (tip != null)
+			{
+				var cg = tip.GetComponent<CanvasGroup>();
+				if (cg == null) cg = tip.gameObject.AddComponent<CanvasGroup>();
+				cg.DOFade(0f, fadeOutDuration).OnComplete(() => {
+					if (tip != null) Destroy(tip.gameObject);
+				});
+			}
+		}
+		activeTips.Clear();
+
+		// Fade out and destroy the layout
+		if (tipsLayoutInstance != null)
+		{
+			var cg = tipsLayoutInstance.GetComponent<CanvasGroup>();
+			if (cg == null) cg = tipsLayoutInstance.AddComponent<CanvasGroup>();
 			cg.DOFade(0f, fadeOutDuration).OnComplete(() => {
-				if (tip != null) Destroy(tip.gameObject);
+				if (tipsLayoutInstance != null)
+				{
+					Destroy(tipsLayoutInstance);
+					tipsLayoutInstance = null;
+					tipsLayoutRect = null;
+				}
 			});
 		}
 	}
-	activeTips.Clear();
-
-	// Fade out and destroy the layout
-	if (tipsLayoutInstance != null)
-	{
-		var cg = tipsLayoutInstance.GetComponent<CanvasGroup>();
-		if (cg == null) cg = tipsLayoutInstance.AddComponent<CanvasGroup>();
-		cg.DOFade(0f, fadeOutDuration).OnComplete(() => {
-			if (tipsLayoutInstance != null)
-			{
-				Destroy(tipsLayoutInstance);
-				tipsLayoutInstance = null;
-				tipsLayoutRect = null;
-			}
-		});
-	}
-}
 
 	private static System.Collections.IEnumerator FollowCursorRoutine()
 	{

@@ -89,7 +89,7 @@ public class CardActionBulletAoe : CardMaster, ICardAction
         return GameSettings.AddIcon(string.Format(card_description, AoeDamage, AoeDuration, AoeSize, manaCost));
     }
 
-    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source = null)
+    public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)
     {
         if (IsBuffedFromSource(source, addToList: true, includeSelf: true)) return false;
         base.UpdateNumberValue(numberType, value, source);

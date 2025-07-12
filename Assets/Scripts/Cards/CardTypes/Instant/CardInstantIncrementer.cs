@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class CardInstantIncrementer : CardMaster
 {
+    // id: 413
+    // name: Incrementor
+    // This card will increment the damage value of linked cards by a fixed amount at the end of the level
+
     [Header("Instant Incrementer Settings")]
     public float incrementValue = 1f;
-    private BuffEntry buffEntry;
     [Header("Buff Entry Text")]
     public string buffName = "Incrementer";
     [TextArea (3, 10)]

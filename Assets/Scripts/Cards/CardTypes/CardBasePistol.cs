@@ -75,7 +75,7 @@ public class CardBasePistol : CardMaster
         if (current_gun != null)
         {
             return GameSettings.AddIcon(String.Format(card_description,
-                current_gun.damage, current_gun.speed, current_gun.recon, current_gun.interval, current_gun.critChance, current_gun.critDamage, current_gun.bulletNum, current_gun.bulletAngle, current_gun.penetrate));
+                current_gun.damage, current_gun.bulletNum));
         }
         return "";
     }
@@ -86,14 +86,14 @@ public class CardBasePistol : CardMaster
         return current_gun;
     }
 
-    public override bool UpdateNumberValue(CardMaster.NumberType numberType, float value, CardMaster source)
+    public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)
     {
         if (IsBuffedFromSource(source, addToList:true, includeSelf:true))
         {
             return false;
         }
 
-        base.UpdateNumberValue(numberType, value, source);
+        base.UpdateNumberValue(numberType, value, source, isPermanent, isMult);
 
 
         if (current_gun == null) return false;
@@ -107,22 +107,24 @@ public class CardBasePistol : CardMaster
             if (lastDragged == this || (source != null && lastDragged == source))
             {
                 var cardCommon = GetComponent<CardCommon>();
-                if (cardCommon != null) cardCommon.ShowPopup($"+ {value} Damage");
+                if (cardCommon != null) cardCommon.ShowPopup($"Damage: +{value}");
+            }
+            return true;
+        }
+        else if (numberType == CardMaster.NumberType.Amount)
+        {
+            current_gun.bulletNum += (int)value;
+            // Only show popup if this card or source card is lastDraggedCard
+            var lastDragged = BoardArea.instance != null ? BoardArea.instance.lastDraggedCard : null;
+            if (lastDragged == this || (source != null && lastDragged == source))
+            {
+                var cardCommon = GetComponent<CardCommon>();
+                if (cardCommon != null) cardCommon.ShowPopup($"Amount: +{value}");
             }
             return true;
         }
         else
         {
-            // Only show warning if this card or source card is lastDraggedCard
-            var lastDragged = BoardArea.instance != null ? BoardArea.instance.lastDraggedCard : null;
-            if (lastDragged == this || (source != null && lastDragged == source))
-            {
-                GameEvents.instance.ShowMessage(
-                    $"UpdateNumberValue not implemented for {instance.name}. NumberType: {numberType}, Value: {value}",
-                    GameEvents.MessageType.FullWarning,
-                    Vector2.zero
-                );
-            }
             return false;
         }
     }

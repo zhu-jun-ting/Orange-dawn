@@ -27,6 +27,16 @@ public class ManaBar : MonoBehaviour
         set { _manaRegen = value; }
     }
 
+    // initial values for reset
+    public static int initialManaMax;
+    public static float initialManaRegen;
+
+    void Awake()
+    {
+        initialManaMax = manaMax;
+        initialManaRegen = manaRegen;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -89,7 +99,7 @@ public class ManaBar : MonoBehaviour
     {
         return manaCurrent + diffmana_ >= 0; // Check if the mana cost can be afforded
     }
-    
+
     private float manaRegenAccumulator = 0f;
 
     void FixedUpdate()
@@ -102,5 +112,11 @@ public class ManaBar : MonoBehaviour
             manaCurrent = Mathf.Min(manaCurrent + regenAmount, manaMax);
             manaRegenAccumulator -= regenAmount;
         }
+    }
+    
+    public void Reset()
+    {
+        manaMax = initialManaMax;
+        manaRegen = initialManaRegen;
     }
 }

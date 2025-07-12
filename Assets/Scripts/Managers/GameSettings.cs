@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class GameSettings : MonoBehaviour
 
@@ -33,6 +35,8 @@ public class GameSettings : MonoBehaviour
     public string probabilityIcon = "Dice";
     public Color timeColor = new Color(1f, 0f, 1f);
     public string timeIcon = "Star";
+    public Color coinColor = new Color(1f, 0f, 1f);
+    public string coinIcon = "Coin";
 
 
     [Header("Card Colors")]
@@ -45,8 +49,31 @@ public class GameSettings : MonoBehaviour
     public float destroyEffectDuration = 0.5f;
 
     [Header("Other Icons")]
-    public Color starColor = new Color(1f, 0.843f, 0f); 
+    public Color starColor = new Color(1f, 0.843f, 0f);
     public string starIcon = "Star"; // Icon for STAR type
+
+    [Header("Card Borders")]
+    public Sprite borderDraggable;
+    public Sprite borderUndraggable;
+
+    [Header("Card Conditions")]
+    public float fragileDestroyChance = 0.25f;
+
+    /// <summary>
+    ///  damage: 1, 2, 3 ..... 40, 50, 60, 70, 80, 90, 100
+    ///  health: 10, 20, 30 ..... 200, 300
+    ///  mana: 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30
+    ///  probability: 5%, 10%, 15%, 20%, 25%, 30%, 35%, 40%, 45%, 50%, 60%, 70%
+    ///  amount: 1, 2, 3, 4, 5
+    ///  coin: 50, 100, 150, .... 700, 800, 900
+    /// </summary>
+    public List<float> damageGrowth = new List<float> { 1f, 1f, 1f, 2f, 2f, 3f, -1f, -2f, 5f, -4f, 8f, -5f }; // Growth factors for damage
+    public List<float> healthGrowth = new List<float> { 2f, 3f, 2f, 1f, 5f, 6f, -2f, -5f, 8f, -8f, 15f, -9f }; // Growth factors for health
+    public List<float> speedGrowth = new List<float> { 1f, 1f, 1f, 2f, 2f, 3f, -1f, -2f, 5f, -4f, 8f, -5f }; // Growth factors for speed
+    public List<float> manaGrowth = new List<float> { 1f, 1f, 1f, 2f, 2f, 3f, -1f, -2f, 5f, -4f, 8f, -5f }; // Growth factors for mana
+    public List<float> probabilityGrowth = new List<float> { 5f, 3f, 2f, 5f, 3f, 1f, -5f, -10f, 6f, -8f, 15f, -10f }; // Growth factors for probability
+    public List<float> timeGrowth = new List<float> { 1f, 1f, 1f, 2f, 2f, 3f, -1f, -2f, 5f, -4f, 8f, -5f }; // Growth factors for time
+    public List<float> coinGrowth = new List<float> { 10f, 10f, 10f, 20f, 20f, 30f, -10f, -20f, 30f, -40f, 20f, -50f }; // Growth factors for coin
 
     void Awake()
     {
@@ -84,7 +111,7 @@ public class GameSettings : MonoBehaviour
             ("Amount", instance.amountIcon, instance.amountColor),
             ("Probability", instance.probabilityIcon, instance.probabilityColor),
             ("Time", instance.timeIcon, instance.timeColor),
-            ("STAR", instance.starIcon, instance.starColor), // Add STAR as a type for icon replacement
+            ("Coin", instance.coinIcon, instance.coinColor), // Add Coin as a type for icon replacement
         };
 
         foreach (var t in types)
@@ -123,5 +150,47 @@ public class GameSettings : MonoBehaviour
         }
 
         return result;
+    }
+
+    public static bool IsConditionAllowed(CardMaster.CardType cardType, CardMaster.CardCondition condition)
+    {
+        switch (cardType)
+        {
+            case CardMaster.CardType.Base:
+            case CardMaster.CardType.Gun:
+                return condition == CardMaster.CardCondition.IsUndraggable;
+            case CardMaster.CardType.Value:
+            case CardMaster.CardType.Action:
+                return true; // All conditions allowed
+            case CardMaster.CardType.Instant:
+                return false; // None allowed
+            default:
+                return false;
+        }
+    }
+
+    public static float Growth(CardMaster.NumberType numberType)
+    {
+        if (instance == null) return 0f;
+
+        switch (numberType)
+        {
+            case CardMaster.NumberType.Damage:
+                return instance.damageGrowth[Random.Range(0, instance.damageGrowth.Count)];
+            case CardMaster.NumberType.Health:
+                return instance.healthGrowth[Random.Range(0, instance.healthGrowth.Count)];
+            case CardMaster.NumberType.Speed:
+                return instance.speedGrowth[Random.Range(0, instance.speedGrowth.Count)];
+            case CardMaster.NumberType.Mana:
+                return instance.manaGrowth[Random.Range(0, instance.manaGrowth.Count)];
+            case CardMaster.NumberType.Probability:
+                return instance.probabilityGrowth[Random.Range(0, instance.probabilityGrowth.Count)];
+            case CardMaster.NumberType.Time:
+                return instance.timeGrowth[Random.Range(0, instance.timeGrowth.Count)];
+            case CardMaster.NumberType.Coin:
+                return instance.coinGrowth[Random.Range(0, instance.coinGrowth.Count)];
+            default:
+                return 0f;
+        }
     }
 }

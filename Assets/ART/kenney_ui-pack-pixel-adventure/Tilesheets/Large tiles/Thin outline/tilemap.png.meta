@@ -742,13 +742,13 @@ TextureImporter:
       name: tilemap_18
       rect:
         serializedVersion: 2
-        x: 296
-        y: 197
-        width: 34
-        height: 33
+        x: 297
+        y: 198
+        width: 32
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 8, y: 8, z: 8, w: 8}
       customData: 
       outline: []
       physicsShape: []

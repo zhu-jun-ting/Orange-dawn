@@ -566,6 +566,6 @@ public class CardCommon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         Vector3 worldTop = rect.TransformPoint(new Vector3(0, rect.rect.height * 0.5f + margin, 0));
         // Convert to screen position
         Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(null, worldTop);
-        GameEvents.instance.ShowMessage(message, GameEvents.MessageType.LocalInfo, screenPos);
+        GameEvents.instance.ShowMessage(GameSettings.AddIcon(message), GameEvents.MessageType.LocalInfo, screenPos);
     }
 }
