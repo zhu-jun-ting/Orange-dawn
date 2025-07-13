@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using DG.Tweening;
 
+
 public class CardManager : MonoBehaviour
 {
     public static CardManager instance;
@@ -18,8 +19,13 @@ public class CardManager : MonoBehaviour
     public Transform cardPromptVeilSelect;
     public RectTransform horizontalLayoutGroupSelect;
 
-    // Reference to the card database asset (assign in inspector)
-    public CardDatabase cardDatabase;
+
+    // --- Card Add/Select UI Queue Logic ---
+    private Queue<System.Func<System.Collections.IEnumerator>> cardUiQueue = new Queue<System.Func<System.Collections.IEnumerator>>();
+    private bool isCardUiSequenceRunning = false;
+    [Header("Card UI Queue Settings")]
+    [Tooltip("Delay (in seconds) between card UI sequences")] 
+    public float cardUiQueueDelay = 0.5f;
 
     void Awake()
     {
@@ -27,9 +33,104 @@ public class CardManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Adds a card GameObject to the hand area, handling instancing and animated placement.
+    /// Public method to add a card add UI sequence to the queue.
     /// </summary>
-    public void AddCardObject(GameObject go, float waitTime = 1f)
+    public void QueueAddCardObjects(List<GameObject> cardPrefabs, float waitTime = 1f)
+    {
+        cardUiQueue.Enqueue(() => AddCardObjectsSequence(cardPrefabs, waitTime));
+        TryRunNextCardUiSequence();
+    }
+
+    public void QueueAddCardObjects(List<int> cardIds, float waitTime = 1f)
+    {
+        List<GameObject> cardPrefabs = new List<GameObject>();
+        foreach (int cardId in cardIds)
+        {
+            GameObject prefab = CardDatabase.GetCard(cardId);
+            if (prefab != null)
+                cardPrefabs.Add(prefab);
+        }
+        QueueAddCardObjects(cardPrefabs, waitTime);
+    }
+
+
+    /// <summary>
+    /// Public method to add a card select UI sequence to the queue.
+    /// </summary>
+    public void QueueSelectCardObjects(List<GameObject> cards, bool addToHand = true, float waitTime = 1f, System.Action<GameObject> onSelected = null)
+    {
+        cardUiQueue.Enqueue(() => SelectCardObjectsSequence(cards, addToHand, waitTime, onSelected));
+        TryRunNextCardUiSequence();
+    }
+
+
+    /// --- Coroutines ---
+    private void TryRunNextCardUiSequence()
+    {
+        if (!isCardUiSequenceRunning && cardUiQueue.Count > 0)
+        {
+            isCardUiSequenceRunning = true;
+            StartCoroutine(RunCardUiSequence());
+        }
+    }
+
+    private System.Collections.IEnumerator RunCardUiSequence()
+    {
+        while (cardUiQueue.Count > 0)
+        {
+            var next = cardUiQueue.Dequeue();
+            yield return StartCoroutine(next());
+            if (cardUiQueueDelay > 0f)
+                yield return new WaitForSeconds(cardUiQueueDelay);
+        }
+        isCardUiSequenceRunning = false;
+    }
+
+    // --- Add Card Sequence with Battle State Check ---
+    private System.Collections.IEnumerator AddCardObjectsSequence(List<GameObject> cardPrefabs, float waitTime)
+    {
+        // If in battle, wait for level clear event and 2s, then show UI
+        if (CombatManager.isInBattle)
+        {
+            bool levelCleared = false;
+            System.Action handler = () => { levelCleared = true; };
+            if (GameEvents.instance != null)
+                GameEvents.instance.OnLevelCleared += handler;
+            // Wait until OnLevelCleared is triggered
+            while (!levelCleared)
+                yield return null;
+            // Wait 2 seconds after level clear
+            yield return new WaitForSeconds(2f);
+            if (GameEvents.instance != null)
+                GameEvents.instance.OnLevelCleared -= handler;
+        }
+        // Now show the add card UI sequence
+        yield return StartCoroutine(AddCardObjectsCoroutine(cardPrefabs, waitTime));
+    }
+
+    // --- Select Card Sequence with Battle State Check ---
+    private System.Collections.IEnumerator SelectCardObjectsSequence(List<GameObject> cards, bool addToHand, float waitTime, System.Action<GameObject> onSelected)
+    {
+        if (CombatManager.isInBattle)
+        {
+            bool levelCleared = false;
+            System.Action handler = () => { levelCleared = true; };
+            if (GameEvents.instance != null)
+                GameEvents.instance.OnLevelCleared += handler;
+            while (!levelCleared)
+                yield return null;
+            yield return new WaitForSeconds(2f);
+            if (GameEvents.instance != null)
+                GameEvents.instance.OnLevelCleared -= handler;
+        }
+        yield return StartCoroutine(SelectCardObjectsCoroutine(cards, addToHand, waitTime, onSelected));
+    }
+
+    /// <summary>
+    ///  Adds multiple card GameObjects to the hand area, handling instancing and animated placement.
+    ///  Now private, use QueueAddCardObjects instead.
+    /// </summary>
+    private System.Collections.IEnumerator AddCardObjectsCoroutine(List<GameObject> cardPrefabs, float waitTime = 1f)
     {
         // 1. Activate the cardPromptVeilAdd transform to black out background with fade in
         if (cardPromptVeilAdd != null)
@@ -43,25 +144,104 @@ public class CardManager : MonoBehaviour
             }
         }
 
-        // 2. Create the card object and set it to child of horizontalLayoutGroupAdd under cardPromptVeilAdd
+        // 2. Check layout group
         if (horizontalLayoutGroupAdd == null)
         {
             Debug.LogError("CardManager: horizontalLayoutGroupAdd not assigned!");
-            return;
+            yield break;
         }
-        GameObject newCard = Instantiate(go, horizontalLayoutGroupAdd);
-        var cardMaster = newCard.GetComponent<CardMaster>();
-        if (cardMaster == null) return;
-        newCard.transform.SetAsLastSibling();
 
-        // 3. DebriManager.ScatterUIPixels at position of each card's position by passing its UI anchored position (local to parent)
-        if (horizontalLayoutGroupAdd != null && newCard.TryGetComponent<RectTransform>(out var cardRect))
+        // 3. Instantiate all cards and add to layout group
+        List<GameObject> newCards = new List<GameObject>();
+        List<CardMaster> cardMasters = new List<CardMaster>();
+        foreach (var prefab in cardPrefabs)
         {
-            DebriManager.ScatterUIPixels(cardRect);
+            GameObject newCard = Instantiate(prefab, horizontalLayoutGroupAdd);
+            newCard.transform.SetAsLastSibling();
+            if (newCard.TryGetComponent<CardMaster>(out var cardMaster))
+            {
+                cardMasters.Add(cardMaster);
+            }
+            newCards.Add(newCard);
+
+            // DebriManager.ScatterUIPixels at position of each card's position by passing its UI anchored position (local to parent)
+            if (newCard.TryGetComponent<RectTransform>(out var cardRect))
+            {
+                DebriManager.ScatterUIPixels(cardRect);
+            }
         }
 
         // 4. Make cards stay at the center for waitTime to let players read cards
-        StartCoroutine(CardPromptSequence(newCard, cardMaster, waitTime));
+        yield return StartCoroutine(CardPromptSequenceMultiple(newCards, cardMasters, waitTime));
+    }
+
+    // Helper coroutine for multiple cards
+    private System.Collections.IEnumerator CardPromptSequenceMultiple(List<GameObject> newCards, List<CardMaster> cardMasters, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        bool finished = false;
+        System.Action onFinish = () => { finished = true; };
+        // Start the finish coroutine and wait for it to complete (veil hidden)
+        yield return StartCoroutine(FinishCardPromptMultipleWithCallback(newCards, cardMasters, GetLayoutRectTransform(), onFinish));
+        while (!finished)
+            yield return null;
+    }
+
+    // Helper: get the layout rect transform if available
+    private RectTransform GetLayoutRectTransform()
+    {
+        return horizontalLayoutGroupAdd != null ? horizontalLayoutGroupAdd.GetComponent<RectTransform>() : null;
+    }
+
+    // Helper: Finish and signal completion (waits for veil to be hidden)
+    private System.Collections.IEnumerator FinishCardPromptMultipleWithCallback(List<GameObject> newCards, List<CardMaster> cardMasters, RectTransform cardHolderRT, System.Action onFinish)
+    {
+        yield return StartCoroutine(FinishCardPromptMultiple(newCards, cardMasters, cardHolderRT));
+        // Wait for veil to be fully hidden (CanvasGroup alpha == 0 or inactive)
+        if (cardPromptVeilAdd != null)
+        {
+            var cg = cardPromptVeilAdd.GetComponent<CanvasGroup>();
+            float timeout = 2f; // safety timeout
+            float t = 0f;
+            while (cardPromptVeilAdd.gameObject.activeSelf && (cg == null || cg.alpha > 0.01f))
+            {
+                yield return null;
+                t += Time.unscaledDeltaTime;
+                if (t > timeout) break;
+            }
+        }
+        onFinish?.Invoke();
+    }
+
+    private System.Collections.IEnumerator FinishCardPromptMultiple(List<GameObject> newCards, List<CardMaster> cardMasters, RectTransform cardHolderRT)
+    {
+        yield return new WaitForSeconds(0.1f);
+        if (cardMasters != null && handArea != null)
+        {
+            foreach (var cardMaster in cardMasters)
+            {
+                if (cardMaster != null)
+                {
+                    var rt = cardMaster.GetComponent<RectTransform>();
+                    if (rt != null)
+                        rt.SetParent(handArea.rectTransform, true);
+                    handArea.MoveCardToHand(cardMaster, null);
+                }
+            }
+        }
+        if (cardHolderRT != null)
+        {
+            cardHolderRT.localScale = Vector3.one;
+            cardHolderRT.anchoredPosition = Vector2.zero;
+        }
+        if (cardPromptVeilAdd != null)
+        {
+            var cg = cardPromptVeilAdd.GetComponent<CanvasGroup>();
+            if (cg != null)
+                cg.DOFade(0f, 0.2f).OnComplete(() => cardPromptVeilAdd.gameObject.SetActive(false));
+            else
+                cardPromptVeilAdd.gameObject.SetActive(false);
+        }
     }
 
     private System.Collections.IEnumerator CardPromptSequence(GameObject newCard, CardMaster cardMaster, float waitTime)
@@ -220,11 +400,6 @@ public class CardManager : MonoBehaviour
     /// </summary>
     public static GameObject GetCardById(int cardId)
     {
-        if (instance == null || instance.cardDatabase == null)
-        {
-            Debug.LogError("CardManager: No instance or cardDatabase assigned!");
-            return null;
-        }
-        return instance.cardDatabase.GetCard(cardId);
+        return CardDatabase.GetCard(cardId);
     }
 }

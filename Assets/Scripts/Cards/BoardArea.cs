@@ -40,6 +40,27 @@ public class BoardArea : MonoBehaviour
     [Header("For test, mark ROOT as the left up most grid cell")]
     public List<CardMaster> roots = new List<CardMaster>();
 
+    /// <summary>
+    /// Returns a list of all CardMaster instances currently on the board (i.e., present in gridState and not null).
+    /// </summary>
+    public List<CardMaster> GetCardsOnBoard()
+    {
+        var cards = new List<CardMaster>();
+        if (gridState == null) return cards;
+        int rowCount = gridState.GetLength(0);
+        int colCount = gridState.GetLength(1);
+        for (int r = 0; r < rowCount; r++)
+        {
+            for (int c = 0; c < colCount; c++)
+            {
+                var card = gridState[r, c];
+                if (card != null)
+                    cards.Add(card);
+            }
+        }
+        return cards;
+    }
+
     private static bool isUpdateRootsRegistered = false;
     private CardMaster _lastDraggedCard;
     public CardMaster lastDraggedCard

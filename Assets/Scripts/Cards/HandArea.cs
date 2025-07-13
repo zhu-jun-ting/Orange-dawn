@@ -17,6 +17,15 @@ public class HandArea : MonoBehaviour
     [Header("Hand State")]
     public List<CardMaster> handCards = new List<CardMaster>();
 
+    /// <summary>
+    /// Returns a list of all CardMaster instances currently in the hand.
+    /// </summary>
+    public List<CardMaster> GetCardsOnHand()
+    {
+        // Return a copy to avoid external modification
+        return new List<CardMaster>(handCards);
+    }
+
     [Header("Discarded")]
     public List<CardMaster> discardedCards = new List<CardMaster>();
     public Transform DiscardedCardsParent; // Parent for discarded cards, if any
@@ -59,6 +68,14 @@ public class HandArea : MonoBehaviour
     {
         if (handCards.Contains(card))
             handCards.Remove(card);
+    }
+
+    public void DiscardCard(CardMaster card)
+    {
+        if (handCards.Contains(card)) handCards.Remove(card);
+        AddDiscardedCard(card);
+        // Optionally, reset the card if needed
+        card.Reset();
     }
 
     public bool ContainsCard(CardMaster card)

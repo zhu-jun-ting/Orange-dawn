@@ -19,10 +19,12 @@ public class ItemMaster : MonoBehaviour
     protected bool isDestroyed = false;
     protected Collider2D col2D;
     protected bool isInvulnerable = false;
+    private Vector3 originalScale;
 
     protected virtual void Awake()
     {
         col2D = GetComponent<Collider2D>();
+        originalScale = transform.localScale;
     }
 
     protected virtual void Start()
@@ -45,12 +47,12 @@ public class ItemMaster : MonoBehaviour
             c.a = 0f;
             sr.color = c;
         }
-        transform.localScale = Vector3.one * 0.7f;
+        transform.localScale = originalScale * 0.7f;
         // Disable collider during spawn tween
         if (col2D != null) col2D.enabled = false;
         DG.Tweening.Sequence seq = DG.Tweening.DOTween.Sequence();
-        seq.Append(transform.DOScale(Vector3.one * popScale, scaleDuration * 0.7f));
-        seq.Append(transform.DOScale(Vector3.one, scaleDuration * 0.6f));
+        seq.Append(transform.DOScale(originalScale * popScale, scaleDuration * 0.7f));
+        seq.Append(transform.DOScale(originalScale, scaleDuration * 0.6f));
         foreach (var sr in spriteRenderers)
         {
             seq.Join(sr.DOFade(1f, fadeDuration));
@@ -82,12 +84,23 @@ public class ItemMaster : MonoBehaviour
 
         OnHit(collision);
 
+        if (currentHits >= maxHits)
+        {
+            isDestroyed = true;
+            OnItemDestroyed(collision);
+            Destroy(gameObject);
+        }
 
     }
 
     public virtual void OnHit(Collision2D collision)
     {
         // override this method to add custom hit behavior
+    }
+
+    public virtual void OnItemDestroyed(Collision2D collision)
+    {
+        // override this method to add custom destroy behavior
     }
 
     public System.Collections.IEnumerator InvulnerabilityCoroutine()
@@ -101,5 +114,16 @@ public class ItemMaster : MonoBehaviour
     public void DestroySelf()
     {
         Destroy(gameObject);
+    }
+
+    // Show a local info tip above this item
+    public void ShowTip(string tip)
+    {
+        if (GameEvents.instance != null)
+        {
+            // Add a small vertical padding (e.g., 0.5 units above the item)
+            Vector2 pos = (Vector2)transform.position + new Vector2(0, 0.5f);
+            GameEvents.instance.ShowMessage(tip, GameEvents.MessageType.LocalInfo, pos);
+        }
     }
 }

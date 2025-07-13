@@ -75,6 +75,14 @@ public class GameSettings : MonoBehaviour
     public List<float> timeGrowth = new List<float> { 1f, 1f, 1f, 2f, 2f, 3f, -1f, -2f, 5f, -4f, 8f, -5f }; // Growth factors for time
     public List<float> coinGrowth = new List<float> { 10f, 10f, 10f, 20f, 20f, 30f, -10f, -20f, 30f, -40f, 20f, -50f }; // Growth factors for coin
 
+    public List<float> damageDecay = new List<float> { -1f, -1f, -1f, -2f, -2f, -3f, 1f, 2f, -5f, 4f, -8f, 5f }; // Decay factors for damage
+    public List<float> healthDecay = new List<float> { -2f, -3f, -2f, -1f, -5f, -6f, 2f, 5f, -8f, 8f, -15f, 9f }; // Decay factors for health
+    public List<float> speedDecay = new List<float> { -1f, -1f, -1f, -2f, -2f, -3f, 1f, 2f, -5f, 4f, -8f, 5f }; // Decay factors for speed
+    public List<float> manaDecay = new List<float> { -1f, -1f, -1f, -2f, -2f, -3f, 1f, 2f, -5f, 4f, -8f, 5f }; // Decay factors for mana
+    public List<float> probabilityDecay = new List<float> { -5f, -3f, -2f, -5f, -3f, -1f, 5f, 10f, -6f, 8f, -15f, 10f }; // Decay factors for probability
+    public List<float> timeDecay = new List<float> { -1f, -1f, -1f, -2f, -2f, -3f, 1f, 2f, -5f, 4f, -8f, 5f }; // Decay factors for time
+    public List<float> coinDecay = new List<float> { -10f, -10f, -10f, -20f, -20f, -30f, 10f, 20f, -30f, 40f, -20f, 50f }; // Decay factors for coin
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -139,7 +147,8 @@ public class GameSettings : MonoBehaviour
             ("AMOUNT", instance.amountIcon),
             ("PROBABILITY", instance.probabilityIcon),
             ("TIME", instance.timeIcon),
-            ("STAR", instance.starIcon), // Add STAR as a frame icon
+            ("STAR", instance.starIcon),
+            ("COIN", instance.coinIcon),
         };
         foreach (var b in bondFrames)
         {
@@ -191,6 +200,47 @@ public class GameSettings : MonoBehaviour
                 return instance.coinGrowth[Random.Range(0, instance.coinGrowth.Count)];
             default:
                 return 0f;
+        }
+    }
+
+    public static float Decay(CardMaster.NumberType numberType)
+    {
+        if (instance == null) return 0f;
+
+        switch (numberType)
+        {
+            case CardMaster.NumberType.Damage:
+                return instance.damageDecay[Random.Range(0, instance.damageDecay.Count)];
+            case CardMaster.NumberType.Health:
+                return instance.healthDecay[Random.Range(0, instance.healthDecay.Count)];
+            case CardMaster.NumberType.Speed:
+                return instance.speedDecay[Random.Range(0, instance.speedDecay.Count)];
+            case CardMaster.NumberType.Mana:
+                return instance.manaDecay[Random.Range(0, instance.manaDecay.Count)];
+            case CardMaster.NumberType.Probability:
+                return instance.probabilityDecay[Random.Range(0, instance.probabilityDecay.Count)];
+            case CardMaster.NumberType.Time:
+                return instance.timeDecay[Random.Range(0, instance.timeDecay.Count)];
+            case CardMaster.NumberType.Coin:
+                return instance.coinDecay[Random.Range(0, instance.coinDecay.Count)];
+            default:
+                return 0f;
+        }
+    }
+    
+    public static string GetConditionName(CardMaster.CardCondition cond)
+    {
+        switch (cond)
+        {
+            case CardMaster.CardCondition.IsFrail: return "Frail";
+            case CardMaster.CardCondition.IsFragile: return "Fragile";
+            case CardMaster.CardCondition.IsTemporary: return "Temporary";
+            case CardMaster.CardCondition.IsVolatile: return "Volatile";
+            case CardMaster.CardCondition.IsDecaying: return "Decaying";
+            case CardMaster.CardCondition.IsUndraggable: return "Undraggable";
+            case CardMaster.CardCondition.IsGrowing: return "Growing";
+            case CardMaster.CardCondition.IsPowerful: return "Powerful";
+            default: return cond.ToString();
         }
     }
 }

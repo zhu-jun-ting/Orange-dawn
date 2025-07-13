@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    [Header("Gun Settings")]
     public float damage = 100f;
     public float speed = 10f;
     public float recon = 4f;
@@ -13,6 +14,8 @@ public class Gun : MonoBehaviour
     public float critDamage = 2.0f; // critical hit damage multiplier
     public int penetrate = 0; // number of enemies a bullet can penetrate
     public float hit_back = 1f; // knockback effect on hit
+    public float tempDamage = 0f; // temporary damage, reset after each level cleared
+    public float tempSpeed = 0f; // temporary speed, reset after each level cleared
     public GameObject bulletPrefab;
     public GameObject shellPrefab;
     public GameObject owner; 
@@ -37,6 +40,11 @@ public class Gun : MonoBehaviour
         initialSpeed = speed;
         initialRecon = recon;
         initialInterval = interval;
+
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnLevelCleared += ResetTemp; 
+        }
     }
 
     protected virtual void Start()
@@ -45,6 +53,8 @@ public class Gun : MonoBehaviour
         muzzlePos = transform.Find("Muzzle");
         shellPos = transform.Find("BulletShell");
         flipY = transform.localScale.y;
+
+        // Reset temporary stats when a level is cleared
     }
 
     protected virtual void Update()
@@ -57,6 +67,20 @@ public class Gun : MonoBehaviour
             transform.localScale = new Vector3(flipY, flipY, 1);
 
         Shoot();
+    }
+
+    public void ResetTemp()
+    {
+        tempDamage = 0f;
+        tempSpeed = 0f;
+    }
+
+    public void OnDisable()
+    {
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnLevelCleared -= ResetTemp; 
+        }
     }
 
     protected virtual void Shoot()
@@ -94,14 +118,16 @@ public class Gun : MonoBehaviour
             if (gunBullet != null)
             {
                 gunBullet.trigger_tags.Add("Enemy");
-                gunBullet.att = damage;
+                gunBullet.att = damage + tempDamage;
                 gunBullet.hit_back = hit_back;
+                gunBullet.critChance = critChance;
+                gunBullet.critDamage = critDamage;
                 gunBullet.SetOwner(gameObject);
                 gunBullet.gun = this;
                 // gunBullet.AddIgnore("Player, NPC"); // Ignore self
 
                 float angel = Random.Range(-recon, recon);
-                bullet.GetComponent<GunBullet>().SetSpeed(Quaternion.AngleAxis(angel, Vector3.forward) * direction, speed);
+                bullet.GetComponent<GunBullet>().SetSpeed(Quaternion.AngleAxis(angel, Vector3.forward) * direction, speed + tempSpeed);
 
                 // Instantiate(shellPrefab, shellPos.position, shellPos.rotation);
                 GameObject shell = ObjectPool.Instance.GetObject(shellPrefab);
@@ -123,7 +149,7 @@ public class Gun : MonoBehaviour
                 if (gunBullet != null)
                 {
                     gunBullet.trigger_tags.Add("Enemy");
-                    gunBullet.att = damage;
+                    gunBullet.att = damage + tempDamage;
                     gunBullet.hit_back = hit_back;
                     gunBullet.SetOwner(gameObject);
                     gunBullet.gun = this;
@@ -135,11 +161,11 @@ public class Gun : MonoBehaviour
 
                     if (bulletNum % 2 == 1)
                     {
-                        gunBullet.SetSpeed(Quaternion.AngleAxis(bulletAngle * (i - median), Vector3.forward) * direction, speed);
+                        gunBullet.SetSpeed(Quaternion.AngleAxis(bulletAngle * (i - median), Vector3.forward) * direction, speed + tempSpeed);
                     }
                     else
                     {
-                        gunBullet.SetSpeed(Quaternion.AngleAxis(bulletAngle * (i - median) + bulletAngle / 2, Vector3.forward) * direction, speed);
+                        gunBullet.SetSpeed(Quaternion.AngleAxis(bulletAngle * (i - median) + bulletAngle / 2, Vector3.forward) * direction, speed + tempSpeed);
                     }
                 }
             }

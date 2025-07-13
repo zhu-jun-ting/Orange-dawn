@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +8,13 @@ public class CombatManager : MonoBehaviour
 
 {
     private int kill_count = 0;
+    [Header("Global Settings")]
+    [SerializeField] private bool _isInBattle = false;
+    public static bool isInBattle
+    {
+        get => instance != null ? instance._isInBattle : false;
+        set { if (instance != null) instance._isInBattle = value; }
+    }// Global flag to indicate if the game is in battle mode
 
     [Header("spawn objects")]
     public List<GameObject> enemy_types;
@@ -25,10 +30,38 @@ public class CombatManager : MonoBehaviour
     public bool is_spawning;
 
     [Header("dropping objects")]
-
     public List<GameObject> drops;
     public List<float> drop_chances;
-    private Dictionary<float, GameObject> random_drops; // TODO: unity can not serialize this, maybe setup another structure
+
+
+    public enum DropItems
+    {
+        Health,
+        Exp,
+        Coin,
+        Mana
+    }
+    [Serializable]
+    public class DropItemPrefab
+    {
+        public DropItems dropType;
+        public GameObject prefab;
+    }
+
+    [Header("Drop Prefabs")]
+    public List<DropItemPrefab> dropPrefabs = new List<DropItemPrefab>();
+
+    private Dictionary<DropItems, GameObject> dropPrefabDict;
+
+    private void Awake()
+    {
+        dropPrefabDict = new Dictionary<DropItems, GameObject>();
+        foreach (var item in dropPrefabs)
+        {
+            if (!dropPrefabDict.ContainsKey(item.dropType))
+                dropPrefabDict.Add(item.dropType, item.prefab);
+        }
+    }
 
     [Header("dropping paramters")]
     public float drop_radius;
@@ -232,13 +265,26 @@ public class CombatManager : MonoBehaviour
                 GameObject drop = drops[i];
                 var drop_obj = Instantiate(drop, initial_location, Quaternion.identity);
                 Vector2 end_location = GetRandomLocationInCircle(initial_location, drop_radius);
-                seq.Join(drop_obj.transform.DOMove(end_location, 1f));
-                // Debug.Log("Spawned drop: " + drop.name + " at " + end_location);
+                seq.Join(drop_obj.transform.DOJump(end_location, 0.5f, 1, 1f)); // 0.5f is the jump power (small lift)    // Debug.Log("Spawned drop: " + drop.name + " at " + end_location);
             }
         }
     }
 
-
+    // Spawns a specific drop item type, amount times, from a given location
+    public void SpawnDrop(DropItems item, Transform location, int amount = 1)
+    {
+        if (dropPrefabDict == null || !dropPrefabDict.ContainsKey(item) || location == null) return;
+        GameObject prefab = dropPrefabDict[item];
+        if (prefab == null) return;
+        Vector2 initial_location = location.position;
+        var seq = DOTween.Sequence();
+        for (int i = 0; i < amount; i++)
+        {
+            var drop_obj = Instantiate(prefab, initial_location, Quaternion.identity);
+            Vector2 end_location = GetRandomLocationInCircle(initial_location, drop_radius);
+            seq.Join(drop_obj.transform.DOJump(end_location, 0.5f, 1, 1f));
+        }
+    }
 
 
     // -------- Spawn Logics --------

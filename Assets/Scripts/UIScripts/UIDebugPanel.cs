@@ -41,12 +41,14 @@ public class UIDebugPanel : MonoBehaviour
 
     public void AddCardObject()
     {
-        CardManager.instance.AddCardObject(debugCardMasterPrefab1); 
+        CardManager.instance.QueueAddCardObjects(new List<GameObject> { debugCardMasterPrefab1 }); 
+        CardManager.instance.QueueAddCardObjects(new List<GameObject> { debugCardMasterPrefab1 }); 
     }
 
     public void AddCardObjects()
     {
-        CardManager.instance.SelectCardObjects(new List<GameObject> { debugCardMasterPrefab1, debugCardMasterPrefab2, debugCardMasterPrefab3 }); 
+        CardManager.instance.QueueSelectCardObjects(new List<GameObject> { debugCardMasterPrefab1, debugCardMasterPrefab2, debugCardMasterPrefab3 }); 
+        CardManager.instance.QueueSelectCardObjects(new List<GameObject> { debugCardMasterPrefab1, debugCardMasterPrefab2, debugCardMasterPrefab3 }); 
     }
 
     public void ExecuteMethodFromInput()

@@ -115,6 +115,7 @@ public class CardMaster : MonoBehaviour
         IsTemporary, // If true, card is auto-destroyed after turn ends
         IsVolatile, // If true, card may change to another card after turn ends
         IsGrowing, // If true, card's values grow randomly each turn (possibly negative)
+        IsDecaying, // If true, card's values decay randomly each turn (possibly negative)
     }
 
 
@@ -285,6 +286,12 @@ public class CardMaster : MonoBehaviour
             var cardCommon = GetComponent<CardCommon>();
             if (cardCommon != null) cardCommon.ShowPopup($"{type}: {sign}{value} {isPermanent}");
         }
+    }
+
+    public void ShowPopup(string message)
+    {
+        var cardCommon = GetComponent<CardCommon>();
+        if (cardCommon != null) cardCommon.ShowPopup(message);
     }
 
     /// <summary>
@@ -508,7 +515,7 @@ public class CardMaster : MonoBehaviour
         // Add to hand
         if (HandArea.instance != null)
         {
-            CardManager.instance.AddCardObject(this.gameObject);
+            CardManager.instance.QueueAddCardObjects(new List<GameObject> { this.gameObject });
         }
         else
         {
@@ -569,7 +576,7 @@ public class CardMaster : MonoBehaviour
             var db = Resources.Load<CardDatabase>("CardDatabase");
             if (db != null)
             {
-                var candidates = db.FindCards(card => card.card_rarity == this.card_rarity && card.card_id != this.card_id);
+                var candidates = CardDatabase.FindCards(card => card.card_rarity == this.card_rarity && card.card_id != this.card_id);
                 if (candidates != null && candidates.Count > 0)
                 {
                     var prefab = candidates[UnityEngine.Random.Range(0, candidates.Count)];
@@ -590,7 +597,6 @@ public class CardMaster : MonoBehaviour
         }
         if (card_conditions != null && card_conditions.Contains(CardCondition.IsGrowing))
         {
-            // Randomly change values by -1 to 1
             if (numberTypesCanBeModified.Contains(NumberType.Damage)) damage += GameSettings.Growth(NumberType.Damage);
             if (numberTypesCanBeModified.Contains(NumberType.Health)) health += GameSettings.Growth(NumberType.Health);
             if (numberTypesCanBeModified.Contains(NumberType.Probability)) probability += GameSettings.Growth(NumberType.Probability);
@@ -599,6 +605,19 @@ public class CardMaster : MonoBehaviour
             if (numberTypesCanBeModified.Contains(NumberType.Speed)) speed += GameSettings.Growth(NumberType.Speed);
             if (numberTypesCanBeModified.Contains(NumberType.Time)) time += GameSettings.Growth(NumberType.Time);
             if (numberTypesCanBeModified.Contains(NumberType.Coin)) coin += GameSettings.Growth(NumberType.Coin);
+        }
+        // Decaying: update values randomly
+        // based on GameSettings, if it exists; values should be modified in GameSettings.Decay()
+        if (card_conditions != null && card_conditions.Contains(CardCondition.IsDecaying))
+        {
+            if (numberTypesCanBeModified.Contains(NumberType.Damage)) damage += GameSettings.Decay(NumberType.Damage);
+            if (numberTypesCanBeModified.Contains(NumberType.Health)) health += GameSettings.Decay(NumberType.Health);
+            if (numberTypesCanBeModified.Contains(NumberType.Probability)) probability += GameSettings.Decay(NumberType.Probability);
+            if (numberTypesCanBeModified.Contains(NumberType.Amount)) amount += GameSettings.Decay(NumberType.Amount);
+            if (numberTypesCanBeModified.Contains(NumberType.Mana)) mana += GameSettings.Decay(NumberType.Mana);
+            if (numberTypesCanBeModified.Contains(NumberType.Speed)) speed += GameSettings.Decay(NumberType.Speed);
+            if (numberTypesCanBeModified.Contains(NumberType.Time)) time += GameSettings.Decay(NumberType.Time);
+            if (numberTypesCanBeModified.Contains(NumberType.Coin)) coin += GameSettings.Decay(NumberType.Coin);
         }
     }
 
@@ -682,31 +701,48 @@ public class CardMaster : MonoBehaviour
     public virtual void OnCardDestroyed()
     {
 
-        // --- DOTween Effect: Dissolve before moving card away ---
+        // // --- DOTween Effect: Dissolve before moving card away ---
         var canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
-        // Try to find a material with a _DissolveAmount property
-        var renderer = GetComponent<UnityEngine.UI.Image>() ?? (Component)GetComponent<SpriteRenderer>();
-        Material mat = null;
-        if (renderer is UnityEngine.UI.Image img && img.material.HasProperty("_DissolveAmount"))
-            mat = img.material;
-        else if (renderer is SpriteRenderer sr && sr.material.HasProperty("_DissolveAmount"))
-            mat = sr.material;
-        // If dissolve material found, animate dissolve
-        if (mat != null)
-        {
-            DissolveAllImagesAndTMPs(gameObject, destroyEffectDuration);
-        }
-        else
-        {
-            // fallback: fade out
-            canvasGroup.DOFade(0f, destroyEffectDuration).SetEase(Ease.InQuad);
-        }
-        // Optionally scale up for extra feedback
-        transform.DOScale(1.6f, destroyEffectDuration).SetEase(Ease.InQuad);
-        canvasGroup.DOFade(0f, destroyEffectDuration).SetEase(Ease.InQuad);
-        // Wait for the effect to finish before moving far away
-        DOVirtual.DelayedCall(destroyEffectDuration, () =>
+        // // Try to find a material with a _DissolveAmount property
+        // var renderer = GetComponent<UnityEngine.UI.Image>() ?? (Component)GetComponent<SpriteRenderer>();
+        // Material mat = null;
+        // if (renderer is UnityEngine.UI.Image img && img.material.HasProperty("_DissolveAmount"))
+        //     mat = img.material;
+        // else if (renderer is SpriteRenderer sr && sr.material.HasProperty("_DissolveAmount"))
+        //     mat = sr.material;
+        // // If dissolve material found, animate dissolve
+        // if (mat != null)
+        // {
+        //     DissolveAllImagesAndTMPs(gameObject, destroyEffectDuration);
+        // }
+        // else
+        // {
+        //     // fallback: fade out
+        //     canvasGroup.DOFade(0f, destroyEffectDuration).SetEase(Ease.InQuad);
+        // }
+
+
+        // DOTween destroy effect sequence:
+        // 1. Rotate shake for 0.5s
+        // 2. Wait for 0.5s
+        // 3. Scale up and fade out
+        // 4. Move far away
+
+        float shakeDuration = 0.5f;
+        float waitDuration = 0.5f;
+        float scaleFadeDuration = destroyEffectDuration;
+
+        Sequence destroySeq = DOTween.Sequence();
+        // 1. Rotate shake
+        destroySeq.Append(transform.DOShakeRotation(shakeDuration, strength: new UnityEngine.Vector3(0, 0, 20), vibrato: 50, randomness: 90, fadeOut: true));
+        // 2. Wait
+        destroySeq.AppendInterval(waitDuration);
+        // 3. Scale up and fade out
+        destroySeq.Append(transform.DOScale(1.6f, scaleFadeDuration).SetEase(Ease.InQuad));
+        destroySeq.Join(canvasGroup.DOFade(0f, scaleFadeDuration).SetEase(Ease.InQuad));
+        // 4. Move far away after sequence
+        destroySeq.OnComplete(() =>
         {
             this.transform.position = new UnityEngine.Vector3(10000, 10000, 10000);
             // Move this card to the hand area before destroying
@@ -720,98 +756,105 @@ public class CardMaster : MonoBehaviour
         // do something when the card is destroyed
         OnThisCardDestroyed?.Invoke();
 
-        // Remove references from linked cards before destroying this card
-        // Up
-        if (up_link_cardmaster != null && up_link_cardmaster.down_link_cardmaster == this)
+        if (gridLocation != null && gridLocation.x >= 0 && gridLocation.y >= 0)
         {
-            up_link_cardmaster.down_link_cardmaster = null;
-            // Set up link visual to black 0.5 transparent
-            up_link_cardmaster.SetLinkHalfTransparentBlack("down");
-            this.SetLinkHalfTransparentBlack("up");
-            up_link_cardmaster = null;
-        }
-        // Down
-        if (down_link_cardmaster != null && down_link_cardmaster.up_link_cardmaster == this)
-        {
-            down_link_cardmaster.up_link_cardmaster = null;
-            down_link_cardmaster.SetLinkHalfTransparentBlack("up");
-            this.SetLinkHalfTransparentBlack("down");
-            down_link_cardmaster = null;
-        }
-        // Left
-        if (left_link_cardmaster != null && left_link_cardmaster.right_link_cardmaster == this)
-        {
-            left_link_cardmaster.right_link_cardmaster = null;
-            left_link_cardmaster.SetLinkHalfTransparentBlack("right");
-            this.SetLinkHalfTransparentBlack("left");
-            left_link_cardmaster = null;
-        }
-        // Right
-        if (right_link_cardmaster != null && right_link_cardmaster.left_link_cardmaster == this)
-        {
-            right_link_cardmaster.left_link_cardmaster = null;
-            right_link_cardmaster.SetLinkHalfTransparentBlack("left");
-            this.SetLinkHalfTransparentBlack("right");
-            right_link_cardmaster = null;
-        }
-        // --- Remove all board references like dragging off board ---
-        if (BoardArea.instance != null && BoardArea.instance.gridState != null)
-        {
-            var grid = BoardArea.instance.gridState;
-            int rows = BoardArea.instance.rows;
-            int cols = BoardArea.instance.columns;
-            // Find this card's position on the board
-            for (int row = 0; row < rows; row++)
+            // Remove references from linked cards before destroying this card
+            // Up
+            if (up_link_cardmaster != null && up_link_cardmaster.down_link_cardmaster == this)
             {
-                for (int col = 0; col < cols; col++)
+                up_link_cardmaster.down_link_cardmaster = null;
+                // Set up link visual to black 0.5 transparent
+                up_link_cardmaster.SetLinkHalfTransparentBlack("down");
+                this.SetLinkHalfTransparentBlack("up");
+                up_link_cardmaster = null;
+            }
+            // Down
+            if (down_link_cardmaster != null && down_link_cardmaster.up_link_cardmaster == this)
+            {
+                down_link_cardmaster.up_link_cardmaster = null;
+                down_link_cardmaster.SetLinkHalfTransparentBlack("up");
+                this.SetLinkHalfTransparentBlack("down");
+                down_link_cardmaster = null;
+            }
+            // Left
+            if (left_link_cardmaster != null && left_link_cardmaster.right_link_cardmaster == this)
+            {
+                left_link_cardmaster.right_link_cardmaster = null;
+                left_link_cardmaster.SetLinkHalfTransparentBlack("right");
+                this.SetLinkHalfTransparentBlack("left");
+                left_link_cardmaster = null;
+            }
+            // Right
+            if (right_link_cardmaster != null && right_link_cardmaster.left_link_cardmaster == this)
+            {
+                right_link_cardmaster.left_link_cardmaster = null;
+                right_link_cardmaster.SetLinkHalfTransparentBlack("left");
+                this.SetLinkHalfTransparentBlack("right");
+                right_link_cardmaster = null;
+            }
+            // --- Remove all board references like dragging off board ---
+            if (BoardArea.instance != null && BoardArea.instance.gridState != null)
+            {
+                var grid = BoardArea.instance.gridState;
+                int rows = BoardArea.instance.rows;
+                int cols = BoardArea.instance.columns;
+                // Find this card's position on the board
+                for (int row = 0; row < rows; row++)
                 {
-                    if (grid[row, col] == this)
+                    for (int col = 0; col < cols; col++)
                     {
-                        // Up
-                        if (row > 0)
+                        if (grid[row, col] == this)
                         {
-                            var upCard = grid[row - 1, col];
-                            if (upCard != null && upCard.down_link_cardmaster == this)
+                            // Up
+                            if (row > 0)
                             {
-                                upCard.down_link_cardmaster = null;
-                                this.up_link_cardmaster = null;
+                                var upCard = grid[row - 1, col];
+                                if (upCard != null && upCard.down_link_cardmaster == this)
+                                {
+                                    upCard.down_link_cardmaster = null;
+                                    this.up_link_cardmaster = null;
+                                }
                             }
-                        }
-                        // Down
-                        if (row < rows - 1)
-                        {
-                            var downCard = grid[row + 1, col];
-                            if (downCard != null && downCard.up_link_cardmaster == this)
+                            // Down
+                            if (row < rows - 1)
                             {
-                                downCard.up_link_cardmaster = null;
-                                this.down_link_cardmaster = null;
+                                var downCard = grid[row + 1, col];
+                                if (downCard != null && downCard.up_link_cardmaster == this)
+                                {
+                                    downCard.up_link_cardmaster = null;
+                                    this.down_link_cardmaster = null;
+                                }
                             }
-                        }
-                        // Left
-                        if (col > 0)
-                        {
-                            var leftCard = grid[row, col - 1];
-                            if (leftCard != null && leftCard.right_link_cardmaster == this)
+                            // Left
+                            if (col > 0)
                             {
-                                leftCard.right_link_cardmaster = null;
-                                this.left_link_cardmaster = null;
+                                var leftCard = grid[row, col - 1];
+                                if (leftCard != null && leftCard.right_link_cardmaster == this)
+                                {
+                                    leftCard.right_link_cardmaster = null;
+                                    this.left_link_cardmaster = null;
+                                }
                             }
-                        }
-                        // Right
-                        if (col < cols - 1)
-                        {
-                            var rightCard = grid[row, col + 1];
-                            if (rightCard != null && rightCard.left_link_cardmaster == this)
+                            // Right
+                            if (col < cols - 1)
                             {
-                                rightCard.left_link_cardmaster = null;
-                                this.right_link_cardmaster = null;
+                                var rightCard = grid[row, col + 1];
+                                if (rightCard != null && rightCard.left_link_cardmaster == this)
+                                {
+                                    rightCard.left_link_cardmaster = null;
+                                    this.right_link_cardmaster = null;
+                                }
                             }
+                            BoardArea.instance.ClearCell(row, col);
+                            break;
                         }
-                        BoardArea.instance.ClearCell(row, col);
-                        break;
                     }
                 }
             }
+        }
+        else if (gridLocation.x < 0 || gridLocation.y < 0)
+        {
+            HandArea.instance?.DiscardCard(this);
         }
         CardDragHandler.TriggerUpdateCards();
     }

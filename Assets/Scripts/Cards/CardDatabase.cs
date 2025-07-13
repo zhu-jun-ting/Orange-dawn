@@ -4,6 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardDatabase", menuName = "Cards/CardDatabase")]
 public class CardDatabase : ScriptableObject
 {
+    public static CardDatabase instance;
+
+    private void OnEnable()
+    {
+        instance = this;
+    }
     [System.Serializable]
     public class CardEntry
     {
@@ -28,18 +34,24 @@ public class CardDatabase : ScriptableObject
         }
     }
 
-    public GameObject GetCard(int cardId)
+
+    // Static version: requires a CardDatabase instance as parameter
+    public static GameObject GetCard(int cardId)
     {
-        Init();
-        _lookup.TryGetValue(cardId, out var prefab);
+        if (instance == null) return null;
+        instance.Init();
+        instance._lookup.TryGetValue(cardId, out var prefab);
         return prefab;
     }
 
     // Find all cards matching a predicate
-    public List<GameObject> FindCards(System.Func<CardMaster, bool> predicate)
+
+    // Static version: requires a CardDatabase instance as parameter
+    public static List<GameObject> FindCards(System.Func<CardMaster, bool> predicate)
     {
         var result = new List<GameObject>();
-        foreach (var entry in cards)
+        if (instance == null || instance.cards == null) return result;
+        foreach (var entry in instance.cards)
         {
             if (entry.cardPrefab == null) continue;
             var cardMaster = entry.cardPrefab.GetComponent<CardMaster>();
