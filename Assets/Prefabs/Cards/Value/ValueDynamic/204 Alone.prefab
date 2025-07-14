@@ -1,0 +1,214 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2999918353576019956
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 829733966923306386, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829733966923306386, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829733966923306386, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829733966923306386, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 894.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 95.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482860082225158495, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551646718004938723, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551646718004938723, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551646718004938723, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551646718004938723, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818380662985413118, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_Name
+      value: 204 Alone
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6306413869884554886}
+  m_SourcePrefab: {fileID: 100100000, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+--- !u!1 &6658401908579154275 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+  m_PrefabInstance: {fileID: 2999918353576019956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6306413869884554886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6658401908579154275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81dec1e428c04e149b8dad95ea19432a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card_icon: {fileID: 0}
+  card_id: 204
+  card_name: Alone
+  card_cost: 26
+  card_sell_price: 8
+  card_description: "increment by {0} for each empty STAR slots\nDamage: \xD7{1}"
+  uiStarPositions:
+  - {x: -1, y: 0}
+  - {x: 1, y: 0}
+  - {x: 0, y: -1}
+  - {x: 0, y: 1}
+  numberTypesCanBeModified: 
+  current_gun: {fileID: 0}
+  useRandomLinks: 1
+  linkCount: 3
+  up_link_enabled: 0
+  up_link_type: 0
+  up_link_cardmaster: {fileID: 0}
+  left_link_enabled: 0
+  left_link_type: 0
+  left_link_cardmaster: {fileID: 0}
+  right_link_enabled: 0
+  right_link_type: 0
+  right_link_cardmaster: {fileID: 0}
+  down_link_enabled: 0
+  down_link_type: 0
+  down_link_cardmaster: {fileID: 0}
+  is_free_card: 0
+  is_root: 0
+  card_type: 2
+  card_rarity: 1
+  card_bonds: 
+  card_conditions: 
+  damage: 0
+  health: 0
+  probability: 0
+  amount: 0
+  mana: 0
+  coin: 0
+  default_damage: 0
+  default_health: 0
+  default_probability: 0
+  default_amount: 0
+  default_mana: 0
+  default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
+  myNumTypes: 
+  gridLocation: {x: -1, y: -1}
+  instance: {fileID: 0}
+  increment: 0.5

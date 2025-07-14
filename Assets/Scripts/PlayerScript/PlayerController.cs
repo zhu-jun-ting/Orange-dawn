@@ -1,4 +1,3 @@
-
 using System.Security.AccessControl;
 using System.Collections;
 using System.Collections.Generic;
@@ -91,6 +90,7 @@ public class PlayerController : PawnMaster
             animator.SetBool("isRunning", false);
             animator.SetBool("isCharging", false);
         }
+        isPlayer = true; // Set this pawn as player
     }
 
     // Start is called before the first frame update
@@ -155,13 +155,14 @@ public class PlayerController : PawnMaster
         }
     }
 
-    private void OnDisable()
+    public override void OnDisable()
     {
         if (InputManager.Instance != null)
         {
             InputManager.Instance.OnMove -= HandleMove;
             InputManager.Instance.OnPause -= HandlePause;
         }
+        base.OnDisable();
     }
 
     // use the variables about fire_aoe and update the scale, damage of the AOE
@@ -405,9 +406,6 @@ public class PlayerController : PawnMaster
         myRender.enabled = true;
     }
 
-    [SerializeField] private GameObject afterimagePrefab;
-    private Coroutine dashShadowCoroutine;
-
 
 
 
@@ -421,5 +419,12 @@ public class PlayerController : PawnMaster
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
+    }
+
+    public static void ShowPopup(string message)
+    {
+        if (instance == null || GameEvents.instance == null) return;
+        Vector2 popupPos = (Vector2)instance.transform.position + new Vector2(0, 2f); // 2 units above player
+        GameEvents.instance.ShowMessage(message, GameEvents.MessageType.LocalInfo, popupPos);
     }
 }

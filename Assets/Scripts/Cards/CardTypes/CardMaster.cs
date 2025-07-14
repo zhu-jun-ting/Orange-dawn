@@ -68,8 +68,6 @@ public class CardMaster : MonoBehaviour
         Probability,
         Amount,
         Mana,
-        Speed,
-        Time, 
         Coin
     }
 
@@ -154,8 +152,6 @@ public class CardMaster : MonoBehaviour
     public float probability = 0f; // Probability value of the card, used for dodge or crit chance
     public float amount = 0f; // Amount value of the card, used for amount cards
     public float mana = 0f; // Mana value of the card, used for mana cards
-    public float speed = 0f; // Speed value of the card, used for speed cards
-    public float time = 0f; // Time value of the card, used for time cards
     public float coin = 0f; // Coin value of the card, used for coin cards
 
     // Default values for permanent stat changes
@@ -164,9 +160,15 @@ public class CardMaster : MonoBehaviour
     [HideInInspector] public float default_probability;
     [HideInInspector] public float default_amount;
     [HideInInspector] public float default_mana;
-    [HideInInspector] public float default_speed;
-    [HideInInspector] public float default_time;
     [HideInInspector] public float default_coin;
+
+    // Temp values for only one level, clear after level is cleared
+    [HideInInspector] public float temp_damage = 0f;
+    [HideInInspector] public float temp_health = 0f;
+    [HideInInspector] public float temp_probability = 0f;
+    [HideInInspector] public float temp_amount = 0f;
+    [HideInInspector] public float temp_mana = 0f;
+    [HideInInspector] public float temp_coin = 0f;
     [HideInInspector] public List<NumberType> myNumTypes = new List<NumberType>();
 
     /// <summary>
@@ -210,16 +212,6 @@ public class CardMaster : MonoBehaviour
                     if (isPermanent) default_mana *= value;
                     ShowPopupOnUpdateValue(source, value, "Mana", "x", isPermanent ? "Permanent" : "");
                     return true;
-                case NumberType.Speed:
-                    speed *= value;
-                    if (isPermanent) default_speed *= value;
-                    ShowPopupOnUpdateValue(source, value, "Speed", "x", isPermanent ? "Permanent" : "");
-                    return true;
-                case NumberType.Time:
-                    time *= value;
-                    if (isPermanent) default_time *= value;
-                    ShowPopupOnUpdateValue(source, value, "Time", "x", isPermanent ? "Permanent" : "");
-                    return true;
                 case NumberType.Coin:
                     coin *= value;
                     if (isPermanent) default_coin *= value;
@@ -256,16 +248,6 @@ public class CardMaster : MonoBehaviour
                     mana += value;
                     if (isPermanent) default_mana += value;
                     ShowPopupOnUpdateValue(source, value, "Mana", "+", isPermanent ? "Permanent" : "");
-                    return true;
-                case NumberType.Speed:
-                    speed += value;
-                    if (isPermanent) default_speed += value;
-                    ShowPopupOnUpdateValue(source, value, "Speed", "+", isPermanent ? "Permanent" : "");
-                    return true;
-                case NumberType.Time:
-                    time += value;
-                    if (isPermanent) default_time += value;
-                    ShowPopupOnUpdateValue(source, value, "Time", "+", isPermanent ? "Permanent" : "");
                     return true;
                 case NumberType.Coin:
                     coin += value;
@@ -315,8 +297,6 @@ public class CardMaster : MonoBehaviour
         default_probability = probability;
         default_amount = amount;
         default_mana = mana;
-        default_speed = speed;
-        default_time = time;
         default_coin = coin;
 
         if (damage != 0) myNumTypes.Add(NumberType.Damage);
@@ -324,8 +304,6 @@ public class CardMaster : MonoBehaviour
         if (probability != 0) myNumTypes.Add(NumberType.Probability);
         if (amount != 0) myNumTypes.Add(NumberType.Amount);
         if (mana != 0) myNumTypes.Add(NumberType.Mana);
-        if (speed != 0) myNumTypes.Add(NumberType.Speed);
-        if (time != 0) myNumTypes.Add(NumberType.Time);
         if (coin != 0) myNumTypes.Add(NumberType.Coin);
 
         OnLateUpdateCardValues += UpdateCardConditions;
@@ -378,8 +356,6 @@ public class CardMaster : MonoBehaviour
                 (NumberType.Probability, probability),
                 (NumberType.Amount, amount),
                 (NumberType.Mana, mana),
-                (NumberType.Speed, speed),
-                (NumberType.Time, time),
                 (NumberType.Coin, coin)
             };
             foreach (var (nType, nValue) in valuePairs)
@@ -390,7 +366,7 @@ public class CardMaster : MonoBehaviour
                     {
                         if (link != null)
                         {
-                            if (link.card_type == CardType.Gun) 
+                            if (link.card_type == CardType.Gun)
                             {
                                 // If the link is a gun card, we should apply the buff at the very end
                                 CardMaster.OnApplyValuesToGuns += () => link.UpdateNumberValue(nType, nValue, this);
@@ -422,15 +398,13 @@ public class CardMaster : MonoBehaviour
         probability = default_probability;
         amount = default_amount;
         mana = default_mana;
-        speed = default_speed;
-        time = default_time;
         coin = default_coin;
         ClearUpdateSources();
     }
 
     // (Removed duplicate UpdateNumberValue and UpdateSelfNumberValue)
 
-    public BuffEntry AddBuffEntry(string buffName, string buffDescription, int order = 0) 
+    public BuffEntry AddBuffEntry(string buffName, string buffDescription, int order = 0)
     {
         var cardCommon = GetComponent<CardCommon>();
         if (cardCommon != null) return cardCommon.AddBuffDescription(buffName, buffDescription, order);
@@ -455,8 +429,6 @@ public class CardMaster : MonoBehaviour
             probability,
             amount,
             mana,
-            speed,
-            time,
             coin
         };
         for (int i = 0; i < numberTypes.Count; i++)
@@ -469,8 +441,6 @@ public class CardMaster : MonoBehaviour
                 case NumberType.Probability: val = probability; break;
                 case NumberType.Amount: val = amount; break;
                 case NumberType.Mana: val = mana; break;
-                case NumberType.Speed: val = speed; break;
-                case NumberType.Time: val = time; break;
                 case NumberType.Coin: val = coin; break;
             }
             sb.AppendFormat("{0}: {1}", numberTypes[i], val);
@@ -602,8 +572,6 @@ public class CardMaster : MonoBehaviour
             if (numberTypesCanBeModified.Contains(NumberType.Probability)) probability += GameSettings.Growth(NumberType.Probability);
             if (numberTypesCanBeModified.Contains(NumberType.Amount)) amount += GameSettings.Growth(NumberType.Amount);
             if (numberTypesCanBeModified.Contains(NumberType.Mana)) mana += GameSettings.Growth(NumberType.Mana);
-            if (numberTypesCanBeModified.Contains(NumberType.Speed)) speed += GameSettings.Growth(NumberType.Speed);
-            if (numberTypesCanBeModified.Contains(NumberType.Time)) time += GameSettings.Growth(NumberType.Time);
             if (numberTypesCanBeModified.Contains(NumberType.Coin)) coin += GameSettings.Growth(NumberType.Coin);
         }
         // Decaying: update values randomly
@@ -615,8 +583,6 @@ public class CardMaster : MonoBehaviour
             if (numberTypesCanBeModified.Contains(NumberType.Probability)) probability += GameSettings.Decay(NumberType.Probability);
             if (numberTypesCanBeModified.Contains(NumberType.Amount)) amount += GameSettings.Decay(NumberType.Amount);
             if (numberTypesCanBeModified.Contains(NumberType.Mana)) mana += GameSettings.Decay(NumberType.Mana);
-            if (numberTypesCanBeModified.Contains(NumberType.Speed)) speed += GameSettings.Decay(NumberType.Speed);
-            if (numberTypesCanBeModified.Contains(NumberType.Time)) time += GameSettings.Decay(NumberType.Time);
             if (numberTypesCanBeModified.Contains(NumberType.Coin)) coin += GameSettings.Decay(NumberType.Coin);
         }
     }
@@ -635,7 +601,7 @@ public class CardMaster : MonoBehaviour
             }
         }
         return UIStar.StarType.White;
-    } 
+    }
 
     public void UpdateUIStars(UnityEngine.Vector2Int thisCardPosition = default)
     {
@@ -668,7 +634,7 @@ public class CardMaster : MonoBehaviour
             }
         }
     }
-    
+
     public void DissolveAllImagesAndTMPs(GameObject root, float duration)
     {
         var images = root.GetComponentsInChildren<UnityEngine.UI.Image>(true);
@@ -859,13 +825,13 @@ public class CardMaster : MonoBehaviour
         CardDragHandler.TriggerUpdateCards();
     }
 
-    public virtual string GetBuffEntryName() 
+    public virtual string GetBuffEntryName()
     {
         // should override this method to return the buff entry name
         return string.Empty;
     }
 
-    public virtual string GetBuffEntryText() 
+    public virtual string GetBuffEntryText()
     {
         // should override this method to return the buff entry text
         return string.Empty;
@@ -913,8 +879,6 @@ public class CardMaster : MonoBehaviour
             probability *= 2f;
             amount *= 2f;
             mana *= 2f;
-            speed *= 2f;
-            time *= 2f;
             coin *= 2f;
         }
         // Frail: halve values
@@ -925,8 +889,6 @@ public class CardMaster : MonoBehaviour
             probability *= 0.5f;
             amount *= 0.5f;
             mana *= 0.5f;
-            speed *= 0.5f;
-            time *= 0.5f;
             coin *= 0.5f;
         }
     }
@@ -999,7 +961,7 @@ public class CardMaster : MonoBehaviour
         return false;
     }
 
-    
+
     private HashSet<CardMaster> updateSources = new HashSet<CardMaster>();
 
     // check if this card is buffed from a specific source
@@ -1137,7 +1099,7 @@ public class CardMaster : MonoBehaviour
         if (go == null) return;
         color.a = alpha;
         SetLinkColor(go, color);
-        
+
     }
 
     // Set a specific link (by direction) to black 50% transparent
@@ -1146,8 +1108,8 @@ public class CardMaster : MonoBehaviour
         var go = GetLinkGameObject(dir);
         if (go == null) return;
 
-        SetLinkColor(go, (GameSettings.instance != null && GameSettings.instance.colorLinkInactive != default(Color)) 
-                ? GameSettings.instance.colorLinkInactive 
+        SetLinkColor(go, (GameSettings.instance != null && GameSettings.instance.colorLinkInactive != default(Color))
+                ? GameSettings.instance.colorLinkInactive
                 : new Color(0f, 0f, 0f, 0.5f));
     }
 
@@ -1177,7 +1139,7 @@ public class CardMaster : MonoBehaviour
         }
         return foundGun;
     }
-    
+
     public Gun GetLinkedGun(CardDir dir)
     {
         switch (dir)
@@ -1196,5 +1158,48 @@ public class CardMaster : MonoBehaviour
         if (a == LinkType.Common || b == LinkType.Common)
             return true;
         return a == b;
+    }
+    
+    /// <summary>
+    /// Get all star cards at the star positions defined in uiStarPositions.
+    /// Also returns empty slots and locked slots. Empty and Locked slots are returned as the actual grid positions, not relative to this card's position.
+    /// </summary>
+    /// <param name="starCards">The list of cardMasters of the star positions</param>
+    /// <param name="emptySlots">The list of empty grid positions</param>
+    /// <param name="lockedSlots">The list of locked grid positions</param>
+    public void GetStarCards(out List<CardMaster> starCards, out List<UnityEngine.Vector2Int> emptySlots, out List<UnityEngine.Vector2Int> lockedSlots)
+    {
+        // Initialize the list of star cards
+        starCards = new List<CardMaster>();
+        emptySlots = new List<UnityEngine.Vector2Int>();
+        lockedSlots = new List<UnityEngine.Vector2Int>();
+        if (uiStarPositions == null || uiStarPositions.Count == 0) return;
+
+        // Get all cards at the star positions
+        foreach (var pos in uiStarPositions)
+        {
+            int targetRow = gridLocation.x + pos.x;
+            int targetCol = gridLocation.y + pos.y;
+            var card = BoardArea.instance.GetCell(targetRow, targetCol);
+            if (card != null)
+            {
+                starCards.Add(card);
+            }
+            else
+            {
+                bool isCellOpen = BoardArea.instance.IsCellOpen(targetRow, targetCol);
+                if (isCellOpen)
+                {
+                    // If the cell is open, add it to empty slots
+                    emptySlots.Add(new UnityEngine.Vector2Int(targetRow, targetCol));
+                }
+                else
+                {
+                    // If the cell is locked, add it to locked slots
+                    lockedSlots.Add(new UnityEngine.Vector2Int(targetRow, targetCol));
+                }
+            }
+        }
+        return;
     }
 }

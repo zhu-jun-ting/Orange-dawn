@@ -9,6 +9,7 @@ public class UIDebugPanel : MonoBehaviour
 
     [Header("Dynamic Method Execution")]
     public TMP_InputField methodInputField; // Assign in inspector
+    public TMP_InputField paramInputField; // Assign in inspector
     public Button executeButton; // Assign in inspector
     public Button recallButton; // Assign in inspector
 
@@ -41,8 +42,10 @@ public class UIDebugPanel : MonoBehaviour
 
     public void AddCardObject()
     {
-        CardManager.instance.QueueAddCardObjects(new List<GameObject> { debugCardMasterPrefab1 }); 
-        CardManager.instance.QueueAddCardObjects(new List<GameObject> { debugCardMasterPrefab1 }); 
+        if (int.TryParse(paramInputField.text, out int cardId))
+        {
+            CardManager.instance.QueueAddCardObjects(new List<GameObject> { CardDatabase.GetCard(cardId) });
+        }
     }
 
     public void AddCardObjects()

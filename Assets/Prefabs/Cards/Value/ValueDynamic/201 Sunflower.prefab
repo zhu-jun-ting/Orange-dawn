@@ -130,7 +130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_Name
-      value: Sunflower Variant
+      value: 201 Sunflower
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -158,16 +158,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
-  card_id: 
+  card_id: 201
   card_name: Sunflower
-  card_cost: 0
-  card_sell_price: 0
+  card_cost: 12
+  card_sell_price: 3
   card_description: 'Increase Damage: {1} when turn ends
 
     Damage: {0}'
   uiStarPositions: []
   numberTypesCanBeModified: 00000000
   current_gun: {fileID: 0}
+  useRandomLinks: 1
+  linkCount: 2
   up_link_enabled: 0
   up_link_type: 0
   up_link_cardmaster: {fileID: 0}
@@ -180,27 +182,23 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  draggable: 1
   is_free_card: 0
   is_root: 0
   card_type: 2
   card_rarity: 0
   card_bonds: 
+  card_conditions: 
   damage: 1
   health: 0
   probability: 0
   amount: 0
   mana: 0
-  speed: 0
-  time: 0
   coin: 0
   default_damage: 0
   default_health: 0
   default_probability: 0
   default_amount: 0
   default_mana: 0
-  default_speed: 0
-  default_time: 0
   default_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}

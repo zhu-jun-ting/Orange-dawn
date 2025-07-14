@@ -8,7 +8,7 @@ using TMPro;
 public class CoinCounter : View {
 
     public int startingCoins;
-    private int coinCurrent;
+    public int coinCurrent;
     
     public TMP_Text text;
 

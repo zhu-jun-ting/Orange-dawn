@@ -311,7 +311,13 @@ public class BoardArea : MonoBehaviour
         return localPoint;
     }
 
-
+    /// <summary>
+    /// Checks if a cell is open (i.e., can accept cards).
+    /// Grids outside the current grid will be always returned false. 
+    /// </summary>
+    /// <param name="row"></param>
+    /// <param name="col"></param>
+    /// <returns>true if the cell is unlocked, false if it is not unlocked</returns>
     public bool IsCellOpen(int row, int col)
     {
         if (gridOpenState == null) return false;

@@ -26,6 +26,8 @@ public class CardManager : MonoBehaviour
     [Header("Card UI Queue Settings")]
     [Tooltip("Delay (in seconds) between card UI sequences")] 
     public float cardUiQueueDelay = 0.5f;
+    [Tooltip("Delay (in seconds) after each card UI sequence before next")] 
+    public float cardUiQueuePostDelay = 1f;
 
     void Awake()
     {
@@ -37,7 +39,39 @@ public class CardManager : MonoBehaviour
     /// </summary>
     public void QueueAddCardObjects(List<GameObject> cardPrefabs, float waitTime = 1f)
     {
-        cardUiQueue.Enqueue(() => AddCardObjectsSequence(cardPrefabs, waitTime));
+        // Check all previous queued AddCardObjectsSequence methods and combine cardPrefabs
+        bool combined = false;
+        if (cardUiQueue.Count > 0)
+        {
+            var queueArray = cardUiQueue.ToArray();
+            for (int i = queueArray.Length - 1; i >= 0; i--)
+            {
+                var queuedFunc = queueArray[i];
+                var method = queuedFunc.Method;
+                if (method != null && method.Name.Contains("QueueAddCardObjects"))
+                {
+                    var target = queuedFunc.Target;
+                    if (target != null)
+                    {
+                        var fi = target.GetType().GetField("cardPrefabs", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public);
+                        if (fi != null)
+                        {
+                            var existingList = fi.GetValue(target) as List<GameObject>;
+                            if (existingList != null)
+                            {
+                                existingList.AddRange(cardPrefabs);
+                                combined = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (!combined)
+        {
+            cardUiQueue.Enqueue(() => AddCardObjectsSequence(cardPrefabs, waitTime));
+        }
         TryRunNextCardUiSequence();
     }
 
@@ -76,12 +110,27 @@ public class CardManager : MonoBehaviour
 
     private System.Collections.IEnumerator RunCardUiSequence()
     {
+        // If in battle, hang the whole sequence until level is cleared
+        if (CombatManager.isInBattle)
+        {
+            bool levelCleared = false;
+            System.Action handler = () => { levelCleared = true; };
+            if (GameEvents.instance != null)
+                GameEvents.instance.OnLevelCleared += handler;
+            while (!levelCleared)
+                yield return null;
+            yield return new WaitForSeconds(2f);
+            if (GameEvents.instance != null)
+                GameEvents.instance.OnLevelCleared -= handler;
+        }
         while (cardUiQueue.Count > 0)
         {
             var next = cardUiQueue.Dequeue();
             yield return StartCoroutine(next());
             if (cardUiQueueDelay > 0f)
                 yield return new WaitForSeconds(cardUiQueueDelay);
+            if (cardUiQueuePostDelay > 0f)
+                yield return new WaitForSeconds(cardUiQueuePostDelay);
         }
         isCardUiSequenceRunning = false;
     }
@@ -89,21 +138,21 @@ public class CardManager : MonoBehaviour
     // --- Add Card Sequence with Battle State Check ---
     private System.Collections.IEnumerator AddCardObjectsSequence(List<GameObject> cardPrefabs, float waitTime)
     {
-        // If in battle, wait for level clear event and 2s, then show UI
-        if (CombatManager.isInBattle)
-        {
-            bool levelCleared = false;
-            System.Action handler = () => { levelCleared = true; };
-            if (GameEvents.instance != null)
-                GameEvents.instance.OnLevelCleared += handler;
-            // Wait until OnLevelCleared is triggered
-            while (!levelCleared)
-                yield return null;
-            // Wait 2 seconds after level clear
-            yield return new WaitForSeconds(2f);
-            if (GameEvents.instance != null)
-                GameEvents.instance.OnLevelCleared -= handler;
-        }
+        // // If in battle, wait for level clear event and 2s, then show UI
+        // if (CombatManager.isInBattle)
+        // {
+        //     bool levelCleared = false;
+        //     System.Action handler = () => { levelCleared = true; };
+        //     if (GameEvents.instance != null)
+        //         GameEvents.instance.OnLevelCleared += handler;
+        //     // Wait until OnLevelCleared is triggered
+        //     while (!levelCleared)
+        //         yield return null;
+        //     // Wait 2 seconds after level clear
+        //     yield return new WaitForSeconds(2f);
+        //     if (GameEvents.instance != null)
+        //         GameEvents.instance.OnLevelCleared -= handler;
+        // }
         // Now show the add card UI sequence
         yield return StartCoroutine(AddCardObjectsCoroutine(cardPrefabs, waitTime));
     }
@@ -111,18 +160,18 @@ public class CardManager : MonoBehaviour
     // --- Select Card Sequence with Battle State Check ---
     private System.Collections.IEnumerator SelectCardObjectsSequence(List<GameObject> cards, bool addToHand, float waitTime, System.Action<GameObject> onSelected)
     {
-        if (CombatManager.isInBattle)
-        {
-            bool levelCleared = false;
-            System.Action handler = () => { levelCleared = true; };
-            if (GameEvents.instance != null)
-                GameEvents.instance.OnLevelCleared += handler;
-            while (!levelCleared)
-                yield return null;
-            yield return new WaitForSeconds(2f);
-            if (GameEvents.instance != null)
-                GameEvents.instance.OnLevelCleared -= handler;
-        }
+        // if (CombatManager.isInBattle)
+        // {
+        //     bool levelCleared = false;
+        //     System.Action handler = () => { levelCleared = true; };
+        //     if (GameEvents.instance != null)
+        //         GameEvents.instance.OnLevelCleared += handler;
+        //     while (!levelCleared)
+        //         yield return null;
+        //     yield return new WaitForSeconds(2f);
+        //     if (GameEvents.instance != null)
+        //         GameEvents.instance.OnLevelCleared -= handler;
+        // }
         yield return StartCoroutine(SelectCardObjectsCoroutine(cards, addToHand, waitTime, onSelected));
     }
 

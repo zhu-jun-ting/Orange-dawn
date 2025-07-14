@@ -21,8 +21,6 @@ public class CardValueAddStar : CardMaster
                         (NumberType.Probability, probability),
                         (NumberType.Amount, amount),
                         (NumberType.Mana, mana),
-                        (NumberType.Speed, speed),
-                        (NumberType.Time, time),
                         (NumberType.Coin, coin)
                     };
                     foreach (var (nType, nValue) in valuePairs)

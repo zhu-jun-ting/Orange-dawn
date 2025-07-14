@@ -188,14 +188,10 @@ public class GameSettings : MonoBehaviour
                 return instance.damageGrowth[Random.Range(0, instance.damageGrowth.Count)];
             case CardMaster.NumberType.Health:
                 return instance.healthGrowth[Random.Range(0, instance.healthGrowth.Count)];
-            case CardMaster.NumberType.Speed:
-                return instance.speedGrowth[Random.Range(0, instance.speedGrowth.Count)];
             case CardMaster.NumberType.Mana:
                 return instance.manaGrowth[Random.Range(0, instance.manaGrowth.Count)];
             case CardMaster.NumberType.Probability:
                 return instance.probabilityGrowth[Random.Range(0, instance.probabilityGrowth.Count)];
-            case CardMaster.NumberType.Time:
-                return instance.timeGrowth[Random.Range(0, instance.timeGrowth.Count)];
             case CardMaster.NumberType.Coin:
                 return instance.coinGrowth[Random.Range(0, instance.coinGrowth.Count)];
             default:
@@ -213,14 +209,10 @@ public class GameSettings : MonoBehaviour
                 return instance.damageDecay[Random.Range(0, instance.damageDecay.Count)];
             case CardMaster.NumberType.Health:
                 return instance.healthDecay[Random.Range(0, instance.healthDecay.Count)];
-            case CardMaster.NumberType.Speed:
-                return instance.speedDecay[Random.Range(0, instance.speedDecay.Count)];
             case CardMaster.NumberType.Mana:
                 return instance.manaDecay[Random.Range(0, instance.manaDecay.Count)];
             case CardMaster.NumberType.Probability:
                 return instance.probabilityDecay[Random.Range(0, instance.probabilityDecay.Count)];
-            case CardMaster.NumberType.Time:
-                return instance.timeDecay[Random.Range(0, instance.timeDecay.Count)];
             case CardMaster.NumberType.Coin:
                 return instance.coinDecay[Random.Range(0, instance.coinDecay.Count)];
             default:

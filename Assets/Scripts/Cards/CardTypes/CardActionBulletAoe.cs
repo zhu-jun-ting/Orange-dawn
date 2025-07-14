@@ -98,11 +98,6 @@ public class CardActionBulletAoe : CardMaster, ICardAction
             AoeDamage += value;
             return true;
         }
-        else if (numberType == CardMaster.NumberType.Time)
-        {
-            AoeDuration += value;
-            return true;
-        }
         else if (numberType == CardMaster.NumberType.Probability)
         {
             AoeSize += value;

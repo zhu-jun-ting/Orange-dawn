@@ -558,7 +558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8659183189537488033, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchorMax.y
@@ -643,16 +643,12 @@ MonoBehaviour:
   probability: 0
   amount: 0
   mana: 0
-  speed: 0
-  time: 0
   coin: 0
   default_damage: 0
   default_health: 0
   default_probability: 0
   default_amount: 0
   default_mana: 0
-  default_speed: 0
-  default_time: 0
   default_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}

@@ -25,8 +25,6 @@ public class CardInstantValueAdder : CardMaster
                 if (probability != 0) link.UpdateNumberValue(NumberType.Probability, probability, this, true);
                 if (amount != 0) link.UpdateNumberValue(NumberType.Amount, amount, this, true);
                 if (mana != 0) link.UpdateNumberValue(NumberType.Mana, mana, this, true);
-                if (speed != 0) link.UpdateNumberValue(NumberType.Speed, speed, this, true);
-                if (time != 0) link.UpdateNumberValue(NumberType.Time, time, this, true);
                 if (coin != 0) link.UpdateNumberValue(NumberType.Coin, coin, this, true);
             }
         }
@@ -43,8 +41,6 @@ public class CardInstantValueAdder : CardMaster
         if (probability != 0) parts.Add($"Probability: {probability}");
         if (amount != 0) parts.Add($"Amount: {amount}");
         if (mana != 0) parts.Add($"Mana: {mana}");
-        if (speed != 0) parts.Add($"Speed: {speed}");
-        if (time != 0) parts.Add($"Time: {time}");
         if (coin != 0) parts.Add($"Coin: {coin}");
         if (parts.Count == 0) return "No permanent stat increases.";
         string joined = string.Join(", ", parts);

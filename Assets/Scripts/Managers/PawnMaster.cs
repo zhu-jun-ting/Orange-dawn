@@ -8,6 +8,7 @@ public class PawnMaster : MonoBehaviour, IBuffable
     [Header("Pawn Master : the buff list UI panel game object and the buff icon prefab")]
     [HideInInspector] public Transform buff_icon_grid;
     [HideInInspector] public GameObject icon_prefab;
+    [HideInInspector] public bool isPlayer = false;
 
     public class BuffController
     {

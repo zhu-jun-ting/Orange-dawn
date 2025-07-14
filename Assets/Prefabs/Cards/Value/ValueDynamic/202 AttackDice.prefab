@@ -134,7 +134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6658401908579154275, guid: cec01eb344aba2342971cca04d574b54, type: 3}
       propertyPath: m_Name
-      value: AttackDice Variant
+      value: 202 AttackDice
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2855073477016861751, guid: cec01eb344aba2342971cca04d574b54, type: 3}
@@ -165,18 +165,20 @@ MonoBehaviour:
   card_icon: {fileID: 0}
   card_id: 202
   card_name: Attack Dice
-  card_cost: 7
-  card_sell_price: 3
+  card_cost: 16
+  card_sell_price: 4
   card_description: 'add Damage: {1}~{2}, change at turn ends
 
     Damage: {0}'
   uiStarPositions: []
   numberTypesCanBeModified: 00000000
   current_gun: {fileID: 0}
+  useRandomLinks: 1
+  linkCount: 2
   up_link_enabled: 0
   up_link_type: 0
   up_link_cardmaster: {fileID: 0}
-  left_link_enabled: 1
+  left_link_enabled: 0
   left_link_type: 0
   left_link_cardmaster: {fileID: 0}
   right_link_enabled: 0
@@ -185,27 +187,23 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  draggable: 1
   is_free_card: 0
   is_root: 0
   card_type: 2
   card_rarity: 0
   card_bonds: 
+  card_conditions: 
   damage: 1
   health: 0
   probability: 0
   amount: 0
   mana: 0
-  speed: 0
-  time: 0
   coin: 0
   default_damage: 0
   default_health: 0
   default_probability: 0
   default_amount: 0
   default_mana: 0
-  default_speed: 0
-  default_time: 0
   default_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
