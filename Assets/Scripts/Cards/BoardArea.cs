@@ -200,7 +200,36 @@ public class BoardArea : MonoBehaviour
     // Handles propagation of OnCardLevelCleared and triggers card update
     private void HandleLevelCleared()
     {
-        if (roots == null) return;
+        StartCoroutine(CoHandleLevelCleared());
+
+    }
+
+    private System.Collections.IEnumerator CoHandleLevelCleared()
+    {
+        // If in battle, wait for both battle end and board panel open
+        if (CombatManager.isInBattle)
+        {
+            bool battleEnded = false;
+            bool boardOpened = false;
+            System.Action onLevelCleared = () => { battleEnded = true; };
+            System.Action<bool> onToggleBoard = (isActive) => { if (isActive) boardOpened = isActive; };
+            if (GameEvents.instance != null)
+            {
+                GameEvents.instance.OnLevelCleared += onLevelCleared;
+                GameEvents.instance.OnToggleBoard += onToggleBoard;
+            }
+            // Wait until both battleEnded and boardOpened are true
+            while (!(battleEnded && boardOpened))
+            {
+                yield return new WaitForSeconds(1f);
+            }
+            if (GameEvents.instance != null)
+            {
+                GameEvents.instance.OnLevelCleared -= onLevelCleared;
+                GameEvents.instance.OnToggleBoard -= onToggleBoard;
+            }
+        }
+        if (roots == null) yield break;
         foreach (var root in roots)
         {
             if (root == null) continue;
@@ -215,7 +244,7 @@ public class BoardArea : MonoBehaviour
             }
         }
         // After all cards handled, trigger update
-        CardDragHandler.TriggerUpdateCards();    
+        CardDragHandler.TriggerUpdateCards();
     }
 
     private void UpdateAllRoots()

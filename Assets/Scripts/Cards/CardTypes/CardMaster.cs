@@ -114,6 +114,7 @@ public class CardMaster : MonoBehaviour
         IsVolatile, // If true, card may change to another card after turn ends
         IsGrowing, // If true, card's values grow randomly each turn (possibly negative)
         IsDecaying, // If true, card's values decay randomly each turn (possibly negative)
+        IsEternal, // If true, card cannot be destroyed or sold
     }
 
 
@@ -170,6 +171,9 @@ public class CardMaster : MonoBehaviour
     [HideInInspector] public float temp_mana = 0f;
     [HideInInspector] public float temp_coin = 0f;
     [HideInInspector] public List<NumberType> myNumTypes = new List<NumberType>();
+
+    [Header("Innter Variables")]
+    protected int deathrattle_times = 1; // How many times this card can trigger deathrattle effects
 
     /// <summary>
     /// Generic number update for this card. Supports add or multiply. Override in subclasses for custom logic.
@@ -518,14 +522,12 @@ public class CardMaster : MonoBehaviour
 
     public void UpdateConditionsWhenLevelCleared()
     {
-        // ...existing code...
         // Fragile: chance to destroy
         if (card_conditions != null && card_conditions.Contains(CardCondition.IsFragile))
         {
             float chance = 0.25f;
             if (GameSettings.instance != null)
             {
-                // You can add a field to GameSettings for fragileDestroyChance if desired
                 chance = Mathf.Clamp01(GameSettings.instance.fragileDestroyChance);
             }
             if (UnityEngine.Random.value < chance)
@@ -558,8 +560,7 @@ public class CardMaster : MonoBehaviour
             }
         }
 
-        // Growing: update values randomly
-        // based on GameSettings, if it exists; values should be modified in GameSettings.Growth()
+        // Growing: update only one random value
         if (GameSettings.instance == null)
         {
             Debug.LogError("GameSettings.instance is null, cannot apply growth.");
@@ -567,23 +568,88 @@ public class CardMaster : MonoBehaviour
         }
         if (card_conditions != null && card_conditions.Contains(CardCondition.IsGrowing))
         {
-            if (numberTypesCanBeModified.Contains(NumberType.Damage)) damage += GameSettings.Growth(NumberType.Damage);
-            if (numberTypesCanBeModified.Contains(NumberType.Health)) health += GameSettings.Growth(NumberType.Health);
-            if (numberTypesCanBeModified.Contains(NumberType.Probability)) probability += GameSettings.Growth(NumberType.Probability);
-            if (numberTypesCanBeModified.Contains(NumberType.Amount)) amount += GameSettings.Growth(NumberType.Amount);
-            if (numberTypesCanBeModified.Contains(NumberType.Mana)) mana += GameSettings.Growth(NumberType.Mana);
-            if (numberTypesCanBeModified.Contains(NumberType.Coin)) coin += GameSettings.Growth(NumberType.Coin);
+            if (numberTypesCanBeModified.Count > 0)
+            {
+                var chosenType = numberTypesCanBeModified[UnityEngine.Random.Range(0, numberTypesCanBeModified.Count)];
+                switch (chosenType)
+                {
+                    case NumberType.Damage: damage += GameSettings.Growth(NumberType.Damage); break;
+                    case NumberType.Health: health += GameSettings.Growth(NumberType.Health); break;
+                    case NumberType.Probability: probability += GameSettings.Growth(NumberType.Probability); break;
+                    case NumberType.Amount: amount += GameSettings.Growth(NumberType.Amount); break;
+                    case NumberType.Mana: mana += GameSettings.Growth(NumberType.Mana); break;
+                    case NumberType.Coin: coin += GameSettings.Growth(NumberType.Coin); break;
+                }
+            }
         }
-        // Decaying: update values randomly
-        // based on GameSettings, if it exists; values should be modified in GameSettings.Decay()
+        // Decaying: update only one random value
         if (card_conditions != null && card_conditions.Contains(CardCondition.IsDecaying))
         {
-            if (numberTypesCanBeModified.Contains(NumberType.Damage)) damage += GameSettings.Decay(NumberType.Damage);
-            if (numberTypesCanBeModified.Contains(NumberType.Health)) health += GameSettings.Decay(NumberType.Health);
-            if (numberTypesCanBeModified.Contains(NumberType.Probability)) probability += GameSettings.Decay(NumberType.Probability);
-            if (numberTypesCanBeModified.Contains(NumberType.Amount)) amount += GameSettings.Decay(NumberType.Amount);
-            if (numberTypesCanBeModified.Contains(NumberType.Mana)) mana += GameSettings.Decay(NumberType.Mana);
-            if (numberTypesCanBeModified.Contains(NumberType.Coin)) coin += GameSettings.Decay(NumberType.Coin);
+            if (numberTypesCanBeModified.Count > 0)
+            {
+                var chosenType = numberTypesCanBeModified[UnityEngine.Random.Range(0, numberTypesCanBeModified.Count)];
+                switch (chosenType)
+                {
+                    case NumberType.Damage: damage += GameSettings.Decay(NumberType.Damage); break;
+                    case NumberType.Health: health += GameSettings.Decay(NumberType.Health); break;
+                    case NumberType.Probability: probability += GameSettings.Decay(NumberType.Probability); break;
+                    case NumberType.Amount: amount += GameSettings.Decay(NumberType.Amount); break;
+                    case NumberType.Mana: mana += GameSettings.Decay(NumberType.Mana); break;
+                    case NumberType.Coin: coin += GameSettings.Decay(NumberType.Coin); break;
+                }
+            }
+        }
+    }
+
+    public virtual bool Grow(int times = 1)
+    {
+        if (times < 1) return false;
+        if (numberTypesCanBeModified.Count > 0)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                var chosenType = numberTypesCanBeModified[UnityEngine.Random.Range(0, numberTypesCanBeModified.Count)];
+                switch (chosenType)
+                {
+                    case NumberType.Damage: damage += GameSettings.Growth(NumberType.Damage); break;
+                    case NumberType.Health: health += GameSettings.Growth(NumberType.Health); break;
+                    case NumberType.Probability: probability += GameSettings.Growth(NumberType.Probability); break;
+                    case NumberType.Amount: amount += GameSettings.Growth(NumberType.Amount); break;
+                    case NumberType.Mana: mana += GameSettings.Growth(NumberType.Mana); break;
+                    case NumberType.Coin: coin += GameSettings.Growth(NumberType.Coin); break;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false; // No types to grow
+        }
+    }
+
+    public virtual bool Decay(int times = 1)
+    {
+        if (times < 1) return false;
+        if (numberTypesCanBeModified.Count > 0)
+        {
+            for (int i = 0; i < times; i++)
+            {
+                var chosenType = numberTypesCanBeModified[UnityEngine.Random.Range(0, numberTypesCanBeModified.Count)];
+                switch (chosenType)
+                {
+                    case NumberType.Damage: damage += GameSettings.Decay(NumberType.Damage); break;
+                    case NumberType.Health: health += GameSettings.Decay(NumberType.Health); break;
+                    case NumberType.Probability: probability += GameSettings.Decay(NumberType.Probability); break;
+                    case NumberType.Amount: amount += GameSettings.Decay(NumberType.Amount); break;
+                    case NumberType.Mana: mana += GameSettings.Decay(NumberType.Mana); break;
+                    case NumberType.Coin: coin += GameSettings.Decay(NumberType.Coin); break;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false; // No types to decay
         }
     }
 
@@ -664,36 +730,60 @@ public class CardMaster : MonoBehaviour
         }
     }
 
-    public virtual void OnCardDestroyed()
+    public virtual bool OnCardDestroyed()
     {
+        if (card_conditions != null && card_conditions.Contains(CardCondition.IsEternal))
+        {
+            GameEvents.instance.ShowMessage($"Eternal card {card_name} cannot be destroyed.", GameEvents.MessageType.FullWarning);
+            return false;
+        }
 
-        // // --- DOTween Effect: Dissolve before moving card away ---
+        if (CombatManager.isInBattle)
+        {
+            StartCoroutine(WaitForBattleEndAndBoardOpenThenDestroy());
+        }
+        else
+        {
+            DoDestroyCard();
+        }
+        return true;
+    }
+
+    private IEnumerator WaitForBattleEndAndBoardOpenThenDestroy()
+    {
+        bool battleEnded = false;
+        bool boardOpened = false;
+        System.Action onLevelCleared = () => { battleEnded = true; };
+        System.Action<bool> onToggleBoard = (isActive) => { if (isActive) boardOpened = true; };
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnLevelCleared += onLevelCleared;
+            GameEvents.instance.OnToggleBoard += onToggleBoard;
+        }
+        // Wait until both battleEnded and boardOpened are true
+        while (!(battleEnded && boardOpened))
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnLevelCleared -= onLevelCleared;
+            GameEvents.instance.OnToggleBoard -= onToggleBoard;
+        }
+        yield return new WaitForSeconds(1f); 
+        DoDestroyCard(); 
+    }
+
+    private void DoDestroyCard()
+    {
+        // Actually call the event to announce card destruction
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.CardDiscarded(this);
+        }
+        // --- DOTween Effect: Dissolve before moving card away ---
         var canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null) canvasGroup = gameObject.AddComponent<CanvasGroup>();
-        // // Try to find a material with a _DissolveAmount property
-        // var renderer = GetComponent<UnityEngine.UI.Image>() ?? (Component)GetComponent<SpriteRenderer>();
-        // Material mat = null;
-        // if (renderer is UnityEngine.UI.Image img && img.material.HasProperty("_DissolveAmount"))
-        //     mat = img.material;
-        // else if (renderer is SpriteRenderer sr && sr.material.HasProperty("_DissolveAmount"))
-        //     mat = sr.material;
-        // // If dissolve material found, animate dissolve
-        // if (mat != null)
-        // {
-        //     DissolveAllImagesAndTMPs(gameObject, destroyEffectDuration);
-        // }
-        // else
-        // {
-        //     // fallback: fade out
-        //     canvasGroup.DOFade(0f, destroyEffectDuration).SetEase(Ease.InQuad);
-        // }
-
-
-        // DOTween destroy effect sequence:
-        // 1. Rotate shake for 0.5s
-        // 2. Wait for 0.5s
-        // 3. Scale up and fade out
-        // 4. Move far away
 
         float shakeDuration = 0.5f;
         float waitDuration = 0.5f;
@@ -705,8 +795,8 @@ public class CardMaster : MonoBehaviour
         // 2. Wait
         destroySeq.AppendInterval(waitDuration);
         // 3. Scale up and fade out
-        destroySeq.Append(transform.DOScale(1.6f, scaleFadeDuration).SetEase(Ease.InQuad));
-        destroySeq.Join(canvasGroup.DOFade(0f, scaleFadeDuration).SetEase(Ease.InQuad));
+        destroySeq.Append(transform.DOScale(1.6f, scaleFadeDuration).SetEase(Ease.InQuad));   
+        destroySeq.Join(canvasGroup.DOFade(0f, scaleFadeDuration).SetEase(Ease.InQuad));   
         // 4. Move far away after sequence
         destroySeq.OnComplete(() =>
         {

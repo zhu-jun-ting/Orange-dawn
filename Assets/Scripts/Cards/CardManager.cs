@@ -110,6 +110,20 @@ public class CardManager : MonoBehaviour
 
     private System.Collections.IEnumerator RunCardUiSequence()
     {
+        // If card animation is playing, wait until it finishes before starting the sequence
+        if (GameEvents.isPlayingCardAnimation)
+        {
+            bool animationFinished = false;
+            System.Action<bool> handler = (playing) => {
+                if (!playing) animationFinished = true;
+            };
+            if (GameEvents.instance != null)
+                GameEvents.instance.OnPlayCardAnimation += handler;
+            while (!animationFinished)
+                yield return null;
+            if (GameEvents.instance != null)
+                GameEvents.instance.OnPlayCardAnimation -= handler;
+        }
         // If in battle, hang the whole sequence until level is cleared
         if (CombatManager.isInBattle)
         {
@@ -126,6 +140,7 @@ public class CardManager : MonoBehaviour
         while (cardUiQueue.Count > 0)
         {
             var next = cardUiQueue.Dequeue();
+            if (GameEvents.instance != null && !GameEvents.isPlayingCardAnimation) GameEvents.instance.PlayCardAnimation(true);
             yield return StartCoroutine(next());
             if (cardUiQueueDelay > 0f)
                 yield return new WaitForSeconds(cardUiQueueDelay);
@@ -133,6 +148,7 @@ public class CardManager : MonoBehaviour
                 yield return new WaitForSeconds(cardUiQueuePostDelay);
         }
         isCardUiSequenceRunning = false;
+        if (GameEvents.instance != null && GameEvents.isPlayingCardAnimation) GameEvents.instance.PlayCardAnimation(false);
     }
 
     // --- Add Card Sequence with Battle State Check ---
@@ -205,7 +221,18 @@ public class CardManager : MonoBehaviour
         List<CardMaster> cardMasters = new List<CardMaster>();
         foreach (var prefab in cardPrefabs)
         {
-            GameObject newCard = Instantiate(prefab, horizontalLayoutGroupAdd);
+            GameObject newCard;
+            if (prefab.scene.IsValid())
+            {
+                // Already instantiated, just move to layout group
+                newCard = prefab;
+                newCard.transform.SetParent(horizontalLayoutGroupAdd, false);
+            }
+            else
+            {
+                // Not instantiated, create new instance
+                newCard = Instantiate(prefab, horizontalLayoutGroupAdd);
+            }
             newCard.transform.SetAsLastSibling();
             if (newCard.TryGetComponent<CardMaster>(out var cardMaster))
             {
@@ -379,7 +406,18 @@ public class CardManager : MonoBehaviour
         };
         foreach (var prefab in cards)
         {
-            GameObject card = Instantiate(prefab, horizontalLayoutGroupSelect);
+            GameObject card;
+            if (prefab.scene.IsValid())
+            {
+                // Already instantiated, just move to layout group
+                card = prefab;
+                card.transform.SetParent(horizontalLayoutGroupSelect, false);
+            }
+            else
+            {
+                // Not instantiated, create new instance
+                card = Instantiate(prefab, horizontalLayoutGroupSelect);
+            }
             card.transform.SetAsLastSibling();
             if (card.TryGetComponent<RectTransform>(out var cardRect))
                 DebriManager.ScatterUIPixels(cardRect);

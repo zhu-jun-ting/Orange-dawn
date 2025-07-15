@@ -50,7 +50,7 @@ public class CardDatabase : ScriptableObject
     public static List<GameObject> FindCards(System.Func<CardMaster, bool> predicate)
     {
         var result = new List<GameObject>();
-        if (instance == null || instance.cards == null) return result;
+        if (instance == null || instance.cards == null || instance.cards.Count == 0) return result;
         foreach (var entry in instance.cards)
         {
             if (entry.cardPrefab == null) continue;
@@ -58,6 +58,30 @@ public class CardDatabase : ScriptableObject
             if (cardMaster != null && predicate(cardMaster))
                 result.Add(entry.cardPrefab);
         }
-        return result;
+        return Shuffle(result);
+    }
+
+    public static GameObject GetRandomCard(System.Func<CardMaster, bool> predicate)
+    {
+        if (instance == null || instance.cards == null || instance.cards.Count == 0) return null;
+        List<GameObject> filteredCards = FindCards(predicate);
+        if (filteredCards.Count == 0) return null;
+        return filteredCards[Random.Range(0, filteredCards.Count)];
+    }
+
+    public static List<T> Shuffle<T>(List<T> list)
+    {
+        var rng = new System.Random();
+        var shuffled = new List<T>(list);
+        int n = shuffled.Count;
+        while (n > 1)
+        {
+            n--;
+            int k = rng.Next(n + 1);
+            T value = shuffled[k];
+            shuffled[k] = shuffled[n];
+            shuffled[n] = value;
+        }
+        return shuffled;
     }
 }

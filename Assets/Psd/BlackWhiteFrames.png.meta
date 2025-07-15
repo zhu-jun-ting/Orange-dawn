@@ -1,0 +1,2171 @@
+fileFormatVersion: 2
+guid: d9fb0eb3d04a90f46a447803d0e59c55
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 833649091319114378
+    second: BlackWhiteFrames_0
+  - first:
+      213: -5681615581286560677
+    second: BlackWhiteFrames_1
+  - first:
+      213: 6034123567200842144
+    second: BlackWhiteFrames_2
+  - first:
+      213: -8384220652398998606
+    second: BlackWhiteFrames_3
+  - first:
+      213: 1799780216837887173
+    second: BlackWhiteFrames_4
+  - first:
+      213: -6810172941055348255
+    second: BlackWhiteFrames_5
+  - first:
+      213: 8181404173075130871
+    second: BlackWhiteFrames_6
+  - first:
+      213: -8282866711268443263
+    second: BlackWhiteFrames_7
+  - first:
+      213: 5644059773595278359
+    second: BlackWhiteFrames_8
+  - first:
+      213: -7857568268900753411
+    second: BlackWhiteFrames_9
+  - first:
+      213: 6543929409580988179
+    second: BlackWhiteFrames_10
+  - first:
+      213: 979260195309874126
+    second: BlackWhiteFrames_11
+  - first:
+      213: -7530679503091377556
+    second: BlackWhiteFrames_12
+  - first:
+      213: -645707319487367844
+    second: BlackWhiteFrames_13
+  - first:
+      213: 1434736371900816102
+    second: BlackWhiteFrames_14
+  - first:
+      213: 2307915954324552980
+    second: BlackWhiteFrames_15
+  - first:
+      213: 7131661765239005340
+    second: BlackWhiteFrames_16
+  - first:
+      213: -8259163434374256177
+    second: BlackWhiteFrames_17
+  - first:
+      213: -2570974215585067154
+    second: BlackWhiteFrames_18
+  - first:
+      213: 866419771265741132
+    second: BlackWhiteFrames_19
+  - first:
+      213: -1708234844933201968
+    second: BlackWhiteFrames_20
+  - first:
+      213: -5696208800109507420
+    second: BlackWhiteFrames_21
+  - first:
+      213: -2536326309722725599
+    second: BlackWhiteFrames_22
+  - first:
+      213: -8976678324141858076
+    second: BlackWhiteFrames_23
+  - first:
+      213: -2446850192905579641
+    second: BlackWhiteFrames_24
+  - first:
+      213: -8343892079136677378
+    second: BlackWhiteFrames_25
+  - first:
+      213: 1336083808654419850
+    second: BlackWhiteFrames_26
+  - first:
+      213: -1408499569179712930
+    second: BlackWhiteFrames_27
+  - first:
+      213: 5436638794277801367
+    second: BlackWhiteFrames_28
+  - first:
+      213: -753875644894372730
+    second: BlackWhiteFrames_29
+  - first:
+      213: 3334145118678279363
+    second: BlackWhiteFrames_30
+  - first:
+      213: -9043402819299453064
+    second: BlackWhiteFrames_31
+  - first:
+      213: 5046542192010154403
+    second: BlackWhiteFrames_32
+  - first:
+      213: -6248778684657741092
+    second: BlackWhiteFrames_33
+  - first:
+      213: -3033935997891147345
+    second: BlackWhiteFrames_34
+  - first:
+      213: -7655414400263850210
+    second: BlackWhiteFrames_35
+  - first:
+      213: -4754463357385810313
+    second: BlackWhiteFrames_36
+  - first:
+      213: -3310529915465791468
+    second: BlackWhiteFrames_37
+  - first:
+      213: -2927087438177037511
+    second: BlackWhiteFrames_38
+  - first:
+      213: 2718166269300370814
+    second: BlackWhiteFrames_39
+  - first:
+      213: 941909805022838985
+    second: BlackWhiteFrames_40
+  - first:
+      213: -1919922066878728965
+    second: BlackWhiteFrames_41
+  - first:
+      213: -5242074048807345719
+    second: BlackWhiteFrames_42
+  - first:
+      213: 5243629875822065958
+    second: BlackWhiteFrames_43
+  - first:
+      213: 344405323915227411
+    second: BlackWhiteFrames_44
+  - first:
+      213: -8097731498934034987
+    second: BlackWhiteFrames_45
+  - first:
+      213: -3607155877588027283
+    second: BlackWhiteFrames_46
+  - first:
+      213: 5029414136111758647
+    second: BlackWhiteFrames_47
+  - first:
+      213: -3258653135366898944
+    second: BlackWhiteFrames_48
+  - first:
+      213: 7785831885209516633
+    second: BlackWhiteFrames_49
+  - first:
+      213: -5498479846274361786
+    second: BlackWhiteFrames_50
+  - first:
+      213: -2983721609668603155
+    second: BlackWhiteFrames_51
+  - first:
+      213: 3693242796148213558
+    second: BlackWhiteFrames_52
+  - first:
+      213: -6794286166154492018
+    second: BlackWhiteFrames_53
+  - first:
+      213: -215068371688201304
+    second: BlackWhiteFrames_54
+  - first:
+      213: -2957685837014267497
+    second: BlackWhiteFrames_55
+  - first:
+      213: -546327928900788579
+    second: BlackWhiteFrames_56
+  - first:
+      213: -3436692294690626206
+    second: BlackWhiteFrames_57
+  - first:
+      213: 5920403271165968410
+    second: BlackWhiteFrames_58
+  - first:
+      213: 1025687222848060989
+    second: BlackWhiteFrames_59
+  - first:
+      213: -908213579219528692
+    second: BlackWhiteFrames_60
+  - first:
+      213: 8700762156633957560
+    second: BlackWhiteFrames_61
+  - first:
+      213: -5121132059250330892
+    second: BlackWhiteFrames_62
+  - first:
+      213: -1947866977991730701
+    second: BlackWhiteFrames_63
+  - first:
+      213: -6806604616177459608
+    second: BlackWhiteFrames_64
+  - first:
+      213: 5642864804336556960
+    second: BlackWhiteFrames_65
+  - first:
+      213: -3462963382314435869
+    second: BlackWhiteFrames_66
+  - first:
+      213: -138498528353300858
+    second: BlackWhiteFrames_67
+  - first:
+      213: -5665249686937184514
+    second: BlackWhiteFrames_68
+  - first:
+      213: -8288194442174993356
+    second: BlackWhiteFrames_69
+  - first:
+      213: -4472949313069580083
+    second: BlackWhiteFrames_70
+  - first:
+      213: -5230894214885151139
+    second: BlackWhiteFrames_71
+  - first:
+      213: 7482408106336194557
+    second: BlackWhiteFrames_72
+  - first:
+      213: -3235916586789665790
+    second: BlackWhiteFrames_73
+  - first:
+      213: 1381064980190553456
+    second: BlackWhiteFrames_74
+  - first:
+      213: 4777116466802360272
+    second: BlackWhiteFrames_75
+  - first:
+      213: 1663817579096975480
+    second: BlackWhiteFrames_76
+  - first:
+      213: 658427942161374760
+    second: BlackWhiteFrames_77
+  - first:
+      213: -7523877509347456558
+    second: BlackWhiteFrames_78
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BlackWhiteFrames_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 197
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8a27638e67b19b00800000000000000
+      internalID: 833649091319114378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 164
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5c07173bb8d621b0800000000000000
+      internalID: -5681615581286560677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 197
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a1b1d90a638db350800000000000000
+      internalID: 6034123567200842144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bb8347fcb345ab80800000000000000
+      internalID: -8384220652398998606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_4
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 197
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c4d562529a1af810800000000000000
+      internalID: 1799780216837887173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_5
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e13b6dbac76d71a0800000000000000
+      internalID: -6810172941055348255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_6
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 197
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f9aa0c9fbf2a8170800000000000000
+      internalID: 8181404173075130871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_7
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18bbfe05c985d0d80800000000000000
+      internalID: -8282866711268443263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_8
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 197
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 71cd738e57ab35e40800000000000000
+      internalID: 5644059773595278359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_9
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dff1ac56a4f44f290800000000000000
+      internalID: -7857568268900753411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_10
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 197
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3177e457025b0da50800000000000000
+      internalID: 6543929409580988179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_11
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ecbef1495f7079d00800000000000000
+      internalID: 979260195309874126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_12
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 197
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6a5ce424e6ad7790800000000000000
+      internalID: -7530679503091377556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_13
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c55f5113d9cf907f0800000000000000
+      internalID: -645707319487367844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_14
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 197
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6ea1b71f02539e310800000000000000
+      internalID: 1434736371900816102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_15
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41db8f4255d570020800000000000000
+      internalID: 2307915954324552980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_16
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 197
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c906e4f1790c8f260800000000000000
+      internalID: 7131661765239005340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_17
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc92a388d9e816d80800000000000000
+      internalID: -8259163434374256177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_18
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 197
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6f0d519290125cd0800000000000000
+      internalID: -2570974215585067154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_19
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 164
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c417ba40134260c00800000000000000
+      internalID: 866419771265741132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 131
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0dfdfca85712b48e0800000000000000
+      internalID: -1708234844933201968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 98
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4acc40fa64003f0b0800000000000000
+      internalID: -5696208800109507420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_22
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 131
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 123ef7ac8a82dccd0800000000000000
+      internalID: -2536326309722725599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_23
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 98
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4e2639aef9e6c6380800000000000000
+      internalID: -8976678324141858076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_24
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 131
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7835449a6ba0b0ed0800000000000000
+      internalID: -2446850192905579641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_25
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 98
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef1ecd2ac5a843c80800000000000000
+      internalID: -8343892079136677378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_26
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 131
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a876ff42529ba8210800000000000000
+      internalID: 1336083808654419850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_27
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 98
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e52a0c8ba11047ce0800000000000000
+      internalID: -1408499569179712930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_28
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 131
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79d4909cd22d27b40800000000000000
+      internalID: 5436638794277801367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_29
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 100
+        width: 67
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68c904d5812b985f0800000000000000
+      internalID: -753875644894372730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_30
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 131
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c4eb640253454e20800000000000000
+      internalID: 3334145118678279363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_31
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 131
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 877d3e2cc016f7280800000000000000
+      internalID: -9043402819299453064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_32
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 101
+        width: 34
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a159cac26be80640800000000000000
+      internalID: 5046542192010154403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_33
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 131
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd251fcc4e0e749a0800000000000000
+      internalID: -6248778684657741092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_34
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 67
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa98d6ec84b45e5d0800000000000000
+      internalID: -3033935997891147345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_35
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 131
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e17fcdfb92182c590800000000000000
+      internalID: -7655414400263850210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_36
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 131
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77e586544c0c40eb0800000000000000
+      internalID: -4754463357385810313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_37
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 98
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4188b52f492ae02d0800000000000000
+      internalID: -3310529915465791468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_38
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 98
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93313fcbb75e067d0800000000000000
+      internalID: -2927087438177037511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_39
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 98
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7de81a02ddd8b520800000000000000
+      internalID: 2718166269300370814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_40
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 98
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c008da2af5521d00800000000000000
+      internalID: 941909805022838985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_41
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 104
+        width: 34
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf472476d011b55e0800000000000000
+      internalID: -1919922066878728965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_42
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 65
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c16b822d696047b0800000000000000
+      internalID: -5242074048807345719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_43
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 65
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 629fff1179d15c840800000000000000
+      internalID: 5243629875822065958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_44
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 65
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 31178be31d297c400800000000000000
+      internalID: 344405323915227411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_45
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 65
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dd9b87fa141f9f80800000000000000
+      internalID: -8097731498934034987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_46
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 65
+        width: 65
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6837e247dec0fdc0800000000000000
+      internalID: -3607155877588027283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_47
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 73
+        width: 34
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73df44382811cc540800000000000000
+      internalID: 5029414136111758647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_48
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 65
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00b3e3c0d30f6c2d0800000000000000
+      internalID: -3258653135366898944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_49
+      rect:
+        serializedVersion: 2
+        x: 297
+        y: 66
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95ab2d639d4dc0c60800000000000000
+      internalID: 7785831885209516633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_50
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 66
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6461c2646b971b3b0800000000000000
+      internalID: -5498479846274361786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_51
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 66
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de2db032101b796d0800000000000000
+      internalID: -2983721609668603155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_52
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 66
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6374fa561c8014330800000000000000
+      internalID: 3693242796148213558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_53
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 32
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e87c204cab8d5b1a0800000000000000
+      internalID: -6794286166154492018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_54
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 32
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a36a17947ce30df0800000000000000
+      internalID: -215068371688201304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_55
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 32
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7998f87d66034f6d0800000000000000
+      internalID: -2957685837014267497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_56
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 32
+        width: 30
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d9e5efaa4ad0b68f0800000000000000
+      internalID: -546327928900788579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_57
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 35
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 265a4acf09a6e40d0800000000000000
+      internalID: -3436692294690626206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_58
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 35
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1088e0586f792250800000000000000
+      internalID: 5920403271165968410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_59
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 35
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3ef3884819fb3e00800000000000000
+      internalID: 1025687222848060989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_60
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 32
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c041f66cf806563f0800000000000000
+      internalID: -908213579219528692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_61
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 32
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b4245535115fb870800000000000000
+      internalID: 8700762156633957560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_62
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 32
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f2f48866851ee8b0800000000000000
+      internalID: -5121132059250330892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_63
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 32
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f9d613cd49c7f4e0800000000000000
+      internalID: -1947866977991730701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_64
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 32
+        width: 34
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86e553e1a251a81a0800000000000000
+      internalID: -6806604616177459608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_65
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 32
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0abd80274ab7f4e40800000000000000
+      internalID: 5642864804336556960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_66
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 0
+        width: 30
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ea76feb62511ffc0800000000000000
+      internalID: -3462963382314435869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_67
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 0
+        width: 30
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68e469f7254f31ef0800000000000000
+      internalID: -138498528353300858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_68
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 0
+        width: 30
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef6573eec6df061b0800000000000000
+      internalID: -5665249686937184514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_69
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 30
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43ceacc411b6afc80800000000000000
+      internalID: -8288194442174993356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_70
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 2
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc009286c44ece1c0800000000000000
+      internalID: -4472949313069580083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_71
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 2
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d5eef101d612867b0800000000000000
+      internalID: -5230894214885151139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_72
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 2
+        width: 34
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dff0caa778ad6d760800000000000000
+      internalID: 7482408106336194557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_73
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 0
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2048b994207b713d0800000000000000
+      internalID: -3235916586789665790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_74
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 0
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0756df348478a2310800000000000000
+      internalID: 1381064980190553456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_75
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 0
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0df7c66cd1abb4240800000000000000
+      internalID: 4777116466802360272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_76
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 0
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 878202dd541171710800000000000000
+      internalID: 1663817579096975480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_77
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 0
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82e58b299b4332900800000000000000
+      internalID: 658427942161374760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackWhiteFrames_78
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 0
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d94bc9b441d59790800000000000000
+      internalID: -7523877509347456558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BlackWhiteFrames_0: 833649091319114378
+      BlackWhiteFrames_1: -5681615581286560677
+      BlackWhiteFrames_10: 6543929409580988179
+      BlackWhiteFrames_11: 979260195309874126
+      BlackWhiteFrames_12: -7530679503091377556
+      BlackWhiteFrames_13: -645707319487367844
+      BlackWhiteFrames_14: 1434736371900816102
+      BlackWhiteFrames_15: 2307915954324552980
+      BlackWhiteFrames_16: 7131661765239005340
+      BlackWhiteFrames_17: -8259163434374256177
+      BlackWhiteFrames_18: -2570974215585067154
+      BlackWhiteFrames_19: 866419771265741132
+      BlackWhiteFrames_2: 6034123567200842144
+      BlackWhiteFrames_20: -1708234844933201968
+      BlackWhiteFrames_21: -5696208800109507420
+      BlackWhiteFrames_22: -2536326309722725599
+      BlackWhiteFrames_23: -8976678324141858076
+      BlackWhiteFrames_24: -2446850192905579641
+      BlackWhiteFrames_25: -8343892079136677378
+      BlackWhiteFrames_26: 1336083808654419850
+      BlackWhiteFrames_27: -1408499569179712930
+      BlackWhiteFrames_28: 5436638794277801367
+      BlackWhiteFrames_29: -753875644894372730
+      BlackWhiteFrames_3: -8384220652398998606
+      BlackWhiteFrames_30: 3334145118678279363
+      BlackWhiteFrames_31: -9043402819299453064
+      BlackWhiteFrames_32: 5046542192010154403
+      BlackWhiteFrames_33: -6248778684657741092
+      BlackWhiteFrames_34: -3033935997891147345
+      BlackWhiteFrames_35: -7655414400263850210
+      BlackWhiteFrames_36: -4754463357385810313
+      BlackWhiteFrames_37: -3310529915465791468
+      BlackWhiteFrames_38: -2927087438177037511
+      BlackWhiteFrames_39: 2718166269300370814
+      BlackWhiteFrames_4: 1799780216837887173
+      BlackWhiteFrames_40: 941909805022838985
+      BlackWhiteFrames_41: -1919922066878728965
+      BlackWhiteFrames_42: -5242074048807345719
+      BlackWhiteFrames_43: 5243629875822065958
+      BlackWhiteFrames_44: 344405323915227411
+      BlackWhiteFrames_45: -8097731498934034987
+      BlackWhiteFrames_46: -3607155877588027283
+      BlackWhiteFrames_47: 5029414136111758647
+      BlackWhiteFrames_48: -3258653135366898944
+      BlackWhiteFrames_49: 7785831885209516633
+      BlackWhiteFrames_5: -6810172941055348255
+      BlackWhiteFrames_50: -5498479846274361786
+      BlackWhiteFrames_51: -2983721609668603155
+      BlackWhiteFrames_52: 3693242796148213558
+      BlackWhiteFrames_53: -6794286166154492018
+      BlackWhiteFrames_54: -215068371688201304
+      BlackWhiteFrames_55: -2957685837014267497
+      BlackWhiteFrames_56: -546327928900788579
+      BlackWhiteFrames_57: -3436692294690626206
+      BlackWhiteFrames_58: 5920403271165968410
+      BlackWhiteFrames_59: 1025687222848060989
+      BlackWhiteFrames_6: 8181404173075130871
+      BlackWhiteFrames_60: -908213579219528692
+      BlackWhiteFrames_61: 8700762156633957560
+      BlackWhiteFrames_62: -5121132059250330892
+      BlackWhiteFrames_63: -1947866977991730701
+      BlackWhiteFrames_64: -6806604616177459608
+      BlackWhiteFrames_65: 5642864804336556960
+      BlackWhiteFrames_66: -3462963382314435869
+      BlackWhiteFrames_67: -138498528353300858
+      BlackWhiteFrames_68: -5665249686937184514
+      BlackWhiteFrames_69: -8288194442174993356
+      BlackWhiteFrames_7: -8282866711268443263
+      BlackWhiteFrames_70: -4472949313069580083
+      BlackWhiteFrames_71: -5230894214885151139
+      BlackWhiteFrames_72: 7482408106336194557
+      BlackWhiteFrames_73: -3235916586789665790
+      BlackWhiteFrames_74: 1381064980190553456
+      BlackWhiteFrames_75: 4777116466802360272
+      BlackWhiteFrames_76: 1663817579096975480
+      BlackWhiteFrames_77: 658427942161374760
+      BlackWhiteFrames_78: -7523877509347456558
+      BlackWhiteFrames_8: 5644059773595278359
+      BlackWhiteFrames_9: -7857568268900753411
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

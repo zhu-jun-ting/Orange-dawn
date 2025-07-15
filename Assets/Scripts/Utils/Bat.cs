@@ -7,8 +7,8 @@ public class Bat : MonoBehaviour
     [Header("Bat Settings")]
     [SerializeField] public float attackPower;
     [SerializeField] private GameObject owner;
-    [SerializeField] private float hitBackEnemy = 10f;
-    [SerializeField] private float hitBackBullet = 10f;
+    [SerializeField] public float hitBackEnemy = 10f;
+    [SerializeField] public float hitBackBullet = 10f;
 
     // Start is called before the first frame update
     void Start()

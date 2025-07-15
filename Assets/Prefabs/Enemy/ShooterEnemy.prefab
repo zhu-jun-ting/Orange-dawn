@@ -416,8 +416,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.524, y: -0.747, z: 0}
-  m_LocalScale: {x: 1.2512, y: 1.1954, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.5732417, z: 0.47953966}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3235738134715294263}
   - {fileID: 8655908523751691682}
@@ -577,6 +577,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buff_icon_grid: {fileID: 4078746287530434960}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
+  isPlayer: 0
   dot_stat: {fileID: 0}
   stat: {fileID: 0}
   target: {fileID: 0}
@@ -587,6 +588,8 @@ MonoBehaviour:
   - Wall
   minCollisionDamage: 2
   collisionDamageScale: 3
+  enemyAOEPrefab: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
+  attackCooldown: 2
   shooter_stat: {fileID: 11400000, guid: 22f4138a457ded646b96c23e59547f5f, type: 2}
 --- !u!1 &8655908523751691681
 GameObject:

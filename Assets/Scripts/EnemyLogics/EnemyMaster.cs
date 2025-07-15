@@ -36,6 +36,17 @@ public class EnemyMaster : PawnMaster
     public float minCollisionDamage = 2f; // Minimum force to consider a hit as damage
     public float collisionDamageScale = 1f; // You can expose this as a public parameter if needed
 
+    [Header("Melee Attack Detector")]
+    public Collider2D meleeAttackDetector; // Collider to detect melee attacks
+    public List<string> meleeAttackTags; // Tags to filter melee attacks, e.g., "Player", "Bullet", etc.
+
+    [Header("Attacking")]
+    public GameObject enemyAOEPrefab; // Prefab for AOE attack
+    public float attackScale = 1f; // Scale for AOE attack size
+    public float attackDamage = 10f;
+    public float attackDuration = 1f;
+    public float attackCooldown = 2f; // Cooldown between attacks
+
 
     // internal vars
     protected float hitBackFactor;
@@ -205,13 +216,52 @@ public class EnemyMaster : PawnMaster
 
     }
 
+    public void OnMeleeAttackTriggerEnter(Collider2D other)
+    {
+        if (meleeAttackTags != null && meleeAttackTags.Contains(other.tag))
+        {
+            if (Time.time - lastAttackTime >= attackCooldown)
+            {
+                StartCoroutine(PerformAttack(other));
+            }
+        }
+    }
+    private IEnumerator PerformAttack(Collider2D other)
+    {
+        // Stop movement
+        if (rb != null) rb.linearVelocity = Vector2.zero;
+        float originalMoveSpeed = moveSpeed;
+        moveSpeed = 0f;
+
+        Vector3 spawnDir = (other.transform.position - transform.position).normalized;
+        Quaternion spawnRot = Quaternion.LookRotation(Vector3.forward, spawnDir);
+        GameObject aoeObj = Instantiate(enemyAOEPrefab, transform.position, spawnRot);
+        lastAttackTime = Time.time;
+        EnemyAOE enemyAOE = aoeObj.GetComponent<EnemyAOE>();
+        if (enemyAOE != null)
+        {
+            enemyAOE.damage = attackDamage;
+            enemyAOE.transform.localScale = Vector3.one * attackScale; // Scale the AOE
+            enemyAOE.fillDuration = attackDuration;
+        }
+        yield return new WaitForSeconds(attackDuration);
+        moveSpeed = originalMoveSpeed;
+    }
+
+
+    private float lastAttackTime = 0f;
+
     // Handle collision-based damage when being hit back
     // This method is called by Unity when this enemy collides with another collider
     void OnCollisionEnter2D(UnityEngine.Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (meleeAttackTags.Contains(collision.gameObject.tag))
         {
-            HurtPlayer(target.gameObject, 10f); // TODO: update parameter
+            // Only attack if cooldown has passed
+            if (Time.time - lastAttackTime >= attackCooldown)
+            {
+                StartCoroutine(PerformAttack(collision.collider));
+            }
             return;
         }
 

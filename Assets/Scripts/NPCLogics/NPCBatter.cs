@@ -7,6 +7,9 @@ public class NPCBatter : NPCMaster, IColliderHandler
     [Header("Batter Stats")]
     public float attackInterval = 1.2f;
     public float attackRange = 2.5f;
+    public float attackPower = 2f;
+    public float hitBackEnemy = 10f;
+    public float hitBackBullet = 10f;
     public List<string> triggerTags = new List<string> { "Enemy", "Bullet" };
     public ColliderToHandle colliderToHandle;
 
@@ -134,6 +137,13 @@ public class NPCBatter : NPCMaster, IColliderHandler
             if (batSword != null && !batSword.activeSelf)
             {
                 batSword.SetActive(true);
+                Bat bat = batSword.GetComponent<Bat>();
+                if (bat != null)
+                {
+                    bat.attackPower = attackPower;
+                    bat.hitBackEnemy = hitBackEnemy;
+                    bat.hitBackBullet = hitBackBullet;
+                }
             }
             yield return new WaitForSeconds(attackInterval);
         }

@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: b02f57079b44ecc4a9bcfeb2abd7762b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7170603770922065602
+    second: Garden_cozy_kit_Photoshop_0
+  - first:
+      213: -320704867522151428
+    second: Garden_cozy_kit_Photoshop_1
+  - first:
+      213: 29419585076419457
+    second: Garden_cozy_kit_Photoshop_2
+  - first:
+      213: -7749171626003184882
+    second: Garden_cozy_kit_Photoshop_3
+  - first:
+      213: -8696116033793009143
+    second: Garden_cozy_kit_Photoshop_4
+  - first:
+      213: -2228898917258809734
+    second: Garden_cozy_kit_Photoshop_5
+  - first:
+      213: -5053207649283578742
+    second: Garden_cozy_kit_Photoshop_6
+  - first:
+      213: 766127791455153624
+    second: Garden_cozy_kit_Photoshop_7
+  - first:
+      213: -1645620212144095430
+    second: Garden_cozy_kit_Photoshop_8
+  - first:
+      213: 2584586191065963414
+    second: Garden_cozy_kit_Photoshop_9
+  - first:
+      213: 7730503867658480122
+    second: Garden_cozy_kit_Photoshop_10
+  - first:
+      213: 3976950963213828499
+    second: Garden_cozy_kit_Photoshop_11
+  - first:
+      213: 5555252864580728722
+    second: Garden_cozy_kit_Photoshop_12
+  - first:
+      213: -165453870980135613
+    second: Garden_cozy_kit_Photoshop_13
+  - first:
+      213: 5380591462968393189
+    second: Garden_cozy_kit_Photoshop_14
+  - first:
+      213: -5244317437066104435
+    second: Garden_cozy_kit_Photoshop_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_0
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 957
+        width: 56
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e312d11acd5ec7c90800000000000000
+      internalID: -7170603770922065602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_1
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 963
+        width: 87
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfb7a954f90ac8bf0800000000000000
+      internalID: -320704867522151428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_2
+      rect:
+        serializedVersion: 2
+        x: 332
+        y: 966
+        width: 85
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18b5bede4f4886000800000000000000
+      internalID: 29419585076419457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_3
+      rect:
+        serializedVersion: 2
+        x: 488
+        y: 964
+        width: 74
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e034b888679657490800000000000000
+      internalID: -7749171626003184882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_4
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 806
+        width: 93
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90a50309a80315780800000000000000
+      internalID: -8696116033793009143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_5
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 800
+        width: 102
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7e29847e3c5111e0800000000000000
+      internalID: -2228898917258809734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_6
+      rect:
+        serializedVersion: 2
+        x: 330
+        y: 813
+        width: 93
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a846a208a666fd9b0800000000000000
+      internalID: -5053207649283578742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_7
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 809
+        width: 86
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dd2d3eca25d1aa00800000000000000
+      internalID: 766127791455153624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_8
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 646
+        width: 112
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a3fb2fbc2259929e0800000000000000
+      internalID: -1645620212144095430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_9
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 755
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69bddd1727b4ed320800000000000000
+      internalID: 2584586191065963414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_10
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 664
+        width: 71
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af921964f44484b60800000000000000
+      internalID: 7730503867658480122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_11
+      rect:
+        serializedVersion: 2
+        x: 189
+        y: 660
+        width: 72
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 391028b84d7f03730800000000000000
+      internalID: 3976950963213828499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_12
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 658
+        width: 87
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2973ece1c09381d40800000000000000
+      internalID: 5555252864580728722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_13
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 504
+        width: 102
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3450489b49034bdf0800000000000000
+      internalID: -165453870980135613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_14
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 504
+        width: 102
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5edfabf8d63bbaa40800000000000000
+      internalID: 5380591462968393189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Garden_cozy_kit_Photoshop_15
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 503
+        width: 102
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d81b94a93117837b0800000000000000
+      internalID: -5244317437066104435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Garden_cozy_kit_Photoshop_0: -7170603770922065602
+      Garden_cozy_kit_Photoshop_1: -320704867522151428
+      Garden_cozy_kit_Photoshop_10: 7730503867658480122
+      Garden_cozy_kit_Photoshop_11: 3976950963213828499
+      Garden_cozy_kit_Photoshop_12: 5555252864580728722
+      Garden_cozy_kit_Photoshop_13: -165453870980135613
+      Garden_cozy_kit_Photoshop_14: 5380591462968393189
+      Garden_cozy_kit_Photoshop_15: -5244317437066104435
+      Garden_cozy_kit_Photoshop_2: 29419585076419457
+      Garden_cozy_kit_Photoshop_3: -7749171626003184882
+      Garden_cozy_kit_Photoshop_4: -8696116033793009143
+      Garden_cozy_kit_Photoshop_5: -2228898917258809734
+      Garden_cozy_kit_Photoshop_6: -5053207649283578742
+      Garden_cozy_kit_Photoshop_7: 766127791455153624
+      Garden_cozy_kit_Photoshop_8: -1645620212144095430
+      Garden_cozy_kit_Photoshop_9: 2584586191065963414
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

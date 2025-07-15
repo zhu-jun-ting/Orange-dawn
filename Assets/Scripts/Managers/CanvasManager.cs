@@ -229,8 +229,8 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 				handArea.DOMove(handAnchorOutside.position, 0.5f).SetEase(Ease.InOutBack).SetUpdate(true);
 			panelsVisible = false;
 			DOTween.defaultTimeScaleIndependent = false;
-			// Pause only gameplay, not UI
-			// ResumeGameOnly();
+
+			if (GameEvents.instance != null) GameEvents.instance.ToggleBoard(false);
 		}
 		else
 		{
@@ -242,7 +242,9 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 				handArea.DOMove(handAreaInPos, 0.5f).SetEase(Ease.InOutBack).SetUpdate(true);
 			panelsVisible = true;
 			DOTween.defaultTimeScaleIndependent = false;
-			// PauseGameOnly();
+			
+			if (GameEvents.instance != null) GameEvents.instance.ToggleBoard(true);
+			
 		}
 	}
 

@@ -119,4 +119,43 @@ public class GameEvents : MonoBehaviour
             OnLevelStart(levelIndex);
         }
     }
+
+    /// <summary>
+    /// Event to toggle the board visibility. True if board is going active, false if it is going hidden.
+    /// </summary>
+    public event Action<bool> OnToggleBoard;
+    public void ToggleBoard(bool isActive)
+    {
+        if (OnToggleBoard != null)
+        {
+            OnToggleBoard(isActive);
+        }
+    }
+
+
+    public static bool isPlayingCardAnimation = false;
+    /// <summary>
+    /// Event to tell if is playing the card animation. True if playing, false if animation is done.
+    /// </summary>
+    public event Action<bool> OnPlayCardAnimation;
+    public void PlayCardAnimation(bool isPlaying)
+    {
+        isPlayingCardAnimation = isPlaying;
+        if (OnPlayCardAnimation != null)
+        {
+            OnPlayCardAnimation(isPlaying);
+        }
+    }
+
+    public static int discardedCardsCount = 0;
+    public event Action<CardMaster> OnCardDiscarded;
+    public void CardDiscarded(CardMaster card)
+    {
+        discardedCardsCount++;
+        if (OnCardDiscarded != null)
+        {
+            OnCardDiscarded(card);
+        }
+    }
+    
 }

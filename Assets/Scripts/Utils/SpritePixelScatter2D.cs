@@ -38,6 +38,8 @@ public class SpritePixelScatter2D : MonoBehaviour
         // Hide the sprite
         spriteRenderer.enabled = false;
 
+        Color spriteTint = spriteRenderer.color;
+
         // Loop through pixels
         for (int x = 0; x < rect.width; x += pixelStep)
         {
@@ -57,7 +59,18 @@ public class SpritePixelScatter2D : MonoBehaviour
                 GameObject p = Instantiate(particlePrefab, worldPos, Quaternion.identity);
                 p.transform.localScale = Vector3.one * particleScale;
                 var sr = p.GetComponent<SpriteRenderer>();
-                if (sr != null) sr.color = color;
+                if (sr != null)
+                {
+                    // Blend pixel color with sprite tint and add random color variation
+                    Color tint = spriteTint;
+                    Color randomTint = new Color(
+                        1f + Random.Range(-0.08f, 0.08f),
+                        1f + Random.Range(-0.08f, 0.08f),
+                        1f + Random.Range(-0.08f, 0.08f),
+                        1f
+                    );
+                    sr.color = color * tint * randomTint;
+                }
 
                 // Add 2D physics (no gravity)
                 var rb = p.GetComponent<Rigidbody2D>();

@@ -51,11 +51,12 @@ public class CardValueRocket : CardMaster
         }
     }
 
-    public override void OnCardDestroyed()
+    public override bool OnCardDestroyed()
     {
+        if (card_conditions != null && card_conditions.Contains(CardCondition.IsEternal)) return false;
         if (GameEvents.instance != null)
             GameEvents.instance.OnUpdateCoins -= OnUpdateCoinsHandler;
-        base.OnCardDestroyed();
+        return base.OnCardDestroyed();
     }
 
     public override string GetDescription()

@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.034, y: 0.086, z: 0}
-  m_LocalScale: {x: 3.645683, y: 3.645683, z: 3.645683}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1012180736909545086}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: -442054381
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: -8628954148238766946, guid: d3873f465829aac4598fd06c9055a20b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -3033935997891147345, guid: 71ff7ada688ff344abfcbec88cbe6730, type: 3}
+  m_Color: {r: 0.3433962, g: 0.13770834, b: 0.0796938, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -115,7 +115,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.034, y: 0.086, z: 0}
-  m_LocalScale: {x: 3.645683, y: 3.645683, z: 3.645683}
+  m_LocalScale: {x: 2.42, y: 2.42, z: 2.42}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1012180736909545086}
@@ -164,7 +164,7 @@ SpriteRenderer:
   m_SortingLayerID: -442054381
   m_SortingLayer: 2
   m_SortingOrder: -1
-  m_Sprite: {fileID: 6296137254373669167, guid: 0e9942811fd533f4aa3d7dd0d497ede0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f66c60fb167a0f4299a9865ef4badc9, type: 3}
   m_Color: {r: 0.5471698, g: 0.26468128, b: 0.21370591, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -610,8 +610,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.29, y: 0.4, z: 0}
-  m_LocalScale: {x: 1.2512, y: 1.1954, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.6, y: 0.5732417, z: 0.47953966}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1012180735223525878}
   - {fileID: 581267707475198790}
@@ -709,6 +709,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buff_icon_grid: {fileID: 6563926399844618990}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
+  isPlayer: 0
   dot_stat: {fileID: 0}
   stat: {fileID: 11400000, guid: af88fa7f586c0164a9bc8e59137a744c, type: 2}
   target: {fileID: 0}
@@ -719,6 +720,8 @@ MonoBehaviour:
   - Wall
   minCollisionDamage: 2
   collisionDamageScale: 3
+  enemyAOEPrefab: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
+  attackCooldown: 2
 --- !u!58 &1012180736909545083
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -753,8 +756,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.3
+  m_Offset: {x: 0.03109485, y: 0.09113004}
+  m_Radius: 0.47413158
 --- !u!50 &1012180736909545084
 Rigidbody2D:
   serializedVersion: 5
@@ -767,7 +770,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.44263515
+  m_Mass: 0.2542437
   m_LinearDamping: 10
   m_AngularDamping: 0.05
   m_GravityScale: 0

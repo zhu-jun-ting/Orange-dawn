@@ -20,6 +20,7 @@ public class ItemDeath : ItemMaster
         if (HandArea.instance != null)
         {
             var handCards = HandArea.instance.GetCardsOnHand();
+            handCards.RemoveAll(card => card.card_conditions.Contains(CardMaster.CardCondition.IsEternal));
             if (handCards.Count > 0)
             {
                 var card = handCards[Random.Range(0, handCards.Count)];

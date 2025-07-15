@@ -77,3 +77,25 @@ MonoBehaviour:
     cardPrefab: {fileID: 6705360014326929814, guid: 80c24343302ef1b4dbc6406390e0fc25, type: 3}
   - cardId: 419
     cardPrefab: {fileID: 6705360014326929814, guid: 17a8e33715574a643af9ec57646df611, type: 3}
+  - cardId: 216
+    cardPrefab: {fileID: 6658401908579154275, guid: 9ede3931ef9557d488621882f8acd93a, type: 3}
+  - cardId: 217
+    cardPrefab: {fileID: 6658401908579154275, guid: 0eb393a2a1e6906418db70b42ddd395e, type: 3}
+  - cardId: 302
+    cardPrefab: {fileID: 5827941450257739500, guid: aa226c2647966a24b835f0d5113889ab, type: 3}
+  - cardId: 303
+    cardPrefab: {fileID: 5827941450257739500, guid: 0cac9a36b56a8aa439b2fa0f6b664e86, type: 3}
+  - cardId: 304
+    cardPrefab: {fileID: 5827941450257739500, guid: a76d31cd3e6234d44af92cb87eebd0bb, type: 3}
+  - cardId: 421
+    cardPrefab: {fileID: 6705360014326929814, guid: 8ba7ae29875b81046b0224078521bae4, type: 3}
+  - cardId: 420
+    cardPrefab: {fileID: 6705360014326929814, guid: 15ebd693d8ee925448de9317fa78270e, type: 3}
+  - cardId: 422
+    cardPrefab: {fileID: 6705360014326929814, guid: 2e9fc426975e9074ab1d308dc2f05f32, type: 3}
+  - cardId: 218
+    cardPrefab: {fileID: 6658401908579154275, guid: 7b301d7e4219c2c41ad28f9ccba3585e, type: 3}
+  - cardId: 219
+    cardPrefab: {fileID: 6658401908579154275, guid: be3840b645385de448eee1ad20a8eb2f, type: 3}
+  - cardId: 220
+    cardPrefab: {fileID: 6658401908579154275, guid: 7e4377eaeb9aa5f42b3400b626a6ecca, type: 3}

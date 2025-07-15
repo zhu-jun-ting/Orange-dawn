@@ -58,15 +58,16 @@ public class CardBasePistol : CardMaster
         base.OnCardDisable();
     }
 
-    public override void OnCardDestroyed()
+    public override bool OnCardDestroyed()
     {
         base.OnCardDestroyed();
         if (current_gun != null)
         {
             Destroy(current_gun.gameObject);
             current_gun = null;
+            return true;
         }
-        
+        return false;
     }
 
     public override string GetDescription()

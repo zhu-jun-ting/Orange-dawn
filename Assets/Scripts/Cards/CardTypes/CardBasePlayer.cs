@@ -26,9 +26,9 @@ public class CardBasePlayer : CardMaster
         base.OnCardDisable();
     }
 
-    public override void OnCardDestroyed()
+    public override bool OnCardDestroyed()
     {
-        base.OnCardDestroyed();
+        return base.OnCardDestroyed();
     }
 
     public override string GetDescription()
