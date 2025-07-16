@@ -9438,6 +9438,7 @@ MonoBehaviour:
   oneTimeFx: {fileID: 3395333244748247856, guid: 503d1030a0f4e6a4caf018e228254e07, type: 3}
   lineFx: {fileID: 8991057882598897126, guid: 95ee705af2f02724bbba97988310729d, type: 3}
   alert_prefab: {fileID: 2463634058655564994, guid: 0586dcf3ceb99c048a68416632c94931, type: 3}
+  lightBeamPrefab: {fileID: 5729296939652090568, guid: 67fe6b9bddc077d4da0645ff6fbec455, type: 3}
 --- !u!58 &833119247
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -15181,6 +15182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e7562e5754d4454c84bb1e5af4ce9b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultMaxSize: 1000
 --- !u!1001 &1306787887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21548,16 +21550,8 @@ MonoBehaviour:
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 0.5
-  _triggerProbability: 1
   fragileWallPrefab: {fileID: 6452647200994541434, guid: b9166ee1a04e05645be6adc5f0fbcc9e, type: 3}
-  impulseAOEPrefab: {fileID: 8566337620387754875, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
   spawnRadius: 5
-  spawnCount: 2
-  spawnDamage: 10
-  impulseRadius: 0.5
-  impulseDuration: 0.3
-  manaCost: 1
-  triggerCooldown: 1
 --- !u!1001 &1835626205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22223,13 +22217,9 @@ MonoBehaviour:
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   _actionCooldown: 0.5
-  _triggerProbability: 1
   explodeBulletPrefab: {fileID: 2465694836919026090, guid: 7d381e0569827cb43a63c325c7fa6657, type: 3}
   trigger_tags:
   - Enemy
-  Damage: 20
-  Amount: 5
-  ManaCost: 1
   randomAngleOffset: 20
 --- !u!1 &1843651044
 GameObject:

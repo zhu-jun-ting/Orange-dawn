@@ -299,6 +299,9 @@ public class CombatManager : MonoBehaviour
     {
         if (obj != null && !spawnedObjects.Contains(obj))
             spawnedObjects.Add(obj);
+
+        // Remove any nulls from the spawnedObjects list
+        spawnedObjects.RemoveAll(obj => obj == null);
     }
 
     /// <summary>
@@ -419,7 +422,7 @@ public class CombatManager : MonoBehaviour
         }
         return null;
     }
-    
+
 
     /// <summary>
     /// Checks if a point is inside any allowed spawn area (using RectTransform or Collider2D).
@@ -441,7 +444,7 @@ public class CombatManager : MonoBehaviour
             }
         }
         return false;
-            }
+    }
 
     public static void PlayFx(GameObject fx, Vector2 location, float scale, float duration = 1f, bool isLooping = false)
     {
@@ -654,5 +657,63 @@ public class CombatManager : MonoBehaviour
         else
             // Return a random unit vector if no enemies exist
             return UnityEngine.Random.insideUnitCircle.normalized;
+    }
+
+
+
+
+    [Header("LightningBox Settings")]
+    [Tooltip("Prefab of the LightBeam to spawn")] public GameObject lightBeamPrefab;
+    private float retriggerChance = 0.3f;
+    private int maxChain = 2;
+    private string[] enemyTags = new string[] { "Enemy" };
+    private float lightningDamage = 5f; // Default damage for the lightning chain
+
+    public void ShootLightningChain(Transform origin, float _damage = 5f, float _retriggerChance = 0.3f, int _maxChain = 2, string[] _enemyTags = null)
+    {
+        if (_retriggerChance < 0 || _retriggerChance > 1)
+        {
+            Debug.LogError("Retrigger chance must be between 0 and 1.");
+            return;
+        }
+        retriggerChance = _retriggerChance;
+        maxChain = _maxChain;
+        lightningDamage = _damage;
+        enemyTags = _enemyTags ?? new string[] { "Enemy" };
+        ShootLightningChain(origin.position, 0);
+    }
+
+    private void ShootLightningChain(Vector2 startPos, int chainCount)
+    {
+        GameObject beam = Instantiate(lightBeamPrefab, startPos, Quaternion.identity);
+        LightBeam beamScript = beam.GetComponent<LightBeam>();
+        if (beamScript != null)
+        {
+            beamScript.targetTags = new System.Collections.Generic.List<string>(enemyTags);
+            beamScript.useMaxLength = false; // Use actual target position
+            beamScript.damage = lightningDamage; // Set the damage for the beam
+            // Wait for the beam to fire, then possibly retrigger
+            beamScript.StartCoroutine(RetriggerAfterBeam(beamScript, chainCount));
+        }
+    }
+
+    private System.Collections.IEnumerator RetriggerAfterBeam(LightBeam beamScript, int chainCount)
+    {
+        // Wait for the beam to fire and deal damage
+        yield return new WaitForSeconds(beamScript.duration * 0.9f);
+        if (chainCount < maxChain && UnityEngine.Random.value < retriggerChance)
+        {
+            Vector2 end = beamScript.transform.position;
+            if (beamScript != null)
+            {
+                // Try to get the actual beam end position if available
+                var endField = beamScript.GetType().GetField("beamEnd", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                if (endField != null)
+                {
+                    end = (Vector2)endField.GetValue(beamScript);
+                }
+            }
+            ShootLightningChain(end, chainCount + 1);
+        }
     }
 }

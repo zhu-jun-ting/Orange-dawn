@@ -219,7 +219,7 @@ public class CardDesciprtionUpdater : MonoBehaviour
                 for (int i = drawn.Count - 1; i >= 0; i--)
                 {
                     if (!cardMaster.card_conditions.Contains(drawn[i].Item1))
-                        DestroyImmediate(drawn[i].Item2);
+                        Destroy(drawn[i].Item2);
                 }
 
                 // Insert or move visuals for each condition in order

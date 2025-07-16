@@ -157,5 +157,23 @@ public class GameEvents : MonoBehaviour
             OnCardDiscarded(card);
         }
     }
+
+    public event Action<Transform, GunBullet> OnSpawnObject;
+    public void SpawnObject(Transform obj, GunBullet bullet = null)
+    {
+        if (OnSpawnObject != null)
+        {
+            OnSpawnObject(obj, bullet);
+        }
+    }
+
+    public event Action<Transform, GunBullet> OnDestroyObject;
+    public void DestroyObject(Transform obj, GunBullet bullet = null)
+    {
+        if (OnDestroyObject != null)
+        {
+            OnDestroyObject(obj, bullet);
+        }
+    }
     
 }

@@ -154,5 +154,12 @@ public class PawnMaster : MonoBehaviour, IBuffable
         Debug.LogError("pawn " + gameObject + " can not have an lifesteal buff");
     }
 
-
+    public Vector2 GetPosition()
+    {
+        if (transform != null)
+        {
+            return transform.position;
+        }
+        return Vector2.zero;
+    }   
 }

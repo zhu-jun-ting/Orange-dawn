@@ -619,6 +619,7 @@ public class CardMaster : MonoBehaviour
                     case NumberType.Coin: coin += GameSettings.Growth(NumberType.Coin); break;
                 }
             }
+            ShowPopup("Grow: " + times + " times");
             return true;
         }
         else
@@ -645,6 +646,7 @@ public class CardMaster : MonoBehaviour
                     case NumberType.Coin: coin += GameSettings.Decay(NumberType.Coin); break;
                 }
             }
+            ShowPopup("Decay: " + times + " times");
             return true;
         }
         else
@@ -770,8 +772,8 @@ public class CardMaster : MonoBehaviour
             GameEvents.instance.OnLevelCleared -= onLevelCleared;
             GameEvents.instance.OnToggleBoard -= onToggleBoard;
         }
-        yield return new WaitForSeconds(1f); 
-        DoDestroyCard(); 
+        yield return new WaitForSeconds(1f);
+        DoDestroyCard();
     }
 
     private void DoDestroyCard()
@@ -795,8 +797,8 @@ public class CardMaster : MonoBehaviour
         // 2. Wait
         destroySeq.AppendInterval(waitDuration);
         // 3. Scale up and fade out
-        destroySeq.Append(transform.DOScale(1.6f, scaleFadeDuration).SetEase(Ease.InQuad));   
-        destroySeq.Join(canvasGroup.DOFade(0f, scaleFadeDuration).SetEase(Ease.InQuad));   
+        destroySeq.Append(transform.DOScale(1.6f, scaleFadeDuration).SetEase(Ease.InQuad));
+        destroySeq.Join(canvasGroup.DOFade(0f, scaleFadeDuration).SetEase(Ease.InQuad));
         // 4. Move far away after sequence
         destroySeq.OnComplete(() =>
         {
@@ -912,6 +914,8 @@ public class CardMaster : MonoBehaviour
         {
             HandArea.instance?.DiscardCard(this);
         }
+        // Reset card and update
+        Reset();
         CardDragHandler.TriggerUpdateCards();
     }
 
@@ -1249,7 +1253,7 @@ public class CardMaster : MonoBehaviour
             return true;
         return a == b;
     }
-    
+
     /// <summary>
     /// Get all star cards at the star positions defined in uiStarPositions.
     /// Also returns empty slots and locked slots. Empty and Locked slots are returned as the actual grid positions, not relative to this card's position.
@@ -1291,5 +1295,131 @@ public class CardMaster : MonoBehaviour
             }
         }
         return;
+    }
+
+    /// <summary>
+    /// Spawns a number of objects around a specified position with a given rotation.
+    /// </summary>
+    /// <param name="_prefab">object to spawn</param>
+    /// <param name="_count">how many to spawn</param>
+    /// <param name="_position">where to spawn the objects</param>
+    /// <param name="_rotation">rotation of the spawned objects</param>
+    /// <param name="_radius">radius within which to spawn the objects</param>
+    /// <param name="_modifyObject">action to modify the spawned object</param>
+    /// <returns></returns>
+    public List<GameObject> SpawnObjects(GameObject _prefab, int _count = 1, UnityEngine.Vector2? _position = null, UnityEngine.Quaternion _rotation = default, float _radius = 1f, System.Action<GameObject> _modifyObject = null)
+    {
+        if (_prefab == null || _count <= 0) return new List<GameObject>();
+        UnityEngine.Vector2 spawnPosition = _position ?? (PlayerController.instance != null ? PlayerController.instance.GetPosition() : UnityEngine.Vector2.zero);
+        List<GameObject> spawnedObjects = new List<GameObject>();
+
+        for (int i = 0; i < _count; i++)
+        {
+            spawnPosition = CombatManager.instance.TryGetSpawnLocation(spawnPosition, _radius) ?? spawnPosition;
+            var obj = ObjectPool.Instance.GetObject(_prefab, spawnPosition, _rotation);
+            _modifyObject?.Invoke(obj); // Apply any modifications if needed
+
+            if (CombatManager.instance != null) CombatManager.instance.AddObject(obj.transform);
+            if (GameEvents.instance != null)
+            {
+                GameEvents.instance.SpawnObject(obj.transform);
+            }
+            spawnedObjects.Add(obj);
+        }
+
+        return spawnedObjects;
+    }
+
+    /// <summary>
+    /// Spawns a number of objects around a specified position with a given rotation.
+    /// </summary>
+    /// <param name="_prefab">object to spawn (must with a GunBullet script attached)</param>
+    /// <param name="_count">how many to spawn</param>
+    /// <param name="_position">where to spawn the objects</param>
+    /// <param name="_rotation">rotation of the spawned objects</param>
+    /// <param name="_radius">radius within which to spawn the objects</param>
+    /// <param name="_triggerTags">tags to trigger on</param>
+    /// <param name="_randomAngleOffset">random angle offset for inaccuracy</param>
+    /// <param name="_modifyBullet">action to modify the bullet</param>
+    /// <returns></returns>
+    public List<GameObject> SpawnBullets(GameObject _prefab, int _count = 1, UnityEngine.Vector2 _position = default, UnityEngine.Quaternion _rotation = default, float _radius = 0.3f,
+        List<string> _triggerTags = null, float _bulletDamage = 5f, float _randomAngleOffset = 10f, System.Action<GunBullet> _modifyBullet = null)
+    {
+        if (_prefab == null || _count <= 0) return new List<GameObject>();
+        if (_triggerTags == null) _triggerTags = new List<string> { "Enemy" }; // Default to hitting enemies
+        UnityEngine.Vector2 spawnPosition = _position;
+        List<GameObject> spawnedBullets = new List<GameObject>();
+
+        for (int i = 0; i < _count; i++)
+        {
+            spawnPosition = CombatManager.instance.TryGetSpawnLocation(spawnPosition, _radius) ?? spawnPosition;
+            var bulletObj = ObjectPool.Instance.GetObject(_prefab, spawnPosition, _rotation);
+            GunBullet bullet = bulletObj.GetComponent<GunBullet>();
+
+            if (bullet != null)
+            {
+                bullet.SetOwner(gameObject); // Set owner to this card
+                bullet.SetSpeed(UnityEngine.Vector2.zero); // Start with zero speed
+                bullet.trigger_tags = _triggerTags; // Ensure it can hit enemies
+                // Set direction towards nearest enemy
+                UnityEngine.Vector2 dir = CombatManager.instance.GetVectorToNearestEnemy(spawnPosition);
+                if (dir == UnityEngine.Vector2.zero)
+                    dir = UnityEngine.Random.insideUnitCircle.normalized; // fallback
+                // Add random angle offset for inaccuracy
+                float angleOffset = UnityEngine.Random.Range(-_randomAngleOffset, _randomAngleOffset);
+                dir = UnityEngine.Quaternion.Euler(0, 0, angleOffset) * dir;
+                bullet.SetSpeed(dir, bullet.speed);
+                bullet.att = _bulletDamage; // Set the bullet damage
+
+                // Apply any additional modifications to the bullet
+                _modifyBullet?.Invoke(bullet);
+            }
+            else
+            {
+                Debug.LogError($"Spawned object {bulletObj.name} does not have a GunBullet component. Please ensure the prefab is set up correctly.");
+            }
+
+            spawnedBullets.Add(bulletObj);
+        }
+
+        return spawnedBullets;
+    }
+
+    // Helper to create a temporary transform at a position
+    public Transform CreateTempTransformAt(UnityEngine.Vector2 pos)
+    {
+        GameObject temp = new GameObject("TempWallSpawnPoint");
+        temp.transform.position = pos;
+        // Destroy after 2 seconds to avoid leaks
+        Destroy(temp, 2f);
+        return temp.transform;
+    }
+
+    // Helper to check if a number is prime
+    public static bool IsPrime(int n)
+    {
+        // Check for numbers less than 2 (0 and 1 are not prime)
+        if (n <= 1) return false;
+        // Check for 2 and 3 explicitly
+        if (n <= 3) return true;
+        // Eliminate multiples of 2 and 3
+        if (n % 2 == 0 || n % 3 == 0) return false;
+
+        // Only check odd divisors up to √n
+        for (int i = 5; i * i <= n; i += 6)
+        {
+            if (n % i == 0 || n % (i + 2) == 0) return false;
+        }
+        return true;
+    }
+    
+    public List<CardMaster> GetLinkedCards()
+    {
+        var linked = new List<CardMaster>();
+        if (up_link_cardmaster != null) linked.Add(up_link_cardmaster);
+        if (down_link_cardmaster != null) linked.Add(down_link_cardmaster);
+        if (left_link_cardmaster != null) linked.Add(left_link_cardmaster);
+        if (right_link_cardmaster != null) linked.Add(right_link_cardmaster);
+        return linked;
     }
 }

@@ -42,19 +42,19 @@ public class CardActionBulletAoe : CardMaster, ICardAction
     private GunBullet bullet;
     private void HandleOnHitWall(GunBullet _bullet, Vector2 hitPosition, GameObject wall)
     {
-        if (_bullet == null || _bullet.Aoe == null) return;
+        if (_bullet == null || _bullet.Aoe == null || _bullet.IsAoeActive()) return;
         if (Time.time - lastAoeTime < actionCooldown) return;
         if (UnityEngine.Random.value > probability) return; // Always triggers, but keep for extensibility
+        if (!ManaBar.CanCostMana(-(int)mana)) return;
 
         bullet = _bullet; // Store the bullet reference
         OnTrigger?.Invoke(this, bullet.transform);
+
+        GameEvents.instance.UpdateMana(-(int)mana); // Deduct mana cost
     }
 
     public void TriggerAction(CardMaster card, Transform target)
     {
-        if (!ManaBar.CanCostMana(-(int)mana)) return;
-        if (bullet != null && bullet.IsAoeActive()) return; // Already active, do nothing
-
         lastAoeTime = Time.time;
         if (target != null && target.TryGetComponent<GunBullet>(out var localBullet))
         {

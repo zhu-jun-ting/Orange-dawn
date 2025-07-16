@@ -9,7 +9,7 @@ public class ObjectPool : MonoBehaviour
     // Each prefab has its own queue and max size
     private Dictionary<GameObject, Queue<GameObject>> pools = new Dictionary<GameObject, Queue<GameObject>>();
     private Dictionary<GameObject, int> maxSizes = new Dictionary<GameObject, int>();
-    private int defaultMaxSize = 1000;
+    [SerializeField] private int defaultMaxSize = 1000;
 
     // Set max size for a specific prefab
     public void SetMaxSize(GameObject prefab, int maxSize)
@@ -17,7 +17,7 @@ public class ObjectPool : MonoBehaviour
         maxSizes[prefab] = maxSize;
     }
 
-    public GameObject GetObject(GameObject prefab)
+    public GameObject GetObject(GameObject prefab, Vector3 position = default(Vector3), Quaternion rotation = default(Quaternion))
     {
         if (pools.ContainsKey(prefab))
         {
@@ -44,7 +44,7 @@ public class ObjectPool : MonoBehaviour
         int maxSize = maxSizes[prefab];
         if (pool.Count < maxSize)
         {
-            GameObject obj = Instantiate(prefab);
+            GameObject obj = Instantiate(prefab, position, rotation);
             pool.Enqueue(obj);
             obj.SetActive(true);
             return obj;

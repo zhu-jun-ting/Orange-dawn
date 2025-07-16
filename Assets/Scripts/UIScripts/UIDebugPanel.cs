@@ -40,7 +40,7 @@ public class UIDebugPanel : MonoBehaviour
         GameEvents.instance.LevelCleared();
     }
 
-    public void AddCardObject()
+    public void AC()
     {
         if (int.TryParse(paramInputField.text, out int cardId))
         {
@@ -48,7 +48,7 @@ public class UIDebugPanel : MonoBehaviour
         }
     }
 
-    public void AddCardObjects()
+    public void ACs()
     {
         CardManager.instance.QueueSelectCardObjects(new List<GameObject> { debugCardMasterPrefab1, debugCardMasterPrefab2, debugCardMasterPrefab3 }); 
         CardManager.instance.QueueSelectCardObjects(new List<GameObject> { debugCardMasterPrefab1, debugCardMasterPrefab2, debugCardMasterPrefab3 }); 

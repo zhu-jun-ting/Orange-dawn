@@ -87,6 +87,10 @@ public class ItemMaster : MonoBehaviour
         if (currentHits >= maxHits)
         {
             isDestroyed = true;
+            if (GameEvents.instance != null)
+            {
+                GameEvents.instance.DestroyObject(transform);
+            }
             OnItemDestroyed(collision);
             Destroy(gameObject);
         }
