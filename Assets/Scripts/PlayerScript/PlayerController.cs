@@ -15,7 +15,6 @@ public class PlayerController : PawnMaster
     public float initial_dash_duration = 0.1f;
     public float initial_dodge = 0.05f;
     public float max_health = 50000f;
-    public float health = 50000f;
     public float moveSpeed = 3f;
     public float dodge = 0.05f;
 
@@ -97,12 +96,9 @@ public class PlayerController : PawnMaster
     public override void Start()
     {
         base.Start();
-        //    Debug.Log("hello");
         myRender = GetComponent<Renderer>();
         max_health = initial_max_health;
-        health = max_health;
-
-        HealthBar.HealthCurrent = health;
+        HealthBar.HealthCurrent = max_health;
         HealthBar.HealthMax = max_health;
 
         rb = GetComponent<Rigidbody2D>();
@@ -113,18 +109,7 @@ public class PlayerController : PawnMaster
         dashSpeedMultiplier = initial_dash_speed_multiplier;
         dashDuration = initial_dash_duration;
 
-        // isntantiate fire aoe prefab and setup parameters 
         UpdateFireAOE();
-
-        // TODO: for test only
-        // DOTBuff buff = ScriptableObject.CreateInstance(typeof(DOTBuff)) as DOTBuff;
-        // buff.Init(dot_stat);
-        // ApplyBuff(buff);
-
-        // register all events handlers
-        // GameEvents.instance.onHitEnemy += OnHitEnemy;
-
-
 
         // Register input events
         if (InputManager.Instance != null)
@@ -186,12 +171,14 @@ public class PlayerController : PawnMaster
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
         // Dash
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing) {
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isDashing)
+        {
             ProcessDash();
         }
+        base.Update();
     }
 
     private void ProcessDash()
@@ -263,17 +250,16 @@ public class PlayerController : PawnMaster
             StartCoroutine(ResetHurtFlag(0.3f)); // Reset after 0.3s (adjust as needed)
         }
 
-        health -= _amount;
-        HealthBar.HealthCurrent = health;
+        HealthBar.HealthCurrent -= _amount;
 
-        if (health <= 0)
+        if (HealthBar.HealthCurrent <= 0)
         {
             Instantiate(test, gameObject.transform.position, gameObject.transform.rotation);
             gameObject.SetActive(false);
         }
-        // BlinkPlayer(Blinks, time);
 
         base.TakeDamage(_amount, reciever,instigator, damage_type_, location, _hit_back_factor, source);
+        isFullHealth = false; // Set to false when taking damage
 
         return true; // Return true to indicate damage was taken
     }
@@ -355,7 +341,6 @@ public class PlayerController : PawnMaster
 
     public void UpdateMaxHealth()
     {
-        HealthBar.HealthCurrent = health;
         HealthBar.HealthMax = max_health;
     }
 
@@ -364,23 +349,26 @@ public class PlayerController : PawnMaster
         // Debug.Log("player hit enemy of damage" + damage_);  
         if (use_lifesteal) {
             // here player can recover from the damage made with a percentage
-            GainHealth(lifesteal_percent * damage_);
+            Heal(lifesteal_percent * damage_);
         }
     }
 
-    public void GainHealth(float health)
+    public override bool Heal(float _amount)
     {
-        if (HealthBar.HealthCurrent + health >= HealthBar.HealthMax)
+        if ((int)HealthBar.HealthCurrent == (int)HealthBar.HealthMax) return false; // No healing if already at max health
+
+        if (HealthBar.HealthCurrent + _amount >= HealthBar.HealthMax)
         {
             HealthBar.HealthCurrent = HealthBar.HealthMax;
         }
-
         else
         {
-            HealthBar.HealthCurrent += health;
+            HealthBar.HealthCurrent += _amount;
         }
 
-        CombatManager.instance.HandleShowDamageUI((int)health, this, GameEvents.DamageType.Heal, transform.position);
+        CombatManager.PlayFx("FxHeal", transform.position, 1f, parent: transform);
+        if ((int)HealthBar.HealthCurrent == (int)HealthBar.HealthMax) isFullHealth = true; // Set to true when healing
+        return true;
     }
 
 
@@ -419,12 +407,5 @@ public class PlayerController : PawnMaster
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
         }
-    }
-
-    public static void ShowPopup(string message)
-    {
-        if (instance == null || GameEvents.instance == null) return;
-        Vector2 popupPos = (Vector2)instance.transform.position + new Vector2(0, 2f); // 2 units above player
-        GameEvents.instance.ShowMessage(message, GameEvents.MessageType.LocalInfo, popupPos);
     }
 }

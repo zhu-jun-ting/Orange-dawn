@@ -39,7 +39,7 @@ public class ItemHealth : MonoBehaviour, IColliderHandler
     {
         if (collider.gameObject.CompareTag("Player") == true)
         {
-            gainhealth.GainHealth(5);
+            GameEvents.instance?.HealPawn(5f, PlayerController.instance, gameObject, transform);
             Destroy(gameObject);
         }
 

@@ -60,7 +60,7 @@ public class CardActionSkeletons : CardMaster, ICardAction
             NPCBatter skeleton = skeletonObj.GetComponent<NPCBatter>();
             if (skeleton != null)
             {
-                skeleton.attackPower = damage;
+                skeleton.damage = damage;
                 skeleton.maxHP = health;
             }
         }

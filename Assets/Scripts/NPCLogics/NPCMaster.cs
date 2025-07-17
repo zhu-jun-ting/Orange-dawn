@@ -9,22 +9,31 @@ public class NPCMaster : PawnMaster
     // public NPCShooterStat stat;
     public float moveSpeed;
     // public Transform target;
-    public float follow_range; // how far away can NPC stay with player
-
-
+    public float followRange; // how far away can NPC stay with player
     public float maxHP;
     protected float curHP;
     protected Rigidbody2D rb;
-    public float meleeAttack;
+    public float damage;
+    public float attackInterval = 2f; // How often NPC attacks
+    public float detectorRange = 3f; // Range for the detector to find targets
+    public List<string> triggerTags = new List<string> { "Player", "NPC", "Enemy", "Bullet" }; 
+
+    [Header("Common Charge Settings")]
+    public float chargeDuration = 2f; // Duration of the charge effect
+    public float changeSpeedFactor = 1.5f; // How much to increase speed during charge
+    public float changeAttackIntervalFactor = 0.5f; // How much to increase attack interval
+    public float minIntervalBetweenCharges = 5f; // Minimum time between charges
+    public string chargeEffectName = "FxCharge"; // Effect to play on charge
 
     [Header("Hurt Effects")]
     protected SpriteRenderer sr;
     public float hurtDuration = 0.3f;
     protected float hurtCounter;
 
-[Header("Game Objects")]
+    [Header("Game Objects")]
     protected GameObject explosionEffect;
     public GameObject health_bar;
+    [Tooltip("Collider for myself")] public Collider2D rigidbodyCollider;
 
     // internal vars
     protected float hitBackFactor;
@@ -35,7 +44,7 @@ public class NPCMaster : PawnMaster
     private Vector2 destination;
 
     // consts
-    private const float random_walk_probability = 0.01f;
+    private const float random_walk_probability = 0.2f;
 
 
 
@@ -71,15 +80,26 @@ public class NPCMaster : PawnMaster
         state = State.Idle;
         lastPosition = transform.position;
         stuckTimer = 0f;
+        if (rigidbodyCollider == null)
+        {
+            rigidbodyCollider = gameObject.GetComponent<Collider2D>();
+            if (rigidbodyCollider == null)
+            {
+                Debug.LogError("NPCMaster: rigidbodyCollider is not set and no Collider2D found on the object.");
+            }
+        }
     }
 
 
-    public virtual void Update()
+    public override void Update()
     {
+        base.Update();
         if (hurtCounter <= 0)
         {
             sr.material.SetFloat("_FlashAmount", 0);
-        } else {
+        }
+        else
+        {
             sr.material.SetFloat("_FlashAmount", hurtCounter / hurtDuration);
             hurtCounter -= Time.deltaTime;
         }
@@ -96,7 +116,7 @@ public class NPCMaster : PawnMaster
                     if (stuckTimer > 1f)
                     {
                         // Try a new destination if stuck for over 1 second
-                        destination = GetRandomLocationInCircle(player.transform.position, follow_range);
+                        destination = GetRandomLocationInCircle(player.transform.position, followRange);
                         stuckTimer = 0f;
                         lastPosition = transform.position;
                     } 
@@ -107,10 +127,10 @@ public class NPCMaster : PawnMaster
                     lastPosition = transform.position;
                 }
             }
-            if ((Vector2.Distance(transform.position, player.transform.position) > follow_range && !is_moving) ||
+            if ((Vector2.Distance(transform.position, player.transform.position) > followRange && !is_moving) ||
                 (!is_moving && UnityEngine.Random.Range(0f, 1f) < random_walk_probability))
             {
-                destination = GetRandomLocationInCircle(player.transform.position, follow_range);
+                destination = GetRandomLocationInCircle(player.transform.position, followRange);
                 is_moving = true;
                 lastPosition = transform.position;
                 stuckTimer = 0f;
@@ -130,21 +150,116 @@ public class NPCMaster : PawnMaster
                 FollowTarget(destination);
             }
             
-
-            if ((Vector2.Distance(transform.position, player.transform.position) > follow_range && !is_moving) || 
-                (!is_moving && UnityEngine.Random.Range(0f, 1f) < random_walk_probability))
-            {
-                destination = GetRandomLocationInCircle(player.transform.position, follow_range);
-                is_moving = true;
-            }
-
             if (Vector2.Distance(transform.position, destination) < .5f) {
                 is_moving = false;
             }
         }
-        
-        
+    }
 
+    public override void UpdatePerSecond()
+    {
+        base.UpdatePerSecond();
+        if ((Vector2.Distance(transform.position, player.transform.position) > followRange && !is_moving) ||
+                (!is_moving && UnityEngine.Random.Range(0f, 1f) < random_walk_probability))
+        {
+            destination = GetRandomLocationInCircle(player.transform.position, followRange);
+            destination = CombatManager.instance?.TryGetSpawnLocation(player.transform.position, followRange) ?? destination; // Ensure the destination is valid
+            is_moving = true;
+        }
+    }
+
+    /// <summary>
+    ///  When NPC is being hit by a pinball, charges NPC to increase its attack interval and some other stats for a short time.
+    /// </summary>
+    /// <returns></returns>
+    private Coroutine chargeCoroutineInstance;
+
+    public virtual bool Charge(int _overrideDuration = -1, bool _ignoreCoolDown = false)
+    {
+        if (!_ignoreCoolDown && Time.time - lastChargeTime < minIntervalBetweenCharges)
+            return false;
+
+        lastChargeTime = Time.time;
+
+        // If ignore cooldown and coroutine is running, finish it early and reset stats
+        if (_ignoreCoolDown && chargeCoroutineInstance != null)
+        {
+            // Reset stats before stopping coroutine
+            OnEndCharge();
+            StopCoroutine(chargeCoroutineInstance);
+            chargeCoroutineInstance = null;
+        }
+
+        chargeCoroutineInstance = StartCoroutine(ChargeCoroutine(_overrideDuration));
+        return true;
+    }
+
+    private float lastChargeTime = -Mathf.Infinity;
+    float originalMoveSpeed = 0f;
+    float originalAttackInterval = 0f;
+
+    private IEnumerator ChargeCoroutine(int _overrideDuration)
+    {
+        // play the charge effect
+        if (!string.IsNullOrEmpty(chargeEffectName))
+        {
+            CombatManager.PlayFx(chargeEffectName, transform.position, 0.7f, parent: transform);
+        }
+
+        originalMoveSpeed = moveSpeed;
+        originalAttackInterval = attackInterval;
+
+        OnStartCharge();
+        yield return new WaitForSeconds(_overrideDuration > 0 ? _overrideDuration : chargeDuration);
+        OnEndCharge();
+
+    }
+
+    /// <summary>
+    /// Called when charge starts, can be overridden to change stats. Remember to call base.OnStartCharge() if overriding.
+    /// </summary>
+    public virtual void OnStartCharge()
+    {
+        moveSpeed *= changeSpeedFactor;
+        attackInterval *= changeAttackIntervalFactor;
+    }
+
+    /// <summary>
+    /// Called when charge ends, can be overridden to reset stats. Remember to call base.OnEndCharge() if overriding.
+    /// </summary>
+    public virtual void OnEndCharge()
+    {
+        moveSpeed = originalMoveSpeed;
+        attackInterval = originalAttackInterval;
+    }
+
+    
+    public virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            Charge();
+        }
+    }
+
+    
+    public override bool Heal(float _amount)
+    {
+        if (curHP + _amount >= maxHP)
+        {
+            curHP = maxHP;
+        }
+        else
+        {
+            curHP += _amount;
+        }
+
+        enemy_health_bar.SetHealth(maxHP, curHP);
+        CombatManager.PlayFx("FxHeal", transform.position, 1f, parent: transform);
+        if ((int)curHP == (int)maxHP) isFullHealth = true; // Set to true when healing
+
+        // CombatManager.instance.HandleShowDamageUI((int)_amount, this, GameEvents.DamageType.Heal, transform.position);
+        return true; // Return true to indicate healing was successful
     }
 
 
@@ -190,6 +305,7 @@ public class NPCMaster : PawnMaster
         }
 
         base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source);
+        isFullHealth = false; // Set to false when taking damage
         return true; // Return true to indicate damage was taken
     }
 

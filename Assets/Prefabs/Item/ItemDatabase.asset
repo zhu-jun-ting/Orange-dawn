@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b6ae00161bfb14428d18cb2a2086804, type: 3}
+  m_Name: ItemDatabase
+  m_EditorClassIdentifier: 
+  items:
+  - itemId: 1
+    itemPrefab: {fileID: 6452647200994541434, guid: b9166ee1a04e05645be6adc5f0fbcc9e, type: 3}
+  - itemId: 2
+    itemPrefab: {fileID: 4623675242818392211, guid: ca086e646a189e547b331ae764b46fdf, type: 3}
+  - itemId: 3
+    itemPrefab: {fileID: 1881773748942011074, guid: d01e04caf44fc1e4f8fcd0ea0e7f9c21, type: 3}
+  - itemId: 4
+    itemPrefab: {fileID: 1852975111204246664, guid: 1fc4f2c0a4335724f83ddd5bc7d9ea2c, type: 3}
+  - itemId: 5
+    itemPrefab: {fileID: 593863206014399954, guid: 679987d3f40b1f3498fa9bc7a47d2747, type: 3}
+  - itemId: 6
+    itemPrefab: {fileID: 593863206014399954, guid: fb131f5abc1380c4096f44f49eb06f75, type: 3}
+  - itemId: 7
+    itemPrefab: {fileID: 1238486118590038313, guid: 3553cf9c561a6744d8f745c8d9279372, type: 3}
+  - itemId: 8
+    itemPrefab: {fileID: 908849239445633011, guid: 73d98238c6222ba4086d6944141e949d, type: 3}
+  - itemId: 9
+    itemPrefab: {fileID: 1792623200094130640, guid: d5ee55e31b680e842a705ebcade50900, type: 3}
+  - itemId: 10
+    itemPrefab: {fileID: 1792623200094130640, guid: 886971ac8b3673a4b9c381ac20be5077, type: 3}
+  - itemId: 11
+    itemPrefab: {fileID: 1792623200094130640, guid: 61b38361621e0144eb5431e9906885c9, type: 3}
+  - itemId: 12
+    itemPrefab: {fileID: 1792623200094130640, guid: 8ba80b04a20692249bd8b3837f034ef8, type: 3}
+  - itemId: 13
+    itemPrefab: {fileID: 5135470791520852269, guid: 803131e3c695d354bb3d087d6f32de38, type: 3}
+  - itemId: 14
+    itemPrefab: {fileID: 1792623200094130640, guid: 3b6656cf22b72b34a86e2ccd59025764, type: 3}
+  - itemId: 15
+    itemPrefab: {fileID: 1792623200094130640, guid: 658764039f3716f408fcbac879ee56e3, type: 3}

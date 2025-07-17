@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3526377730925672957
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8566337620387754875, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_Name
+      value: HealImpulse Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.975
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 414845229745710433, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8566337620387754875, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8127661077875549971}
+  m_SourcePrefab: {fileID: 100100000, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+--- !u!212 &3961813685461334933 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 435447641797034600, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+  m_PrefabInstance: {fileID: 3526377730925672957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5048969975560850054 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8566337620387754875, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+  m_PrefabInstance: {fileID: 3526377730925672957}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8127661077875549971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5048969975560850054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f48a2639ee936e4c9fa197122ca01ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayingFx: 1
+  fxName: FxHealRitual
+  maxRadius: 5
+  duration: 1
+  maxDamage: 20
+  targetTags:
+  - Player
+  - NPC
+  circleSprite: {fileID: 3961813685461334933}

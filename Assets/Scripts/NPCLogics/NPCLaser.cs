@@ -23,7 +23,7 @@ public class NPCLaser : NPCMaster, IDetectorHandler
         base.Awake();
         moveSpeed = laser_stat.move_speed;
         maxHP = laser_stat.max_health;
-        meleeAttack = laser_stat.melee_damage;
+        damage = laser_stat.melee_damage;
         hurtDuration = laser_stat.hurtDuration;
         laser_range = laser_stat.laser_range;
         laser_interval = laser_stat.laser_interval;

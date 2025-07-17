@@ -5,16 +5,13 @@ using UnityEngine;
 public class NPCBatter : NPCMaster, IColliderHandler
 {
     [Header("Batter Stats")]
-    public float attackInterval = 1.2f;
-    public float attackRange = 2.5f;
-    public float attackPower = 2f;
     public float hitBackEnemy = 10f;
     public float hitBackBullet = 10f;
-    public List<string> triggerTags = new List<string> { "Enemy", "Bullet" };
     public ColliderToHandle colliderToHandle;
-
     public Transform batSpawnPoint; // Assign in inspector as child object or set in code
     public GameObject batSword; // Assign in inspector as child object or set in code
+
+    
     private Bat batScript;
     private Transform target;
     private IEnumerator attackCoroutine;
@@ -34,7 +31,7 @@ public class NPCBatter : NPCMaster, IColliderHandler
     public override void Start()
     {
         base.Start();
-        colliderToHandle.ChangeColliderRange(attackRange);
+        colliderToHandle.ChangeColliderRange(detectorRange);
         colliderToHandle.SetHandlerObject(this.gameObject);
         // Find Bat script in batSpawnPoint children and set its attack
         if (batSpawnPoint != null)
@@ -42,20 +39,9 @@ public class NPCBatter : NPCMaster, IColliderHandler
             batScript = batSpawnPoint.GetComponentInChildren<Bat>(true);
             if (batScript != null)
             {
-                batScript.attackPower = meleeAttack;
+                batScript.attackPower = base.damage;
             }
         }
-    }
-
-    public override void Update()
-    {
-        base.Update();
-        // Idle: follow player
-        if (state == State.Idle)
-        {
-            // handled by NPCMaster
-        }
-        // Attacking: handled by coroutine
     }
 
     public void HandleTriggerEnter2D(Collider2D other)
@@ -100,9 +86,15 @@ public class NPCBatter : NPCMaster, IColliderHandler
         // Implement logic if needed, or leave empty if not used
     }
 
+    private float lastStateChangeTime = -1f;
+    private const float stateChangeCooldown = 1f;
+
     public override void ChangeState(State s)
     {
         if (s == state) return;
+        if (Time.time - lastStateChangeTime < stateChangeCooldown) return;
+        lastStateChangeTime = Time.time;
+
         base.ChangeState(s);
         if (s == State.Idle)
         {
@@ -140,7 +132,7 @@ public class NPCBatter : NPCMaster, IColliderHandler
                 Bat bat = batSword.GetComponent<Bat>();
                 if (bat != null)
                 {
-                    bat.attackPower = attackPower;
+                    bat.attackPower = damage;
                     bat.hitBackEnemy = hitBackEnemy;
                     bat.hitBackBullet = hitBackBullet;
                 }

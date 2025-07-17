@@ -120,6 +120,27 @@ public class ItemMaster : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public virtual void OnDestroy()
+    {
+        // Find all SpriteRenderers in self and children
+        var spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
+        float fadeDuration = 0.5f;
+
+        if (spriteRenderers.Length > 0)
+        {
+            DG.Tweening.Sequence seq = DG.Tweening.DOTween.Sequence();
+            foreach (var sr in spriteRenderers)
+            {
+                seq.Join(sr.DOFade(0f, fadeDuration));
+            }
+            seq.OnComplete(() => Destroy(gameObject));
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     // Show a local info tip above this item
     public void ShowTip(string tip)
     {

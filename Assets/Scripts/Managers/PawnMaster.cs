@@ -9,6 +9,7 @@ public class PawnMaster : MonoBehaviour, IBuffable
     [HideInInspector] public Transform buff_icon_grid;
     [HideInInspector] public GameObject icon_prefab;
     [HideInInspector] public bool isPlayer = false;
+    [HideInInspector] public bool isFullHealth = true;
 
     public class BuffController
     {
@@ -24,6 +25,7 @@ public class PawnMaster : MonoBehaviour, IBuffable
     protected int current_buff_frame_count;
 
     [HideInInspector] public DOTStat dot_stat;
+    public static PawnMaster instance;
 
     public virtual void Start()
     {
@@ -92,12 +94,13 @@ public class PawnMaster : MonoBehaviour, IBuffable
         }
 
         // start the countdown timer for handling buff duration and add a handler to the dict
-        if (buff_.duration != 0f) {
+        if (buff_.duration != 0f)
+        {
             IEnumerator timer = BuffEndTimer(buff_.duration, buff_, Time.time, buff_controller.icon_controller);
             buff_controller.timer = timer;
             StartCoroutine(timer);
         }
-        
+
         if (!buffs.TryAdd(buff_, buff_controller))
         {
             Debug.LogError("can not add buff type" + buff_.buff_type);
@@ -154,6 +157,12 @@ public class PawnMaster : MonoBehaviour, IBuffable
         Debug.LogError("pawn " + gameObject + " can not have an lifesteal buff");
     }
 
+    public virtual bool Heal(float _amount)
+    {
+        Debug.LogError("pawn " + gameObject + " can not be healed");
+        return false;
+    }
+
     public Vector2 GetPosition()
     {
         if (transform != null)
@@ -161,5 +170,31 @@ public class PawnMaster : MonoBehaviour, IBuffable
             return transform.position;
         }
         return Vector2.zero;
-    }   
+    }
+
+
+    // Call UpdatePerSecond every second
+    private float perSecondTimer = 0f;
+
+    public virtual void UpdatePerSecond()
+    {
+        // This method can be overridden by derived classes to implement per-second updates
+    }
+
+    public virtual void Update()
+    {
+        perSecondTimer += Time.deltaTime;
+        if (perSecondTimer >= 1f)
+        {
+            UpdatePerSecond();
+            perSecondTimer = 0f;
+        }
+    }
+
+    public static void ShowPopup(string message)
+    {
+        if (instance == null || GameEvents.instance == null) return;
+        Vector2 popupPos = (Vector2)instance.transform.position + new Vector2(0, 2f); // 2 units above player
+        GameEvents.instance.ShowMessage(message, GameEvents.MessageType.LocalInfo, popupPos);
+    }
 }

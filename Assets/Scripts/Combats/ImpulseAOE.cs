@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class ImpulseAOE : MonoBehaviour
 {
-    [Header("AOE Settings")]
+    [Header("AOE Settings (use maxDamage also for healing)")]
     public bool isPlayingFx = false; // Whether to play the expanding circle effect
+    public string fxName = "FxExpandingCircle"; // Name of the effect to play
     public float maxRadius = 5f;
     public float duration = 1f;
     public float maxDamage = 20f;
@@ -15,10 +16,10 @@ public class ImpulseAOE : MonoBehaviour
 
     protected float currentRadius = 0f;
     private float timer = 0f;
-    private HashSet<GameObject> hitObjects = new HashSet<GameObject>();
+    protected HashSet<GameObject> hitObjects = new HashSet<GameObject>();
     private CircleCollider2D aoeCollider;
 
-    void Awake()
+    public virtual void Awake()
     {
         aoeCollider = gameObject.AddComponent<CircleCollider2D>();
         aoeCollider.isTrigger = true;
@@ -29,8 +30,8 @@ public class ImpulseAOE : MonoBehaviour
 
     void Start()
     {
-        // if (isPlayingFx)
-        //     CombatManager.PlayFx("FxExpandingCircle", transform.position, maxRadius * 2, 1f); 
+        if (isPlayingFx)
+            CombatManager.PlayFx(fxName, transform.position, maxRadius * 2, 1f);
     }
 
     void Update()

@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 774922106224715567, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 774922106224715567, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 911367386877052863, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: hitBackEnemy
@@ -45,12 +45,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: maxHP
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: moveSpeed
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: attackRange
       value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: followRange
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: hitBackEnemy
@@ -61,8 +69,16 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: detectorRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: hitBackBullet
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: attackInterval
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: triggerTags.Array.size
@@ -71,6 +87,10 @@ PrefabInstance:
     - target: {fileID: 7334453287249067209, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_Name
       value: NPCSkeleton Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334453287249067209, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8290595344550998855, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_Pivot.x

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using UnityEngine;
 
@@ -71,7 +72,7 @@ public class CombatManager : MonoBehaviour
     private ICanvasManager canvas_manager;
     private GameObject player;
     private IEnumerator spawn_timer;
-    private List<GameObject> current_enemies;
+    
     private List<GameObject> current_drops;
 
 
@@ -91,6 +92,9 @@ public class CombatManager : MonoBehaviour
     [Header("DO NOT MODIFY")]
     public GameObject alert_prefab;
     private int FRAME_COUNT;
+    public List<Transform> currentObjects = new List<Transform>();
+    public List<GameObject> currentEnemies = new List<GameObject>();
+    public List<NPCMaster> currentNPCs = new List<NPCMaster>();
 
     // instance
     public static CombatManager instance;
@@ -113,10 +117,11 @@ public class CombatManager : MonoBehaviour
         if (canvas_manager == null) Debug.LogError("can not find canvas manager");
 
         player = GameObject.Find("Player");
-        current_enemies = new List<GameObject>();
+        currentEnemies = new List<GameObject>();
 
         SetSpawnActivity(is_spawning); // TODO: for debug only
         FRAME_COUNT = 0;
+        currentNPCs = FindObjectsByType<NPCMaster>(FindObjectsSortMode.None).ToList();
 
         instance = this;
     }
@@ -148,9 +153,9 @@ public class CombatManager : MonoBehaviour
         kill_count += 1;
         if (canvas_manager != null) canvas_manager.UpdateKillCount(kill_count);
 
-        if (current_enemies.Contains(enemy))
+        if (currentEnemies.Contains(enemy))
         {
-            current_enemies.Remove(current_enemies.Find((x) => x.Equals(enemy)));
+            currentEnemies.Remove(currentEnemies.Find((x) => x.Equals(enemy)));
             // Debug.Log("removed enemy" + enemy.ToString());
         }
 
@@ -203,7 +208,7 @@ public class CombatManager : MonoBehaviour
     {
         var enemy_obj = Instantiate(enemy_, location_, Quaternion.identity);
         enemy_obj.GetComponent<EnemyMaster>().target = player.transform;
-        current_enemies.Add(enemy_obj);
+        currentEnemies.Add(enemy_obj);
     }
 
     public void SetSpawnActivity(bool is_active)
@@ -270,7 +275,14 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    // Spawns a specific drop item type, amount times, from a given location
+    /// <summary>
+    /// Spawn a specific drop item type, amount times, from a given location.
+    /// Uses the dropPrefabDict to find the correct prefab.
+    /// If the prefab is not found, it will not spawn anything.
+    /// </summary>
+    /// <param name="item">DropItems. Contains Coin, Exp, and Health</param>
+    /// <param name="location">The location to spawn the drop</param>
+    /// <param name="amount">The amount of drops to spawn</param>
     public void SpawnDrop(DropItems item, Transform location, int amount = 1)
     {
         if (dropPrefabDict == null || !dropPrefabDict.ContainsKey(item) || location == null) return;
@@ -290,18 +302,18 @@ public class CombatManager : MonoBehaviour
     // -------- Spawn Logics --------
 
     // Track spawned objects for minDistanceToOthers checks
-    private List<Transform> spawnedObjects = new List<Transform>();
+
 
     /// <summary>
     /// Call this when you spawn an object that should be considered for spawn distance checks.
     /// </summary>
     public void AddObject(Transform obj)
     {
-        if (obj != null && !spawnedObjects.Contains(obj))
-            spawnedObjects.Add(obj);
+        if (obj != null && !currentObjects.Contains(obj))
+            currentObjects.Add(obj);
 
         // Remove any nulls from the spawnedObjects list
-        spawnedObjects.RemoveAll(obj => obj == null);
+        currentObjects.RemoveAll(obj => obj == null);
     }
 
     /// <summary>
@@ -389,7 +401,7 @@ public class CombatManager : MonoBehaviour
     // Helper: check if candidate is far enough from all spawned objects
     private bool IsFarEnoughFromObjects(Vector2 candidate, float minDist)
     {
-        foreach (var obj in spawnedObjects)
+        foreach (var obj in currentObjects)
         {
             if (obj == null) continue;
             if (Vector2.Distance(candidate, (Vector2)obj.position) < minDist)
@@ -403,7 +415,7 @@ public class CombatManager : MonoBehaviour
     {
         Transform closest = null;
         float closestDist = float.MaxValue;
-        foreach (var obj in spawnedObjects)
+        foreach (var obj in currentObjects)
         {
             if (obj == null) continue;
             float d = Vector2.Distance(candidate, (Vector2)obj.position);
@@ -446,7 +458,7 @@ public class CombatManager : MonoBehaviour
         return false;
     }
 
-    public static void PlayFx(GameObject fx, Vector2 location, float scale, float duration = 1f, bool isLooping = false)
+    public static void PlayFx(GameObject fx, Vector2 location, float scale = 1f, float duration = 1f, bool isLooping = false, Transform parent = null)
     {
         if (fx == null) return;
 
@@ -462,6 +474,7 @@ public class CombatManager : MonoBehaviour
         else
         {
             fxObj = Instantiate(fx, location, Quaternion.identity);
+            if (parent != null) fxObj.transform.SetParent(parent, true);
             fxObj.transform.localScale = Vector3.one * scale;
         }
 
@@ -493,13 +506,14 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public static void PlayFx(string fxName, Vector2 location, float scale, float duration = 1f, bool isLooping = false)
+    public static void PlayFx(string fxName, Vector2 location, float scale = 1f, float duration = 1f, bool isLooping = false, Transform parent = null)
     {
         var instance = CombatManager.instance;
         if (instance == null || instance.oneTimeFx == null) return;
 
         // Instantiate a new FX object from the prefab
         GameObject fxObj = Instantiate(instance.oneTimeFx);
+        if (parent != null) fxObj.transform.SetParent(parent, true);
         fxObj.transform.position = location;
         fxObj.transform.localScale = Vector3.one * scale;
 
@@ -634,13 +648,13 @@ public class CombatManager : MonoBehaviour
     /// </summary>
     public Vector2 GetVectorToNearestEnemy(Vector2 location)
     {
-        if (current_enemies == null || current_enemies.Count == 0)
+        if (currentEnemies == null || currentEnemies.Count == 0)
             return Vector2.zero;
 
         GameObject nearestEnemy = null;
         float minDistSqr = float.MaxValue;
 
-        foreach (var enemy in current_enemies)
+        foreach (var enemy in currentEnemies)
         {
             if (enemy == null) continue;
             Vector2 enemyPos = enemy.transform.position;

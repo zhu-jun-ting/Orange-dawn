@@ -70,8 +70,8 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
             if (shooter != null)
             {
                 shooter.maxHP = max_HP;
-                shooter.attack = attack;
-                shooter.shoot_interval = shoot_interval;
+                shooter.damage = attack;
+                shooter.attackInterval = shoot_interval;
                 // Optionally set HP to max
                 shooter.maxHP = max_HP;
             }

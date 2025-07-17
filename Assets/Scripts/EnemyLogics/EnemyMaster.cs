@@ -92,7 +92,7 @@ public class EnemyMaster : PawnMaster
 
     }
 
-    public virtual void Update()
+    public override void Update()
     {
         // If you need per-frame logic, add it here
         if (isBeingHitBack && rb != null)
@@ -102,6 +102,7 @@ public class EnemyMaster : PawnMaster
                 isBeingHitBack = false;
             }
         }
+        base.Update();
     }
 
     protected IEnumerator HurtFlashCoroutine()
@@ -185,6 +186,7 @@ public class EnemyMaster : PawnMaster
         }
 
         base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source);
+        isFullHealth = false; // Set to false when taking damage
         return true; // Return true to indicate damage was taken
     }
 
@@ -334,4 +336,8 @@ public class EnemyMaster : PawnMaster
         );
     }
 
+    public override bool Heal(float _amount)
+    {
+        return false; // Enemies cannot be healed
+    }
 }

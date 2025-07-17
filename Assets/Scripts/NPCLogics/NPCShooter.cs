@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 
@@ -8,13 +9,10 @@ public class NPCShooter : NPCMaster, IDetectorHandler
 
     [Header("stats")]
     public NPCShooterStat shooter_stat;
-    public float shoot_range;
-    public float shoot_interval;
-    public float attack = 10f;
 
     [Header("game objects")]
     private ShootRangeDetector shoot_detector;
-    protected GameObject bullet_prefab;
+    public GameObject bullet_prefab;
 
     private IEnumerator shoot_timer;
     private Transform target;
@@ -24,14 +22,14 @@ public class NPCShooter : NPCMaster, IDetectorHandler
     {
         base.Awake();
 
-        moveSpeed = shooter_stat.move_speed;
-        maxHP = shooter_stat.max_health;
-        meleeAttack = shooter_stat.melee_damage;
-        hurtDuration = shooter_stat.hurtDuration;
+        // moveSpeed = shooter_stat.move_speed;
+        // maxHP = shooter_stat.max_health;
+        // base.damage = shooter_stat.melee_damage;
+        // hurtDuration = shooter_stat.hurtDuration;
 
-        shoot_range = shooter_stat.shoot_range;
-        shoot_interval = shooter_stat.shoot_interval;
-        bullet_prefab = shooter_stat.bullet_prefab;
+        // detectorRange = shooter_stat.shoot_range;
+        // attackInterval = shooter_stat.shoot_interval;
+        // bullet_prefab = shooter_stat.bullet_prefab;
     }
 
     // Start is called before the first frame update
@@ -80,17 +78,22 @@ public class NPCShooter : NPCMaster, IDetectorHandler
         }
     }
 
-    public override void ChangeState(State s) {
-        if (s == state) {
-            return;
-        }
+
+    private float lastStateChangeTime = -1f;
+    private const float stateChangeCooldown = 1f;
+    public override void ChangeState(State s)
+    {
+        if (s == state) return;
+        if (Time.time - lastStateChangeTime < stateChangeCooldown) return;
+        lastStateChangeTime = Time.time;
+
         base.ChangeState(s);
         if (s == State.Idle) {
             target = null;
             if (shoot_timer != null) StopCoroutine(shoot_timer);
         } else if (s == State.Attacking) {
             if (shoot_timer != null) StopCoroutine(shoot_timer);
-            shoot_timer = Shoot(shoot_interval);
+            shoot_timer = Shoot(attackInterval);
             StartCoroutine(shoot_timer);  
         }
     }
@@ -101,17 +104,22 @@ public class NPCShooter : NPCMaster, IDetectorHandler
 
     private IEnumerator Shoot(float waitTime) {
         while (true) {
-            
+
             // print("WaitAndPrint " + Time.time);
-            if (detector.IsEmptyWithinCollider()) {
+            if (detector.IsEmptyWithinCollider())
+            {
                 ChangeState(State.Idle);
-            } else if (state == State.Attacking && target != null) { 
+            }
+            else if (state == State.Attacking && target != null)
+            {
                 GameObject bullet = Instantiate(bullet_prefab, transform.position, Quaternion.identity);
-                bullet.GetComponent<GunBullet>().trigger_tags.Add("Enemy");
+                bullet.GetComponent<GunBullet>().trigger_tags = triggerTags;
                 bullet.GetComponent<GunBullet>().SetSpeed(target.transform.position - transform.position, 3f);
-                bullet.GetComponent<GunBullet>().att = attack; 
-                bullet.GetComponent<GunBullet>().SetOwner(gameObject); 
-            } 
+                bullet.GetComponent<GunBullet>().att = damage;
+                bullet.GetComponent<GunBullet>().SetOwner(gameObject);
+                bullet.GetComponent<GunBullet>().AddIgnore(transform);
+
+            }
             if (target == null) {
                 target = detector.GetComponent<Detector>().GetRandomGameObjectInRange().transform;
             }

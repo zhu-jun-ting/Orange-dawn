@@ -33,8 +33,14 @@ public class GameEvents : MonoBehaviour
 
     public event Action<float, PawnMaster, GameObject, DamageType, Transform, float, Gun> OnHitPawn;
     public static Func<float, float> OnModifyDamage;
-    public void HitPawn(float damage_, PawnMaster reciever_, GameObject instigator_ = null, DamageType damage_type_ = DamageType.Normal, Transform location_ = null, float hit_back_factor_ = 0f, Gun source_ = null, string prefix = "")
+    public void HitPawn(float damage_, PawnMaster reciever_, GameObject instigator_ = null, DamageType damage_type_ = DamageType.Normal, Transform location_ = null, float hit_back_factor_ = 0f, Gun source_ = null, string prefix = "", System.Action<float> modifyDamageCallback = null)
     {
+        // Modify the damage if a callback is provided
+        if (OnModifyDamage != null && modifyDamageCallback != null)
+        {
+            damage_ = OnModifyDamage(damage_);
+            modifyDamageCallback?.Invoke(damage_);
+        }
 
         // calling the reciever's TakeDamage method
         if (reciever_ != null) reciever_.TakeDamage(damage_, reciever_, instigator_, damage_type_, location_, hit_back_factor_, source_);
@@ -46,6 +52,29 @@ public class GameEvents : MonoBehaviour
         if (onShowNumberUI != null && location_ != null)
         {
             onShowNumberUI((int)damage_, reciever_, damage_type_, (Vector2)location_.position, prefix);
+        }
+    }
+
+    public event Action<float, PawnMaster, GameObject, Transform> OnHealPawn;
+    public void HealPawn(float _health, PawnMaster _receiver, GameObject _instigator = null, Transform location_ = null, System.Action<float> modifyHealthCallback = null)
+
+    {
+        // Modify the health if a callback is provided
+        modifyHealthCallback?.Invoke(_health);
+
+        if (_receiver != null)
+        {
+            bool healed = _receiver.Heal(_health);
+            if (healed)
+            {
+                OnHealPawn?.Invoke(_health, _receiver, _instigator, location_);
+                // CombatManager.instance.HandleShowDamageUI((int)_health, _receiver, GameEvents.DamageType.Heal, location_);
+                // CombatManager.instance.HandleShowDamageUI((int)_health, _receiver, GameEvents.DamageType.Heal, location_);
+                if (onShowNumberUI != null && location_ != null)
+                {
+                    onShowNumberUI((int)_health, _receiver, GameEvents.DamageType.Heal, (Vector2)location_.position, "");
+                }
+            }
         }
     }
 
