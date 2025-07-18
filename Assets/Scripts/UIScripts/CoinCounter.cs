@@ -37,7 +37,7 @@ public class CoinCounter : View {
         text.text = coinCurrent.ToString();
     }
 
-    public bool CanSpendCoins(int amount) {
-        return coinCurrent >= amount;
+    public bool CanCostCoin(int diffCoin) {
+        return coinCurrent + diffCoin >= 0;
     }
 }

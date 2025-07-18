@@ -216,6 +216,8 @@ MonoBehaviour:
   rigidbodyCollider: {fileID: 8411730453550249859}
   shooter_stat: {fileID: 11400000, guid: 084938dbb9bd5d946b299fe6803845bf, type: 2}
   bullet_prefab: {fileID: 2543158123180833540, guid: e475339abacf9104b8375cf80d966552, type: 3}
+  bulletWhenCharge: {fileID: 4028690415889179283, guid: 6a77567889405c04bab756a2dedd6d88, type: 3}
+  bulletNumWhenCharge: 5
 --- !u!1 &939698678601117807
 GameObject:
   m_ObjectHideFlags: 0

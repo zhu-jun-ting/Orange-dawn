@@ -458,9 +458,9 @@ public class CombatManager : MonoBehaviour
         return false;
     }
 
-    public static void PlayFx(GameObject fx, Vector2 location, float scale = 1f, float duration = 1f, bool isLooping = false, Transform parent = null)
+    public static GameObject PlayFx(GameObject fx, Vector2 location, float scale = 1f, float duration = 1f, bool isLooping = false, Transform parent = null)
     {
-        if (fx == null) return;
+        if (fx == null) return null;
 
         GameObject fxObj;
 
@@ -504,12 +504,14 @@ public class CombatManager : MonoBehaviour
             if (!fx.scene.IsValid())
                 Destroy(fxObj, duration);
         }
+
+        return fxObj;
     }
 
-    public static void PlayFx(string fxName, Vector2 location, float scale = 1f, float duration = 1f, bool isLooping = false, Transform parent = null)
+    public static GameObject PlayFx(string fxName, Vector2 location, float scale = 1f, float duration = 1f, bool isLooping = false, Transform parent = null)
     {
         var instance = CombatManager.instance;
-        if (instance == null || instance.oneTimeFx == null) return;
+        if (instance == null || instance.oneTimeFx == null) return null;
 
         // Instantiate a new FX object from the prefab
         GameObject fxObj = Instantiate(instance.oneTimeFx);
@@ -576,6 +578,8 @@ public class CombatManager : MonoBehaviour
         {
             Destroy(fxObj, destroyDelay);
         }
+
+        return fxObj;
     }
 
     /// <summary>

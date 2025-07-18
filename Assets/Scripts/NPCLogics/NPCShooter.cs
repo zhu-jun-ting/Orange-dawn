@@ -14,6 +14,10 @@ public class NPCShooter : NPCMaster, IDetectorHandler
     private ShootRangeDetector shoot_detector;
     public GameObject bullet_prefab;
 
+    [Header("Charged Bullet")]
+    public GameObject bulletWhenCharge;
+    public int bulletNumWhenCharge = 5; // Number of bullets to shoot when charged
+
     private IEnumerator shoot_timer;
     private Transform target;
     private Detector detector;
@@ -47,33 +51,42 @@ public class NPCShooter : NPCMaster, IDetectorHandler
         base.Update();
         // FollowTarget(target);
 
-        
+
     }
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
 
-        if (state == State.Attacking) {
-            
-        } else {
+        if (state == State.Attacking)
+        {
+
+        }
+        else
+        {
             // StopCoroutine(shoot_timer);
         }
     }
 
-    public void HandleOnTriggerEnter2D(int collider_id, GameObject collider, GameObject other) {
+    public void HandleOnTriggerEnter2D(int collider_id, GameObject collider, GameObject other)
+    {
         detector = collider.GetComponent<Detector>();
-        if (!detector.IsEmptyWithinCollider()) {
+        if (!detector.IsEmptyWithinCollider())
+        {
             target = detector.GetRandomGameObjectInRange().transform;
             ChangeState(State.Attacking);
         }
     }
 
-    public void HandleOnTriggerExit2D(int collider_id, GameObject collider, GameObject other) {
+    public void HandleOnTriggerExit2D(int collider_id, GameObject collider, GameObject other)
+    {
         detector = collider.GetComponent<Detector>();
-        if (detector.IsEmptyWithinCollider()) {
+        if (detector.IsEmptyWithinCollider())
+        {
             ChangeState(State.Idle);
-        } else if (target != null && target.Equals(other.transform)) {
+        }
+        else if (target != null && target.Equals(other.transform))
+        {
             target = detector.GetRandomGameObjectInRange().transform;
         }
     }
@@ -88,22 +101,28 @@ public class NPCShooter : NPCMaster, IDetectorHandler
         lastStateChangeTime = Time.time;
 
         base.ChangeState(s);
-        if (s == State.Idle) {
+        if (s == State.Idle)
+        {
             target = null;
             if (shoot_timer != null) StopCoroutine(shoot_timer);
-        } else if (s == State.Attacking) {
+        }
+        else if (s == State.Attacking)
+        {
             if (shoot_timer != null) StopCoroutine(shoot_timer);
             shoot_timer = Shoot(attackInterval);
-            StartCoroutine(shoot_timer);  
+            StartCoroutine(shoot_timer);
         }
     }
 
-    public void ChangeShootRange(float range) {
+    public void ChangeShootRange(float range)
+    {
         shoot_detector.ChangeColliderRadius(range);
     }
 
-    private IEnumerator Shoot(float waitTime) {
-        while (true) {
+    private IEnumerator Shoot(float waitTime)
+    {
+        while (true)
+        {
 
             // print("WaitAndPrint " + Time.time);
             if (detector.IsEmptyWithinCollider())
@@ -120,11 +139,57 @@ public class NPCShooter : NPCMaster, IDetectorHandler
                 bullet.GetComponent<GunBullet>().AddIgnore(transform);
 
             }
-            if (target == null) {
+            if (target == null)
+            {
                 target = detector.GetComponent<Detector>().GetRandomGameObjectInRange().transform;
             }
 
             yield return new WaitForSeconds(waitTime);
+        }
+    }
+    
+    public override void OnStartCharge()
+    {
+        base.OnStartCharge();
+        ShootArcBullets(bulletNumWhenCharge);
+    }
+
+    public override void OnEndCharge()
+    {
+        base.OnEndCharge();
+        ShootArcBullets(bulletNumWhenCharge);
+    }
+
+    private void ShootArcBullets(int bulletCount)
+    {
+        if (bulletWhenCharge == null) return;
+        Vector2 shootOrigin = transform.position;
+        Vector2 baseDir;
+        if (target != null)
+        {
+            baseDir = ((Vector2)target.position - shootOrigin).normalized;
+        }
+        else
+        {
+            float randAngle = Random.Range(0f, 360f);
+            baseDir = new Vector2(Mathf.Cos(randAngle * Mathf.Deg2Rad), Mathf.Sin(randAngle * Mathf.Deg2Rad)).normalized;
+        }
+        float arcAngle = 60f; // total arc in degrees
+        float startAngle = -arcAngle / 2f;
+        for (int i = 0; i < bulletCount; i++)
+        {
+            float angle = startAngle + arcAngle * ((float)i / (bulletCount - 1));
+            Vector2 dir = Quaternion.Euler(0, 0, angle) * baseDir;
+            GameObject bullet = Instantiate(bulletWhenCharge, shootOrigin, Quaternion.identity);
+            var gunBullet = bullet.GetComponent<GunBullet>();
+            if (gunBullet != null)
+            {
+                gunBullet.trigger_tags = triggerTags;
+                gunBullet.SetSpeed(dir, 3f);
+                gunBullet.att = damage;
+                gunBullet.SetOwner(gameObject);
+                gunBullet.AddIgnore(transform);
+            }
         }
     }
 }

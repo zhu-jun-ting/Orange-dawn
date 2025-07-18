@@ -55,7 +55,7 @@ public class ImpulseAOE : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
         if (hitObjects.Contains(other.gameObject)) return;
         if (targetTags.Contains(other.tag))

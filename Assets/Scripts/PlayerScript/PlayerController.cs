@@ -2,6 +2,7 @@ using System.Security.AccessControl;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : PawnMaster
@@ -73,6 +74,7 @@ public class PlayerController : PawnMaster
     private float fire_aoe_damage = 5f;
     // for lifesteal
     private float lifesteal_percent = 0f;
+    private Vector2 loggedLocation = Vector2.zero;
 
 
     [Header("DO NOT MODIFY")]
@@ -118,6 +120,11 @@ public class PlayerController : PawnMaster
             InputManager.Instance.OnPause += HandlePause;
             // Add more as needed (e.g., OnFire)
         }
+
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnUpdateHealth += HandleOnUpdateHealth;
+        }
     }
 
     public void Reset()
@@ -133,11 +140,7 @@ public class PlayerController : PawnMaster
 
     private void OnEnable()
     {
-        if (InputManager.Instance != null)
-        {
-            InputManager.Instance.OnMove += HandleMove;
-            InputManager.Instance.OnPause += HandlePause;
-        }
+
     }
 
     public override void OnDisable()
@@ -146,6 +149,10 @@ public class PlayerController : PawnMaster
         {
             InputManager.Instance.OnMove -= HandleMove;
             InputManager.Instance.OnPause -= HandlePause;
+        }
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnUpdateHealth -= HandleOnUpdateHealth;
         }
         base.OnDisable();
     }
@@ -297,11 +304,6 @@ public class PlayerController : PawnMaster
         // GameEvents.instance.onHitEnemy -= OnHitEnemy;
     }
 
-    void SwitchGun()
-    {
-
-    }
-
     public override void UpdatePlayerContinuousAOE(ContiniousAOEStat stat)
     {
         if (!have_fire_aoe)
@@ -330,7 +332,12 @@ public class PlayerController : PawnMaster
 
     }
 
-
+    public override void UpdatePerSecond()
+    {
+        base.UpdatePerSecond();
+        GameEvents.instance?.PlayerMove(Vector2.Distance(loggedLocation, transform.position));
+        loggedLocation = transform.position;
+    }
 
 
 
@@ -344,10 +351,26 @@ public class PlayerController : PawnMaster
         HealthBar.HealthMax = max_health;
     }
 
+    public void HandleOnUpdateHealth(int diffHealth)
+    {
+        if (diffHealth == 0) return; // No change in health
+        HealthBar.HealthCurrent += diffHealth;
+        if (HealthBar.HealthCurrent > HealthBar.HealthMax)
+        {
+            HealthBar.HealthCurrent = HealthBar.HealthMax; // Clamp to max health
+        }
+        else if (HealthBar.HealthCurrent < 0)
+        {
+            HealthBar.HealthCurrent = 0; // Clamp to zero
+        }
+        GameEvents.instance?.ShowNumberUI(Math.Abs((int)diffHealth), this, GameEvents.DamageType.Normal, (Vector2)transform.position, "Cost");
+    }
+
     private void OnHitEnemy(float damage_, EnemyMaster enemy_)
     {
         // Debug.Log("player hit enemy of damage" + damage_);  
-        if (use_lifesteal) {
+        if (use_lifesteal)
+        {
             // here player can recover from the damage made with a percentage
             Heal(lifesteal_percent * damage_);
         }

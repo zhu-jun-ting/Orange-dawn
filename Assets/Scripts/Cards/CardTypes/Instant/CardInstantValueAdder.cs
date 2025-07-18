@@ -16,20 +16,22 @@ public class CardInstantValueAdder : CardMaster
     {
         // For each linked card, permanently add all nonzero stat values from this card using UpdateNumberValue
         CardMaster[] linked = new CardMaster[] { up_link_cardmaster, left_link_cardmaster, right_link_cardmaster, down_link_cardmaster };
+        bool modified = false;
         foreach (var link in linked)
         {
             if (link != null)
             {
-                if (damage != 0) link.UpdateNumberValue(NumberType.Damage, damage, this, true);
-                if (health != 0) link.UpdateNumberValue(NumberType.Health, health, this, true);
-                if (probability != 0) link.UpdateNumberValue(NumberType.Probability, probability, this, true);
-                if (amount != 0) link.UpdateNumberValue(NumberType.Amount, amount, this, true);
-                if (mana != 0) link.UpdateNumberValue(NumberType.Mana, mana, this, true);
-                if (coin != 0) link.UpdateNumberValue(NumberType.Coin, coin, this, true);
+                if (damage != 0 && link.numberTypesCanBeModified.Contains(NumberType.Damage)) link.UpdateNumberValue(NumberType.Damage, damage, this, true); modified = true;
+                if (health != 0 && link.numberTypesCanBeModified.Contains(NumberType.Health)) link.UpdateNumberValue(NumberType.Health, health, this, true); modified = true;
+                if (probability != 0 && link.numberTypesCanBeModified.Contains(NumberType.Probability)) link.UpdateNumberValue(NumberType.Probability, probability, this, true); modified = true;
+                if (amount != 0 && link.numberTypesCanBeModified.Contains(NumberType.Amount)) link.UpdateNumberValue(NumberType.Amount, amount, this, true); modified = true;
+                if (mana != 0 && link.numberTypesCanBeModified.Contains(NumberType.Mana)) link.UpdateNumberValue(NumberType.Mana, mana, this, true); modified = true;
+                if (coin != 0 && link.numberTypesCanBeModified.Contains(NumberType.Coin)) link.UpdateNumberValue(NumberType.Coin, coin, this, true); modified = true;
             }
         }
         // Destroy self after applying
-        OnCardDestroyed();
+        if (modified) OnCardDestroyed();
+        else ShowPopup("No stat to increase.");
     }
 
     public override string GetDescription()

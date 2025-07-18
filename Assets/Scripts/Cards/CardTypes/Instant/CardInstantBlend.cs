@@ -16,10 +16,15 @@ public class CardInstantBlend : CardMaster
         CardMaster linked = up_link_cardmaster ?? left_link_cardmaster ?? right_link_cardmaster ?? down_link_cardmaster;
         if (linked != null && linked.card_bonds != null && linked.card_bonds.Count > 0)
         {
+            var bonds = linked.card_bonds;
+            if (bonds != null && bonds.Count == 0)
+            {
+                ShowPopup("No Bonds");
+                return;
+            }
             // Discard the linked card using its OnCardDestroyed
             linked.OnCardDestroyed();
             // If successfully discarded (destroyed), find 3 cards with the same bond
-            var bonds = linked.card_bonds;
             List<GameObject> candidates = CardDatabase.FindCards(cm =>
             {
                 if (cm.card_bonds == null || bonds == null) return false;
@@ -43,8 +48,13 @@ public class CardInstantBlend : CardMaster
             }
 
             OnCardDestroyed(); // Destroy self after applying
-        }    
+        }
     }
 
     public override string GetDescription() => GameSettings.AddIcon(string.Format(card_description));
+
+    public override UIStar.StarType GetStarType(CardMaster cardMaster = null)
+    {
+        return base.GetStarType(cardMaster);
+    }
 }

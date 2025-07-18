@@ -479,7 +479,7 @@ public class CardMaster : MonoBehaviour
             Debug.LogError("CoinCounter.instance not found in scene.");
             return false;
         }
-        if (!coinCounter.CanSpendCoins(card_cost))
+        if (!coinCounter.CanCostCoin(-card_cost))
         {
             Debug.LogError($"Not enough coins to purchase {card_name} (cost: {card_cost})");
             return false;
@@ -571,15 +571,7 @@ public class CardMaster : MonoBehaviour
             if (numberTypesCanBeModified.Count > 0)
             {
                 var chosenType = numberTypesCanBeModified[UnityEngine.Random.Range(0, numberTypesCanBeModified.Count)];
-                switch (chosenType)
-                {
-                    case NumberType.Damage: damage += GameSettings.Growth(NumberType.Damage); break;
-                    case NumberType.Health: health += GameSettings.Growth(NumberType.Health); break;
-                    case NumberType.Probability: probability += GameSettings.Growth(NumberType.Probability); break;
-                    case NumberType.Amount: amount += GameSettings.Growth(NumberType.Amount); break;
-                    case NumberType.Mana: mana += GameSettings.Growth(NumberType.Mana); break;
-                    case NumberType.Coin: coin += GameSettings.Growth(NumberType.Coin); break;
-                }
+                UpdateSelfNumberValue(chosenType, GameSettings.Growth(chosenType), isPermanent: true, isMult: false);
             }
         }
         // Decaying: update only one random value
@@ -588,15 +580,7 @@ public class CardMaster : MonoBehaviour
             if (numberTypesCanBeModified.Count > 0)
             {
                 var chosenType = numberTypesCanBeModified[UnityEngine.Random.Range(0, numberTypesCanBeModified.Count)];
-                switch (chosenType)
-                {
-                    case NumberType.Damage: damage += GameSettings.Decay(NumberType.Damage); break;
-                    case NumberType.Health: health += GameSettings.Decay(NumberType.Health); break;
-                    case NumberType.Probability: probability += GameSettings.Decay(NumberType.Probability); break;
-                    case NumberType.Amount: amount += GameSettings.Decay(NumberType.Amount); break;
-                    case NumberType.Mana: mana += GameSettings.Decay(NumberType.Mana); break;
-                    case NumberType.Coin: coin += GameSettings.Decay(NumberType.Coin); break;
-                }
+                UpdateSelfNumberValue(chosenType, GameSettings.Decay(chosenType), isPermanent: true, isMult: false);
             }
         }
     }
@@ -609,15 +593,7 @@ public class CardMaster : MonoBehaviour
             for (int i = 0; i < times; i++)
             {
                 var chosenType = numberTypesCanBeModified[UnityEngine.Random.Range(0, numberTypesCanBeModified.Count)];
-                switch (chosenType)
-                {
-                    case NumberType.Damage: damage += GameSettings.Growth(NumberType.Damage); break;
-                    case NumberType.Health: health += GameSettings.Growth(NumberType.Health); break;
-                    case NumberType.Probability: probability += GameSettings.Growth(NumberType.Probability); break;
-                    case NumberType.Amount: amount += GameSettings.Growth(NumberType.Amount); break;
-                    case NumberType.Mana: mana += GameSettings.Growth(NumberType.Mana); break;
-                    case NumberType.Coin: coin += GameSettings.Growth(NumberType.Coin); break;
-                }
+                UpdateSelfNumberValue(chosenType, GameSettings.Growth(chosenType), isPermanent: true, isMult: false);
             }
             ShowPopup("Grow: " + times + " times");
             return true;
@@ -636,15 +612,7 @@ public class CardMaster : MonoBehaviour
             for (int i = 0; i < times; i++)
             {
                 var chosenType = numberTypesCanBeModified[UnityEngine.Random.Range(0, numberTypesCanBeModified.Count)];
-                switch (chosenType)
-                {
-                    case NumberType.Damage: damage += GameSettings.Decay(NumberType.Damage); break;
-                    case NumberType.Health: health += GameSettings.Decay(NumberType.Health); break;
-                    case NumberType.Probability: probability += GameSettings.Decay(NumberType.Probability); break;
-                    case NumberType.Amount: amount += GameSettings.Decay(NumberType.Amount); break;
-                    case NumberType.Mana: mana += GameSettings.Decay(NumberType.Mana); break;
-                    case NumberType.Coin: coin += GameSettings.Decay(NumberType.Coin); break;
-                }
+                UpdateSelfNumberValue(chosenType, GameSettings.Decay(chosenType), isPermanent: true, isMult: false);    
             }
             ShowPopup("Decay: " + times + " times");
             return true;

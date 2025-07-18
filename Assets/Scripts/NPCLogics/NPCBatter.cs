@@ -11,7 +11,7 @@ public class NPCBatter : NPCMaster, IColliderHandler
     public Transform batSpawnPoint; // Assign in inspector as child object or set in code
     public GameObject batSword; // Assign in inspector as child object or set in code
 
-    
+
     private Bat batScript;
     private Transform target;
     private IEnumerator attackCoroutine;
@@ -139,5 +139,20 @@ public class NPCBatter : NPCMaster, IColliderHandler
             }
             yield return new WaitForSeconds(attackInterval);
         }
+    }
+
+    // batter skill: increase hit back power
+    public override void OnStartCharge()
+    {
+        base.OnStartCharge();
+        hitBackBullet *= 1.5f;
+        hitBackEnemy *= 1.5f;
+    }
+
+    public override void OnEndCharge()
+    {
+        base.OnEndCharge();
+        hitBackBullet /= 1.5f;
+        hitBackEnemy /= 1.5f;
     }
 }

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,26 +5,32 @@ using UnityEngine;
 // All using directives must be at the top of the file
 
 public class EnemyMaster : PawnMaster
+
 {
     [Header("Parameters")]
-    public EnemyStat stat;
-    protected float moveSpeed;
-    public Transform target;
+    public float maxHP = 7f;
+    public float moveSpeed = 1.5f;
+    [HideInInspector] public float curHP = 7f;
 
+    [Header("Attacking")]
+    public GameObject enemyAOEPrefab; // Prefab for AOE attack
+    public float attackScale = 1f; // Scale for AOE attack size
+    public float attackDamage = 10f;
+    public float attackDuration = 1f;
+    public float attackCooldown = 2f; // Cooldown between attacks
 
-    protected float maxHP;
-    protected float curHP;
-    protected Rigidbody2D rb;
-    protected float melee_damage;
+    [Header("Melee Attack Detector")]
+    public Collider2D meleeAttackDetector; // Collider to detect melee attacks
+    public List<string> meleeAttackTags; // Tags to filter melee attacks, e.g., "Player", "Bullet", etc.
 
     [Header("Hurt Effects")]
     protected SpriteRenderer sr;
-    protected float hurtDuration;
+    public float hurtDuration = 0.5f;
     protected Color originalColor; // Store the original color
 
     [Header("Game Objects")]
-    protected GameObject explosionEffect;
     public GameObject health_bar;
+    public Transform target;
 
 
     [Header("Collidable Objects That Can Hurt Enemy")]
@@ -36,26 +41,24 @@ public class EnemyMaster : PawnMaster
     public float minCollisionDamage = 2f; // Minimum force to consider a hit as damage
     public float collisionDamageScale = 1f; // You can expose this as a public parameter if needed
 
-    [Header("Melee Attack Detector")]
-    public Collider2D meleeAttackDetector; // Collider to detect melee attacks
-    public List<string> meleeAttackTags; // Tags to filter melee attacks, e.g., "Player", "Bullet", etc.
+    [Header("Enemy Dots")]
+    public Transform dotSpawnPoint; // Point where DOT effects spawn
+    public List<DotInfo> currentDots = new List<DotInfo>(); // Store active DOTs on this enemy
 
-    [Header("Attacking")]
-    public GameObject enemyAOEPrefab; // Prefab for AOE attack
-    public float attackScale = 1f; // Scale for AOE attack size
-    public float attackDamage = 10f;
-    public float attackDuration = 1f;
-    public float attackCooldown = 2f; // Cooldown between attacks
+
+
+
 
 
     // internal vars
+    protected Rigidbody2D rb;
     protected float hitBackFactor;
-    protected EnemyHealthBar enemy_health_bar;
+    protected EnemyHealthBar enemyHealthBar;
 
 
     // singletons
-    protected CombatManager combat_manager;
-    protected GameEvents game_events;
+    protected CombatManager combatManager;
+    protected GameEvents gameEvents;
     protected bool is_alive;
 
     // Per-instigator damage cooldown
@@ -67,10 +70,7 @@ public class EnemyMaster : PawnMaster
 
     public virtual void Awake()
     {
-        moveSpeed = stat.move_speed;
-        maxHP = stat.max_health;
-        melee_damage = stat.melee_damage;
-        hurtDuration = stat.hurtDuration;
+
     }
 
 
@@ -80,15 +80,15 @@ public class EnemyMaster : PawnMaster
         curHP = maxHP;
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
-        enemy_health_bar = health_bar.GetComponent<EnemyHealthBar>();
+        enemyHealthBar = health_bar.GetComponent<EnemyHealthBar>();
         originalColor = sr.color; // Store the original color
 
         // get singleton references
-        combat_manager = FindFirstObjectByType<CombatManager>();
-        if (combat_manager == null) Debug.LogError("combat manager can not be found.");
+        combatManager = FindFirstObjectByType<CombatManager>();
+        if (combatManager == null) Debug.LogError("combat manager can not be found.");
         is_alive = true;
 
-        game_events = GameEvents.instance;
+        gameEvents = GameEvents.instance;
 
     }
 
@@ -133,7 +133,7 @@ public class EnemyMaster : PawnMaster
 
     void OnDestroy()
     {
-
+        ClearAllDots();
     }
 
 
@@ -172,14 +172,14 @@ public class EnemyMaster : PawnMaster
 
         PlayHurtFlash(); // Add this line to trigger the flash
         if (_hit_back_factor != 0 && instigator != null) HitBack(instigator.transform);
-        enemy_health_bar.SetHealth(maxHP, curHP);
+        enemyHealthBar.SetHealth(maxHP, curHP);
 
         // invoke this game event
         GameEvents.instance.HitEnemy(_amount, this);
 
         if (curHP <= 0 && is_alive)
         {
-            combat_manager.HandleEnemyDeath(gameObject);
+            combatManager.HandleEnemyDeath(gameObject);
             moveSpeed = 0f;
             Invoke("DestroyMyself", 1.0f);
             is_alive = false;
@@ -339,5 +339,107 @@ public class EnemyMaster : PawnMaster
     public override bool Heal(float _amount)
     {
         return false; // Enemies cannot be healed
+    }
+
+
+    public enum DotType
+    {
+        Burn,
+        Poison,
+        Slow,
+        Shock
+    }
+
+    // DOT system
+    public class DotInfo
+    {
+        public DotType type;
+        public float dotDamage;
+        public float dotInterval;
+        public float dotDuration;
+        public string fxName;
+        public bool isStackable;
+        public bool useDefault; // Use default behavior if no custom callbacks provided
+        public Action<EnemyMaster> onBeginDot;
+        public Action<EnemyMaster> onEndDot;
+        public Coroutine dotCoroutine;
+        public GameObject fxInstance;
+        public float startTime;
+    }
+
+    
+    
+    public void AddDot(DotType _type, float _dotDamage, float _dotInterval = 0.5f, float _dotDuration = 2f, string _fxName = null, bool _isStackable = false, Action<EnemyMaster> _onBeginDot = null, Action<EnemyMaster> _onEndDot = null)
+    {
+        // Only allow one stack per type unless isStackable
+        if (!_isStackable && currentDots.Exists(d => d.type == _type)) return;
+        DotInfo dot = new DotInfo
+        {
+            type = _type,
+            dotDamage = _dotDamage,
+            dotInterval = _dotInterval,
+            dotDuration = _dotDuration,
+            fxName = _fxName,
+            isStackable = _isStackable,
+            onBeginDot = _onBeginDot,
+            onEndDot = _onEndDot,
+            useDefault = _onBeginDot == null && _onEndDot == null, // Use default if no custom callbacks provided
+            startTime = Time.time
+        };
+        dot.dotCoroutine = StartCoroutine(DotCoroutine(dot));
+        currentDots.Add(dot);
+    }
+
+    private IEnumerator DotCoroutine(DotInfo dot)
+    {
+        // Begin DOT effect
+        dot.onBeginDot?.Invoke(this);
+        if (dot.useDefault && dot.type == DotType.Slow)
+        {
+            // If this is a slow dot, apply slow speed modifier
+            moveSpeed *= GameSettings.instance?.slowSpeedModifier ?? 0.5f;
+        }
+
+        // Play FX if provided
+        if (string.IsNullOrEmpty(dot.fxName)) dot.fxName = GameSettings.GetDotFxName(dot.type);
+        dot.fxInstance = CombatManager.PlayFx(dot.fxName, dotSpawnPoint.position, isLooping: true, parent: dotSpawnPoint);
+        
+
+        float elapsed = 0f;
+        while (elapsed < dot.dotDuration && is_alive)
+        {
+            // Do dot damage
+            if (curHP > 0 && dot.dotDamage >= 1f)
+            {
+                GameEvents.instance.HitPawn(dot.dotDamage, this, gameObject, GameEvents.DamageType.DotDamage, transform, 0f, null, "DOT");
+            }
+            yield return new WaitForSeconds(dot.dotInterval);
+            elapsed += dot.dotInterval;
+        }
+
+        // End of DOT effect
+        dot.onEndDot?.Invoke(this);
+        if (dot.useDefault && dot.type == DotType.Slow)
+        {
+            // If this is a slow dot, restore original speed
+            moveSpeed /= GameSettings.instance?.slowSpeedModifier ?? 0.5f; // Restore original speed
+        }
+        // Remove FX
+        if (dot.fxInstance != null)
+        {
+            Destroy(dot.fxInstance);
+        }
+        currentDots.Remove(dot);
+    }
+
+    private void ClearAllDots()
+    {
+        foreach (var dot in new List<DotInfo>(currentDots))
+        {
+            if (dot.dotCoroutine != null) StopCoroutine(dot.dotCoroutine);
+            if (dot.fxInstance != null) Destroy(dot.fxInstance);
+            dot.onEndDot?.Invoke(this);
+        }
+        currentDots.Clear();
     }
 }

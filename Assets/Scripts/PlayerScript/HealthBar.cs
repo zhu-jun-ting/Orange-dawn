@@ -37,7 +37,7 @@ public class HealthBar : MonoBehaviour
         if (healthResponsive != null)
         {
             // Lerp the responsive fill down to the current fill
-            if (responsiveFill > fillAmount) 
+            if (responsiveFill > fillAmount)
             {
                 responsiveFill -= fallingSpeed * Time.deltaTime;
                 if (responsiveFill < fillAmount) responsiveFill = fillAmount;
@@ -51,5 +51,10 @@ public class HealthBar : MonoBehaviour
         }
 
         healthText.text = HealthCurrent.ToString() + "/" + HealthMax.ToString();
+    }
+    
+    public static bool CanCostHealth(float diffHealth)
+    {
+        return HealthCurrent + diffHealth > 0;
     }
 }

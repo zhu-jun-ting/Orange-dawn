@@ -613,6 +613,7 @@ Transform:
   m_LocalScale: {x: 0.6, y: 0.5732417, z: 0.47953966}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 2299752785693964782}
   - {fileID: 1012180735223525878}
   - {fileID: 581267707475198790}
   - {fileID: 8141380493797844924}
@@ -710,18 +711,28 @@ MonoBehaviour:
   buff_icon_grid: {fileID: 6563926399844618990}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
   isPlayer: 0
+  isFullHealth: 1
   dot_stat: {fileID: 0}
-  stat: {fileID: 11400000, guid: af88fa7f586c0164a9bc8e59137a744c, type: 2}
-  target: {fileID: 0}
+  maxHP: 7
+  moveSpeed: 1.5
+  curHP: 7
+  enemyAOEPrefab: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
+  attackScale: 1
+  attackDamage: 10
+  attackDuration: 1
+  attackCooldown: 2
+  meleeAttackDetector: {fileID: 0}
+  meleeAttackTags: []
+  hurtDuration: 0.5
   health_bar: {fileID: 1012180735389192541}
+  target: {fileID: 0}
   collidableObjectsTags:
   - Enemy
   collidableObjectsLayers:
   - Wall
   minCollisionDamage: 2
   collisionDamageScale: 3
-  enemyAOEPrefab: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
-  attackCooldown: 2
+  dotSpawnPoint: {fileID: 2299752785693964782}
 --- !u!58 &1012180736909545083
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -785,6 +796,37 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!1 &2374769159152491488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2299752785693964782}
+  m_Layer: 7
+  m_Name: DotSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2299752785693964782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2374769159152491488}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.36, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1012180736909545086}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7919250282704343278
 GameObject:
   m_ObjectHideFlags: 0

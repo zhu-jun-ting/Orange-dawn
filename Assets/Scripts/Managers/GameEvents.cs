@@ -121,6 +121,15 @@ public class GameEvents : MonoBehaviour
         }
     }
 
+    public event Action<int> OnUpdateHealth;
+    public void UpdateHealth(int diffHealth)
+    {
+        if (OnUpdateHealth != null)
+        {
+            OnUpdateHealth(diffHealth);
+        }
+    }
+
     public enum MessageType { FullInfo, FullWarning, LocalInfo }
     public event Action<string, MessageType, Vector2> OnShowMessage;
     public void ShowMessage(string message, MessageType type = MessageType.FullInfo, Vector2 position = default(Vector2))
@@ -204,5 +213,22 @@ public class GameEvents : MonoBehaviour
             OnDestroyObject(obj, bullet);
         }
     }
-    
+
+    public event Action<float> OnPlayerMove;
+    public void PlayerMove(float distance)
+    {
+        if (OnPlayerMove != null)
+        {
+            OnPlayerMove(distance);
+        }
+    }
+
+    public event Action<NPCMaster> OnNPCCharge;
+    public void NPCCharge(NPCMaster npc)
+    {
+        if (OnNPCCharge != null)
+        {
+            OnNPCCharge(npc);
+        }
+    }
 }

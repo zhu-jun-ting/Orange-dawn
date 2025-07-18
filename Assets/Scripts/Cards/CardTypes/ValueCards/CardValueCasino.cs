@@ -31,7 +31,7 @@ public class CardValueCasino : CardMaster
 
     private void ApplyBonusProbability()
     {
-        if (CoinCounter.instance != null && CoinCounter.instance.CanSpendCoins(0))
+        if (CoinCounter.instance != null && CoinCounter.instance.CanCostCoin(0))
         {
             int currentCoins = CoinCounter.instance.coinCurrent;
             int chunks = currentCoins / coinChunkSize;

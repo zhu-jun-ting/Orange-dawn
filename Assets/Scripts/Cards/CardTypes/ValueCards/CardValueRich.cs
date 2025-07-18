@@ -28,7 +28,7 @@ public class CardValueRich : CardMaster
         if (diffCoin < 0)
         {
             // Try to spend extra coins
-            if (CoinCounter.instance != null && CoinCounter.instance.CanSpendCoins(extraCoinCost))
+            if (CoinCounter.instance != null && CoinCounter.instance.CanCostCoin(-extraCoinCost))
             {
                 CoinCounter.instance.AddCoin(-extraCoinCost);
                 health += healthGainAmount;

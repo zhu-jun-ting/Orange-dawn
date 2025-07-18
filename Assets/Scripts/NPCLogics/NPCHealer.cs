@@ -65,7 +65,7 @@ public class NPCHealer : NPCMaster, IColliderHandler
         if (s == state) return;
         if (Time.time - lastStateChangeTime < stateChangeCooldown) return;
         lastStateChangeTime = Time.time;
-        
+
         base.ChangeState(s);
         if (s == State.Idle)
         {
@@ -120,6 +120,43 @@ public class NPCHealer : NPCMaster, IColliderHandler
             {
                 healAOE.maxDamage = damage;
                 healAOE.maxRadius = healAOERadius;
+                healAOE.targetTags = triggerTags;
+            }
+        }
+    }
+
+    //
+    public override void OnStartCharge()
+    {
+        base.OnStartCharge();
+        List<PawnMaster> healable = targetsInRange.FindAll(p => !p.isFullHealth);
+        if (healable.Count > 0)
+        {
+            PawnMaster target = healable[Random.Range(0, healable.Count)];
+            GameObject aoe = Instantiate(healAOEPrefab, target.transform.position, Quaternion.identity);
+            HealAOE healAOE = aoe.GetComponent<HealAOE>();
+            if (healAOE != null)
+            {
+                healAOE.maxDamage = damage * 2;
+                healAOE.maxRadius = 1f;
+                healAOE.targetTags = triggerTags;
+            }
+        }
+    }
+
+    public override void OnEndCharge()
+    {
+        base.OnEndCharge();
+        List<PawnMaster> healable = targetsInRange.FindAll(p => !p.isFullHealth);
+        if (healable.Count > 0)
+        {
+            PawnMaster target = healable[Random.Range(0, healable.Count)];
+            GameObject aoe = Instantiate(healAOEPrefab, target.transform.position, Quaternion.identity);
+            HealAOE healAOE = aoe.GetComponent<HealAOE>();
+            if (healAOE != null)
+            {
+                healAOE.maxDamage = damage;
+                healAOE.maxRadius = 1f;
                 healAOE.targetTags = triggerTags;
             }
         }

@@ -32,7 +32,7 @@ public class CardValueStray : CardMaster
 
     private void ApplyBonusIfNeeded()
     {
-        if (CoinCounter.instance != null && CoinCounter.instance.CanSpendCoins(0))
+        if (CoinCounter.instance != null && CoinCounter.instance.CanCostCoin(0))
         {
             int currentCoins = CoinCounter.instance.coinCurrent;
             if (currentCoins <= coinThreshold && !bonusApplied && !CombatManager.isInBattle)

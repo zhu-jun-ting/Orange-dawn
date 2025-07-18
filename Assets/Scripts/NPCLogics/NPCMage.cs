@@ -10,6 +10,9 @@ public class NPCMage : NPCMaster, IColliderHandler
     public float aoeDamage = 10f;
     public ColliderToHandle colliderToHandle;
 
+    [Header("Mage Charges")]
+    public int chargeMaxChain = 3; // Assign Charge prefab in inspector
+
     private readonly List<EnemyMaster> targetsInRange = new List<EnemyMaster>();
     private IEnumerator attackCoroutine;
     private bool isAttacking = false;
@@ -111,5 +114,18 @@ public class NPCMage : NPCMaster, IColliderHandler
             fxScript.SpawnAt(target.transform.position, aoeRange, aoeDamage);
         }
         Destroy(fx, 2f);
+    }
+
+    // Charge skill: shoot a lightning chain
+    public override void OnStartCharge()
+    {
+        base.OnStartCharge();
+        CombatManager.instance?.ShootLightningChain(transform, _damage: damage, _maxChain: chargeMaxChain);
+    }
+
+    public override void OnEndCharge()
+    {
+        base.OnEndCharge();
+        CombatManager.instance?.ShootLightningChain(transform, _damage: damage, _maxChain: chargeMaxChain);
     }
 }

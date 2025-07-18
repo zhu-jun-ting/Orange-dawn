@@ -115,3 +115,17 @@ MonoBehaviour:
     cardPrefab: {fileID: 6705360014326929814, guid: 8ba7ae29875b81046b0224078521bae4, type: 3}
   - cardId: 422
     cardPrefab: {fileID: 6705360014326929814, guid: 2e9fc426975e9074ab1d308dc2f05f32, type: 3}
+  - cardId: 319
+    cardPrefab: {fileID: 5827941450257739500, guid: 84811677ecd0b4e4382e7b75f7b8f8e4, type: 3}
+  - cardId: 318
+    cardPrefab: {fileID: 5827941450257739500, guid: 1af7531b4a4c6d24bbedb7dcbeecfa6a, type: 3}
+  - cardId: 317
+    cardPrefab: {fileID: 5827941450257739500, guid: 3c4f86caff8e33a4898adb225c8901ed, type: 3}
+  - cardId: 316
+    cardPrefab: {fileID: 5827941450257739500, guid: 5e6edd7f68571dd4d835c72a4a00f3ac, type: 3}
+  - cardId: 315
+    cardPrefab: {fileID: 5827941450257739500, guid: fe40bbf6c0571f849a2e6f7955a09d74, type: 3}
+  - cardId: 313
+    cardPrefab: {fileID: 5827941450257739500, guid: 1b5af654be4fb5f40a515bf97868e986, type: 3}
+  - cardId: 314
+    cardPrefab: {fileID: 5827941450257739500, guid: a436ab6031048194a89719ac02cb0384, type: 3}

@@ -59,6 +59,12 @@ public class GameSettings : MonoBehaviour
     [Header("Card Conditions")]
     public float fragileDestroyChance = 0.25f;
 
+    [Header("Dot Defaults")]
+    public float slowSpeedModifier = 0.5f;
+
+    [Header("NPC Related")]
+    public List<GameObject> NPCs = new List<GameObject>(); // Assign the NPC prefabs in the inspector
+
     /// <summary>
     ///  damage: 1, 2, 3 ..... 40, 50, 60, 70, 80, 90, 100
     ///  health: 10, 20, 30 ..... 200, 300
@@ -219,7 +225,7 @@ public class GameSettings : MonoBehaviour
                 return 0f;
         }
     }
-    
+
     public static string GetConditionName(CardMaster.CardCondition cond)
     {
         switch (cond)
@@ -233,6 +239,18 @@ public class GameSettings : MonoBehaviour
             case CardMaster.CardCondition.IsGrowing: return "Growing";
             case CardMaster.CardCondition.IsPowerful: return "Powerful";
             default: return cond.ToString();
+        }
+    }
+    
+    public static string GetDotFxName(EnemyMaster.DotType dotType)
+    {
+        switch (dotType)
+        {
+            case EnemyMaster.DotType.Burn: return "FxBurn";
+            case EnemyMaster.DotType.Poison: return "FxPoison";
+            case EnemyMaster.DotType.Shock: return "FxShock";
+            case EnemyMaster.DotType.Slow: return "FxSlow";
+            default: return "UnknownDot";
         }
     }
 }

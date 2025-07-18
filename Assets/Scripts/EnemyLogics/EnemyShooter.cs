@@ -6,12 +6,12 @@ using UnityEngine;
 public class EnemyShooter : EnemyMaster
 {
 
-    [Header("stats")]
+    [Header("Shooter Stats")]
     public EnemyShooterStat shooter_stat;
     protected float shoot_range;
     protected float shoot_interval;
 
-    [Header("game objects")]
+    [Header("Game Objects")]
     private ShootRangeDetector shoot_detector;
     protected GameObject bullet_prefab;
     
@@ -26,12 +26,7 @@ public class EnemyShooter : EnemyMaster
 
     public override void Awake()
     {
-        // base.Awake();
-
-        moveSpeed = shooter_stat.move_speed;
-        maxHP = shooter_stat.max_health;
-        melee_damage = shooter_stat.melee_damage;
-        hurtDuration = shooter_stat.hurtDuration;
+        base.Awake();
 
         shoot_range = shooter_stat.shoot_range;
         shoot_interval = shooter_stat.shoot_interval;

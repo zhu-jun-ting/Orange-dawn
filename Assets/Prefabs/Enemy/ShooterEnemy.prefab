@@ -578,9 +578,14 @@ MonoBehaviour:
   buff_icon_grid: {fileID: 4078746287530434960}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
   isPlayer: 0
+  isFullHealth: 1
   dot_stat: {fileID: 0}
   stat: {fileID: 0}
   target: {fileID: 0}
+  maxHP: 0
+  curHP: 0
+  meleeDamage: 0
+  hurtDuration: 0.5
   health_bar: {fileID: 3235738134679634588}
   collidableObjectsTags:
   - Enemy
@@ -588,7 +593,12 @@ MonoBehaviour:
   - Wall
   minCollisionDamage: 2
   collisionDamageScale: 3
+  meleeAttackDetector: {fileID: 0}
+  meleeAttackTags: []
   enemyAOEPrefab: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
+  attackScale: 1
+  attackDamage: 10
+  attackDuration: 1
   attackCooldown: 2
   shooter_stat: {fileID: 11400000, guid: 22f4138a457ded646b96c23e59547f5f, type: 2}
 --- !u!1 &8655908523751691681

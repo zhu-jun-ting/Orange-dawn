@@ -191,6 +191,7 @@ public class NPCMaster : PawnMaster
         }
 
         chargeCoroutineInstance = StartCoroutine(ChargeCoroutine(_overrideDuration));
+        GameEvents.instance.NPCCharge(this);
         return true;
     }
 
