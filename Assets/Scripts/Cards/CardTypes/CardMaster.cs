@@ -473,13 +473,12 @@ public class CardMaster : MonoBehaviour
 
     public bool TryPurchaseCard()
     {
-        var coinCounter = CoinCounter.instance;
-        if (coinCounter == null)
+        if (CoinCounter.instance == null)
         {
             Debug.LogError("CoinCounter.instance not found in scene.");
             return false;
         }
-        if (!coinCounter.CanCostCoin(-card_cost))
+        if (!CoinCounter.CanCostCoin(-card_cost))
         {
             Debug.LogError($"Not enough coins to purchase {card_name} (cost: {card_cost})");
             return false;
@@ -1287,11 +1286,39 @@ public class CardMaster : MonoBehaviour
             var obj = ObjectPool.Instance.GetObject(_prefab, spawnPosition, _rotation);
             _modifyObject?.Invoke(obj); // Apply any modifications if needed
 
-            if (CombatManager.instance != null) CombatManager.instance.AddObject(obj.transform);
-            if (GameEvents.instance != null)
-            {
-                GameEvents.instance.SpawnObject(obj.transform);
-            }
+            // if (CombatManager.instance != null) CombatManager.instance.AddObject(obj.transform);
+            // if (GameEvents.instance != null)
+            // {
+            //     GameEvents.instance.SpawnObject(obj.transform);
+            // }
+            spawnedObjects.Add(obj);
+        }
+
+        return spawnedObjects;
+    }
+
+    /// <summary>
+    /// Spawns a number of pawns around a specified position with a given rotation.
+    /// </summary>
+    /// <param name="_prefab">object to spawn</param>
+    /// <param name="_count">how many to spawn</param>
+    /// <param name="_position">where to spawn the objects</param>
+    /// <param name="_rotation">rotation of the spawned objects</param>
+    /// <param name="_radius">radius within which to spawn the objects</param>
+    /// <param name="_modifyObject">action to modify the spawned object</param>
+    /// <returns></returns>
+    public List<GameObject> SpawnPawns(GameObject _prefab, int _count = 1, UnityEngine.Vector2? _position = null, UnityEngine.Quaternion _rotation = default, float _radius = 1f, System.Action<GameObject> _modifyObject = null)
+    {
+        if (_prefab == null || _count <= 0) return new List<GameObject>();
+        UnityEngine.Vector2 spawnPosition = _position ?? (PlayerController.instance != null ? PlayerController.instance.GetPosition() : UnityEngine.Vector2.zero);
+        List<GameObject> spawnedObjects = new List<GameObject>();
+
+        for (int i = 0; i < _count; i++)
+        {
+            spawnPosition = CombatManager.instance.TryGetSpawnLocation(spawnPosition, _radius) ?? spawnPosition;
+            var obj = ObjectPool.Instance.GetObject(_prefab, spawnPosition, _rotation);
+            _modifyObject?.Invoke(obj); // Apply any modifications if needed
+
             spawnedObjects.Add(obj);
         }
 

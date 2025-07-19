@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Rifle : Gun
 {
-    protected override void Fire()
+    public override void Fire()
     {
         animator.SetTrigger("Shoot");
 

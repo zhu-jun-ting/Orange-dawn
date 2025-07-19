@@ -471,6 +471,7 @@ MonoBehaviour:
   invulnerabilityDuration: 1
   breakableByTags:
   - Bullet
+  itemType: 2
   spawnFxName: FxLandingSmoke
   spawnFxScale: 1
   spinDuration: 3

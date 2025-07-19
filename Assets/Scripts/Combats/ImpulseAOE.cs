@@ -14,6 +14,10 @@ public class ImpulseAOE : MonoBehaviour
     [Header("Visuals")]
     public SpriteRenderer circleSprite; // Assign a SpriteRenderer (circle sprite) as a child in the editor
 
+
+    // Callback to run when damage is dealt to a pawn
+    public System.Action<PawnMaster, float> onPawnDamaged;
+
     protected float currentRadius = 0f;
     private float timer = 0f;
     protected HashSet<GameObject> hitObjects = new HashSet<GameObject>();

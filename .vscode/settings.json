@@ -51,5 +51,8 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Orange-dawn.sln"
+    "dotnet.defaultSolution": "Orange-dawn.sln",
+    "dotrush.roslyn.projectOrSolutionFiles": [
+        "e:\\Documents\\Orange-dawn\\Orange-dawn.sln"
+    ]
 }

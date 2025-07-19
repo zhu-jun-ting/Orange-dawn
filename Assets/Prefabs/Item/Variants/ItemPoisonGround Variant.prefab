@@ -292,12 +292,14 @@ MonoBehaviour:
   invulnerabilityDuration: 1
   breakableByTags:
   - Enemy
+  itemType: 1
   spawnFxName: FxSpawn
   spawnFxScale: 2
   damagePerTick: 2
   tickInterval: 0.5
   triggerTags:
   - Enemy
+  groundRenderer: {fileID: 0}
 --- !u!4 &3098173820766029974 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 680800892994508494, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}

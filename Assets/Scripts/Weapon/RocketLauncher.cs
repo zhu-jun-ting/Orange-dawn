@@ -7,7 +7,7 @@ public class RocketLauncher : Gun
     public int rocketNum = 3;
     public float rocketAngle = 15;
 
-    protected override void Fire()
+    public override void Fire()
     {
         animator.SetTrigger("Shoot");
         StartCoroutine(DelayFire(.2f));

@@ -21,6 +21,14 @@ public class ImpulseAOECentripetalContinuous : ImpulseAOE
                 float dist = Vector2.Distance(transform.position, pawn.position);
                 float force = centripetalForce * Mathf.Clamp01(1f - dist / maxRadius);
                 pawn.AddForce(dir * force, ForceMode2D.Force);
+                // Healing callback: find PawnMaster and call
+                var pawnMaster = hit.GetComponent<PawnMaster>();
+                if (pawnMaster != null && onPawnDamaged != null)
+                {
+                    float damage = Mathf.Lerp(maxDamage, 0, dist / maxRadius);
+                    if (damage >= 1f)
+                        onPawnDamaged.Invoke(pawnMaster, damage);
+                }
             }
         }
     }

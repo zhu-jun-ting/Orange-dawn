@@ -10,6 +10,8 @@ public class FxLightning : MonoBehaviour
     public Transform dustSpawnPoint; // Where to spawn dust
     public Animator animator;
 
+    
+
     public void SpawnAt(Vector3 pos, float range = 2f, float damage = 10f)
     {
         this.impulseRange = range; // Set impulse range if provided

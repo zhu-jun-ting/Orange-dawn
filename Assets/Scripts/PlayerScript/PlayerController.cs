@@ -27,7 +27,7 @@ public class PlayerController : PawnMaster
     public float time;
     private Renderer myRender;
 
-    public GameObject[] guns;
+    public List<GameObject> guns;
     private int gunNum;
 
     [Header("movement")]
@@ -249,6 +249,13 @@ public class PlayerController : PawnMaster
     public override bool TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
     {
 
+        // check dodge
+        if (UnityEngine.Random.value < dodge)
+        {
+            GameEvents.instance?.PlayerDodge(transform);
+            return false; // Dodge successful, no damage taken
+        }
+
         // Animation: hurt
         if (animator != null)
         {
@@ -259,16 +266,16 @@ public class PlayerController : PawnMaster
 
         HealthBar.HealthCurrent -= _amount;
 
+        // Actual Death Logic here
         if (HealthBar.HealthCurrent <= 0)
         {
             Instantiate(test, gameObject.transform.position, gameObject.transform.rotation);
             gameObject.SetActive(false);
         }
 
-        base.TakeDamage(_amount, reciever,instigator, damage_type_, location, _hit_back_factor, source);
+        
         isFullHealth = false; // Set to false when taking damage
-
-        return true; // Return true to indicate damage was taken
+        return base.TakeDamage(_amount, reciever,instigator, damage_type_, location, _hit_back_factor, source); // Return true to indicate damage was taken
     }
     private System.Collections.IEnumerator ResetHurtFlag(float delay)
     {

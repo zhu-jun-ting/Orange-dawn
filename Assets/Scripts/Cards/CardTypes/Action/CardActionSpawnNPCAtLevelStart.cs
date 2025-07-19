@@ -35,30 +35,45 @@ public class CardActionSpawnNPCAtLevelStart : CardMaster, ICardAction
     private void HandleOnLevelStart(int levelIndex)
     {
         if (Time.time - lastActionTime < actionCooldown) return;
-        if (UnityEngine.Random.value > probability) return;
+        if (UnityEngine.Random.value > probability / 100) return;
         OnTrigger?.Invoke(this, transform);
+        lastActionTime = Time.time;
     }
 
     public void TriggerAction(CardMaster card, Transform target)
     {
-        lastActionTime = Time.time;
-        int count = Mathf.Max(1, (int)(amount)); // Use amount as NPC count
-        GameObject prefab = npcPrefab;
-        if (prefab == null) return;
-        Vector3 center = target != null ? target.position : Vector3.zero;
-        for (int i = 0; i < count; i++)
-        {
-            float angle = i * Mathf.PI * 2f / count;
-            Vector3 spawnPos = center + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * spawnRadius;
-            GameObject npcObj = ObjectPool.Instance.GetObject(prefab);
-            npcObj.transform.position = spawnPos;
-            NPCMaster npc = npcObj.GetComponent<NPCMaster>();
-            if (npc != null)
+        // int count = Mathf.Max(1, (int)(amount)); // Use amount as NPC count
+        // GameObject prefab = npcPrefab;
+        // if (prefab == null) return;
+        // Vector3 center = target != null ? target.position : Vector3.zero;
+        // for (int i = 0; i < count; i++)
+        // {
+        //     float angle = i * Mathf.PI * 2f / count;
+        //     Vector3 spawnPos = center + new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0) * spawnRadius;
+        //     GameObject npcObj = ObjectPool.Instance.GetObject(prefab);
+        //     npcObj.transform.position = spawnPos;
+        //     NPCMaster npc = npcObj.GetComponent<NPCMaster>();
+        //     if (npc != null)
+        //     {
+        //         npc.maxHP = health * healthModifier;
+        //         npc.damage = damage * damageModifier;
+        //     }
+        // }
+        SpawnPawns(
+            _prefab: npcPrefab,
+            _count: Mathf.Max(1, (int)(amount)),
+            _position: target != null ? target.position : Vector3.zero,
+            _radius: spawnRadius,
+            _modifyObject: (obj) =>
             {
-                npc.maxHP = health * healthModifier;
-                npc.damage = damage * damageModifier;
+                NPCMaster npc = obj.GetComponent<NPCMaster>();
+                if (npc != null)
+                {
+                    npc.maxHP = health * healthModifier;
+                    npc.damage = damage * damageModifier;
+                }
             }
-        }
+        );
     }
 
     public override string GetDescription()

@@ -37,13 +37,15 @@ public class CardActionSkeletons : CardMaster, ICardAction
     {
         if (Time.time - lastActionTime < actionCooldown) return;
         if (UnityEngine.Random.value > probability) return;
+
+        if (!ManaBar.CanCostMana(-(int)mana)) return;
+        lastActionTime = Time.time;
         OnTrigger?.Invoke(this, transform);
+        GameEvents.instance.UpdateMana(-(int)mana);
     }
 
     public void TriggerAction(CardMaster card, Transform target)
     {
-        if (!ManaBar.CanCostMana(-(int)mana)) return;
-        lastActionTime = Time.time;
 
         // Use only parent variables: damage, health, mana, amount, etc.
         // Example: Summon skeletons using amount as count, damage, health, mana
@@ -64,7 +66,7 @@ public class CardActionSkeletons : CardMaster, ICardAction
                 skeleton.maxHP = health;
             }
         }
-        GameEvents.instance.UpdateMana(-(int)mana);
+        
     }
 
     public override string GetDescription()

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ImpulseAOECentrifugal : ImpulseAOE
 {
+
     [Header("Centrifugal Force Settings")]
     public float centrifugalForce = 20f;
 
@@ -24,6 +25,14 @@ public class ImpulseAOECentrifugal : ImpulseAOE
                 float force = centrifugalForce * Mathf.Clamp01(1f - dist / maxRadius);
                 pawn.AddForce(dir * force, ForceMode2D.Impulse);
                 forceAppliedTo.Add(pawn);
+                // Healing callback: find PawnMaster and call
+                var pawnMaster = hit.GetComponent<PawnMaster>();
+                if (pawnMaster != null && onPawnDamaged != null)
+                {
+                    float damage = Mathf.Lerp(maxDamage, 0, dist / maxRadius);
+                    if (damage >= 1f)
+                        onPawnDamaged.Invoke(pawnMaster, damage);
+                }
             }
         }
     }

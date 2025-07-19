@@ -6,7 +6,7 @@ public class Shotgun : Gun
 {
 
 
-    protected override void Fire()
+    public override void Fire()
     {
         animator.SetTrigger("Shoot");
 

@@ -123,8 +123,25 @@ public class CombatManager : MonoBehaviour
         FRAME_COUNT = 0;
         currentNPCs = FindObjectsByType<NPCMaster>(FindObjectsSortMode.None).ToList();
 
+
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnSpawnObject -= HandlerOnSpawnObject;
+            GameEvents.instance.OnSpawnObject += HandlerOnSpawnObject;
+        }
+
         instance = this;
     }
+
+    void Osable()
+    {
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnSpawnObject -= HandlerOnSpawnObject;
+        }
+    }
+
+    private void HandlerOnSpawnObject(Transform obj) => AddObject(obj);
 
     // Update is called once per frame
     void FixedUpdate()

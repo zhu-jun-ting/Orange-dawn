@@ -9,6 +9,8 @@ public class PawnMaster : MonoBehaviour, IBuffable
     [HideInInspector] public Transform buff_icon_grid;
     [HideInInspector] public GameObject icon_prefab;
     [HideInInspector] public bool isPlayer = false;
+    [HideInInspector] public bool isEnemy = false;
+    [HideInInspector] public bool isNPC = false;
     [HideInInspector] public bool isFullHealth = true;
 
     public class BuffController
@@ -136,9 +138,7 @@ public class PawnMaster : MonoBehaviour, IBuffable
 
     public virtual bool TakeDamage(float damage, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type, Transform location, float hit_back_factor_, Gun source)
     {
-        // Trigger the hit event
-        // GameEvents.instance.HitPawn(damage_:damage, reciever_:this, instigator_:instigator_, damage_type_:damage_type_, location_:transform, source_:source);
-        return false;
+        return true;
     }
 
 

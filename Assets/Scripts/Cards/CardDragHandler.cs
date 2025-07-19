@@ -56,12 +56,12 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         // Assumes PlayerController.instance.guns[gunNum] is the current gun
         var player = PlayerController.instance;
-        if (player != null && player.guns != null && player.guns.Length > 0)
+        if (player != null && player.guns != null && player.guns.Count > 0)
         {
             // gunNum is private, so use reflection or expose a public getter if needed
             var gunNumField = typeof(PlayerController).GetField("gunNum", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             int gunNum = gunNumField != null ? (int)gunNumField.GetValue(player) : 0;
-            if (gunNum >= 0 && gunNum < player.guns.Length && player.guns[gunNum] != null)
+            if (gunNum >= 0 && gunNum < player.guns.Count && player.guns[gunNum] != null)
             {
                 return player.guns[gunNum].GetComponent<Gun>();
             }

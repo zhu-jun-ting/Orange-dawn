@@ -31,13 +31,22 @@ public class CardBasePistol : CardMaster
     private void OnEnable()
     {
         if (current_gun != null)
+        {
             current_gun.gameObject.SetActive(true);
+            if (!PlayerController.instance.guns.Contains(current_gun.gameObject)) PlayerController.instance.guns.Add(current_gun.gameObject);
+        }
     }
 
     void OnDisable()
     {
         if (current_gun != null)
+        {
             current_gun.gameObject.SetActive(false);
+            if (PlayerController.instance.guns.Contains(current_gun.gameObject))
+            {
+                PlayerController.instance.guns.Remove(current_gun.gameObject);
+            }
+        }
     }
 
     public override void OnCardEnable()

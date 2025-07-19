@@ -105,7 +105,7 @@ public class Gun : MonoBehaviour
         }
     }
 
-    protected virtual void Fire()
+    public virtual void Fire()
     {
         if (bulletNum == 1)
         {

@@ -4409,6 +4409,7 @@ MonoBehaviour:
   invulnerabilityDuration: 1
   breakableByTags:
   - Bullet
+  itemType: 0
   spawnFxName: FxLandingSmoke
   spawnFxScale: 1
   cloneAmount: 2
@@ -22259,6 +22260,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922440774}
   m_CullTransparentMesh: 1
+--- !u!1 &1922970069 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7334453287249067209, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+  m_PrefabInstance: {fileID: 7733832410105380048}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1939651016 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8426718878887912916, guid: 7d381e0569827cb43a63c325c7fa6657, type: 3}
@@ -24497,8 +24503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 666ec2f156624c045861346cb2ae9cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCoins: 100
-  coinCurrent: 0
   text: {fileID: 1333580403}
 --- !u!1 &2011364309
 GameObject:
@@ -24713,6 +24717,12 @@ MonoBehaviour:
   borderUndraggable: {fileID: 1247396513, guid: 6cd9530ca72389f4fac513ce65b76032, type: 3}
   fragileDestroyChance: 0.25
   slowSpeedModifier: 0.5
+  NPCs:
+  - {fileID: 138855509770857573, guid: 9cbdb6956d9b9a74bb33188e6ba375c4, type: 3}
+  - {fileID: 1922970069}
+  - {fileID: 6659902258934949930, guid: d95ba4d8552c1ca498f1166da3fa6cd8, type: 3}
+  - {fileID: 6659902258934949930, guid: 7d42e127860327d4b9f9ef99c83b6a25, type: 3}
+  - {fileID: 927343514943960820, guid: 6769a23b78d808e4b80cc768b6de75c9, type: 3}
   damageGrowth:
   - 1
   - 1

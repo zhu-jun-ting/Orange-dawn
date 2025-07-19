@@ -21,10 +21,7 @@ public class GameEvents : MonoBehaviour
     public event Action<float, EnemyMaster> onHitEnemy;
     public void HitEnemy(float damage_, EnemyMaster enemy_)
     {
-        if (onHitEnemy != null)
-        {
-            onHitEnemy(damage_, enemy_);
-        }
+        onHitEnemy?.Invoke(damage_, enemy_);
     }
 
 
@@ -42,8 +39,18 @@ public class GameEvents : MonoBehaviour
             modifyDamageCallback?.Invoke(damage_);
         }
 
+        bool isTaken = false;
+
         // calling the reciever's TakeDamage method
-        if (reciever_ != null) reciever_.TakeDamage(damage_, reciever_, instigator_, damage_type_, location_, hit_back_factor_, source_);
+        if (reciever_ != null)
+        {
+            isTaken = reciever_.TakeDamage(damage_, reciever_, instigator_, damage_type_, location_, hit_back_factor_, source_);
+        }
+
+        if (!isTaken)
+        {
+            return; // If the damage was not taken, exit early
+        }
 
         if (OnHitPawn != null)
         {
@@ -86,76 +93,69 @@ public class GameEvents : MonoBehaviour
     public event Action<int, PawnMaster, DamageType, Vector2, string> onShowNumberUI;
     public void ShowNumberUI(int damage_, PawnMaster reciever_, DamageType damage_type_, Vector2 location_, string prefix = "")
     {
-        if (onShowNumberUI != null)
-        {
-            onShowNumberUI(damage_, reciever_, damage_type_, location_, prefix);
-        }
+        onShowNumberUI?.Invoke(damage_, reciever_, damage_type_, location_, prefix);
+    }
+
+    public event Action<string, PawnMaster, DamageType, Vector2, string> onShowStringUI;
+    public void ShowStringUI(string damage_, PawnMaster reciever_, DamageType damage_type_, Vector2 location_, string prefix = "")
+    {
+        onShowStringUI?.Invoke(damage_, reciever_, damage_type_, location_, prefix);
     }
 
 
+    public event Action<PawnMaster, float, GameObject, DamageType, Gun> OnPawnDie;
+    public void PawnDie(PawnMaster _pawn, float _killDamage = 0f, GameObject _instigator_ = null, DamageType _damageType = DamageType.Normal, Gun _gun = null)
+    {
+        OnPawnDie?.Invoke(_pawn, _killDamage, _instigator_, _damageType, _gun);
+    }
+
+    public event Action<PawnMaster> OnPawnSpawn;
+    public void PawnSpawn(PawnMaster _pawn)
+    {
+        OnPawnSpawn?.Invoke(_pawn);
+    }
 
     public event Action<int, int> OnUpdateMana;
     public void UpdateMana(int diffMana = 0, int maxMana = -1)
     {
-        if (OnUpdateMana != null)
-        {
-            OnUpdateMana(diffMana, maxMana);
-        }
+        OnUpdateMana?.Invoke(diffMana, maxMana);
     }
 
     public event Action OnLevelCleared;
     public void LevelCleared()
     {
-        if (OnLevelCleared != null)
-        {
-            OnLevelCleared();
-        }
+        OnLevelCleared?.Invoke();
     }
 
     public event Action<int> OnUpdateCoins;
     public void UpdateCoins(int diffCoin)
     {
-        if (OnUpdateCoins != null)
-        {
-            OnUpdateCoins(diffCoin);
-        }
+        OnUpdateCoins?.Invoke(diffCoin);
     }
 
     public event Action<int> OnUpdateHealth;
     public void UpdateHealth(int diffHealth)
     {
-        if (OnUpdateHealth != null)
-        {
-            OnUpdateHealth(diffHealth);
-        }
+        OnUpdateHealth?.Invoke(diffHealth);
     }
 
     public enum MessageType { FullInfo, FullWarning, LocalInfo }
     public event Action<string, MessageType, Vector2> OnShowMessage;
     public void ShowMessage(string message, MessageType type = MessageType.FullInfo, Vector2 position = default(Vector2))
     {
-        if (OnShowMessage != null)
-        {
-            OnShowMessage(message, type, position);
-        }
+        OnShowMessage?.Invoke(message, type, position);
     }
 
     public event Action<GunBullet, Vector2, GameObject> OnHitWall;
     public void HitWall(GunBullet bullet, Vector2 hitPosition, GameObject wall)
     {
-        if (OnHitWall != null)
-        {
-            OnHitWall(bullet, hitPosition, wall);
-        }
+        OnHitWall?.Invoke(bullet, hitPosition, wall);
     }
 
     public event Action<int> OnLevelStart;
     public void LevelStart(int levelIndex = 0)
     {
-        if (OnLevelStart != null)
-        {
-            OnLevelStart(levelIndex);
-        }
+        OnLevelStart?.Invoke(levelIndex);
     }
 
     /// <summary>
@@ -164,10 +164,7 @@ public class GameEvents : MonoBehaviour
     public event Action<bool> OnToggleBoard;
     public void ToggleBoard(bool isActive)
     {
-        if (OnToggleBoard != null)
-        {
-            OnToggleBoard(isActive);
-        }
+        OnToggleBoard?.Invoke(isActive);
     }
 
 
@@ -179,10 +176,7 @@ public class GameEvents : MonoBehaviour
     public void PlayCardAnimation(bool isPlaying)
     {
         isPlayingCardAnimation = isPlaying;
-        if (OnPlayCardAnimation != null)
-        {
-            OnPlayCardAnimation(isPlaying);
-        }
+        OnPlayCardAnimation?.Invoke(isPlaying);
     }
 
     public static int discardedCardsCount = 0;
@@ -190,45 +184,37 @@ public class GameEvents : MonoBehaviour
     public void CardDiscarded(CardMaster card)
     {
         discardedCardsCount++;
-        if (OnCardDiscarded != null)
-        {
-            OnCardDiscarded(card);
-        }
+        OnCardDiscarded?.Invoke(card);
     }
 
-    public event Action<Transform, GunBullet> OnSpawnObject;
-    public void SpawnObject(Transform obj, GunBullet bullet = null)
+    public event Action<Transform> OnSpawnObject;
+    public void SpawnObject(Transform obj)
     {
-        if (OnSpawnObject != null)
-        {
-            OnSpawnObject(obj, bullet);
-        }
+        OnSpawnObject?.Invoke(obj);
     }
 
     public event Action<Transform, GunBullet> OnDestroyObject;
     public void DestroyObject(Transform obj, GunBullet bullet = null)
     {
-        if (OnDestroyObject != null)
-        {
-            OnDestroyObject(obj, bullet);
-        }
+        OnDestroyObject?.Invoke(obj, bullet);
     }
 
     public event Action<float> OnPlayerMove;
     public void PlayerMove(float distance)
     {
-        if (OnPlayerMove != null)
-        {
-            OnPlayerMove(distance);
-        }
+        OnPlayerMove?.Invoke(distance);
     }
 
     public event Action<NPCMaster> OnNPCCharge;
     public void NPCCharge(NPCMaster npc)
     {
-        if (OnNPCCharge != null)
-        {
-            OnNPCCharge(npc);
-        }
+        OnNPCCharge?.Invoke(npc);
+    }
+
+    public event Action<Transform> OnPlayerDodge;
+    public void PlayerDodge(Transform _player)
+    {
+        OnPlayerDodge?.Invoke(_player);
+        ShowStringUI("DODGE", PlayerController.instance, DamageType.Normal, PlayerController.instance.transform.position);
     }
 }

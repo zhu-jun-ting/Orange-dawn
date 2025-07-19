@@ -467,6 +467,7 @@ MonoBehaviour:
   lifetime: -1
   invulnerabilityDuration: 1
   breakableByTags: []
+  itemType: 2
   spawnFxName: FxSpawn
   spawnFxScale: 3
   shootDamage: 2

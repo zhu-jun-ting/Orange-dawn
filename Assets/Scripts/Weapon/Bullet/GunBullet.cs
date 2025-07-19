@@ -195,11 +195,11 @@ public class GunBullet : MonoBehaviour, IColliderHandler
                         if (isCrit)
                         {
                             finalDamage = att * critDamage + speedDamage;
-                            GameEvents.instance.HitPawn(finalDamage, pawnMaster, gameObject, GameEvents.DamageType.Crit, pawnMaster.gameObject.transform, hit_back, gun);
+                            GameEvents.instance.HitPawn(finalDamage, pawnMaster, owner, GameEvents.DamageType.Crit, pawnMaster.gameObject.transform, hit_back, gun);
                         }
                         else
                         {
-                            GameEvents.instance.HitPawn(finalDamage, pawnMaster, gameObject, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
+                            GameEvents.instance.HitPawn(finalDamage, pawnMaster, owner, GameEvents.DamageType.Normal, pawnMaster.gameObject.transform, hit_back, gun);
                         }
                         
                         // att and speedDamage are combined? 

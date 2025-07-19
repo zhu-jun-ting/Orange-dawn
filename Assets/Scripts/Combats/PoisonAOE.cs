@@ -27,6 +27,12 @@ public class PoisonAOE : ImpulseAOE
                     enemy.AddDot(EnemyMaster.DotType.Poison, poisonDamage, poisonInterval, poisonDuration, poisonFxName, poisonStackable);
                 }
             }
+            if (pawn != null && onPawnDamaged != null)
+            {
+                float damage_ = Mathf.Lerp(maxDamage, 0, dist / maxRadius);
+                if (damage_ >= 1f)
+                    onPawnDamaged.Invoke(pawn, damage_);
+            }
             hitObjects.Add(other.gameObject);
         }
     }

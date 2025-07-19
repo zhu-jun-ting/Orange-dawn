@@ -34,6 +34,10 @@ public class SlowAOE : ImpulseAOE
                         e.moveSpeed /= slowSpeedModifier; // Restore original speed
                     });
                 }
+                if (pawn != null && onPawnDamaged != null)
+                {
+                    onPawnDamaged.Invoke(pawn, 0f);
+                }
             }
             hitObjects.Add(other.gameObject);
         }

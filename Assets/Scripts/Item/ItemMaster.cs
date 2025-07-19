@@ -10,6 +10,8 @@ public class ItemMaster : MonoBehaviour
     public int lifetime = -1; // -1 means no lifetime limit, otherwise it's in seconds
     public float invulnerabilityDuration = 1f; // Duration of invulnerability after hit
     public List<string> breakableByTags = new List<string> { "Bullet" }; // Tags that can break this item
+    public enum ItemType { Box, Trigger, Tower }
+    public ItemType itemType = ItemType.Box; // Type of the item, used for categorization
 
     [Header("Item Visuals")]
     public string spawnFxName = "FxSpawn"; // Name of the spawn effect
@@ -63,6 +65,11 @@ public class ItemMaster : MonoBehaviour
         if (lifetime > 0)
         {
             Destroy(gameObject, lifetime);
+        }
+
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.SpawnObject(transform);
         }
     }
 

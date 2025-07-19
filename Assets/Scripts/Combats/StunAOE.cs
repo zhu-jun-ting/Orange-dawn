@@ -37,6 +37,10 @@ public class StunAOE : ImpulseAOE
                     });
                 }
             }
+            if (pawn != null && onPawnDamaged != null)
+            {
+                onPawnDamaged.Invoke(pawn, 0f);
+            }
             hitObjects.Add(other.gameObject);
         }
     }

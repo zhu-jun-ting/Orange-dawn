@@ -42,7 +42,7 @@ public class CardActionBoots : CardMaster, ICardAction
         movedDistance += distance;
         if (movedDistance >= requiredDistance && Time.time - lastActionTime >= actionCooldown && CoinCounter.instance != null)
         {
-            if (CoinCounter.instance.CanCostCoin(-(int)(coin)))
+            if (CoinCounter.CanCostCoin(-(int)(coin)))
             {
                 movedDistance = 0f;
                 lastActionTime = Time.time;

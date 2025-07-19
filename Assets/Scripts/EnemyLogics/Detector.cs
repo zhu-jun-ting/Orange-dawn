@@ -64,6 +64,7 @@ public class Detector : MonoBehaviour
     public GameObject GetRandomGameObjectInRange() {
         int index = Random.Range(0, colliders_in_range.Count);
         // Debug.Log(colliders_in_range.Count);
-        return colliders_in_range[index].gameObject;
+        if (colliders_in_range.Count > 0) return colliders_in_range[index].gameObject;
+        return null;
     }
 }

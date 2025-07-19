@@ -7,8 +7,8 @@ using TMPro;
 
 public class CoinCounter : View {
 
-    public int startingCoins;
-    public int coinCurrent;
+    public static int startingCoins;
+    public static int coinCurrent;
     
     public TMP_Text text;
 
@@ -37,7 +37,7 @@ public class CoinCounter : View {
         text.text = coinCurrent.ToString();
     }
 
-    public bool CanCostCoin(int diffCoin) {
+    public static bool CanCostCoin(int diffCoin) {
         return coinCurrent + diffCoin >= 0;
     }
 }

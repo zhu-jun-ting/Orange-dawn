@@ -17,6 +17,13 @@ public class HealAOE : ImpulseAOE
             if (pawn != null)
                 if (healAmount >= 1f) GameEvents.instance.HealPawn(healAmount, pawn, gameObject, other.transform);
             hitObjects.Add(other.gameObject);
+
+            if (pawn != null && onPawnDamaged != null)
+            {
+                float damage = Mathf.Lerp(maxDamage, 0, dist / maxRadius);
+                if (damage >= 1f)
+                    onPawnDamaged.Invoke(pawn, damage);
+            }
         }
     }
 }

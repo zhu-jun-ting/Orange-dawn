@@ -764,8 +764,8 @@ MonoBehaviour:
   down_link_cardmaster: {fileID: 0}
   is_free_card: 0
   is_root: 0
-  card_type: 0
-  card_rarity: 0
+  card_type: 3
+  card_rarity: 2
   card_bonds: 
   card_conditions: 
   damage: 12

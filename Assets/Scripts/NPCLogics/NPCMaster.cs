@@ -65,6 +65,7 @@ public class NPCMaster : PawnMaster
     {
         player = GameObject.FindGameObjectWithTag("Player");
         is_moving = false;
+        isNPC = true;
     }
 
 
@@ -88,6 +89,7 @@ public class NPCMaster : PawnMaster
                 Debug.LogError("NPCMaster: rigidbodyCollider is not set and no Collider2D found on the object.");
             }
         }
+        if (GameEvents.instance != null) GameEvents.instance.PawnSpawn(this);
     }
 
 
@@ -301,13 +303,14 @@ public class NPCMaster : PawnMaster
 
         if (curHP <= 0)
         {
+            GameEvents.instance?.PawnDie(this, _amount, instigator, damage_type_, source);
             combat_manager.HandleEnemyDeath(gameObject);
-            Destroy(gameObject);
+            Destroy(gameObject, 0.2f);
         }
 
-        base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source);
+        
         isFullHealth = false; // Set to false when taking damage
-        return true; // Return true to indicate damage was taken
+        return base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source);
     }
 
     public virtual void ChangeState(NPCMaster.State s) {

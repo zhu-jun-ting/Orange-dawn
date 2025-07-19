@@ -293,6 +293,7 @@ MonoBehaviour:
   breakableByTags:
   - Player
   - NPC
+  itemType: 1
   spawnFxName: FxSpawn
   spawnFxScale: 3
   damagePerTick: 5

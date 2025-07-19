@@ -379,6 +379,7 @@ MonoBehaviour:
   invulnerabilityDuration: 1
   breakableByTags:
   - Bullet
+  itemType: 2
   spawnFxName: FxSpawn
   spawnFxScale: 3
   aoeDamage: 10

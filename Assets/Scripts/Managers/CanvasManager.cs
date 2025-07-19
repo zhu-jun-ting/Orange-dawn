@@ -56,6 +56,7 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 		if (GameEvents.instance != null)
 		{
 			GameEvents.instance.onShowNumberUI += DisplayDamage;
+			GameEvents.instance.onShowStringUI += DisplayString;
 			GameEvents.instance.OnShowMessage += HandleShowMessage;
 		}
 
@@ -88,7 +89,11 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	void OnDisable()
 	{
 		if (GameEvents.instance != null)
+		{
+			GameEvents.instance.onShowNumberUI -= DisplayDamage;
+			GameEvents.instance.onShowStringUI -= DisplayString;
 			GameEvents.instance.OnShowMessage -= HandleShowMessage;
+		}
 		if (InputManager.Instance != null)
 			InputManager.Instance.OnTabKeyPressed -= TogglePanels;
 	}
@@ -369,34 +374,36 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 		} 
 	}
 
-	// Receive damage number and location
-	// TODO: implement HEAL and CRIT UI
-	public void DisplayDamage( int damage_, PawnMaster reciever_, GameEvents.DamageType damage_type_, Vector2 location_, string prefix = "" ) {
+	public void DisplayString(string damage_, PawnMaster reciever_, GameEvents.DamageType damage_type_, Vector2 location_, string prefix = "")
+	{
 		GameObject popupPrefab = null;
 
 		// Check if receiver is player
-		if ( true )  {
-			switch( damage_type_ ) {
+		if (true)
+		{
+			switch (damage_type_)
+			{
 				case GameEvents.DamageType.Normal:
-					popupPrefab = popupAssets[ "Damage" ];
+					popupPrefab = popupAssets["Damage"];
 					break;
 				case GameEvents.DamageType.Crit:
-					popupPrefab = popupAssets[ "Crit" ];
+					popupPrefab = popupAssets["Crit"];
 					break;
 				case GameEvents.DamageType.Heal:
-					popupPrefab = popupAssets[ "Heal" ];
+					popupPrefab = popupAssets["Heal"];
 					break;
 				case GameEvents.DamageType.Aoe:
-					popupPrefab = popupAssets[ "Damage" ];
+					popupPrefab = popupAssets["Damage"];
 					break;
 				default:
 					break;
-			}	
+			}
 		}
 
-		if ( popupPrefab != null ) {
-			GameObject damageDisplay = Instantiate( popupPrefab, location_, Quaternion.identity );
-			damageDisplay.GetComponent<TextMeshPro>().text = damage_.ToString();
+		if (popupPrefab != null)
+		{
+			GameObject damageDisplay = Instantiate(popupPrefab, location_, Quaternion.identity);
+			damageDisplay.GetComponent<TextMeshPro>().text = damage_;
 			if (damageDisplay.transform.childCount > 0)
 			{
 				var childTMP = damageDisplay.transform.GetChild(0).GetComponent<TextMeshPro>();
@@ -410,6 +417,13 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 			// Set lifetime of damage popup
 			Destroy(damageDisplay, 1.5f);
 		}
+	}
+
+	// Receive damage number and location
+	// TODO: implement HEAL and CRIT UI
+	public void DisplayDamage(int damage_, PawnMaster reciever_, GameEvents.DamageType damage_type_, Vector2 location_, string prefix = "")
+	{
+		DisplayString(damage_.ToString(), reciever_, damage_type_, location_, prefix);
 	}
 
 	public void UpdateKillCount(int kill_count_) {

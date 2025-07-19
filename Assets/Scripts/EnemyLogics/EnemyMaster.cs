@@ -70,7 +70,7 @@ public class EnemyMaster : PawnMaster
 
     public virtual void Awake()
     {
-
+        isEnemy = true;
     }
 
 
@@ -89,7 +89,7 @@ public class EnemyMaster : PawnMaster
         is_alive = true;
 
         gameEvents = GameEvents.instance;
-
+        if (GameEvents.instance != null) GameEvents.instance.PawnSpawn(this);
     }
 
     public override void Update()
@@ -181,13 +181,13 @@ public class EnemyMaster : PawnMaster
         {
             combatManager.HandleEnemyDeath(gameObject);
             moveSpeed = 0f;
-            Invoke("DestroyMyself", 1.0f);
+            Destroy(gameObject, 0.2f);
             is_alive = false;
+            GameEvents.instance?.PawnDie(this, _amount, instigator, damage_type_, source);
         }
-
-        base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source);
+        
         isFullHealth = false; // Set to false when taking damage
-        return true; // Return true to indicate damage was taken
+        return base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source); 
     }
 
     // called when the actual time of destorying this pawn
