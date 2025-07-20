@@ -121,7 +121,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_Name
-      value: 99 PingPong
+      value: 98 Spiky
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -129,14 +129,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8565988315296913157}
+      addedObject: {fileID: -7405881367746648633}
   m_SourcePrefab: {fileID: 100100000, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
 --- !u!1 &596840412527419229 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
   m_PrefabInstance: {fileID: 9047410225983594954}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8565988315296913157
+--- !u!114 &-7405881367746648633
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,15 +145,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 596840412527419229}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 920fa0595afc020418d940869f880d9d, type: 3}
+  m_Script: {fileID: 11500000, guid: e38c260e4275c7e4ab0d2ed2ec6a5e55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
-  card_id: 99
-  card_name: Pistol
+  card_id: 98
+  card_name: Spiky
   card_cost: 0
   card_sell_price: 0
-  card_description: "Your first ping pong ball! \n\nDamage: {0}\nAmount: {1}"
+  card_description: 'This can be fast and critical
+
+    Bullet speed: Damage: {0}
+
+    Crit
+    Probability: {1}%'
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -173,14 +178,14 @@ MonoBehaviour:
   down_link_cardmaster: {fileID: 0}
   is_free_card: 1
   is_root: 1
-  card_type: 1
+  card_type: 0
   card_rarity: 0
   card_bonds: 
   card_conditions: 00000000
-  damage: 3
+  damage: 2
   health: 0
-  probability: 0
-  amount: 1
+  probability: 5
+  amount: 0
   mana: 0
   coin: 0
   default_damage: 0
@@ -199,4 +204,4 @@ MonoBehaviour:
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   gunPrefab: {fileID: 8517636746336269534, guid: c4ed3cd5457338345b8289398f99b408, type: 3}
-  bulletSprite: {fileID: 0}
+  bulletSprite: {fileID: -6936435386719464630, guid: c26ea62b4e901a542bcb4957e82246b5, type: 3}

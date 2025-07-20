@@ -18,8 +18,8 @@ public class Gun : MonoBehaviour
     public float tempSpeed = 0f; // temporary speed, reset after each level cleared
     public GameObject bulletPrefab;
     public GameObject shellPrefab;
-    public GameObject owner; 
-    protected Transform muzzlePos; 
+    public GameObject owner;
+    protected Transform muzzlePos;
     protected Transform shellPos;
     protected Vector2 mousePos;
     protected Vector2 direction;
@@ -32,6 +32,14 @@ public class Gun : MonoBehaviour
     private float initialSpeed;
     private float initialRecon;
     private float initialInterval;
+    private int initialBulletNum;
+    private float initialCritChance;
+    private float initialCritDamage;
+    private int initialPenetrate;
+    private float initialHitBack;
+
+
+    public System.Action onGunFire;
 
     private void Awake()
     {
@@ -40,10 +48,15 @@ public class Gun : MonoBehaviour
         initialSpeed = speed;
         initialRecon = recon;
         initialInterval = interval;
+        initialBulletNum = bulletNum;
+        initialCritChance = critChance;
+        initialCritDamage = critDamage;
+        initialPenetrate = penetrate;
+        initialHitBack = hit_back;
 
         if (GameEvents.instance != null)
         {
-            GameEvents.instance.OnLevelCleared += ResetTemp; 
+            GameEvents.instance.OnLevelCleared += ResetTemp;
         }
     }
 
@@ -79,7 +92,7 @@ public class Gun : MonoBehaviour
     {
         if (GameEvents.instance != null)
         {
-            GameEvents.instance.OnLevelCleared -= ResetTemp; 
+            GameEvents.instance.OnLevelCleared -= ResetTemp;
         }
     }
 
@@ -134,7 +147,7 @@ public class Gun : MonoBehaviour
                 shell.transform.position = shellPos.position;
                 shell.transform.rotation = shellPos.rotation;
             }
-            
+
         }
         else
         {
@@ -154,8 +167,8 @@ public class Gun : MonoBehaviour
                     gunBullet.SetOwner(gameObject);
                     gunBullet.gun = this;
                     gunBullet.penetrate = penetrate;
-                    gunBullet.critChance = critChance;   
-                    gunBullet.critDamage = critDamage; 
+                    gunBullet.critChance = critChance;
+                    gunBullet.critDamage = critDamage;
                     // gunBullet.AddIgnore("Player, NPC"); // Ignore self
 
 
@@ -175,6 +188,8 @@ public class Gun : MonoBehaviour
             shell.transform.rotation = shellPos.rotation;
         }
 
+        onGunFire?.Invoke();
+
     }
 
     // Resets all gun stats to their initial values
@@ -184,6 +199,23 @@ public class Gun : MonoBehaviour
         speed = initialSpeed;
         recon = initialRecon;
         interval = initialInterval;
+        bulletNum = initialBulletNum;
+        critChance = initialCritChance;
+        critDamage = initialCritDamage;
+        penetrate = initialPenetrate;
+        hit_back = initialHitBack;
         // Debug.Log("Gun stats reset to initial values." + $" Damage: {damage}, Speed: {speed}, Recon: {recon}, Interval: {interval}"); 
+    }
+    
+    public void SetBulletSprite(Sprite sprite)
+    {
+        if (bulletPrefab != null)
+        {
+            var bulletRenderer = bulletPrefab.GetComponent<SpriteRenderer>();
+            if (bulletRenderer != null && sprite != null)
+            {
+                bulletRenderer.sprite = sprite;
+            }
+        }
     }
 }

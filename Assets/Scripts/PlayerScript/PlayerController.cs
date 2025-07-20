@@ -21,22 +21,16 @@ public class PlayerController : PawnMaster
 
 
     [Header("Player Components")]
-    public PlayerStat player_stat;
     public GameObject test;
-    public int Blinks;
-    public float time;
     private Renderer myRender;
 
     public List<GameObject> guns;
-    private int gunNum;
 
     [Header("movement")]
     private Rigidbody2D rb;
     private float moveH, moveV;
     private float dashMoveH, dashMoveV;
 
-
-    private GameObject shadowPrefab;
 
     [Header("Dashing")]
     private float dashSpeedMultiplier;
@@ -49,8 +43,6 @@ public class PlayerController : PawnMaster
 
     private int frameCount;
 
-    // [Header("Player Stats")]
-    private float hit_back_factor;
 
     public static PlayerController instance;
 

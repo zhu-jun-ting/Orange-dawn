@@ -574,7 +574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_Name
-      value: 1 Player
+      value: 2 Mana
       objectReference: {fileID: 0}
     - target: {fileID: 8659183189537488033, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchorMax.y
@@ -614,14 +614,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5034899414776940284}
+      addedObject: {fileID: -1771644726781659277}
   m_SourcePrefab: {fileID: 100100000, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
 --- !u!1 &4104569939620857182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
   m_PrefabInstance: {fileID: 5562191863935368137}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5034899414776940284
+--- !u!114 &-1771644726781659277
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -630,29 +630,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 4104569939620857182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58e3a506107c5214db7212171ddd420c, type: 3}
+  m_Script: {fileID: 11500000, guid: ee9fe7ecb6217254385018b090d6fded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
-  card_id: 1
-  card_name: Player
+  card_id: 2
+  card_name: Mana
   card_cost: 0
   card_sell_price: 0
-  card_description: "This is you! \n\nHealth: {0}\nMana Mana: {1}\nDodge Probability:
-    {2}% (max 70%)"
+  card_description: 'Give you MaxMana Mana: {0}'
   uiStarPositions: []
-  numberTypesCanBeModified: 010000000200000004000000
+  numberTypesCanBeModified: 
   current_gun: {fileID: 0}
-  up_link_enabled: 1
+  useRandomLinks: 1
+  linkCount: 4
+  up_link_enabled: 0
   up_link_type: 0
   up_link_cardmaster: {fileID: 0}
-  left_link_enabled: 1
+  left_link_enabled: 0
   left_link_type: 0
   left_link_cardmaster: {fileID: 0}
-  right_link_enabled: 1
+  right_link_enabled: 0
   right_link_type: 0
   right_link_cardmaster: {fileID: 0}
-  down_link_enabled: 1
+  down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
   is_free_card: 1
@@ -665,18 +666,20 @@ MonoBehaviour:
   health: 0
   probability: 0
   amount: 0
-  mana: 0
-  speed: 0
-  time: 0
+  mana: 2
   coin: 0
   default_damage: 0
   default_health: 0
   default_probability: 0
   default_amount: 0
   default_mana: 0
-  default_speed: 0
-  default_time: 0
   default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}

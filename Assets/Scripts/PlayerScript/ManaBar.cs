@@ -114,7 +114,7 @@ public class ManaBar : MonoBehaviour
         }
     }
     
-    public void Reset()
+    public static void Reset()
     {
         manaMax = initialManaMax;
         manaRegen = initialManaRegen;

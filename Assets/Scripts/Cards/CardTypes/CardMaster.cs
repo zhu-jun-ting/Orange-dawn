@@ -77,7 +77,8 @@ public class CardMaster : MonoBehaviour
         Gun,
         Value,
         Action,
-        Instant
+        Instant, 
+        Internal // internal cards are only for internal machanisms and should not be used in gameplay
     }
 
     public enum CardBond
@@ -174,6 +175,7 @@ public class CardMaster : MonoBehaviour
 
     [Header("Innter Variables")]
     protected int deathrattle_times = 1; // How many times this card can trigger deathrattle effects
+
 
     /// <summary>
     /// Generic number update for this card. Supports add or multiply. Override in subclasses for custom logic.
@@ -310,6 +312,12 @@ public class CardMaster : MonoBehaviour
         if (mana != 0) myNumTypes.Add(NumberType.Mana);
         if (coin != 0) myNumTypes.Add(NumberType.Coin);
 
+        foreach (var numType in myNumTypes)
+        {
+            if (!numberTypesCanBeModified.Contains(numType))
+            numberTypesCanBeModified.Add(numType);
+        }
+
         OnLateUpdateCardValues += UpdateCardConditions;
 
         if (useRandomLinks)
@@ -342,9 +350,10 @@ public class CardMaster : MonoBehaviour
         }
     }
 
-    void Start()
+    public virtual void Start()
     {
         ResetUIStars();
+        OnUpdateCardTexts?.Invoke();
     }
 
     public virtual void OnCardEnable()
@@ -370,7 +379,7 @@ public class CardMaster : MonoBehaviour
                     {
                         if (link != null)
                         {
-                            if (link.card_type == CardType.Gun)
+                            if (link.card_type == CardType.Gun || link.card_type == CardType.Base || link.card_type == CardType.Action)
                             {
                                 // If the link is a gun card, we should apply the buff at the very end
                                 CardMaster.OnApplyValuesToGuns += () => link.UpdateNumberValue(nType, nValue, this);

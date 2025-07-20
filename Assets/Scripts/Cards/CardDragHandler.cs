@@ -918,14 +918,14 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (Time.time - lastUpdateCardsTime < 0.1f) return;
         lastUpdateCardsTime = Time.time;
-        CardMaster.InvokeUpdateCardValues();
-        CardMaster.InvokeLateUpdateCardValues();
-        CardMaster.InvokeApplyValuesToGuns();
-        CardMaster.InvokeUpdateBaseDesctipion();
-        CardMaster.InvokeUpdateCardTexts();
+        CardMaster.InvokeUpdateCardValues(); // normal value cards to add value changes
+        CardMaster.InvokeLateUpdateCardValues(); // update card self conditions and board buffs
+        CardMaster.InvokeApplyValuesToGuns(); // apply values to Gun, Base, Action
+        CardMaster.InvokeUpdateBaseDesctipion(); // update ? 
+        CardMaster.InvokeUpdateCardTexts(); // update descriptions and texts
 
         // If you need to clear the event, call a static method on CardMaster instead:
-        CardMaster.ClearOnApplyValuesToGuns();
+        CardMaster.ClearOnApplyValuesToGuns(); // cleaning the cache for cards of updated cards (to prevent from same card value update multiple times)
 
     }
 }

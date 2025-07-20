@@ -141,7 +141,9 @@ public class NPCShooter : NPCMaster, IDetectorHandler
             }
             if (target == null)
             {
-                target = detector.GetComponent<Detector>().GetRandomGameObjectInRange().transform;
+                var detectorComponent = detector != null ? detector.GetComponent<Detector>() : null;
+                var randomObj = detectorComponent != null ? detectorComponent.GetRandomGameObjectInRange() : null;
+                target = randomObj != null ? randomObj.transform : null;
             }
 
             yield return new WaitForSeconds(waitTime);

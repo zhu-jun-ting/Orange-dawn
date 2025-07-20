@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 6
-  m_Sprite: {fileID: -8684525837257662277, guid: a541efad341549a41848c320836f0dc1, type: 3}
+  m_Sprite: {fileID: -6936435386719464630, guid: c26ea62b4e901a542bcb4957e82246b5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,8 +168,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDirectional: 0
+  canClone: 1
   att: 0
   owner: {fileID: 0}
+  critChance: 0.05
+  critDamage: 1.5
+  penetrate: 0
   speed: 15
   speedDamageModifier: 1
   explosionPrefab: {fileID: 3217125097851079088, guid: 2be4eb6338a97ad42bf2801937e8fb6b, type: 3}
@@ -184,7 +188,7 @@ MonoBehaviour:
   Aoe: {fileID: 5497648995151665385}
   AoeDamage: 5
   lifetime: 10
-  hit_back: 768.1
+  hit_back: 2
   gun: {fileID: 0}
   bounceLayers:
     serializedVersion: 2

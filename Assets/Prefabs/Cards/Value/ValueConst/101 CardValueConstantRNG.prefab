@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &9047410225983594954
+--- !u!1001 &2999918353576019956
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,10 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 460338694888307368, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
-      propertyPath: cardMaster
-      value: 
-      objectReference: {fileID: 11400000, guid: a0999e1606266dd409834c709d7e287f, type: 2}
+    - target: {fileID: 829733966923306386, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829733966923306386, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829733966923306386, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 829733966923306386, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -38,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,23 +74,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -56.655613
+      value: 894.9
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -75.753494
+      value: 95.2
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -92,36 +104,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1405787249217741058, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
-      propertyPath: m_text
-      value: Card Base Pistol
-      objectReference: {fileID: 0}
-    - target: {fileID: 1405787249217741058, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
-      propertyPath: m_isRightToLeft
+    - target: {fileID: 2482860082225158495, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1883698207545688597, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
-      propertyPath: m_text
-      value: 'Damage: 170
-
-        Speed: 10
-
-        Recon: 4
-
-        Interval:
-        0.5'
+    - target: {fileID: 4551646718004938723, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2603181392241329048, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+    - target: {fileID: 4551646718004938723, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551646718004938723, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.13369942
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6903763805331341916, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
-      propertyPath: m_Interactable
+    - target: {fileID: 4551646718004938723, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818380662985413118, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_Name
-      value: 99 PingPong
+      value: 101 CardValueConstantRNG
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -129,36 +138,36 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8565988315296913157}
+      addedObject: {fileID: 2663746353608002717}
   m_SourcePrefab: {fileID: 100100000, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
---- !u!1 &596840412527419229 stripped
+--- !u!1 &6658401908579154275 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
-  m_PrefabInstance: {fileID: 9047410225983594954}
+  m_PrefabInstance: {fileID: 2999918353576019956}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8565988315296913157
+--- !u!114 &2663746353608002717
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 596840412527419229}
+  m_GameObject: {fileID: 6658401908579154275}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 920fa0595afc020418d940869f880d9d, type: 3}
+  m_Script: {fileID: 11500000, guid: a248cddfe99d1bc49aba573d58f8a923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
-  card_id: 99
-  card_name: Pistol
-  card_cost: 0
-  card_sell_price: 0
-  card_description: "Your first ping pong ball! \n\nDamage: {0}\nAmount: {1}"
+  card_id: 
+  card_name: Random Card 773
+  card_cost: 19
+  card_sell_price: 4
+  card_description: 
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
   useRandomLinks: 1
-  linkCount: 4
+  linkCount: 1
   up_link_enabled: 0
   up_link_type: 0
   up_link_cardmaster: {fileID: 0}
@@ -171,16 +180,16 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 1
-  is_root: 1
-  card_type: 1
-  card_rarity: 0
+  is_free_card: 0
+  is_root: 0
+  card_type: 2
+  card_rarity: 1
   card_bonds: 
-  card_conditions: 00000000
-  damage: 3
+  card_conditions: 04000000
+  damage: 1
   health: 0
-  probability: 0
-  amount: 1
+  probability: 6
+  amount: 0
   mana: 0
   coin: 0
   default_damage: 0
@@ -198,5 +207,34 @@ MonoBehaviour:
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
-  gunPrefab: {fileID: 8517636746336269534, guid: c4ed3cd5457338345b8289398f99b408, type: 3}
-  bulletSprite: {fileID: 0}
+  attributeCountRange: {x: 1, y: 4}
+  attributeCountBias: 3
+  damageRange: {x: 1, y: 10}
+  healthRange: {x: 1, y: 20}
+  probabilityRange: {x: 1, y: 10}
+  amountRange: {x: 1, y: 1}
+  manaRange: {x: -2, y: 4}
+  coinRange: {x: -2, y: 4}
+  attributeValueBias: 1.5
+  damageOccurrenceFactor: 0.808
+  healthOccurrenceFactor: 0.652
+  probabilityOccurrenceFactor: 0.803
+  amountOccurrenceFactor: 0.044
+  manaOccurrenceFactor: 0.432
+  coinOccurrenceFactor: 0.474
+  linkCountRange: {x: 1, y: 4}
+  linkCountBias: 3
+  randomBondProbability: 0.149
+  conditionCountRange: {x: 0, y: 5}
+  conditionCountBias: 3
+  undraggableOccurrenceFactor: 0.5
+  powerfulOccurrenceFactor: 0.5
+  frailOccurrenceFactor: 0.5
+  fragileOccurrenceFactor: 0.5
+  temporaryOccurrenceFactor: 0.5
+  volatileOccurrenceFactor: 0.5
+  growingOccurrenceFactor: 0.5
+  decayingOccurrenceFactor: 0.5
+  eternalOccurrenceFactor: 0.5
+  generateRandomBond: 1
+  generateRandomConditions: 1

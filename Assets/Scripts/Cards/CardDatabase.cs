@@ -47,7 +47,7 @@ public class CardDatabase : ScriptableObject
     // Find all cards matching a predicate
 
     // Static version: requires a CardDatabase instance as parameter
-    public static List<GameObject> FindCards(System.Func<CardMaster, bool> predicate)
+    public static List<GameObject> FindCards(System.Func<CardMaster, bool> predicate, bool includeInternalCards = false)
     {
         var result = new List<GameObject>();
         if (instance == null || instance.cards == null || instance.cards.Count == 0) return result;
@@ -56,15 +56,21 @@ public class CardDatabase : ScriptableObject
             if (entry.cardPrefab == null) continue;
             var cardMaster = entry.cardPrefab.GetComponent<CardMaster>();
             if (cardMaster != null && predicate(cardMaster))
-                result.Add(entry.cardPrefab);
+                if (includeInternalCards) { result.Add(entry.cardPrefab); }
+                else
+                {
+                    // Gun, Base, Internal cards are not for public random card generator
+                    if (cardMaster.card_type != CardMaster.CardType.Base && cardMaster.card_type != CardMaster.CardType.Gun && cardMaster.card_type != CardMaster.CardType.Internal)
+                        result.Add(entry.cardPrefab);
+                }
         }
         return Shuffle(result);
     }
 
-    public static GameObject GetRandomCard(System.Func<CardMaster, bool> predicate)
+    public static GameObject GetRandomCard(System.Func<CardMaster, bool> predicate,  bool includeInternalCards = false)
     {
         if (instance == null || instance.cards == null || instance.cards.Count == 0) return null;
-        List<GameObject> filteredCards = FindCards(predicate);
+        List<GameObject> filteredCards = FindCards(predicate, includeInternalCards);
         if (filteredCards.Count == 0) return null;
         return filteredCards[Random.Range(0, filteredCards.Count)];
     }
