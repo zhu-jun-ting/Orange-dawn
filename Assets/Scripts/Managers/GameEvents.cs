@@ -217,4 +217,11 @@ public class GameEvents : MonoBehaviour
         OnPlayerDodge?.Invoke(_player);
         ShowStringUI("DODGE", PlayerController.instance, DamageType.Normal, PlayerController.instance.transform.position);
     }
+
+    public enum Dir { Up, Down, Left, Right }
+    public event Action<Dir> OnPlayerChoseNextRoom;
+    public void PlayerChoseNextRoom(Dir direction)
+    {
+        OnPlayerChoseNextRoom?.Invoke(direction);
+    }
 }

@@ -1,0 +1,429 @@
+fileFormatVersion: 2
+guid: eab78cba194178d49affd2a0114e67d8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1503835193344364547
+    second: Water_FlatGround_#3_(12frames)_0
+  - first:
+      213: -2319526246980910489
+    second: Water_FlatGround_#3_(12frames)_1
+  - first:
+      213: 3504253878105679904
+    second: Water_FlatGround_#3_(12frames)_2
+  - first:
+      213: -624853357211682179
+    second: Water_FlatGround_#3_(12frames)_3
+  - first:
+      213: -6486231677512285615
+    second: Water_FlatGround_#3_(12frames)_4
+  - first:
+      213: -6563459294867875651
+    second: Water_FlatGround_#3_(12frames)_5
+  - first:
+      213: -6647478745937807217
+    second: Water_FlatGround_#3_(12frames)_6
+  - first:
+      213: 2346001187955964268
+    second: Water_FlatGround_#3_(12frames)_7
+  - first:
+      213: -1237724616265508946
+    second: Water_FlatGround_#3_(12frames)_8
+  - first:
+      213: -5949439975870876643
+    second: Water_FlatGround_#3_(12frames)_9
+  - first:
+      213: 6312660756391294966
+    second: Water_FlatGround_#3_(12frames)_10
+  - first:
+      213: -7168400264538971370
+    second: Water_FlatGround_#3_(12frames)_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 49
+        width: 60
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dff6afbfbdd412be0800000000000000
+      internalID: -1503835193344364547
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 48
+        width: 61
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7620281fa236fcfd0800000000000000
+      internalID: -2319526246980910489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_2
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 47
+        width: 61
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0282647f55c91a030800000000000000
+      internalID: 3504253878105679904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_3
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 47
+        width: 61
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7affa6ae231457f0800000000000000
+      internalID: -624853357211682179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_4
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 47
+        width: 61
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1528ef2a7a64cf5a0800000000000000
+      internalID: -6486231677512285615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_5
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 48
+        width: 61
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db81aa7cb88e9e4a0800000000000000
+      internalID: -6563459294867875651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_6
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 49
+        width: 61
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f88fa68ec496fb3a0800000000000000
+      internalID: -6647478745937807217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_7
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 50
+        width: 61
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6972ca96abae8020800000000000000
+      internalID: 2346001187955964268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_8
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 50
+        width: 61
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea7dcbde408b2dee0800000000000000
+      internalID: -1237724616265508946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_9
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 50
+        width: 61
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1435b90dd75f6da0800000000000000
+      internalID: -5949439975870876643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_10
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 50
+        width: 61
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f7704413831b9750800000000000000
+      internalID: 6312660756391294966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Water_FlatGround_#3_(12frames)_11
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 50
+        width: 61
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 613a65070f9b48c90800000000000000
+      internalID: -7168400264538971370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Water_FlatGround_#3_(12frames)_0: -1503835193344364547
+      Water_FlatGround_#3_(12frames)_1: -2319526246980910489
+      Water_FlatGround_#3_(12frames)_10: 6312660756391294966
+      Water_FlatGround_#3_(12frames)_11: -7168400264538971370
+      Water_FlatGround_#3_(12frames)_2: 3504253878105679904
+      Water_FlatGround_#3_(12frames)_3: -624853357211682179
+      Water_FlatGround_#3_(12frames)_4: -6486231677512285615
+      Water_FlatGround_#3_(12frames)_5: -6563459294867875651
+      Water_FlatGround_#3_(12frames)_6: -6647478745937807217
+      Water_FlatGround_#3_(12frames)_7: 2346001187955964268
+      Water_FlatGround_#3_(12frames)_8: -1237724616265508946
+      Water_FlatGround_#3_(12frames)_9: -5949439975870876643
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

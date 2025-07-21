@@ -40,6 +40,16 @@ public class UIDebugPanel : MonoBehaviour
         GameEvents.instance.LevelCleared();
     }
 
+    public void LC()
+    {
+        GameEvents.instance.LevelCleared();
+    }
+
+    public void LS()
+    {
+        GameEvents.instance.LevelStart();
+    }
+
     public void AC()
     {
         if (int.TryParse(paramInputField.text, out int cardId))
