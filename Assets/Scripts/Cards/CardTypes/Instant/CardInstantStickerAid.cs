@@ -18,7 +18,7 @@ public class CardInstantStickerAid : CardInstantStickerMaster
     {
         if (UnityEngine.Random.value > spawnProbability) return;
         if (target == null) return;
-        if (CombatManager.instance != null) CombatManager.instance.SpawnDrop(CombatManager.DropItems.Health, target);
+        if (CombatManager.instance != null) CombatManager.instance.SpawnDrop(CombatManager.DropItem.Health, target);
     }
 
     public override string GetDescription()

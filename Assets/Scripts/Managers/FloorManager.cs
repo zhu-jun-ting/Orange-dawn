@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class FloorManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class FloorManager : MonoBehaviour
     public Vector2Int playerRoom = Vector2Int.zero;
     public int roomsEntered = 0;
     public List<Vector2Int> visitedRooms = new List<Vector2Int>();
+    public List<Vector2Int> closedRooms = new List<Vector2Int>();
 
     private void Awake()
     {
@@ -47,15 +49,78 @@ public class FloorManager : MonoBehaviour
         visitedRooms.Add(playerRoom);
     }
 
+    private List<int> loadedLevelIds = new List<int>();
+    private int lastBattleLevelCleared = 0;
     private void HandlePlayerNextRoom(GameEvents.Dir dir)
     {
+        // Player can not reenter a room that previously entered so close all doors towards that room
+        closedRooms.Add(playerRoom);
+
         Vector2Int offset = DirToOffset(dir);
         playerRoom += offset;
         roomsEntered++;
         visitedRooms.Add(playerRoom);
         CreateRoomAndNeighbors(playerRoom);
         CleanupFarRooms();
-        mapGrids[visitedRooms[visitedRooms.Count - 1]].roomObject?.GetComponent<RoomGrid>()?.DestroyBackwardTrigger();
+        var grid = mapGrids[visitedRooms[visitedRooms.Count - 1]];
+        RoomGrid roomGrid = grid.roomObject?.GetComponent<RoomGrid>();
+        if (roomGrid != null)
+        {
+            roomGrid.DestroyBackwardTrigger();
+            roomGrid.SetSigns();
+            roomGrid.ShutDoorsToClosedRooms();
+            CombatManager.instance.allowedSpawnAreas.Clear();
+            CombatManager.instance.allowedSpawnAreas.AddRange(roomGrid.canSpawnAreas);
+
+            // Level loading logic
+            var levelDb = LevelDatabase.instance;
+            if (levelDb != null)
+            {
+                int levelToLoad = -1;
+                if (grid.roomType == RoomType.Battle)
+                {
+                    // Sequential battle levels
+                    var battleLevels = LevelDatabase.FindLevels(l => l.roomType == RoomType.Battle)
+                        .OrderBy(l => l.levelId).ToList();
+                    int nextIdx = lastBattleLevelCleared;
+                    if (nextIdx < battleLevels.Count)
+                    {
+                        var nextLevel = battleLevels[nextIdx];
+                        if (nextLevel != null && !loadedLevelIds.Contains(nextLevel.levelId))
+                        {
+                            levelToLoad = nextLevel.levelId;
+                            loadedLevelIds.Add(levelToLoad);
+                            lastBattleLevelCleared++;
+                        }
+                    }
+                }
+                else
+                {
+                    // Random non-repeated level of this type
+                    var levelsOfType = LevelDatabase.FindLevels(l => l.roomType == grid.roomType && !loadedLevelIds.Contains(l.levelId));
+                    if (levelsOfType.Count > 0)
+                    {
+                        var chosen = levelsOfType[UnityEngine.Random.Range(0, levelsOfType.Count)];
+                        levelToLoad = chosen.levelId;
+                        loadedLevelIds.Add(levelToLoad);
+                    }
+                    else
+                    {
+                        // If all levels of this type have been loaded, pick a random one of that type (allow repeats)
+                        var allLevelsOfType = LevelDatabase.FindLevels(l => l.roomType == grid.roomType);
+                        if (allLevelsOfType.Count > 0)
+                        {
+                            var chosen = allLevelsOfType[UnityEngine.Random.Range(0, allLevelsOfType.Count)];
+                            levelToLoad = chosen.levelId;
+                        }
+                    }
+                }
+                if (levelToLoad > 0)
+                {
+                    GameEvents.instance.LoadLevel(levelToLoad);
+                }
+            }
+        }
     }
 
     private Vector2Int DirToOffset(GameEvents.Dir dir)
@@ -89,7 +154,7 @@ public class FloorManager : MonoBehaviour
         {
             Vector2Int pos = kvp.Key;
             MapGrid grid = kvp.Value;
-            if (grid.roomObject != null && Vector2Int.Distance(pos, playerRoom) >= 2f)
+            if (grid.roomObject != null && Vector2Int.Distance(pos, playerRoom) >= 5f)
             {
                 Destroy(grid.roomObject);
                 grid.roomObject = null;

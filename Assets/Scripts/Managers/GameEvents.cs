@@ -139,7 +139,7 @@ public class GameEvents : MonoBehaviour
         OnUpdateHealth?.Invoke(diffHealth);
     }
 
-    public enum MessageType { FullInfo, FullWarning, LocalInfo }
+    public enum MessageType { FullInfo, FullWarning, LocalInfo, Banner }
     public event Action<string, MessageType, Vector2> OnShowMessage;
     public void ShowMessage(string message, MessageType type = MessageType.FullInfo, Vector2 position = default(Vector2))
     {
@@ -152,10 +152,10 @@ public class GameEvents : MonoBehaviour
         OnHitWall?.Invoke(bullet, hitPosition, wall);
     }
 
-    public event Action<int> OnLevelStart;
-    public void LevelStart(int levelIndex = 0)
+    public event Action OnLevelStart;
+    public void LevelStart()
     {
-        OnLevelStart?.Invoke(levelIndex);
+        OnLevelStart?.Invoke();
     }
 
     /// <summary>
@@ -223,5 +223,11 @@ public class GameEvents : MonoBehaviour
     public void PlayerChoseNextRoom(Dir direction)
     {
         OnPlayerChoseNextRoom?.Invoke(direction);
+    }
+
+    public event Action<int> OnLoadLevel;
+    public void LoadLevel(int levelIndex)
+    {
+        OnLoadLevel?.Invoke(levelIndex);
     }
 }

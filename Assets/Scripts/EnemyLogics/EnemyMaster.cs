@@ -44,6 +44,16 @@ public class EnemyMaster : PawnMaster
     [Header("Enemy Dots")]
     public Transform dotSpawnPoint; // Point where DOT effects spawn
     public List<DotInfo> currentDots = new List<DotInfo>(); // Store active DOTs on this enemy
+    
+    [System.Serializable]
+    public class DropEntry
+    {
+        public CombatManager.DropItem dropItem;
+        public float chance;
+    }
+
+    [Header("Dropping Objects")]
+    public List<DropEntry> dropEntries = new List<DropEntry>();
 
 
 

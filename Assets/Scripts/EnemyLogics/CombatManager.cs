@@ -17,9 +17,8 @@ public class CombatManager : MonoBehaviour
         set { if (instance != null) instance._isInBattle = value; }
     }// Global flag to indicate if the game is in battle mode
 
-    [Header("spawn objects")]
-    public List<GameObject> enemy_types;
-    public List<float> enemy_spawn_chances;
+    [Header("Level Information")]
+    public Level currentLevel; // The current level being played
 
     [Header("Spawn Area Checks")]
     public List<Transform> allowedSpawnAreas; // Assign in Inspector
@@ -30,33 +29,31 @@ public class CombatManager : MonoBehaviour
     public float spawn_tolerance;
     public bool is_spawning;
 
-    [Header("dropping objects")]
-    public List<GameObject> drops;
-    public List<float> drop_chances;
 
 
-    public enum DropItems
+    public enum DropItem
     {
         Health,
         Exp,
         Coin,
         Mana
     }
+
     [Serializable]
     public class DropItemPrefab
     {
-        public DropItems dropType;
+        public DropItem dropType;
         public GameObject prefab;
     }
 
     [Header("Drop Prefabs")]
     public List<DropItemPrefab> dropPrefabs = new List<DropItemPrefab>();
 
-    private Dictionary<DropItems, GameObject> dropPrefabDict;
+    private Dictionary<DropItem, GameObject> dropPrefabDict;
 
     private void Awake()
     {
-        dropPrefabDict = new Dictionary<DropItems, GameObject>();
+        dropPrefabDict = new Dictionary<DropItem, GameObject>();
         foreach (var item in dropPrefabs)
         {
             if (!dropPrefabDict.ContainsKey(item.dropType))
@@ -72,8 +69,6 @@ public class CombatManager : MonoBehaviour
     private ICanvasManager canvas_manager;
     private GameObject player;
     private IEnumerator spawn_timer;
-    
-    private List<GameObject> current_drops;
 
 
     [Header("game running parameters")]
@@ -128,16 +123,75 @@ public class CombatManager : MonoBehaviour
         {
             GameEvents.instance.OnSpawnObject -= HandlerOnSpawnObject;
             GameEvents.instance.OnSpawnObject += HandlerOnSpawnObject;
+            GameEvents.instance.OnLoadLevel -= LoadLevel;
+            GameEvents.instance.OnLoadLevel += LoadLevel;
+            GameEvents.instance.OnLevelStart += HandleLevelStart;
+            GameEvents.instance.OnLevelCleared += HandleLevelCleared;
+
         }
 
         instance = this;
     }
 
-    void Osable()
+    public void LoadLevel(int levelIndex)
+    {
+        currentLevel = LevelDatabase.GetLevel(levelIndex);
+        if (currentLevel == null)
+        {
+            Debug.LogError($"Level with index {levelIndex} not found!");
+            return;
+        }
+        InitActiveEnemiesToSpawn();
+    }
+
+    public void HandleLevelStart()
+    {
+        SetSpawnActivity(true);
+        isInBattle = true;
+
+        if (currentLevel.clearRequirement == Level.LevelClearRequirement.TimeLimit)
+        {
+            StartCoroutine(LevelTimeLimitCoroutine(currentLevel.timeLimit));
+        }
+
+        if (currentLevel.clearRequirement == Level.LevelClearRequirement.DefeatAllEnemies && GameEvents.instance != null)
+        {
+            GameEvents.instance.ShowMessage(
+                "Battle Start",
+                GameEvents.MessageType.Banner,
+                Vector2.zero
+            );
+        }
+    }
+
+    private IEnumerator LevelTimeLimitCoroutine(float timeLimit)
+    {
+        yield return new WaitForSeconds(timeLimit);
+        GameEvents.instance?.LevelCleared();
+    }
+
+    private void HandleLevelCleared()
+    {
+        SetSpawnActivity(false);
+        isInBattle = false;
+        currentEnemies.Clear();
+        if (canvas_manager != null) canvas_manager.UpdateKillCount(0);
+        if (currentLevel.clearRequirement == Level.LevelClearRequirement.DefeatAllEnemies && GameEvents.instance != null)
+        {
+            GameEvents.instance.ShowMessage(
+                "Level Cleared",
+                GameEvents.MessageType.Banner,
+                Vector2.zero
+            );
+        }
+    }
+
+    void OnDisable()
     {
         if (GameEvents.instance != null)
         {
             GameEvents.instance.OnSpawnObject -= HandlerOnSpawnObject;
+            GameEvents.instance.OnLoadLevel -= LoadLevel;
         }
     }
 
@@ -155,9 +209,9 @@ public class CombatManager : MonoBehaviour
         // called when comes to integer minutes (1 min, 2 min)
 
         // make spawn interval a bit faster as game goes on
-        spawn_wait_time *= (float)Math.Pow(spawn_interval_modifier_each_minute, 1.0 / 6);
-        SetSpawnActivity(false);
-        SetSpawnActivity(is_spawning);
+        // spawn_wait_time *= (float)Math.Pow(spawn_interval_modifier_each_minute, 1.0 / 6);
+        // SetSpawnActivity(false);
+        // SetSpawnActivity(is_spawning);
     }
 
     public int GetCurrentFrame()
@@ -178,6 +232,16 @@ public class CombatManager : MonoBehaviour
 
         SpawnDrops(enemy);
 
+        // Check if currentLevel is set to clear all enemies 
+        if (currentLevel.clearRequirement == Level.LevelClearRequirement.DefeatAllEnemies)
+        {
+            if (currentEnemies.Count == 0)
+            {
+                // Trigger level clear event
+                GameEvents.instance?.LevelCleared();
+            }
+        }
+
         // Debug.Log("kill count now is " + kill_count); // TODO: get ref to update UI
     }
 
@@ -187,53 +251,92 @@ public class CombatManager : MonoBehaviour
     }
 
     // spawn enemy at outside of the circle
+    // Callback to modify stats of spawned enemy
+    public System.Action<EnemyMaster> OnModifySpawnedEnemyStats;
+
+    // List of entries to spawn from currentLevel
+    public List<Level.EnemyToSpawn> activeEnemiesToSpawn = new List<Level.EnemyToSpawn>();
+
+    public void InitActiveEnemiesToSpawn()
+    {
+        activeEnemiesToSpawn.Clear();
+        if (currentLevel != null && currentLevel.enemiesToSpawn != null)
+        {
+            foreach (var entry in currentLevel.enemiesToSpawn)
+            {
+                activeEnemiesToSpawn.Add(entry);
+            }
+        }
+    }
+
     private IEnumerator SpawnEnemy(float waitTime)
     {
         while (true)
         {
             yield return new WaitForSeconds(waitTime);
-
-            // var enemy = enemy_types[UnityEngine.Random.Range(0, enemy_types.Count)];
             Vector2 location = GetRandomSpawnLocation();
 
-            // wait for the alert to stop to generate enemy
-            for (int i = 0; i < enemy_types.Count; i++)
+            // Remove entries with count <= 0
+            activeEnemiesToSpawn.RemoveAll(e => e.count <= 0);
+            if (activeEnemiesToSpawn.Count == 0)
             {
-                if (RollChance(enemy_spawn_chances[i]))
-                {
-                    Vector2 displacement = new Vector2(UnityEngine.Random.Range(0.1f, 0.2f), UnityEngine.Random.Range(0.1f, 0.2f));
-                    IEnumerator cr_spawn_enemy = CR_SpawnThisEnemy(WARNING_TIME, enemy_types[i], location + displacement);
-                    StartCoroutine(cr_spawn_enemy);
-                }
+                SetSpawnActivity(false);
+                yield break;
             }
 
+            int spawnCount = Mathf.Min(UnityEngine.Random.Range(1, 4), activeEnemiesToSpawn.Count);
+            for (int i = 0; i < spawnCount; i++)
+            {
+                if (activeEnemiesToSpawn.Count == 0) break;
+                int idx = UnityEngine.Random.Range(0, activeEnemiesToSpawn.Count);
+                var entry = activeEnemiesToSpawn[idx];
+                if (entry.count <= 0) continue;
 
+                // Spawn alert animation first
+                Vector2 displacement = new Vector2(UnityEngine.Random.Range(0.1f, 0.2f), UnityEngine.Random.Range(0.1f, 0.2f));
+                var alert_obj = Instantiate(alert_prefab, location + displacement, Quaternion.identity);
+                yield return new WaitForSeconds(0.5f);
 
-            // set up the alert prefab
-            var alert_obj = Instantiate(alert_prefab, location, Quaternion.identity);
-            // Debug.Log("spawn");
+                // Actual spawn
+                GameObject enemyObj = null;
+                if (entry.enemyPrefab != null)
+                {
+                    enemyObj = Instantiate(entry.enemyPrefab, location + displacement, Quaternion.identity);
+                    var master = enemyObj.GetComponent<EnemyMaster>();
+                    if (master != null)
+                    {
+                        master.maxHP = entry.health;
+                        master.curHP = entry.health;
+                        master.attackDamage = entry.attack;
+                        master.moveSpeed = entry.speed;
+                        OnModifySpawnedEnemyStats?.Invoke(master);
+                    }
+                    currentEnemies.Add(enemyObj);
+                }
+                // Decrement count
+                entry.count--;
+                activeEnemiesToSpawn[idx] = entry;
+            }
+
+            // Remove entries with count <= 0 again
+            activeEnemiesToSpawn.RemoveAll(e => e.count <= 0);
+            if (activeEnemiesToSpawn.Count == 0)
+            {
+                SetSpawnActivity(false);
+                yield break;
+            }
         }
-    }
-
-    private IEnumerator CR_SpawnThisEnemy(float wait_time_, GameObject enemy_, Vector2 location_)
-    {
-        yield return new WaitForSeconds(wait_time_);
-        SpawnThisEnemy(enemy_, location_);
-    }
-
-    private void SpawnThisEnemy(GameObject enemy_, Vector2 location_)
-    {
-        var enemy_obj = Instantiate(enemy_, location_, Quaternion.identity);
-        enemy_obj.GetComponent<EnemyMaster>().target = player.transform;
-        currentEnemies.Add(enemy_obj);
     }
 
     public void SetSpawnActivity(bool is_active)
     {
         if (is_active)
         {
-            spawn_timer = SpawnEnemy(spawn_wait_time);
-            StartCoroutine(spawn_timer);
+            if (spawn_timer == null)
+            {
+                spawn_timer = SpawnEnemy(spawn_wait_time);
+                StartCoroutine(spawn_timer);
+            }
         }
         else
         {
@@ -243,6 +346,7 @@ public class CombatManager : MonoBehaviour
                 spawn_timer = null;
             }
         }
+        is_spawning = is_active;
     }
 
     public void HandleShowDamageUI(int damage_, PawnMaster reciever_, GameEvents.DamageType damage_type_, Vector2 location)
@@ -266,28 +370,15 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private Vector2 GetRandomLocationInCircle(Vector2 initial_location, float radius)
-    {
-        float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
-        Vector2 offset = UnityEngine.Random.Range(0f, radius) * new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
-        return initial_location + offset;
-    }
-
     private void SpawnDrops(GameObject enemy)
     {
-        Vector2 initial_location = enemy.transform.position;
-
         // apply DOTween sequence for items in drops and random spread within a range
-        var seq = DOTween.Sequence();
-
-        for (int i = 0; i < drops.Count; i++)
+        List<EnemyMaster.DropEntry> dropEntries = enemy.GetComponent<EnemyMaster>().dropEntries;
+        foreach (var dropEntry in dropEntries)
         {
-            if (RollChance(drop_chances[i]))
+            if (RollChance(dropEntry.chance))
             {
-                GameObject drop = drops[i];
-                var drop_obj = Instantiate(drop, initial_location, Quaternion.identity);
-                Vector2 end_location = GetRandomLocationInCircle(initial_location, drop_radius);
-                seq.Join(drop_obj.transform.DOJump(end_location, 0.5f, 1, 1f)); // 0.5f is the jump power (small lift)    // Debug.Log("Spawned drop: " + drop.name + " at " + end_location);
+                SpawnDrop(dropEntry.dropItem, enemy.transform, 1);
             }
         }
     }
@@ -300,7 +391,7 @@ public class CombatManager : MonoBehaviour
     /// <param name="item">DropItems. Contains Coin, Exp, and Health</param>
     /// <param name="location">The location to spawn the drop</param>
     /// <param name="amount">The amount of drops to spawn</param>
-    public void SpawnDrop(DropItems item, Transform location, int amount = 1)
+    public void SpawnDrop(DropItem item, Transform location, int amount = 1)
     {
         if (dropPrefabDict == null || !dropPrefabDict.ContainsKey(item) || location == null) return;
         GameObject prefab = dropPrefabDict[item];
@@ -310,7 +401,7 @@ public class CombatManager : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             var drop_obj = Instantiate(prefab, initial_location, Quaternion.identity);
-            Vector2 end_location = GetRandomLocationInCircle(initial_location, drop_radius);
+            Vector2 end_location = TryGetSpawnLocation(initial_location, drop_radius, minDistanceToOthers: 0.5f) ?? initial_location;
             seq.Join(drop_obj.transform.DOJump(end_location, 0.5f, 1, 1f));
         }
     }

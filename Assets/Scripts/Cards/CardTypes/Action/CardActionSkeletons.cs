@@ -33,7 +33,7 @@ public class CardActionSkeletons : CardMaster, ICardAction
         OnTrigger -= TriggerAction;
     }
 
-    private void HandleOnLevelStart(int levelIndex)
+    private void HandleOnLevelStart()
     {
         if (Time.time - lastActionTime < actionCooldown) return;
         if (UnityEngine.Random.value > probability) return;

@@ -251,6 +251,8 @@ MonoBehaviour:
   buff_icon_grid: {fileID: 7992684692586755874}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
   isPlayer: 0
+  isEnemy: 0
+  isNPC: 0
   isFullHealth: 1
   dot_stat: {fileID: 0}
   maxHP: 8
@@ -275,6 +277,15 @@ MonoBehaviour:
   minCollisionDamage: 2
   collisionDamageScale: 3
   dotSpawnPoint: {fileID: 7645359890190699221}
+  dropEntries:
+  - dropItem: 1
+    chance: 0.8
+  - dropItem: 2
+    chance: 0.2
+  - dropItem: 3
+    chance: 0.2
+  - dropItem: 0
+    chance: 0.05
 --- !u!58 &4321068798391446455
 CircleCollider2D:
   m_ObjectHideFlags: 0

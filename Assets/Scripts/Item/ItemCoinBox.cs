@@ -18,7 +18,7 @@ public class ItemCoinBox : ItemMaster
         {
             if (CombatManager.instance != null)
             {
-                CombatManager.instance.SpawnDrop(CombatManager.DropItems.Coin, this.transform, coinDropAmount);
+                CombatManager.instance.SpawnDrop(CombatManager.DropItem.Coin, this.transform, coinDropAmount);
                 ShowTip(GameSettings.AddIcon(String.Format(tip, coinDropAmount)));
             }
         }

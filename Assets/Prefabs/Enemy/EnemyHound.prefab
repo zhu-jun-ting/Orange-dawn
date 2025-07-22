@@ -711,6 +711,8 @@ MonoBehaviour:
   buff_icon_grid: {fileID: 6563926399844618990}
   icon_prefab: {fileID: 3921349185916006547, guid: 7015dd7f91c47694d8155ddae766a78a, type: 3}
   isPlayer: 0
+  isEnemy: 0
+  isNPC: 0
   isFullHealth: 1
   dot_stat: {fileID: 0}
   maxHP: 7
@@ -718,11 +720,13 @@ MonoBehaviour:
   curHP: 7
   enemyAOEPrefab: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
   attackScale: 1
-  attackDamage: 10
+  attackDamage: 5
   attackDuration: 1
   attackCooldown: 2
   meleeAttackDetector: {fileID: 0}
-  meleeAttackTags: []
+  meleeAttackTags:
+  - Player
+  - NPC
   hurtDuration: 0.5
   health_bar: {fileID: 1012180735389192541}
   target: {fileID: 0}
@@ -733,6 +737,15 @@ MonoBehaviour:
   minCollisionDamage: 2
   collisionDamageScale: 3
   dotSpawnPoint: {fileID: 2299752785693964782}
+  dropEntries:
+  - dropItem: 1
+    chance: 0.8
+  - dropItem: 2
+    chance: 0.2
+  - dropItem: 3
+    chance: 0.2
+  - dropItem: 0
+    chance: 0.05
 --- !u!58 &1012180736909545083
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -53,9 +53,9 @@ public class PlayerChoice : MonoBehaviour
         if (wallToRaise != null)
         {
             wallToRaise.SetActive(true);
-            var floorDoors = wallToRaise.GetComponent<FloorDoors>();
-            if (floorDoors != null)
-                floorDoors.alwaysActive = true;
+            var floorDoor = wallToRaise.GetComponent<FloorDoor>();
+            if (floorDoor != null)
+                floorDoor.alwaysActive = true;
         }
         // Notify game event
         GameEvents.instance.PlayerChoseNextRoom(direction);

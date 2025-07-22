@@ -16,7 +16,7 @@ public class BoardArea : MonoBehaviour
     [Header("Grid Settings")]
     public int rows { get { return GameSettings.instance ? GameSettings.instance.boardRows : 3; } set { if (GameSettings.instance) GameSettings.instance.boardRows = value; } }
     public int columns { get { return GameSettings.instance ? GameSettings.instance.boardColumns : 3; } set { if (GameSettings.instance) GameSettings.instance.boardColumns = value; } }
-    public float margin { get { return GameSettings.instance ? GameSettings.instance.boardMargin : 10f; } set { if (GameSettings.instance) GameSettings.instance.boardMargin = value; } }
+    public float margin { get { return GameSettings.instance ? GameSettings.instance.boardMargin : 20f; } set { if (GameSettings.instance) GameSettings.instance.boardMargin = value; } }
 
     [Header("Grid Visuals")]
     public GameObject gridLinePrefab; // Assign a UI Image prefab for lines

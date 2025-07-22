@@ -65,6 +65,23 @@ public class GameSettings : MonoBehaviour
     [Header("NPC Related")]
     public List<GameObject> NPCs = new List<GameObject>(); // Assign the NPC prefabs in the inspector
 
+    
+    [System.Serializable]
+    public class RoomSignEntry
+    {
+        public FloorManager.RoomType roomType;
+        public Sprite signSprite;
+    }
+
+    [Header("Room Sign Settings")]
+    [SerializeField]
+    public List<RoomSignEntry> roomSignSprites = new List<RoomSignEntry>();
+    public static Sprite GetRoomSprite(FloorManager.RoomType roomType)
+    {
+        var entry = instance.roomSignSprites.Find(e => e.roomType == roomType);
+        return entry != null ? entry.signSprite : null;
+    }
+
     /// <summary>
     ///  damage: 1, 2, 3 ..... 40, 50, 60, 70, 80, 90, 100
     ///  health: 10, 20, 30 ..... 200, 300

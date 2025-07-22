@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7607790452efacd47b53e1808f95ca2a, type: 3}
+  m_Name: 2 Level
+  m_EditorClassIdentifier: 
+  levelId: 2
+  roomType: 0
+  enemyCount: 0
+  enemiesToSpawn:
+  - enemyPrefab: {fileID: 1012180736909545073, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
+    count: 1
+    health: 24
+    attack: 3
+    speed: 1
+  - enemyPrefab: {fileID: 4321068798391446461, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
+    count: 1
+    health: 25
+    attack: 3
+    speed: 1
+  clearRequirement: 1
+  timeLimit: 0

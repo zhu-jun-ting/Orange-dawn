@@ -50,6 +50,11 @@ public class UIDebugPanel : MonoBehaviour
         GameEvents.instance.LevelStart();
     }
 
+    public void LoadLevel()
+    {
+        if (int.TryParse(paramInputField.text, out int levelIndex)) GameEvents.instance.LoadLevel(levelIndex);
+    }
+
     public void AC()
     {
         if (int.TryParse(paramInputField.text, out int cardId))
@@ -154,7 +159,7 @@ public class UIDebugPanel : MonoBehaviour
 
     public void LevelStart()
     {
-        GameEvents.instance.LevelStart(0);
+        GameEvents.instance.LevelStart();
     }
 
     public void Beam()

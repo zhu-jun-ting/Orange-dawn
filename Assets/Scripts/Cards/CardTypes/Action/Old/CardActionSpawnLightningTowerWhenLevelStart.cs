@@ -73,7 +73,7 @@ public class CardActionSpawnLightningTowerWhenLevelStart : CardMaster, ICardActi
         base.OnCardDisable();
     }
 
-    private void HandleOnLevelStart(int levelIndex)
+    private void HandleOnLevelStart()
     {
         // Prevent too frequent spawning
         if (Time.time - lastTriggerTime < actionCooldown) return;

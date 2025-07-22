@@ -26,6 +26,7 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	public GameObject messageEntryFullInfo;
 	public GameObject messageEntryFullWarning;
 	public GameObject messageEntryLocalInfo;
+	public GameObject messageEntryBanner;
 	public Transform popupParent; // Parent for popups
 	public float fadeTime = 0.5f; // fading in out time
 	public float showDuration = 1f; // how long this message is shown before fading out
@@ -332,6 +333,42 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 					entryRect.anchoredPosition = position;
 				}
 			}
+		}
+		else if (type == GameEvents.MessageType.Banner)
+		{
+			if (messageEntryBanner == null || canvas == null) return;
+			GameObject entry = Instantiate(messageEntryBanner, canvas.transform);
+			entry.transform.SetAsLastSibling(); // Ensure on top
+			// Center on screen
+			RectTransform entryRect = entry.transform as RectTransform;
+			if (entryRect != null)
+			{
+				entryRect.anchorMin = new Vector2(0.5f, 0.5f);
+				entryRect.anchorMax = new Vector2(0.5f, 0.5f);
+				entryRect.anchoredPosition = Vector2.zero;
+			}
+			// Find TMP field in children and set text
+			var tmp = entry.GetComponentInChildren<TMPro.TMP_Text>();
+			if (tmp != null)
+				tmp.text = message;
+			// Start large, fade in, shrink to normal size
+			CanvasGroup cg = entry.GetComponent<CanvasGroup>();
+			if (cg == null) cg = entry.AddComponent<CanvasGroup>();
+			cg.alpha = 0f;
+			entry.transform.localScale = Vector3.one * 1.5f;
+			// Animate fade in and scale down
+			float fadeInTime = 0.4f;
+			float showTime = 1f;
+			float fadeOutTime = 0.4f;
+			entry.transform.DOScale(Vector3.one, fadeInTime).SetEase(Ease.OutBack);
+			cg.DOFade(1f, fadeInTime).OnComplete(() =>
+			{
+				// Wait, then fade out and destroy
+				DOVirtual.DelayedCall(showTime, () =>
+				{
+					cg.DOFade(0f, fadeOutTime).OnComplete(() => Destroy(entry));
+				});
+			});
 		}
 	}
 
