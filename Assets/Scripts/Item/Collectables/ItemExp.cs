@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ItemExp : MonoBehaviour, IColliderHandler
 {
-    PLayerExp gainExp;
     private GameObject Player;
     private bool inPlayer;
     public float moveSpeed;
@@ -12,7 +11,6 @@ public class ItemExp : MonoBehaviour, IColliderHandler
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        gainExp = GameObject.FindGameObjectWithTag("Player").GetComponent<PLayerExp>();
         moveSpeed = 5.0f;
         inPlayer = false;
     }
@@ -39,7 +37,7 @@ public class ItemExp : MonoBehaviour, IColliderHandler
     {
         if (collider.gameObject.CompareTag("Player") == true)
         {
-            gainExp.GainExp(10);
+            ExpBar.GainExp(10);
             Destroy(gameObject);
         }
         

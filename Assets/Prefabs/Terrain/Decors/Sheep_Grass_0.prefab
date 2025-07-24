@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 710931606656682240}
   m_Layer: 0
   m_Name: Sheep_Grass_0
-  m_TagString: Untagged
+  m_TagString: Decor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,9 +74,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 841323991
+  m_SortingLayer: -1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 2319856288088244163, guid: 501ee806c8178654caabffd7b6fdcc02, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

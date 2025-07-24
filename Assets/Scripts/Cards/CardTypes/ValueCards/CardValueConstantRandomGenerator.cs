@@ -75,6 +75,8 @@ public class CardValueConstantRandomGenerator : CardMaster
     private Dictionary<CardCondition, float> condWeights = new Dictionary<CardCondition, float>();
     // internal vars
 
+    public static CardValueConstantRandomGenerator instance;
+    
     protected override void Awake()
     {
         GENERATE();

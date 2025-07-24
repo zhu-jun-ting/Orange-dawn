@@ -49,7 +49,25 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     void Start()
     {
-        if (cardMaster != null) cardMaster.SetAllLinksHalfTransparent();
+        if (cardMaster != null)
+        {
+            if (cardMaster.up_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("up");
+            else
+                cardMaster.SetLinkAlpha(up_link_gameobject, 0f);
+            if (cardMaster.down_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("down");
+            else
+                cardMaster.SetLinkAlpha(down_link_gameobject, 0f);
+            if (cardMaster.left_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("left");
+            else
+                cardMaster.SetLinkAlpha(left_link_gameobject, 0f);
+            if (cardMaster.right_link_enabled)
+                cardMaster.SetLinkHalfTransparentBlack("right");
+            else
+                cardMaster.SetLinkAlpha(right_link_gameobject, 0f);
+        }
     }
 
     private Gun GetCurrentPlayerGun()
@@ -476,6 +494,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if ((!cardMaster || cardMaster.card_conditions.Contains(CardMaster.CardCondition.IsUndraggable)) && (cardMaster.gridLocation.x != -1 || cardMaster.gridLocation.y != -1)) return;
         isDragging = true;
+        if (!canvas) canvas = GetComponentInParent<Canvas>();
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
         // 1. Reset all links on all cards to black 50% transparent
         // ResetAllCardLinksHalfTransparentBlack();

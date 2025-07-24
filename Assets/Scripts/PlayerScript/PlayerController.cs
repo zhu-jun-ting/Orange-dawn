@@ -23,8 +23,8 @@ public class PlayerController : PawnMaster
     [Header("Player Components")]
     public GameObject test;
     private Renderer myRender;
-
     public List<GameObject> guns;
+    public GameObject pistol; // the pistol is the default gun
 
     [Header("movement")]
     private Rigidbody2D rb;
@@ -35,15 +35,11 @@ public class PlayerController : PawnMaster
     [Header("Dashing")]
     private float dashSpeedMultiplier;
     private float dashDuration;
-
     private float startDashTime;
 
     [Header("Internal States")]
     private bool isDashing;
-
     private int frameCount;
-
-
     public static PlayerController instance;
 
     [Header("Animation")]
@@ -148,6 +144,8 @@ public class PlayerController : PawnMaster
         }
         base.OnDisable();
     }
+
+    public void ActivatePistol(bool isActive) => pistol.SetActive(isActive);
 
     // use the variables about fire_aoe and update the scale, damage of the AOE
     private void UpdateFireAOE() {
@@ -421,11 +419,15 @@ public class PlayerController : PawnMaster
 
     private void Flip()
     {
-        if (transform.position.x < Camera.main.ScreenToWorldPoint(Input.mousePosition).x)
+        if (Camera.main == null)
+            return;
+
+        float mouseWorldX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
+        if (transform.position.x < mouseWorldX)
         {
             transform.eulerAngles = Vector3.zero;
         }
-        else if (transform.position.x > Camera.main.ScreenToWorldPoint(Input.mousePosition).x)
+        else if (transform.position.x > mouseWorldX)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
         }

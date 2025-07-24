@@ -59,6 +59,24 @@ public class StretchOnHit2D : MonoBehaviour
         // Determine main axis of impact
         float absX = Mathf.Abs(hitDir.x);
         float absY = Mathf.Abs(hitDir.y);
+
+        if (targetToStretch == null) targetToStretch = transform;
+        originalScale = targetToStretch.localScale;
+        allTargets.Clear();
+        originalScales.Clear();
+        if (affectChildren)
+            allTargets.AddRange(targetToStretch.GetComponentsInChildren<Transform>(true));
+        else
+            allTargets.Add(targetToStretch);
+        // Store original scale and position for each target
+        foreach (var t in allTargets)
+        {
+            if (!originalScales.ContainsKey(t))
+                originalScales[t] = t.localScale;
+            if (!originalPositions.ContainsKey(t))
+                originalPositions[t] = t.localPosition;
+        }
+        
         Vector3 targetScale = originalScale;
         if (absX > absY)
         {

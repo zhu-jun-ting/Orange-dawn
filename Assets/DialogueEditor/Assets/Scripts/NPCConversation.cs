@@ -385,7 +385,7 @@ namespace DialogueEditor
         {
             SpeechNode speech = new SpeechNode();
             speech.Name = editableNode.Name;
-            speech.Text = editableNode.Text;
+            speech.Text = LocalizeText(editableNode.Text);
             speech.AutomaticallyAdvance = editableNode.AdvanceDialogueAutomatically;
             speech.AutoAdvanceShouldDisplayOption = editableNode.AutoAdvanceShouldDisplayOption;
             speech.TimeUntilAdvance = editableNode.TimeUntilAdvance;
@@ -404,11 +404,27 @@ namespace DialogueEditor
 
             return speech;
         }
+        
+        /// <summary>
+        /// Localizes a string using the "Local" StringTable if available, otherwise returns the original string.
+        /// </summary>
+        private string LocalizeText(string key)
+        {
+            if (string.IsNullOrEmpty(key)) return key;
+            var table = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetTable("Local");
+            if (table != null)
+            {
+                var entry = table.GetEntry(key);
+                if (entry != null)
+                    return entry.GetLocalizedString();
+            }
+            return key;
+        }
 
         private OptionNode CreateOptionNode(EditableOptionNode editableNode)
         {
             OptionNode option = new OptionNode();
-            option.Text = editableNode.Text;
+            option.Text = LocalizeText(editableNode.Text);
             option.TMPFont = editableNode.TMPFont;
 
             CopyParamActions(editableNode, option);

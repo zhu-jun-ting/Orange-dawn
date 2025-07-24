@@ -64,7 +64,7 @@ public class CardDatabase : ScriptableObject
                         result.Add(entry.cardPrefab);
                 }
         }
-        return Shuffle(result);
+        return (result);
     }
 
     public static GameObject GetRandomCard(System.Func<CardMaster, bool> predicate,  bool includeInternalCards = false)

@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 99
-  card_name: Pistol
+  card_name: PISTOL
   card_cost: 0
   card_sell_price: 0
   card_description: "Your first ping pong ball! \n\nDamage: {0}\nAmount: {1}"

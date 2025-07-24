@@ -354,6 +354,15 @@ public class CardMaster : MonoBehaviour
     {
         ResetUIStars();
         OnUpdateCardTexts?.Invoke();
+        var table = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetTable("Local");
+        if (table != null && !string.IsNullOrEmpty(card_name))
+        {
+            var entry = table.GetEntry(card_name);
+            if (entry != null)
+            {
+                card_name = entry.GetLocalizedString();
+            }
+        }
     }
 
     public virtual void OnCardEnable()

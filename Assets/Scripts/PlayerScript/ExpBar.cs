@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ExpBar : MonoBehaviour
+
 {
     public Text ExpText;
     public Text LevelText;
@@ -15,9 +16,11 @@ public class ExpBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         ExperienceBar = GetComponent<Image>();
-        //HealthCurrent = HealthMax;
+
+        ExpMax = 100;
+        ExpBar.Level = 1;
+        ExpBar.ExpCurrent = 0;
     }
 
     // Update is called once per frame
@@ -28,5 +31,19 @@ public class ExpBar : MonoBehaviour
         LevelText.text = "LV. " + Level.ToString();
     }
 
-     
+    public static void GainExp(float experience)
+    {
+        if (experience + ExpCurrent >= ExpMax)
+        {
+            Level += 1;
+            ExpCurrent = ExpCurrent + experience - ExpMax;
+            ExpMax += 50;
+            HealthBar.HealthCurrent = HealthBar.HealthMax + 10;
+            HealthBar.HealthMax += 10;
+        }
+        else
+        {
+            ExpCurrent += experience;
+        }
+    }
 }

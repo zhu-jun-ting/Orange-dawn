@@ -23,8 +23,9 @@ public class CardGunWater : CardMaster
         base.Awake();
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         player = PlayerController.instance;
         if (player == null || gunPrefab == null) return;
 

@@ -88,7 +88,7 @@ public class RoomGrid : MonoBehaviour
             }
         }
     }
-    
+
     // Returns a dictionary of RoomGrid for 4 directions (Up, Down, Left, Right) from this room
     public RoomGrid GetNeighborRoomGrid(GameEvents.Dir dir)
     {
@@ -152,5 +152,25 @@ public class RoomGrid : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public virtual void OnLevelStart()
+    {
+
+    }
+
+    public virtual void OnLevelCleared()
+    {
+
+    }
+
+    public virtual void OnRoomLoaded()
+    {
+        // This can be overridden by derived classes to handle room-specific loading logic
+    }
+
+    public virtual void OnRoomLeave()
+    {
+        // This can be overridden by derived classes to handle room-specific leave logic
     }
 }

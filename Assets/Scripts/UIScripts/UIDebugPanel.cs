@@ -63,6 +63,14 @@ public class UIDebugPanel : MonoBehaviour
         }
     }
 
+    public void AddCoin() 
+    {
+        if (int.TryParse(paramInputField.text, out int coinAmount))
+        {
+            GameEvents.instance.UpdateCoins(coinAmount);
+        }
+    }
+
     public void ACs()
     {
         CardManager.instance.QueueSelectCardObjects(new List<GameObject> { debugCardMasterPrefab1, debugCardMasterPrefab2, debugCardMasterPrefab3 }); 

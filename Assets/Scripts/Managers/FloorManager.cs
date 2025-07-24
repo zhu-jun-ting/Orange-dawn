@@ -31,6 +31,15 @@ public class FloorManager : MonoBehaviour
     public List<Vector2Int> visitedRooms = new List<Vector2Int>();
     public List<Vector2Int> closedRooms = new List<Vector2Int>();
 
+    public static RoomGrid GetCurrentRoomGrid()
+    {
+        if (instance.mapGrids.TryGetValue(instance.playerRoom, out MapGrid grid))
+        {
+            return grid.roomObject?.GetComponent<RoomGrid>();
+        }
+        return null;
+    }
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -39,14 +48,44 @@ public class FloorManager : MonoBehaviour
     private void OnDisable()
     {
         if (GameEvents.instance != null)
-            GameEvents.instance.OnPlayerChoseNextRoom -= HandlePlayerNextRoom;
+        {
+            GameEvents.instance.OnPlayerChoseNextRoom -= HandlePlayerNextRoom;      
+            GameEvents.instance.OnLevelStart -= HandleLevelStart;
+            GameEvents.instance.OnLevelCleared -= HandleLevelCleared;
+        }
     }
 
     private void Start()
     {
-        GameEvents.instance.OnPlayerChoseNextRoom += HandlePlayerNextRoom;
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnPlayerChoseNextRoom += HandlePlayerNextRoom;
+            GameEvents.instance.OnLevelStart += HandleLevelStart;
+            GameEvents.instance.OnLevelCleared += HandleLevelCleared;
+        }
+        
         CreateRoomAndNeighbors(playerRoom);
         visitedRooms.Add(playerRoom);
+    }
+
+    private void HandleLevelStart()
+    {
+        // Call the current RoomGrid's OnLevelStart
+        var currentRoom = GetCurrentRoomGrid();
+        if (currentRoom != null)
+        {
+            currentRoom.OnLevelStart();
+        }
+    }
+
+    private void HandleLevelCleared()
+    {
+        // Call the current RoomGrid's OnLevelCleared
+        var currentRoom = GetCurrentRoomGrid();
+        if (currentRoom != null)
+        {
+            currentRoom.OnLevelCleared();
+        }
     }
 
     private List<int> loadedLevelIds = new List<int>();
@@ -55,6 +94,8 @@ public class FloorManager : MonoBehaviour
     {
         // Player can not reenter a room that previously entered so close all doors towards that room
         closedRooms.Add(playerRoom);
+        var currentRoom = GetCurrentRoomGrid();
+        currentRoom.OnRoomLeave();
 
         Vector2Int offset = DirToOffset(dir);
         playerRoom += offset;
@@ -71,6 +112,7 @@ public class FloorManager : MonoBehaviour
             roomGrid.ShutDoorsToClosedRooms();
             CombatManager.instance.allowedSpawnAreas.Clear();
             CombatManager.instance.allowedSpawnAreas.AddRange(roomGrid.canSpawnAreas);
+            roomGrid.OnRoomLoaded();
 
             // Level loading logic
             var levelDb = LevelDatabase.instance;

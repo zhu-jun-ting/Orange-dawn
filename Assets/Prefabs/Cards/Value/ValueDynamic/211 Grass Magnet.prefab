@@ -191,7 +191,7 @@ MonoBehaviour:
   card_bonds: 
   card_conditions: 
   damage: 0
-  health: 0
+  health: 2
   probability: 0
   amount: 0
   mana: 0
@@ -202,6 +202,12 @@ MonoBehaviour:
   default_amount: 0
   default_mana: 0
   default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}

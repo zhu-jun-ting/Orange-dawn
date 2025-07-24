@@ -7,6 +7,7 @@ using TMPro;
 
 public class CoinCounter : View {
 
+    public int _startingCoins = 1000; // Default value, can be overridden in inspector
     public static int startingCoins;
     public static int coinCurrent;
     
@@ -16,6 +17,7 @@ public class CoinCounter : View {
 
     void Awake() {
         instance = this;
+        startingCoins = this._startingCoins; // Set the static starting coins value
     }
 
     // Start is called before the first frame update
