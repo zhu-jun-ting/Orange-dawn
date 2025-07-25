@@ -17,12 +17,19 @@ public class FloorManager : MonoBehaviour
         public bool isCreated;
     }
 
-    [Header("Room Prefabs")]
-    public GameObject battleRoomPrefab;
-    public GameObject shopRoomPrefab;
-    public GameObject eventRoomPrefab;
-    public GameObject bonefireRoomPrefab;
-    public GameObject miniGameRoomPrefab;
+    [System.Serializable]
+    public class WeightedRoomPrefab
+    {
+        public GameObject prefab;
+        [Range(0f, 1f)] public float weight = 1f;
+    }
+
+    [Header("Room Prefabs (Weighted)")]
+    public List<WeightedRoomPrefab> battleRoomPrefabs = new List<WeightedRoomPrefab>();
+    public List<WeightedRoomPrefab> shopRoomPrefabs = new List<WeightedRoomPrefab>();
+    public List<WeightedRoomPrefab> eventRoomPrefabs = new List<WeightedRoomPrefab>();
+    public List<WeightedRoomPrefab> bonefireRoomPrefabs = new List<WeightedRoomPrefab>();
+    public List<WeightedRoomPrefab> miniGameRoomPrefabs = new List<WeightedRoomPrefab>();
     public Vector2 roomOffset = new Vector2(20, 0); // Offset between rooms
 
     public Dictionary<Vector2Int, MapGrid> mapGrids = new Dictionary<Vector2Int, MapGrid>();
@@ -135,6 +142,12 @@ public class FloorManager : MonoBehaviour
                             lastBattleLevelCleared++;
                         }
                     }
+                    // If all sequential levels are loaded, pick a random one from the list
+                    if (levelToLoad <= 0 && battleLevels.Count > 0)
+                    {
+                        var randomLevel = battleLevels[UnityEngine.Random.Range(0, battleLevels.Count)];
+                        levelToLoad = randomLevel.levelId;
+                    }
                 }
                 else
                 {
@@ -221,26 +234,67 @@ public class FloorManager : MonoBehaviour
         mapGrids[pos] = new MapGrid { gridPos = pos, roomType = type, roomObject = roomObj, isCreated = true };
     }
 
+    [System.Serializable]
+    public class RoomTypeWeight
+    {
+        public RoomType type;
+        [Range(0f, 1f)] public float weight = 0.2f;
+    }
+
+    [Header("Room Type Weights")]
+    public List<RoomTypeWeight> roomTypeWeights = new List<RoomTypeWeight>
+    {
+        new RoomTypeWeight { type = RoomType.Battle, weight = 0.2f },
+        new RoomTypeWeight { type = RoomType.Shop, weight = 0.2f },
+        new RoomTypeWeight { type = RoomType.Event, weight = 0.2f },
+        new RoomTypeWeight { type = RoomType.Bonefire, weight = 0.2f },
+        new RoomTypeWeight { type = RoomType.MiniGame, weight = 0.2f }
+    };
+
     private RoomType GetRandomRoomType(Vector2Int pos)
     {
-        // Always make starting room a Battle
+        // Always make starting room a None
         if (pos == Vector2Int.zero) return RoomType.Battle;
-        // Random selection
-        RoomType[] types = new RoomType[] { RoomType.Battle, RoomType.Shop, RoomType.Event, RoomType.Bonefire, RoomType.MiniGame };
-        return types[Random.Range(0, types.Length)];
+        // Weighted random selection
+        float totalWeight = 0f;
+        foreach (var entry in roomTypeWeights) totalWeight += entry.weight;
+        if (totalWeight <= 0f) return RoomType.Battle;
+        float rand = Random.value * totalWeight;
+        float accum = 0f;
+        foreach (var entry in roomTypeWeights)
+        {
+            accum += entry.weight;
+            if (rand <= accum)
+                return entry.type;
+        }
+        return roomTypeWeights.Count > 0 ? roomTypeWeights[0].type : RoomType.Battle;
     }
 
     private GameObject GetPrefabForType(RoomType type)
     {
+        List<WeightedRoomPrefab> list = null;
         switch (type)
         {
-            case RoomType.Battle: return battleRoomPrefab;
-            case RoomType.Shop: return shopRoomPrefab;
-            case RoomType.Event: return eventRoomPrefab;
-            case RoomType.Bonefire: return bonefireRoomPrefab;
-            case RoomType.MiniGame: return miniGameRoomPrefab;
+            case RoomType.Battle: list = battleRoomPrefabs; break;
+            case RoomType.Shop: list = shopRoomPrefabs; break;
+            case RoomType.Event: list = eventRoomPrefabs; break;
+            case RoomType.Bonefire: list = bonefireRoomPrefabs; break;
+            case RoomType.MiniGame: list = miniGameRoomPrefabs; break;
             default: return null;
         }
+        if (list == null || list.Count == 0) return null;
+        float totalWeight = 0f;
+        foreach (var item in list) totalWeight += item.weight;
+        if (totalWeight <= 0f) return list[Random.Range(0, list.Count)].prefab;
+        float rand = Random.value * totalWeight;
+        float accum = 0f;
+        foreach (var item in list)
+        {
+            accum += item.weight;
+            if (rand <= accum)
+                return item.prefab;
+        }
+        return list[list.Count - 1].prefab;
     }
 
     public int GetRoomsPassed() => roomsEntered;

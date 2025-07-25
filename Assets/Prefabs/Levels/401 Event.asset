@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7607790452efacd47b53e1808f95ca2a, type: 3}
-  m_Name: 1 StartingRoom
+  m_Name: 401 Event
   m_EditorClassIdentifier: 
-  levelId: 1
-  roomType: 0
+  levelId: 401
+  roomType: 2
   enemyCount: 0
   enemiesToSpawn: []
   clearRequirement: 2
-  timeLimit: 1
+  timeLimit: 99

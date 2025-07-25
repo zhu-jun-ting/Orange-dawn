@@ -23,6 +23,14 @@ MonoBehaviour:
     m_Key: PISTOL
     m_Metadata:
       m_Items: []
+  - m_Id: 260114439946240
+    m_Key: GameEventRunestone1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 260270774239232
+    m_Key: GameEventRunestone2
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

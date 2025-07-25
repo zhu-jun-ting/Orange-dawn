@@ -8,6 +8,7 @@ public class HealthBar : MonoBehaviour
     public TMPro.TextMeshProUGUI healthText;
     public static float HealthCurrent;
     public static float HealthMax;
+    public static float HealthGlobalModifier = 0f;
 
     public Image healthResponsive; // Assign in inspector: the falling bar image
     public float fallingSpeed = 2f; // Units per second
@@ -25,7 +26,7 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
-        float fillAmount = (HealthMax == 0f) ? 1f : (float)HealthCurrent / (float)HealthMax;
+        float fillAmount = ((HealthMax + HealthGlobalModifier) == 0f) ? 1f : (float)(HealthCurrent + HealthGlobalModifier) / (float)(HealthMax + HealthGlobalModifier);
         fillAmount = Mathf.Clamp01(fillAmount);
 
         // Main health bar instantly matches health
@@ -50,11 +51,11 @@ public class HealthBar : MonoBehaviour
             responsiveRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, responsiveFill * parentWidth);
         }
 
-        healthText.text = HealthCurrent.ToString() + "/" + HealthMax.ToString();
+        healthText.text = (HealthCurrent + HealthGlobalModifier).ToString() + "/" + (HealthMax + HealthGlobalModifier).ToString();
     }
     
     public static bool CanCostHealth(float diffHealth)
     {
-        return HealthCurrent + diffHealth > 0;
+        return (HealthCurrent + HealthGlobalModifier) + diffHealth > 0;
     }
 }

@@ -92,6 +92,14 @@ public class CardToPickUp : MonoBehaviour
                 cardMasterGO.transform.DOScale(originalScale * highlightScale, tweenDuration).SetEase(Ease.OutBack);
                 cardMasterGO.transform.DOLocalMoveY(originalPosition.y + highlightMoveY, tweenDuration).SetEase(Ease.OutBack);
             }
+            if (cardHolder != null)
+            {
+                var canvas = cardHolder.GetComponent<Canvas>();
+                if (canvas != null)
+                {
+                    canvas.sortingOrder++;
+                }
+            }
         }
     }
 
@@ -107,6 +115,14 @@ public class CardToPickUp : MonoBehaviour
                 cardMasterGO.transform.DOKill();
                 cardMasterGO.transform.DOScale(originalScale, tweenDuration).SetEase(Ease.InBack);
                 cardMasterGO.transform.DOLocalMoveY(originalPosition.y, tweenDuration).SetEase(Ease.OutBack);
+            }
+            if (cardHolder != null)
+            {
+                var canvas = cardHolder.GetComponent<Canvas>();
+                if (canvas != null)
+                {
+                    canvas.sortingOrder--;
+                }
             }
         }
     }

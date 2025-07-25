@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 
 public class RoomGrid : MonoBehaviour
 {
@@ -152,6 +153,25 @@ public class RoomGrid : MonoBehaviour
                     break;
             }
         }
+    }
+
+    [Header("Door Link Randomization")]
+    [Tooltip("Randomly close doors in this room. Make 3 Choose 1 to 2 Choose 1. Probability be modified in parameters")]
+    public float randomCloseProbability = 0.5f;
+
+    public void RandomCloseDoors()
+    {
+        // Randomly close doors in this room
+        if (doorUp != null) doorUp.alwaysActive = Random.Range(0f, 1f) < randomCloseProbability;
+        if (doorDown != null) doorDown.alwaysActive = Random.Range(0f, 1f) < randomCloseProbability;
+        if (doorLeft != null) doorLeft.alwaysActive = Random.Range(0f, 1f) < randomCloseProbability;
+        if (doorRight != null) doorRight.alwaysActive = Random.Range(0f, 1f) < randomCloseProbability;
+
+        // clear the visual sign of the closed doors
+        if (upSign != null) upSign.transform.parent.gameObject.SetActive(false);
+        if (downSign != null) downSign.transform.parent.gameObject.SetActive(false);
+        if (leftSign != null) leftSign.transform.parent.gameObject.SetActive(false);
+        if (rightSign != null) rightSign.transform.parent.gameObject.SetActive(false);
     }
 
     public virtual void OnLevelStart()

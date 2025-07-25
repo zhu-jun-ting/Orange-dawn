@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 8757431062586594635}
   - component: {fileID: 835850820527100660}
   - component: {fileID: 7340557554975175505}
+  - component: {fileID: 2426554256205597454}
   m_Layer: 0
   m_Name: Bonfire
   m_TagString: Untagged
@@ -112,6 +113,7 @@ Transform:
   m_Children:
   - {fileID: 6983291425169502078}
   - {fileID: 646243214205612944}
+  - {fileID: 8918052394719901789}
   m_Father: {fileID: 7947910389150309300}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8757431062586594635
@@ -227,18 +229,268 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83189876d4d389f43b7dd2e925aa112e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentIDCounter: 1
-  json: 
-  saveVersion: 0
+  CurrentIDCounter: 10
+  json: '{"Options":[{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":433.5998,"yPos":352.6001},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Recover
+    Health (50% Health)","parentUIDs":[0],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":590.4002,"yPos":596.6004},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Get
+    some experience (20% Health and 50% Experience)\n","parentUIDs":[0],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":852.8001,"yPos":602.999939},"ID":8,"ParamActions":[],"TMPFontGUID":null,"Text":"Get
+    a pocket of coins (20% Health and 20 Coins)","parentUIDs":[0],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":1119.20056,"yPos":603.799866},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"Get
+    a card (get a random value card) ","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"RandomValue","IntValue":0}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"RandomValue","CheckType":2,"RequiredValue":66}],"NodeUID":8},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"RandomValue","CheckType":1,"RequiredValue":33}],"NodeUID":9}],"EditorInfo":{"isRoot":true,"xPos":807.6001,"yPos":338.8},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"This
+    is a bonfire, you can rest here or get experiences","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":null,"OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+  saveVersion: 110
   DefaultName: 
   DefaultSprite: {fileID: 0}
   DefaultFont: {fileID: 0}
-  NodeSerializedDataList: []
+  NodeSerializedDataList:
+  - {fileID: 1049276387658553674}
+  - {fileID: 6124392941925005116}
+  - {fileID: 6385136842371129328}
+  - {fileID: 8261182415499243424}
+  - {fileID: 7184196052065506301}
   ContinueFont: {fileID: 0}
   EndConversationFont: {fileID: 0}
   Event:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2426554256205597454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7549886796577232618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41cb8ed2a8cecfb4e8a4ed649ce6e6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conversation: {fileID: 7340557554975175505}
+--- !u!1 &9131174055821444215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8918052394719901789}
+  - component: {fileID: 1049276387658553674}
+  - component: {fileID: 6124392941925005116}
+  - component: {fileID: 6385136842371129328}
+  - component: {fileID: 8261182415499243424}
+  - component: {fileID: 7184196052065506301}
+  m_Layer: 0
+  m_Name: ConversationEventInfo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8918052394719901789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131174055821444215}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -821.69714, y: -630.05994, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8097218211075778832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1049276387658553674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131174055821444215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls: []
+  NodeID: 0
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 0}
+  Audio: {fileID: 0}
+--- !u!114 &6124392941925005116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131174055821444215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2426554256205597454}
+        m_TargetAssemblyTypeName: EventNPCDialogue, Assembly-CSharp
+        m_MethodName: RoomCleared
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2426554256205597454}
+        m_TargetAssemblyTypeName: DialougeBonfire, Assembly-CSharp
+        m_MethodName: RecoverHalfHealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  NodeID: 1
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 0}
+  Audio: {fileID: 0}
+--- !u!114 &6385136842371129328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131174055821444215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2426554256205597454}
+        m_TargetAssemblyTypeName: EventNPCDialogue, Assembly-CSharp
+        m_MethodName: RoomCleared
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2426554256205597454}
+        m_TargetAssemblyTypeName: DialougeBonfire, Assembly-CSharp
+        m_MethodName: RecoverSmallHealthAndGainHalfExp
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  NodeID: 2
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 0}
+  Audio: {fileID: 0}
+--- !u!114 &8261182415499243424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131174055821444215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2426554256205597454}
+        m_TargetAssemblyTypeName: EventNPCDialogue, Assembly-CSharp
+        m_MethodName: RoomCleared
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2426554256205597454}
+        m_TargetAssemblyTypeName: DialougeBonfire, Assembly-CSharp
+        m_MethodName: RecoverSmallHealthAndGainCoin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  NodeID: 8
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 0}
+  Audio: {fileID: 0}
+--- !u!114 &7184196052065506301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9131174055821444215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2426554256205597454}
+        m_TargetAssemblyTypeName: EventNPCDialogue, Assembly-CSharp
+        m_MethodName: RoomCleared
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2426554256205597454}
+        m_TargetAssemblyTypeName: DialougeBonfire, Assembly-CSharp
+        m_MethodName: GetRandomValueCard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  NodeID: 9
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 0}
+  Audio: {fileID: 0}
 --- !u!1001 &1476683278638462277
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -405,11 +657,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8805273934215900913, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -39.65951
+      value: 821.69714
       objectReference: {fileID: 0}
     - target: {fileID: 8805273934215900913, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.13759
+      value: 630.05994
       objectReference: {fileID: 0}
     - target: {fileID: 8805273934215900913, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
       propertyPath: m_LocalPosition.z

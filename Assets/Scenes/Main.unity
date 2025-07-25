@@ -4909,63 +4909,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &495170074
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -49.19001
-      objectReference: {fileID: 0}
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.18478
-      objectReference: {fileID: 0}
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 696566031305734017, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7510675060471189699, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-      propertyPath: m_Name
-      value: RoomEvent Variant
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
 --- !u!224 &500653886 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
@@ -9973,63 +9916,6 @@ Transform:
   - {fileID: 460249195}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &897602532
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1143160394368515318, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_Name
-      value: RoomBonfire Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 821.69714
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 630.05994
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7947910389150309300, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
 --- !u!1 &901693462
 GameObject:
   m_ObjectHideFlags: 0
@@ -12209,16 +12095,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9deb42d81856c43bf3b382f7e450fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleRoomPrefab: {fileID: 7510675060471189699, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-  shopRoomPrefab: {fileID: 7510675060471189699, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-  eventRoomPrefab: {fileID: 7510675060471189699, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-  bonefireRoomPrefab: {fileID: 7510675060471189699, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
-  miniGameRoomPrefab: {fileID: 7510675060471189699, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
+  battleRoomPrefabs:
+  - prefab: {fileID: 6941025242713350881, guid: 869b12dbc8042074f85dfc2fbe4c66ee, type: 3}
+    weight: 1
+  shopRoomPrefabs:
+  - prefab: {fileID: 7339358339974630147, guid: 4f9e84ed95bb21544991898893807dd1, type: 3}
+    weight: 0.746
+  - prefab: {fileID: 7339358339974630147, guid: 114e504c3db739947907606b52ba7b32, type: 3}
+    weight: 1
+  - prefab: {fileID: 7339358339974630147, guid: 0038e6cd2858a1e42b0184b5a4c15bde, type: 3}
+    weight: 0.501
+  - prefab: {fileID: 7339358339974630147, guid: c774d242299411340b26a1b3594d6716, type: 3}
+    weight: 0.404
+  - prefab: {fileID: 7339358339974630147, guid: 124970841bfa139418354f833c1d4a70, type: 3}
+    weight: 0.3
+  eventRoomPrefabs:
+  - prefab: {fileID: 7510675060471189699, guid: a3f63f3bd85ea024c9e2dc5f3376e6dd, type: 3}
+    weight: 1
+  - prefab: {fileID: 7510675060471189699, guid: 868cc2068ca12e94496e608938e2892c, type: 3}
+    weight: 1
+  - prefab: {fileID: 7510675060471189699, guid: ff2e5340cf59e8c4c8e81e74eadce522, type: 3}
+    weight: 1
+  bonefireRoomPrefabs:
+  - prefab: {fileID: 1143160394368515318, guid: 126bb8b93de35154cb4d37fa78748953, type: 3}
+    weight: 1
+  miniGameRoomPrefabs:
+  - prefab: {fileID: 1570168866384668040, guid: 1000a33f35f78be4e9511f44a37c5be8, type: 3}
+    weight: 1
   roomOffset: {x: 38, y: 30}
   playerRoom: {x: 0, y: 0}
   roomsEntered: 0
   visitedRooms: []
   closedRooms: []
+  roomTypeWeights:
+  - type: 0
+    weight: 0.385
+  - type: 1
+    weight: 0.324
+  - type: 2
+    weight: 0.091
+  - type: 3
+    weight: 0.112
+  - type: 4
+    weight: 0.059
 --- !u!1001 &1206025174
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32576,5 +32495,3 @@ SceneRoots:
   - {fileID: 2045018380}
   - {fileID: 1005493896}
   - {fileID: 1363540948}
-  - {fileID: 495170074}
-  - {fileID: 897602532}

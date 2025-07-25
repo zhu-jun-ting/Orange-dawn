@@ -28,6 +28,10 @@ MonoBehaviour:
     m_Localized: Pistol
     m_Metadata:
       m_Items: []
+  - m_Id: 260114439946240
+    m_Localized: 'There is a wierd-looking runestone on the ground. '
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

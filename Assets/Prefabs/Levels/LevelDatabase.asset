@@ -23,3 +23,7 @@ MonoBehaviour:
     levelAsset: {fileID: 11400000, guid: c4a6906adff1d8845b1c11210cbf4276, type: 2}
   - levelId: 301
     levelAsset: {fileID: 11400000, guid: 39c84187f91a1b240a6f721b51dcddb2, type: 2}
+  - levelId: 401
+    levelAsset: {fileID: 11400000, guid: e50fd232fbf41174d95b5a596c8324de, type: 2}
+  - levelId: 501
+    levelAsset: {fileID: 11400000, guid: 2a95165cad7abbb48b5a5aef3d40ca04, type: 2}

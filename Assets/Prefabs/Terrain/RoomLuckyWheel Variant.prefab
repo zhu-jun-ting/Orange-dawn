@@ -1746,6 +1746,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6490477015017600177, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6963339767955647166, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -1931,10 +1935,10 @@ MonoBehaviour:
   doorLeft: {fileID: 3491822589409484812}
   doorRight: {fileID: 5138492795075390220}
   signHolder: {fileID: 3318826910701328305}
-  upSign: {fileID: 4499887854171700949}
-  downSign: {fileID: 2245533849108709016}
-  leftSign: {fileID: 2850405747305350358}
-  rightSign: {fileID: 4453953380354943854}
+  upSign: {fileID: 5326916373262125390}
+  downSign: {fileID: 5656267728189428965}
+  leftSign: {fileID: 3421928892932050631}
+  rightSign: {fileID: 6688947483906815137}
   wheelTriggers:
   - {fileID: 451201912012994291}
   - {fileID: 8282954591002921626}
@@ -1951,19 +1955,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446f27241d697b4489f44e4c97331034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &2245533849108709016 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1243143773624554147, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
-  m_PrefabInstance: {fileID: 1038420079942577211}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &2850405747305350358 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 3019550726885091565, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
-  m_PrefabInstance: {fileID: 1038420079942577211}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3318826910701328305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2335084462229961610, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
+  m_PrefabInstance: {fileID: 1038420079942577211}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3421928892932050631 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2383556204195504892, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
   m_PrefabInstance: {fileID: 1038420079942577211}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &3491822589409484812 stripped
@@ -1977,16 +1976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446f27241d697b4489f44e4c97331034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!212 &4453953380354943854 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 3721849676491179861, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
-  m_PrefabInstance: {fileID: 1038420079942577211}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &4499887854171700949 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 3466616843285009134, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
-  m_PrefabInstance: {fileID: 1038420079942577211}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4637316815443287754 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5634630531656020721, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
@@ -2009,6 +1998,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 446f27241d697b4489f44e4c97331034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &5326916373262125390 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5153305139047327093, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
+  m_PrefabInstance: {fileID: 1038420079942577211}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5656267728189428965 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4617926882088761566, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
+  m_PrefabInstance: {fileID: 1038420079942577211}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &6688947483906815137 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5961323087858112666, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
+  m_PrefabInstance: {fileID: 1038420079942577211}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7937944822597935817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6935555854930661106, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
