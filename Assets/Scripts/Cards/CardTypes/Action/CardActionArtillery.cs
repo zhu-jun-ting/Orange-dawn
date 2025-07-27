@@ -60,6 +60,7 @@ public class CardActionArtillery : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (explodeBulletPrefab == null || target == null) return;
 
         lastActionTime = Time.time;

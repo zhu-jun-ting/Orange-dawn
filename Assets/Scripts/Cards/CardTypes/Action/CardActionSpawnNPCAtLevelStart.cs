@@ -42,6 +42,7 @@ public class CardActionSpawnNPCAtLevelStart : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         // int count = Mathf.Max(1, (int)(amount)); // Use amount as NPC count
         // GameObject prefab = npcPrefab;
         // if (prefab == null) return;

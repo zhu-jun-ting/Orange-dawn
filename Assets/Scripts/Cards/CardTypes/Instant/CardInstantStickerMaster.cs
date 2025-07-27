@@ -36,7 +36,11 @@ public class CardInstantStickerMaster : CardMaster
         }
         // Only destroy if at least one action was found (otherwise, card can be re-enabled later)
         if (foundAction)
+        {
+            SoundManager.PlaySFX("GetCard");
             OnCardDestroyed();
+        }
+    
         else
         {
             // If no action was found, show prompt

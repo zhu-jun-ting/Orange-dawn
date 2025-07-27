@@ -68,6 +68,8 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             else
                 cardMaster.SetLinkAlpha(right_link_gameobject, 0f);
         }
+
+        GetComponent<CardDesciprtionUpdater>()?.UpdateTexts();
     }
 
     private Gun GetCurrentPlayerGun()
@@ -374,6 +376,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        SoundManager.PlaySFX("Card1");
         if ((!cardMaster || cardMaster.card_conditions.Contains(CardMaster.CardCondition.IsUndraggable)) && (cardMaster.gridLocation.x != -1 || cardMaster.gridLocation.y != -1))
         {
             if (GameEvents.instance != null)
@@ -568,6 +571,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        SoundManager.PlaySFX("Card1");
         if ((!cardMaster || cardMaster.card_conditions.Contains(CardMaster.CardCondition.IsUndraggable)) && (cardMaster.gridLocation.x != -1 || cardMaster.gridLocation.y != -1)) return;
         isDragging = false;
         canvasGroup.blocksRaycasts = true;
@@ -827,7 +831,10 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 cardMaster.gridLocation = new Vector2Int(cell.x, cell.y);
                 lastRow = cell.x;
                 lastCol = cell.y;
-
+                if (GameEvents.instance != null)
+                {
+                    GameEvents.instance.DropCardOnBoard(cardMaster, cardMaster.gridLocation);
+                }
 
             }
             else
@@ -911,21 +918,12 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // // Check for nulls before accessing components
-        // var cardCommon = GetComponent<CardCommon>();
-        // if (cardCommon == null) return;
-        // if (Time.time < pointerEnterBlockTime && !cardCommon.CanInteract) return; // Block shake if within threshold
 
-        // // Start shake feedback
-        // if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();
-        // if (rectTransform != null)
-        //     shakeTween = rectTransform.DOShakePosition(0.3f, strength: new Vector3(2f, 2f, 0), vibrato: 20, randomness: 90, snapping: false, fadeOut: true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Stop shake feedback
-        // if (shakeTween != null && shakeTween.IsActive()) shakeTween.Kill();
+
     }
 
     private static float lastUpdateCardsTime = -100f;

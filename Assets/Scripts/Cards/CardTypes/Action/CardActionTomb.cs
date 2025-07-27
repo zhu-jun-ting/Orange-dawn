@@ -71,6 +71,7 @@ public class CardActionTomb : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         SpawnPawns(
             _prefab: skeletonPrefab,
             _count: (int) amount,

@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d601105e57ea9c448a2e7985743f1f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conversation: {fileID: 0}
+  conversation: {fileID: 7448187375960997749}
   mysteryBoxDialogue: A mysterious box sits before you. Will you risk changing your
     fate?
   mysteryBoxChoices:
@@ -750,6 +750,7 @@ MonoBehaviour:
   downSign: {fileID: 3714909940260118958}
   leftSign: {fileID: 5948192283624307596}
   rightSign: {fileID: 2387735886687830506}
+  randomCloseProbability: 0.5
   npcToTalkTo: {fileID: 5904859595560542184}
 --- !u!114 &7679763722036944792 stripped
 MonoBehaviour:

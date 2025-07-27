@@ -87,24 +87,25 @@ PrefabInstance:
     - target: {fileID: 6668028242136005871, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 41c6f94d80f9e034a9c63dcf97d30f5c, type: 3}
+      objectReference: {fileID: 6791506296060519765, guid: 78c06340e181f8543bf88cb380666cea, type: 3}
     - target: {fileID: 8700308345155164601, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1837165
+      value: 0.020174377
       objectReference: {fileID: 0}
     - target: {fileID: 8700308345155164601, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.16029492
+      value: 0.016377447
       objectReference: {fileID: 0}
     - target: {fileID: 8700308345155164601, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.028
+      value: 0.036
       objectReference: {fileID: 0}
     - target: {fileID: 8700308345155164601, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.024
+      value: -0.03
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4204677003150742031, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -134,6 +135,7 @@ MonoBehaviour:
   invulnerabilityDuration: 1
   breakableByTags:
   - Bullet
+  itemType: 0
   spawnFxName: FxSpawn
   spawnFxScale: 3
   tip: Destroyed {0}

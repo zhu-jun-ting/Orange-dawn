@@ -36,6 +36,7 @@ public class CardActionLichKing : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         lastActionTime = Time.time;
         // Give a random Temporary card to the player
         GameObject tempCardPrefab = CardDatabase.GetRandomCard(cm => GameSettings.IsConditionAllowed(cm.card_type, CardMaster.CardCondition.IsTemporary));

@@ -67,6 +67,7 @@ public class CardActionGreenLotto : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (UnityEngine.Random.value > 0.5f)
         {
             // All action logic here: destroy the card

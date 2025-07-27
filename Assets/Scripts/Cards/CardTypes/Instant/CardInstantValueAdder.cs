@@ -30,7 +30,11 @@ public class CardInstantValueAdder : CardMaster
             }
         }
         // Destroy self after applying
-        if (modified) OnCardDestroyed();
+        if (modified)
+        {
+            SoundManager.PlaySFX("GetCard");
+            OnCardDestroyed();
+        }
         else ShowPopup("No stat to increase.");
     }
 

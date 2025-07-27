@@ -31,6 +31,30 @@ MonoBehaviour:
     m_Key: GameEventRunestone2
     m_Metadata:
       m_Items: []
+  - m_Id: 795002289209344
+    m_Key: TTT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 987634957238272
+    m_Key: SFXs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 988427462590464
+    m_Key: MUSIC
+    m_Metadata:
+      m_Items: []
+  - m_Id: 988506676215808
+    m_Key: QUIT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 988510975377408
+    m_Key: RESUME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 988513970110464
+    m_Key: New Entry 2
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

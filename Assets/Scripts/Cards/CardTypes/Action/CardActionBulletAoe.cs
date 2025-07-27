@@ -55,6 +55,7 @@ public class CardActionBulletAoe : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         lastAoeTime = Time.time;
         if (target != null && target.TryGetComponent<GunBullet>(out var localBullet))
         {

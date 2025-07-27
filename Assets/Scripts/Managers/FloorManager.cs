@@ -143,7 +143,7 @@ public class FloorManager : MonoBehaviour
                         }
                     }
                     // If all sequential levels are loaded, pick a random one from the list
-                    if (levelToLoad <= 0 && battleLevels.Count > 0)
+                    else
                     {
                         var randomLevel = battleLevels[UnityEngine.Random.Range(0, battleLevels.Count)];
                         levelToLoad = randomLevel.levelId;

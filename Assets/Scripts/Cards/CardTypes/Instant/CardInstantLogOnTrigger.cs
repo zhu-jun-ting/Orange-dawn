@@ -39,7 +39,11 @@ public class CardInstantLogOnTrigger : CardMaster
         }
         // Only destroy if at least one action was found (otherwise, card can be re-enabled later)
         if (foundAction)
-            OnCardDestroyed();
+        {
+            SoundManager.PlaySFX("GetCard");
+            OnCardDestroyed();            
+        }
+
     }
 
     private void LogOnTrigger(CardMaster card, Transform location)

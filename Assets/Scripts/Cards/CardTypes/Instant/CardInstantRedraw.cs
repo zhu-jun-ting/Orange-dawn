@@ -32,6 +32,7 @@ public class CardInstantRedraw : CardMaster
                 if (selectCards.Count > 0 && CardManager.instance != null)
                     CardManager.instance.QueueSelectCardObjects(selectCards, true, 1f, null);
             }
+            SoundManager.PlaySFX("GetCard");
             OnCardDestroyed(); // Destroy self after applying
         }    
     }

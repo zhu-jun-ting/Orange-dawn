@@ -13,7 +13,6 @@ public class ItemHealth : MonoBehaviour, IColliderHandler
     {
         Player = GameObject.FindGameObjectWithTag("Player");
         gainhealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        moveSpeed = 5.0f;
         inPlayer = false;
     }
 
@@ -35,10 +34,12 @@ public class ItemHealth : MonoBehaviour, IColliderHandler
         }
     }
 
+    private bool hasGet = false;
     public void HandleTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Player") == true)
+        if (collider.gameObject.CompareTag("Player") == true && !hasGet)
         {
+            hasGet = true;
             GameEvents.instance?.HealPawn(5f, PlayerController.instance, gameObject, transform);
             Destroy(gameObject);
         }

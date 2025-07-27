@@ -11,7 +11,6 @@ public class ItemExp : MonoBehaviour, IColliderHandler
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        moveSpeed = 5.0f;
         inPlayer = false;
     }
 
@@ -33,14 +32,17 @@ public class ItemExp : MonoBehaviour, IColliderHandler
         }
     }
 
+    private bool hasGet = false;
     public void HandleTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Player") == true)
+        if (collider.gameObject.CompareTag("Player") == true && !hasGet)
         {
+            hasGet = true;
             ExpBar.GainExp(10);
+            SoundManager.PlaySFX("GetItem");
             Destroy(gameObject);
         }
-        
+
     }
 
 

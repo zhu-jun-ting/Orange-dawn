@@ -55,6 +55,7 @@ public class CardActionRifle : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (rifleBulletPrefab == null || target == null) return;
         lastActionTime = Time.time;
         Vector2 spawnPos = target.position;

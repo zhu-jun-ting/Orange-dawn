@@ -47,6 +47,7 @@ public class CardInstantBlend : CardMaster
                     CardManager.instance.QueueSelectCardObjects(selectCards, true, 1f, null);
             }
 
+            SoundManager.PlaySFX("GetCard");
             OnCardDestroyed(); // Destroy self after applying
         }
     }

@@ -66,6 +66,7 @@ public class CardInstantActivateSlot : CardMaster
         if (!isOpen)
         {
             BoardArea.instance.ActivateCell(targetRow, targetCol);
+            SoundManager.PlaySFX("GetCard");
             OnCardDestroyed();
         }
     }

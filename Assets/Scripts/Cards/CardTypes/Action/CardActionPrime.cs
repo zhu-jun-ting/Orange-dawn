@@ -72,6 +72,7 @@ public class CardActionPrime : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         // If gun is available, use its shooting pattern
         if (lastGun != null)
         {

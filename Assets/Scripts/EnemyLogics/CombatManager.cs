@@ -161,6 +161,44 @@ public class CombatManager : MonoBehaviour
                 GameEvents.MessageType.Banner,
                 Vector2.zero
             );
+            SoundManager.PlaySFX("DrawSword");
+
+        }
+        else if (currentLevel.roomType == FloorManager.RoomType.Bonefire && GameEvents.instance != null)
+        {
+            GameEvents.instance.ShowMessage(
+                $"Bonfire",
+                GameEvents.MessageType.Banner,
+                Vector2.zero
+            );
+            SoundManager.PlaySFX("DrumStart");
+        }
+        else if (currentLevel.roomType == FloorManager.RoomType.Event && GameEvents.instance != null)
+        {
+            GameEvents.instance.ShowMessage(
+                $"Event",
+                GameEvents.MessageType.Banner,
+                Vector2.zero
+            );
+            SoundManager.PlaySFX("DrumStart");
+        }
+        else if (currentLevel.roomType == FloorManager.RoomType.Shop && GameEvents.instance != null)
+        {
+            GameEvents.instance.ShowMessage(
+                $"Shop",
+                GameEvents.MessageType.Banner,
+                Vector2.zero
+            );
+            SoundManager.PlaySFX("DrumStart");
+        }
+        else if (currentLevel.roomType == FloorManager.RoomType.MiniGame && GameEvents.instance != null)
+        {
+            GameEvents.instance.ShowMessage(
+                $"MiniGame",
+                GameEvents.MessageType.Banner,
+                Vector2.zero
+            );
+            SoundManager.PlaySFX("DrumStart");
         }
     }
 
@@ -183,6 +221,7 @@ public class CombatManager : MonoBehaviour
                 GameEvents.MessageType.Banner,
                 Vector2.zero
             );
+            SoundManager.PlaySFX("Cleared");
         }
     }
 
@@ -235,7 +274,7 @@ public class CombatManager : MonoBehaviour
         // Check if currentLevel is set to clear all enemies 
         if (currentLevel.clearRequirement == Level.LevelClearRequirement.DefeatAllEnemies)
         {
-            if (currentEnemies.Count == 0)
+            if (currentEnemies.Count == 0 && (activeEnemiesToSpawn == null || activeEnemiesToSpawn.Count == 0))
             {
                 // Trigger level clear event
                 GameEvents.instance?.LevelCleared();

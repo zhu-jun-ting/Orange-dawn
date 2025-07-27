@@ -137,6 +137,7 @@ public class NPCBatter : NPCMaster, IColliderHandler
                     bat.hitBackBullet = hitBackBullet;
                 }
             }
+            SoundManager.PlaySFX("Whoosh");
             yield return new WaitForSeconds(attackInterval);
         }
     }

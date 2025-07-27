@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ItemCoin : MonoBehaviour, IColliderHandler
 {
-    PlayerController gainhealth;
     private GameObject Player;
     private bool inPlayer;
     public float moveSpeed;
@@ -12,8 +11,6 @@ public class ItemCoin : MonoBehaviour, IColliderHandler
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
-        gainhealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-        moveSpeed = 5.0f;
         inPlayer = false;
     }
 
@@ -35,18 +32,20 @@ public class ItemCoin : MonoBehaviour, IColliderHandler
         }
     }
 
+    bool hasGet = false;
     public void HandleTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Player") == true)
+        if (collider.gameObject.CompareTag("Player") == true && !hasGet)
         {
             if (GameEvents.instance != null)
             {
+                hasGet = true;
                 GameEvents.instance.UpdateCoins(1); // Assuming you have a method to handle coin collection
                 Destroy(gameObject);
             }
         }
-        
-        
+
+
     }
 
 

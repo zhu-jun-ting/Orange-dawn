@@ -64,6 +64,9 @@ public class PlayerController : PawnMaster
     private float lifesteal_percent = 0f;
     private Vector2 loggedLocation = Vector2.zero;
 
+    // Track the running music AudioSource
+    private AudioSource runningMusicSource = null;
+    private bool wasMovingLastFrame = false;
 
     [Header("DO NOT MODIFY")]
     public GameObject fire_aoe;
@@ -175,6 +178,8 @@ public class PlayerController : PawnMaster
         {
             ProcessDash();
         }
+
+
         base.Update();
     }
 
@@ -228,6 +233,30 @@ public class PlayerController : PawnMaster
             }
         }
         // Debug.Log("isRunning: " + isRunning + " moveH: " + moveH + " moveV: " + moveV);
+    
+        // --- Running music logic ---
+        if (moving && !wasMovingLastFrame)
+        {
+            // Start or resume running music
+            if (runningMusicSource == null)
+            {
+                runningMusicSource = SoundManager.PlayMusic("Running", 1f, true);
+            }
+            else if (!runningMusicSource.isPlaying)
+            {
+                runningMusicSource.Play();
+            }
+        }
+        else if (!moving && wasMovingLastFrame)
+        {
+            // Stop running music
+            if (runningMusicSource != null)
+            {
+                SoundManager.StopMusic(runningMusicSource);
+                runningMusicSource = null;
+            }
+        }
+        wasMovingLastFrame = moving;
 
         moveH = 0f;
         moveV = 0f;

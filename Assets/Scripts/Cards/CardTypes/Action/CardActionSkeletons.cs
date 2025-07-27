@@ -46,7 +46,7 @@ public class CardActionSkeletons : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
-
+        GameEvents.instance.TriggerActionCard(card, target);
         // Use only parent variables: damage, health, mana, amount, etc.
         // Example: Summon skeletons using amount as count, damage, health, mana
         int count = Mathf.Max(1, (int)amount); // Use amount as skeleton count

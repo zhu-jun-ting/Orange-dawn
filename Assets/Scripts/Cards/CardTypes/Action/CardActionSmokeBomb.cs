@@ -67,6 +67,7 @@ public class CardActionSmokeBomb : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (impulseAOECentrifugalPrefab == null || target == null) return;
         SpawnObjects(
             _prefab: impulseAOECentrifugalPrefab,

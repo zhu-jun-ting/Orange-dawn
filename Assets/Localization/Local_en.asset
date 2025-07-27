@@ -29,7 +29,27 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 260114439946240
-    m_Localized: 'There is a wierd-looking runestone on the ground. '
+    m_Localized: There is a wierd-looking runestone on the ground.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 795002289209344
+    m_Localized: FFF
+    m_Metadata:
+      m_Items: []
+  - m_Id: 987634957238272
+    m_Localized: SFXs
+    m_Metadata:
+      m_Items: []
+  - m_Id: 988427462590464
+    m_Localized: Music
+    m_Metadata:
+      m_Items: []
+  - m_Id: 988506676215808
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 988510975377408
+    m_Localized: Resume
     m_Metadata:
       m_Items: []
   references:

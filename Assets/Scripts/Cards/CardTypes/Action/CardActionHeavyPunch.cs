@@ -59,6 +59,7 @@ public class CardActionHeavyPunch : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         SpawnObjects(impulseAOEPrefab, 1, target.position, Quaternion.identity, explosionRadius, (obj) =>
         {
             var aoe = obj.GetComponent<ImpulseAOE>();

@@ -55,6 +55,7 @@ public class CardActionBoots : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (GameSettings.instance == null || GameSettings.instance.NPCs == null || GameSettings.instance.NPCs.Count == 0) return;
         int count = Mathf.Max(1, (int)(amount));
         Vector3 center = target != null ? target.position : Vector3.zero;

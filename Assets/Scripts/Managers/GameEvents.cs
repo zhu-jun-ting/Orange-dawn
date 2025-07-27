@@ -216,6 +216,7 @@ public class GameEvents : MonoBehaviour
     {
         OnPlayerDodge?.Invoke(_player);
         ShowStringUI("DODGE", PlayerController.instance, DamageType.Normal, PlayerController.instance.transform.position);
+        SoundManager.PlaySFX("Miss");
     }
 
     public enum Dir { Up, Down, Left, Right }
@@ -229,5 +230,28 @@ public class GameEvents : MonoBehaviour
     public void LoadLevel(int levelIndex)
     {
         OnLoadLevel?.Invoke(levelIndex);
+    }
+
+    public event Action<CardMaster, Transform> OnTriggerActionCard;
+    public void TriggerActionCard(CardMaster card, Transform target)
+    {
+        OnTriggerActionCard?.Invoke(card, target);
+        // No matter what card, always show a Popup for notify this card triggered
+        // Move the message position up a bit (e.g., by 1 unit on Y axis)
+        Vector2 messagePosition = target.position;
+        messagePosition.y += 1f;
+        GameEvents.instance.ShowMessage($"Triggered {card.card_name}", GameEvents.MessageType.LocalInfo, RectTransformUtility.WorldToScreenPoint(null, messagePosition));
+    }
+
+    public event Action<CardMaster, Vector2Int> OnDropCardOnBoard;
+    public void DropCardOnBoard(CardMaster card, Vector2Int gridLocation)
+    {
+        OnDropCardOnBoard?.Invoke(card, gridLocation);
+    }
+
+    public event Action OnGameStart;
+    public void GameStart()
+    {
+        OnGameStart?.Invoke();
     }
 }

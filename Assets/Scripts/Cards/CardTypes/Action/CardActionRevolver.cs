@@ -61,6 +61,7 @@ public class CardActionRevolver : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         // Select a random gun from PlayerController.instance.guns and fire with modified bulletNum
         if (PlayerController.instance == null || PlayerController.instance.guns == null || PlayerController.instance.guns.Count == 0) return;
         var gunObjs = PlayerController.instance.guns;

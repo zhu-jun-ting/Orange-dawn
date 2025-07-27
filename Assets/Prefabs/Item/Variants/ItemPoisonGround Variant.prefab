@@ -211,6 +211,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6668028242136005871, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
+      propertyPath: m_SortingLayer
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668028242136005871, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6668028242136005871, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 841323991
+      objectReference: {fileID: 0}
     - target: {fileID: 7839757738746632537, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
       propertyPath: m_Color.a
       value: 0

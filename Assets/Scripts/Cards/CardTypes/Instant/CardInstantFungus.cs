@@ -23,6 +23,7 @@ public class CardInstantFungus : CardMaster
             if (linked.numberTypesCanBeModified.Count > 0)
             {
                 linked.Grow(times);
+                SoundManager.PlaySFX("GetCard");
                 OnCardDestroyed();
             }
             else

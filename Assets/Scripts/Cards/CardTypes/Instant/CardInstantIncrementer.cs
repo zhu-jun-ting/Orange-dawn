@@ -35,6 +35,7 @@ public class CardInstantIncrementer : CardMaster
             }
         }
         // Destroy self after registering
+        SoundManager.PlaySFX("GetCard");
         OnCardDestroyed();
     }
 

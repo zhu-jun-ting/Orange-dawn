@@ -66,6 +66,7 @@ public class CardActionReconstruct : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (itemPrefabs == null || itemPrefabs.Count == 0) return;
         int idx = UnityEngine.Random.Range(0, itemPrefabs.Count);
         GameObject prefab = itemPrefabs[idx];

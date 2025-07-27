@@ -64,6 +64,7 @@ public class CardActionMassEffect : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         // Always write the actual effect here
         SpawnObjects(impulseAOECentrifugalPrefab, _count: 1, _position: target.position, _rotation: Quaternion.identity, _radius: 0.2f, _modifyObject: (obj) =>
         {

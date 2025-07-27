@@ -66,6 +66,7 @@ public class CardActionPoisonedKnife : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         SpawnObjects(
             _prefab: poisonAOEPrefab,
             _count: 1,

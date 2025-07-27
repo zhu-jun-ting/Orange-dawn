@@ -66,6 +66,7 @@ public class CardActionFireRing : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (burnAOEPrefab == null || target == null) return;
         SpawnObjects(
             _prefab: burnAOEPrefab,

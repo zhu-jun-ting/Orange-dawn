@@ -44,6 +44,7 @@ public class CardInstantCureConditions : CardMaster
             }
         }
         // Destroy self after applying
+        SoundManager.PlaySFX("GetCard");
         OnCardDestroyed();
     }
 

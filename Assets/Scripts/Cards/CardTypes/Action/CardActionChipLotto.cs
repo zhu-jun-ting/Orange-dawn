@@ -69,6 +69,7 @@ public class CardActionChipLotto : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (UnityEngine.Random.value < destroySelfChance)
         {
             // Small chance to destroy self

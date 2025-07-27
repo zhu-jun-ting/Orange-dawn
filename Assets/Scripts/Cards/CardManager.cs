@@ -244,6 +244,7 @@ public class CardManager : MonoBehaviour
             if (newCard.TryGetComponent<RectTransform>(out var cardRect))
             {
                 DebriManager.ScatterUIPixels(cardRect);
+                SoundManager.PlaySFX("GetCard");
             }
         }
 
@@ -430,6 +431,8 @@ public class CardManager : MonoBehaviour
                 cardCommons.Add(cardCommon);
             }
         }
+        SoundManager.PlaySFX("Card2");
+
         // 5. Wait for player to select
         while (waitingForSelection)
             yield return null;
@@ -460,6 +463,7 @@ public class CardManager : MonoBehaviour
             yield return new WaitForSeconds(0.3f);
             selectedCard.transform.DOScale(1f, waitTime).SetEase(Ease.OutBack);
             DebriManager.ScatterUIPixels(selRect);
+            SoundManager.PlaySFX("GetCard");
             yield return new WaitForSeconds(waitTime);
         }
         // 7. Move to hand if needed
