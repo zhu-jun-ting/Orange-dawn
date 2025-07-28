@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class GameSettings : MonoBehaviour
@@ -65,7 +66,7 @@ public class GameSettings : MonoBehaviour
     [Header("NPC Related")]
     public List<GameObject> NPCs = new List<GameObject>(); // Assign the NPC prefabs in the inspector
 
-    
+
     [System.Serializable]
     public class RoomSignEntry
     {
@@ -80,6 +81,88 @@ public class GameSettings : MonoBehaviour
     {
         var entry = instance.roomSignSprites.Find(e => e.roomType == roomType);
         return entry != null ? entry.signSprite : null;
+    }
+
+    public enum Keyword
+    {
+        None,
+        ValueCard,
+        ActionCard,
+        Base,
+        Gun,
+        Instant,
+        Undraggable,
+        Powerful,
+        Frail,
+        Fragile,
+        Temporary,
+        Volatile,
+        Growing,
+        Decaying,
+        Eternal,
+        Common,
+        Uncommon,
+        Rare,
+        Epic,
+        Legendary
+    }
+
+    public static Keyword GetKeyWord(CardMaster.CardType cardType)
+    {
+        switch (cardType)
+        {
+            case CardMaster.CardType.Base: return Keyword.Base;
+            case CardMaster.CardType.Gun: return Keyword.Gun;
+            case CardMaster.CardType.Instant: return Keyword.Instant;
+            case CardMaster.CardType.Value: return Keyword.ValueCard;
+            case CardMaster.CardType.Action: return Keyword.ActionCard;
+            default: return Keyword.None; // Default to ValueCard if unknown
+        }
+    }
+
+    public static Keyword GetKeyWord(CardMaster.CardRarity cardRarity)
+    {
+        switch (cardRarity)
+        {
+            case CardMaster.CardRarity.Common: return Keyword.Common;
+            case CardMaster.CardRarity.Uncommon: return Keyword.Uncommon;
+            case CardMaster.CardRarity.Rare: return Keyword.Rare;
+            case CardMaster.CardRarity.Epic: return Keyword.Epic;
+            case CardMaster.CardRarity.Legendary: return Keyword.Legendary;
+            default: return Keyword.None; // Default to Common if unknown
+        }
+    }
+
+    public static Keyword GetKeyWord(CardMaster.CardCondition cardCondition)
+    {
+        switch (cardCondition)
+        {
+            case CardMaster.CardCondition.IsFrail: return Keyword.Frail;
+            case CardMaster.CardCondition.IsFragile: return Keyword.Fragile;
+            case CardMaster.CardCondition.IsTemporary: return Keyword.Temporary;
+            case CardMaster.CardCondition.IsVolatile: return Keyword.Volatile;
+            case CardMaster.CardCondition.IsGrowing: return Keyword.Growing;
+            case CardMaster.CardCondition.IsDecaying: return Keyword.Decaying;
+            case CardMaster.CardCondition.IsPowerful: return Keyword.Powerful;
+            case CardMaster.CardCondition.IsUndraggable: return Keyword.Undraggable;
+            default: return Keyword.None; // Default to None if unknown
+        }
+    }
+
+    [System.Serializable]
+    public class KeywordTip
+    {
+        public Keyword keyword;
+        public string tipTitle;
+        [TextArea(2, 5)] public string tipText;
+    }
+
+    [Header("Keyword Tips")]
+    public List<KeywordTip> keywordTips = new List<KeywordTip>();
+
+    public static KeywordTip GetKeywordTip(Keyword keyword)
+    {
+        return instance.keywordTips.Find(tip => tip.keyword == keyword);
     }
 
     /// <summary>
@@ -258,7 +341,7 @@ public class GameSettings : MonoBehaviour
             default: return cond.ToString();
         }
     }
-    
+
     public static string GetDotFxName(EnemyMaster.DotType dotType)
     {
         switch (dotType)
@@ -269,5 +352,21 @@ public class GameSettings : MonoBehaviour
             case EnemyMaster.DotType.Slow: return "FxSlow";
             default: return "UnknownDot";
         }
+    }
+    
+    /// <summary>
+    /// Localizes a string using the "Local" StringTable if available, otherwise returns the original string.
+    /// </summary>
+    public static string LocalizeText(string key)
+    {
+        if (string.IsNullOrEmpty(key)) return key;
+        var table = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetTable("Local");
+        if (table != null)
+        {
+            var entry = table.GetEntry(key);
+            if (entry != null)
+                return entry.GetLocalizedString();
+        }
+        return key;
     }
 }

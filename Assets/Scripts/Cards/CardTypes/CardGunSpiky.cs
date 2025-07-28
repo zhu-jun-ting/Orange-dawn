@@ -73,7 +73,7 @@ public class CardGunSpiky : CardMaster
     {
         if (current_gun != null)
         {
-            return GameSettings.AddIcon(String.Format(card_description, (int)damage, probability));
+            return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)damage, probability));
         }
         return "";
     }

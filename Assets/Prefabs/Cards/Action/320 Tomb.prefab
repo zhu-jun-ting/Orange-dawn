@@ -742,8 +742,7 @@ MonoBehaviour:
   card_name: Tomb
   card_cost: 64
   card_sell_price: 16
-  card_description: "When you direct kill an enemy, Probability: {0}% to call {1}
-    skeleton to help you \nCost Health: {2}"
+  card_description: Tomb_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

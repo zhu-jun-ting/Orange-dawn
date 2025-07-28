@@ -162,10 +162,7 @@ MonoBehaviour:
   card_name: Casino
   card_cost: 38
   card_sell_price: 11
-  card_description: 'this card has Probability: +{0} for every Coin: {1} you have
-
-    Probability:
-    {2}'
+  card_description: Casino_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

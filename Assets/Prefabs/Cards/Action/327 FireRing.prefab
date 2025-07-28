@@ -739,13 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 327
-  card_name: Fire Ring
+  card_name: FireRing
   card_cost: 55
   card_sell_price: 15
-  card_description: 'When you dodge, Probability: {0}% to burn enemies around you
-    with Damage: {1}
-
-    Cost Mana: {2}'
+  card_description: FireRing_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

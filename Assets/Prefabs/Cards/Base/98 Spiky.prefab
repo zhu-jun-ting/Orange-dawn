@@ -163,14 +163,9 @@ MonoBehaviour:
   card_icon: {fileID: 0}
   card_id: 98
   card_name: Spiky
-  card_cost: 0
-  card_sell_price: 0
-  card_description: 'This can be fast and critical
-
-    Bullet speed: Damage: {0}
-
-    Crit
-    Probability: {1}%'
+  card_cost: 41
+  card_sell_price: 11
+  card_description: Spiky_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -191,7 +186,7 @@ MonoBehaviour:
   is_free_card: 1
   is_root: 1
   card_type: 0
-  card_rarity: 0
+  card_rarity: 2
   card_bonds: 
   card_conditions: 00000000
   damage: 2

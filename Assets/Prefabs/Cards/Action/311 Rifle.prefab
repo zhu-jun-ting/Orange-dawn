@@ -742,12 +742,7 @@ MonoBehaviour:
   card_name: Rifle
   card_cost: 48
   card_sell_price: 13
-  card_description: 'When you hit any object in scene, Probability: {0}% to create
-    Amount: {1} bullets towards enemies
-
-    Damage: {2}
-
-    Cost Mana: {3}'
+  card_description: Rifle_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

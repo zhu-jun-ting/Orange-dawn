@@ -69,7 +69,7 @@ public class CardValueDagger : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, damage, health, probability, sellPriceModifier));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), damage, health, probability, sellPriceModifier));
     }
 
     public override UIStar.StarType GetStarType(CardMaster cardMaster = null)

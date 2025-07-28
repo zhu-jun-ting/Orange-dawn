@@ -159,10 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 211
-  card_name: Grass Magnet
+  card_name: GrassMagnet
   card_cost: 24
   card_sell_price: 6
-  card_description: Give this card {0} for each Value Card at STAR
+  card_description: GrassMagnet_desc
   uiStarPositions:
   - {x: 1, y: 0}
   - {x: -1, y: 0}

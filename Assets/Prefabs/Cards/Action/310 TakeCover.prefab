@@ -742,12 +742,7 @@ MonoBehaviour:
   card_name: Take Cover
   card_cost: 44
   card_sell_price: 14
-  card_description: 'When you hit any object in scene, Probability: {0}% to spawn
-    a crate around
-
-    Amount: {1}
-
-    Cost Mana: {2}'
+  card_description: TakeCover_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

@@ -149,13 +149,13 @@ public class ItemMaster : MonoBehaviour
     }
 
     // Show a local info tip above this item
-    public void ShowTip(string tip)
+    public void ShowMessageLocal(string tip)
     {
         if (GameEvents.instance != null)
         {
-            // Add a small vertical padding (e.g., 0.5 units above the item)
-            Vector2 pos = (Vector2)transform.position + new Vector2(0, 0.5f);
-            GameEvents.instance.ShowMessage(tip, GameEvents.MessageType.LocalInfo, pos);
+            // Add a small vertical padding (e.g., 1 unit above the item)
+            Vector2 pos = (Vector2)transform.position + new Vector2(0, 1f);
+            GameEvents.instance.ShowMessage(tip, GameEvents.MessageType.WorldInfo, pos);
         }
     }
 }

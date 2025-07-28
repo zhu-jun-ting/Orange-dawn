@@ -739,13 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 307
-  card_name: Mini Lotto
+  card_name: MiniLotto
   card_cost: 45
   card_sell_price: 12
-  card_description: 'When you break object in scene, maybe give you a random card.
-    This card has the same chance to be destoryed
-
-    Probability: {0}'
+  card_description: MiniLotto_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

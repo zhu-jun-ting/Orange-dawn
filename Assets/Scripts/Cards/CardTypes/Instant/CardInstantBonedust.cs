@@ -24,6 +24,6 @@ public class CardInstantBonedust : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, deathrattle_times));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), deathrattle_times));
     }
 }

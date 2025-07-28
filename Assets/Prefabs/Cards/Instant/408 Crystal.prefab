@@ -611,7 +611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 408
-  card_name: "408\tCrystal"
+  card_name: Crystal
   card_cost: 10
   card_sell_price: 3
   card_description: 
@@ -650,6 +650,12 @@ MonoBehaviour:
   default_amount: 0
   default_mana: 0
   default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}

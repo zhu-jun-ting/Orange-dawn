@@ -58,6 +58,6 @@ public class CardValueFibonacci : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, increment, damageMultiplier, fibonacciList[fibIndex]));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), increment, damageMultiplier, fibonacciList[fibIndex]));
     }
 }

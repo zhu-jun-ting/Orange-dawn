@@ -48,7 +48,7 @@ public class ItemLootBox : ItemMaster
         if (cardsToGiveDb.Count > 0 && CardManager.instance != null)
         {
             CardManager.instance.QueueAddCardObjects(cardsToGiveDb);
-            ShowTip(GameSettings.AddIcon(tip));
+            ShowMessageLocal(GameSettings.AddIcon(tip));
         }
     }
 

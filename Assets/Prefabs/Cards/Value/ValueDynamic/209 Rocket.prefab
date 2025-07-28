@@ -162,10 +162,7 @@ MonoBehaviour:
   card_name: Rocket
   card_cost: 34
   card_sell_price: 10
-  card_description: 'this card has Damage: {0} if you have Coin: >={1}
-
-    Damage:
-    {2}'
+  card_description: Rocket_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

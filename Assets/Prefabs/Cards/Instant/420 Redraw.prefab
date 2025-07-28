@@ -610,7 +610,7 @@ MonoBehaviour:
   card_name: Redraw
   card_cost: 38
   card_sell_price: 11
-  card_description: 'Discard the linked card, then find a card with same rarity. '
+  card_description: Redraw_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

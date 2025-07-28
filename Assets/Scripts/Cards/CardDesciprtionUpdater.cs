@@ -1,12 +1,12 @@
+
 using UnityEngine;
 using TMPro;
 using GLTFast.Schema;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class CardDesciprtionUpdater : MonoBehaviour
+public class CardDesciprtionUpdater : MonoBehaviour, UnityEngine.EventSystems.IPointerEnterHandler, UnityEngine.EventSystems.IPointerExitHandler
 {
-
     private CardMaster cardMaster;
 
     [Header("UI References")]
@@ -30,6 +30,64 @@ public class CardDesciprtionUpdater : MonoBehaviour
 
     public List<ConditionPrefabPair> conditionPrefabList;
     private Dictionary<CardMaster.CardCondition, GameObject> _conditionPrefabDict;
+
+    [Header("Tags Tansform")]
+    public Transform tagsTransform; // Parent for tags visuals
+    public GameObject tagPrefab; // Prefab for each tag visual
+
+    [System.Serializable]
+    public class KeywordColorPair
+    {
+        public GameSettings.Keyword keyword;
+        public Color color = Color.white;
+    }
+
+    [Header("Keyword Colors")]
+    public List<KeywordColorPair> keywordColors = new List<KeywordColorPair>();
+
+    // --- Hover tip logic ---
+    private Coroutine hoverTipCoroutine;
+    public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData)
+    {
+        if (hoverTipCoroutine != null) StopCoroutine(hoverTipCoroutine);
+        hoverTipCoroutine = StartCoroutine(ShowCardTipsAfterDelay(0.5f));
+    }
+    public void OnPointerExit(UnityEngine.EventSystems.PointerEventData eventData)
+    {
+        if (hoverTipCoroutine != null)
+        {
+            StopCoroutine(hoverTipCoroutine);
+            hoverTipCoroutine = null;
+        }
+        CanvasManager.HideTip();
+    }
+    private System.Collections.IEnumerator ShowCardTipsAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ShowCardTips();
+    }
+    private void ShowCardTips()
+    {
+        if (cardMaster == null) return;
+        // Show tips for additional_mousetips
+        if (cardMaster.additional_mousetips != null)
+        {
+            foreach (var keyword in cardMaster.additional_mousetips)
+            {
+                CanvasManager.ShowTip(keyword);
+            }
+        }
+        // Show tips for card_conditions
+        if (cardMaster.card_conditions != null)
+        {
+            foreach (var cond in cardMaster.card_conditions)
+            {
+                var keyword = GameSettings.GetKeyWord(cond);
+                CanvasManager.ShowTip(keyword);
+            }
+        }
+    }
+
     private void Awake()
     {
         // Build the dictionary from the list
@@ -73,6 +131,55 @@ public class CardDesciprtionUpdater : MonoBehaviour
             entryExit.callback.AddListener((ev) => HideCardBondTip());
             trigger.triggers.Add(entryExit);
         }
+
+        // add card rarity and card type to keywords
+        if (cardMaster != null)
+        {
+            if (!cardMaster.additional_tags.Contains(GameSettings.GetKeyWord(cardMaster.card_rarity)))
+                cardMaster.additional_tags.Add(GameSettings.GetKeyWord(cardMaster.card_rarity));
+            if (!cardMaster.additional_tags.Contains(GameSettings.GetKeyWord(cardMaster.card_type)))
+                cardMaster.additional_tags.Add(GameSettings.GetKeyWord(cardMaster.card_type));
+        }
+
+        // --- Create tag prefabs for additional_keywords ---
+        if (tagsTransform != null && tagPrefab != null && cardMaster != null && cardMaster.additional_tags != null)
+        {
+            // Remove old tags
+            for (int i = tagsTransform.childCount - 1; i >= 0; i--)
+            {
+                Destroy(tagsTransform.GetChild(i).gameObject);
+            }
+            foreach (var keyword in cardMaster.additional_tags)
+            {
+                var go = Instantiate(tagPrefab, tagsTransform);
+                // Find TMP_Text in children
+                var tmp = go.GetComponentInChildren<TMPro.TMP_Text>();
+                if (tmp != null)
+                {
+                    tmp.text = GameSettings.LocalizeText(GameSettings.GetKeywordTip(keyword).tipTitle);
+                }
+                // Find Image in children and set color
+                var img = go.GetComponentInChildren<UnityEngine.UI.Image>();
+                if (img != null)
+                {
+                    img.color = GetKeywordColor(keyword);
+                }
+            }
+        }
+        // headingText.text = cardMaster.GetName();
+        // descriptionText.text = cardMaster.GetDescription();
+    }
+
+    // Returns a color for a given keyword (customize as needed)
+    private Color GetKeywordColor(GameSettings.Keyword keyword)
+    {
+        if (keywordColors != null)
+        {
+            var pair = keywordColors.Find(x => x.keyword == keyword);
+            if (pair != null)
+                return pair.color;
+        }
+        return Color.white;
     }
 
     private void ShowCardBondTip()

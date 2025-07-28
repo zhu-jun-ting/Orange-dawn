@@ -739,12 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 309
-  card_name: Chip Lotto
+  card_name: ChipLotto
   card_cost: 37
   card_sell_price: 10
-  card_description: "When you break object in scene, Probability: {0}% trigger a
-    lightning to Amount: {1} nearby enemies. But this card has a small chance to
-    break. \nDamage: {2}\nMana: {3}"
+  card_description: ChipLotto_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

@@ -164,12 +164,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 202
-  card_name: Attack Dice
+  card_name: Attackdice
   card_cost: 16
   card_sell_price: 4
-  card_description: 'add Damage: {1}~{2}, change at turn ends
-
-    Damage: {0}'
+  card_description: Attackdice_desc
   uiStarPositions: []
   numberTypesCanBeModified: 00000000
   current_gun: {fileID: 0}
@@ -205,6 +203,12 @@ MonoBehaviour:
   default_amount: 0
   default_mana: 0
   default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}

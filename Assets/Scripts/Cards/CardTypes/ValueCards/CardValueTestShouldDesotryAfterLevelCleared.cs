@@ -43,7 +43,7 @@ public class CardValueTestShouldDesotryAfterLevelCleared : CardMaster
             }
         }
 
-        // card_description = string.Format(card_description, attackToAdd);
+        // card_description = string.Format(GameSettings.LocalizeText(card_description), attackToAdd);
         base.OnCardEnable();
     }
 
@@ -62,15 +62,15 @@ public class CardValueTestShouldDesotryAfterLevelCleared : CardMaster
     public override void Reset()
     {
         attackToAdd = attackToAddDefault;
-        // card_description = string.Format(card_description, attackToAdd);
+        // card_description = string.Format(GameSettings.LocalizeText(card_description), attackToAdd);
         base.Reset(); // Call the base reset method to reset other properties
-        // Debug.Log("Reset ---" + string.Format(card_description, attackToAdd));
+        // Debug.Log("Reset ---" + string.Format(GameSettings.LocalizeText(card_description), attackToAdd));
     }
     
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, attackToAdd));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), attackToAdd));
     }
 
     public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)

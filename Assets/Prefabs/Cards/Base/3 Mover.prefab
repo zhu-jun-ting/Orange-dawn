@@ -636,8 +636,8 @@ MonoBehaviour:
   card_icon: {fileID: 0}
   card_id: 3
   card_name: Mover
-  card_cost: 0
-  card_sell_price: 0
+  card_cost: 35
+  card_sell_price: 10
   card_description: 'Increase your move speed by Probability: {0}%'
   uiStarPositions: []
   numberTypesCanBeModified: 
@@ -659,7 +659,7 @@ MonoBehaviour:
   is_free_card: 1
   is_root: 1
   card_type: 0
-  card_rarity: 0
+  card_rarity: 2
   card_bonds: 
   card_conditions: 00000000
   damage: 0

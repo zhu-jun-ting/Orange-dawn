@@ -666,7 +666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_Name
-      value: 303 Electrify Variant
+      value: 303 Electrify
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_IsActive
@@ -742,14 +742,7 @@ MonoBehaviour:
   card_name: Electrify
   card_cost: 32
   card_sell_price: 8
-  card_description: 'When bullet reflects, Probability: {0}% electrify bullet with
-    AOE around
-
-    Damage: {1}
-
-    Probability: {0}%
-
-    Mana: {2}'
+  card_description: Electrify_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

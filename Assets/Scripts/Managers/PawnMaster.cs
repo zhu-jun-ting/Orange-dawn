@@ -194,7 +194,7 @@ public class PawnMaster : MonoBehaviour, IBuffable
     public static void ShowPopup(string message)
     {
         if (instance == null || GameEvents.instance == null) return;
-        Vector2 popupPos = (Vector2)instance.transform.position + new Vector2(0, 2f); // 2 units above player
-        GameEvents.instance.ShowMessage(message, GameEvents.MessageType.LocalInfo, popupPos);
+        Vector2 popupPos = (Vector2)instance.transform.position + new Vector2(0, 1f); // 1 unit above player
+        GameEvents.instance.ShowMessage(message, GameEvents.MessageType.WorldInfo, popupPos);
     }
 }

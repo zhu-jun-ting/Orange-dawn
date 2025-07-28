@@ -162,15 +162,7 @@ MonoBehaviour:
   card_name: Dagger
   card_cost: 68
   card_sell_price: 14
-  card_description: 'When turn ends, discard the STAR card and add {3} of its sell
-    price to a random value permanently
-
-    Damage: {0}
-
-    Health: {1}
-
-    Probability:
-    {2}'
+  card_description: Dagger_desc
   uiStarPositions:
   - {x: 0, y: 1}
   numberTypesCanBeModified: 

@@ -20,12 +20,12 @@ public class ItemPowerUpBox : ItemMaster
             if (tempDamage != 0f)
             {
                 bullet.gun.tempDamage += tempDamage;
-                ShowTip(GameSettings.AddIcon(string.Format(tip, tempDamage, "DAMAGE")));
+                ShowMessageLocal(GameSettings.AddIcon(string.Format(tip, tempDamage, "DAMAGE")));
             }
             if (tempSpeed != 0f)
             {
                 bullet.gun.tempSpeed += tempSpeed;
-                ShowTip(GameSettings.AddIcon(string.Format(tip, tempSpeed, "SPEED")));
+                ShowMessageLocal(GameSettings.AddIcon(string.Format(tip, tempSpeed, "SPEED")));
             }
         }
     }

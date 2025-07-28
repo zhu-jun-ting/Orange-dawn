@@ -26,7 +26,7 @@ public class CardBaseDodger : CardMaster
         if (player == null) player = PlayerController.instance;
         if (player != null)
         {
-            return GameSettings.AddIcon(string.Format(card_description,
+            return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description),
                 (int)health,
                 (int)probability
             ));

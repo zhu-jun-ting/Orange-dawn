@@ -27,7 +27,7 @@ public class ItemDeath : ItemMaster
                 if (card != null)
                 {
                     card.OnCardDestroyed();
-                    ShowTip(GameSettings.AddIcon(string.Format(tip, card.card_name)));
+                    ShowMessageLocal(GameSettings.AddIcon(string.Format(tip, card.card_name)));
                 }
             }
         }

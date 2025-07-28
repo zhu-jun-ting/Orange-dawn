@@ -58,7 +58,7 @@ public class CardValueAddHealth : CardMaster
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, attackToAdd));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), attackToAdd));
     }
 
     public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)

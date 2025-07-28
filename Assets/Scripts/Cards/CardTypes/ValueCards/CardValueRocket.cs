@@ -62,6 +62,6 @@ public class CardValueRocket : CardMaster
     public override string GetDescription()
     {
         return GameSettings.AddIcon(
-            string.Format(card_description, bonusDamage, coinThreshold, damage));
+            string.Format(GameSettings.LocalizeText(card_description), bonusDamage, coinThreshold, damage));
     }
 }

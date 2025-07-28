@@ -23,6 +23,6 @@ public class CardValueSunflower : CardMaster
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, damage, incrementAfterLevelCleared));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), damage, incrementAfterLevelCleared));
     }
 }

@@ -73,7 +73,7 @@ public class CardGunPingPong : CardMaster
     {
         if (current_gun != null)
         {
-            return GameSettings.AddIcon(String.Format(card_description, (int)damage, (int)amount));
+            return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)damage, (int)amount));
         }
         return "";
     }

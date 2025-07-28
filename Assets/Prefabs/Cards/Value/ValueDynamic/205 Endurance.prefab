@@ -162,10 +162,7 @@ MonoBehaviour:
   card_name: Endurance
   card_cost: 23
   card_sell_price: 8
-  card_description: 'when you take damage, Probability: {0}% this card will gain
-    Health: {1}
-
-    Health: {2}'
+  card_description: Endurance_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

@@ -159,12 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 201
-  card_name: Sunflower
+  card_name: SUNFLOWER
   card_cost: 12
   card_sell_price: 3
-  card_description: 'Increase Damage: {1} when turn ends
-
-    Damage: {0}'
+  card_description: SUNFLOWER_DESC
   uiStarPositions: []
   numberTypesCanBeModified: 00000000
   current_gun: {fileID: 0}
@@ -200,7 +198,13 @@ MonoBehaviour:
   default_amount: 0
   default_mana: 0
   default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
-  incrementAfterLevelCleared: 1
+  incrementAfterLevelCleared: 2

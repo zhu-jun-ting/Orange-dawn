@@ -739,11 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 315
-  card_name: Arcane Ticket
+  card_name: ArcaneTicket
   card_cost: 62
   card_sell_price: 15
-  card_description: 'At the start of level, spawn {0} Mage Ally with {1} x Health:
-    ({2}) and {3} x Damage: ({4})'
+  card_description: ArcaneTicket_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

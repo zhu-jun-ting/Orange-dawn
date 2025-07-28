@@ -742,8 +742,7 @@ MonoBehaviour:
   card_name: Skeleton
   card_cost: 31
   card_sell_price: 8
-  card_description: "Spawn skeletons when level starts. \nDamage: {0}\nHealth: {1]\nAmount:
-    {2}"
+  card_description: Skeleton_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

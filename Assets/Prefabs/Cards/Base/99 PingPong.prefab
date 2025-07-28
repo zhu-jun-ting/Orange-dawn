@@ -150,10 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 99
-  card_name: PISTOL
-  card_cost: 0
-  card_sell_price: 0
-  card_description: "Your first ping pong ball! \n\nDamage: {0}\nAmount: {1}"
+  card_name: PingPong
+  card_cost: 40
+  card_sell_price: 10
+  card_description: PingPong_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   is_free_card: 1
   is_root: 1
   card_type: 1
-  card_rarity: 0
+  card_rarity: 2
   card_bonds: 
   card_conditions: 00000000
   damage: 3

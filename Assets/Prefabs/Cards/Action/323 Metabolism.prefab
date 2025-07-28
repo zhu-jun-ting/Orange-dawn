@@ -742,10 +742,7 @@ MonoBehaviour:
   card_name: Metabolism
   card_cost: 63
   card_sell_price: 16
-  card_description: 'When you take damage, Probability: {0}% to create a bullet Accelerator
-    or Cloner
-
-    Cost: Coin {1}'
+  card_description: Metabolism_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

@@ -636,9 +636,9 @@ MonoBehaviour:
   card_icon: {fileID: 0}
   card_id: 2
   card_name: Mana
-  card_cost: 0
-  card_sell_price: 0
-  card_description: 'Give you MaxMana Mana: {0}'
+  card_cost: 44
+  card_sell_price: 11
+  card_description: Mana_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -659,7 +659,7 @@ MonoBehaviour:
   is_free_card: 1
   is_root: 1
   card_type: 0
-  card_rarity: 0
+  card_rarity: 2
   card_bonds: 
   card_conditions: 00000000
   damage: 0

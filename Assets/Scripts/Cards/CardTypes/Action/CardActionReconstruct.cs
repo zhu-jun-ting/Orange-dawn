@@ -81,6 +81,6 @@ public class CardActionReconstruct : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, probability, (int)health));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, (int)health));
     }
 }

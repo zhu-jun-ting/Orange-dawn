@@ -26,7 +26,7 @@ public class CardBaseMana : CardMaster
         if (player == null) player = PlayerController.instance;
         if (player != null)
         {
-            return GameSettings.AddIcon(string.Format(card_description, (int)mana ));
+            return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)mana ));
         }
         return "";
     }

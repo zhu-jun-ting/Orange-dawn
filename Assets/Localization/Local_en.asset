@@ -52,6 +52,824 @@ MonoBehaviour:
     m_Localized: Resume
     m_Metadata:
       m_Items: []
+  - m_Id: 988513970110464
+    m_Localized: Sunflower
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1169767042596864
+    m_Localized: "Increase Damage: {1} when turn ends\n Damage: {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1347865998475264
+    m_Localized: Attack Dice
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1348006033702912
+    m_Localized: "add Damage: {1}~{2}, change at turn ends\n Damage: {0}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114058153984
+    m_Localized: Value Card
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348288
+    m_Localized: Update values of other cards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348289
+    m_Localized: Action Card
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348290
+    m_Localized: Give you powerful skills when triggered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348291
+    m_Localized: Base Card
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348292
+    m_Localized: Modify some of your stats
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348293
+    m_Localized: Gun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348294
+    m_Localized: Bullet emmiters
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348295
+    m_Localized: Instant
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348296
+    m_Localized: Take effect only one time
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348297
+    m_Localized: Undraggable
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348298
+    m_Localized: Can not be moved on board
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348299
+    m_Localized: Powerful
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348300
+    m_Localized: Card value is multiplied by 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348301
+    m_Localized: Frail
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348302
+    m_Localized: Card value is halved
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348303
+    m_Localized: Fragile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348304
+    m_Localized: Card may be destroyed when turn ends
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348305
+    m_Localized: Temporary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348306
+    m_Localized: Card is auto-destroyed after turn ends
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348307
+    m_Localized: Volatile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348308
+    m_Localized: card may change to another card after turn ends
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348309
+    m_Localized: Growing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114062348310
+    m_Localized: Card's values grow randomly each turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542592
+    m_Localized: Decaying
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542593
+    m_Localized: Card's values decay randomly each turn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542594
+    m_Localized: Eternal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542595
+    m_Localized: Card cannot be destroyed or sold
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542596
+    m_Localized: Common
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542597
+    m_Localized: Uncommon
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542598
+    m_Localized: Rare
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542599
+    m_Localized: Epic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542600
+    m_Localized: Legendary
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542606
+    m_Localized: Fibonacci
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542607
+    m_Localized: "increment by {0} when next fibbonacci number is reached (next:
+      {2})\n Damage: \xD7{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542608
+    m_Localized: Alone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542609
+    m_Localized: "increment by {0} for each empty  STAR slots\n Damage: \xD7{1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542610
+    m_Localized: Endurance
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542611
+    m_Localized: "when you take damage, Probability: {0}%  this card will gain Health:
+      {1}\n Health: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542612
+    m_Localized: Rich
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542613
+    m_Localized: "When you spend any coin, spend  Coin: {0} more to gain Health:
+      {1} for this card \n Health: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542614
+    m_Localized: Stray
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542615
+    m_Localized: "This card has Damage: {0} if you have  Coin: <={1}\n Damage: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542616
+    m_Localized: Casino
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542617
+    m_Localized: "this card has Probability: +{0} for every  Coin: {1} you have\n
+      Probability: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542618
+    m_Localized: Rocket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542619
+    m_Localized: "this card has Damage: {0} if you have  Coin: >={1}\n Damage: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542620
+    m_Localized: Metal Magnet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542621
+    m_Localized: 'Give this card {0} for each Value Card at STAR '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542622
+    m_Localized: Grass Magnet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542623
+    m_Localized: 'Give this card {0} for each Value Card at STAR '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542624
+    m_Localized: Fluffy Magnet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542625
+    m_Localized: 'Give this card {0} for each Uncommon Card at STAR '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542626
+    m_Localized: Gold Magnet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542627
+    m_Localized: 'Give this card {0} for each Epic Card at STAR '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542628
+    m_Localized: Crystal Magnet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542629
+    m_Localized: 'Give this card {0} for each Action Card at STAR '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542630
+    m_Localized: Bone Pile
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114066542631
+    m_Localized: "Each time this card being discarded will give you back but Damage:
+      {0} Permanently (Will destory forever if Damage: <=0 )\n Damage: {1}\n\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736896
+    m_Localized: "Each time this card being discarded will give you back but Health:
+      {0} Permanently (Will destory forever if Health: <=0 )\n Health: {1}\n\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736897
+    m_Localized: Lost Treasure
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736898
+    m_Localized: "When discarded, give you  Coin: {0}\n Health: {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736899
+    m_Localized: Dagger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736900
+    m_Localized: "When turn ends, discard the  STAR card and add {3} of its sell
+      price to a random value permanently\n Damage: {0}\n Health: {1}\n Probability:
+      {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736901
+    m_Localized: Block Miner
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736902
+    m_Localized: Activate the link direction's slot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736903
+    m_Localized: Tough
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736904
+    m_Localized: Permanently give linked card(s)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736905
+    m_Localized: Muscle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736906
+    m_Localized: Lucky
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736907
+    m_Localized: Duplicate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736908
+    m_Localized: Wallet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736909
+    m_Localized: Crystal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736910
+    m_Localized: White Paper
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736911
+    m_Localized: 'Remove all tags on the linked card. Each condition removed, give
+      you  Coin: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736912
+    m_Localized: Incrementor
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736913
+    m_Localized: Instantly give linked card to increase Damage value by {0} at wave
+      clears
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736914
+    m_Localized: Savings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736915
+    m_Localized: Pill
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736916
+    m_Localized: Remove up to {0} negative conditions from linked card(s)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736917
+    m_Localized: Antidote
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736918
+    m_Localized: Remove up to {0} negative conditions from linked card(s)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736919
+    m_Localized: Asprine
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736920
+    m_Localized: Remove all negavite conditions on linked card(s)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736921
+    m_Localized: Redraw
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736922
+    m_Localized: 'Discard the linked card, then find a card with same rarity. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736923
+    m_Localized: Blend
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736924
+    m_Localized: Discard the linked card, then find a card with same bond
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736925
+    m_Localized: Fungus
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736926
+    m_Localized: Make linked card Grow once per {0} cards discarded (currently {1}
+      times)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736927
+    m_Localized: Heart Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736928
+    m_Localized: 'Target an Action Card: When triggers, recover you Health: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736929
+    m_Localized: ManaSticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736930
+    m_Localized: 'Target an Action Card: When triggers, give you Mana: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736931
+    m_Localized: Box Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736932
+    m_Localized: 'Target an Action Card: When trigger, Probability: {0}%  to spawn
+      a random box'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736933
+    m_Localized: Trap Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736934
+    m_Localized: 'Target an Action Card: When trigger, Probability: {0}%  to spawn
+      a random ground trap'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736935
+    m_Localized: Lightning Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736936
+    m_Localized: 'Target an Action Card: When trigger, Probability: 30% to call a
+      lightning deals Damage: {1} around'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736937
+    m_Localized: Aid Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736938
+    m_Localized: 'Target an Action Card: When trigger, Probability: {0}%  to spawn
+      a health potion around'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736939
+    m_Localized: Clock Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736940
+    m_Localized: 'Target an Action Card: When trigger, Probability: {0}%  to trigger
+      another card on board'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736941
+    m_Localized: Battery Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736942
+    m_Localized: 'Target an Action Card: When trigger, Probability: {0}%  to Charge
+      a Ally around'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736943
+    m_Localized: Laser Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736944
+    m_Localized: 'Target an Action Card: When trigger, Probability: {0}%  to shoot
+      a horizontal beam with Damage: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736945
+    m_Localized: Strip Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736946
+    m_Localized: 'Target an Action Card: When trigger, Probability: {0}%  to shoot
+      a verticle beam with Damage: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736947
+    m_Localized: Torch Sticker
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736948
+    m_Localized: 'Target an Action Card: When trigger, Probability: {0}%  to inflict
+      fire around'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736949
+    m_Localized: Dodger
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736950
+    m_Localized: "You can dodge enemy attacks! \n\n Health: {0}\nDodge Probability:
+      {1}%  (max 70%)"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736951
+    m_Localized: Mana
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736952
+    m_Localized: 'Give you MaxMana Mana: {0}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736953
+    m_Localized: Mover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736954
+    m_Localized: 'Increase your move speed by Probability: {0}% '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736955
+    m_Localized: Water Gun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736956
+    m_Localized: "Waterballs can recover your mana when fired\n Damage: {0}\n Mana:
+      {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736957
+    m_Localized: Spiky
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736958
+    m_Localized: 'This can be fast and critical
+
+      Bullet speed: Damage: {0}
+
+      Crit
+      Probability: {1}% '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736959
+    m_Localized: Ping Pong
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736960
+    m_Localized: "Your first ping pong ball! \n\n Damage: {0}\n Amount: {1}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736961
+    m_Localized: Skeleton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736962
+    m_Localized: "Spawn skeletons when level STAR ts. \n Damage: {0}\n Health: {1}\n
+      Amount: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736963
+    m_Localized: Electrify
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736964
+    m_Localized: "When bullet reflects, Probability: {0}%  electrify bullet with
+      AOE around\n Damage: {1}\n Mana: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736965
+    m_Localized: Lich King
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736966
+    m_Localized: At the end of each level, give you a random Temporary card.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736967
+    m_Localized: Mass Effect
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736968
+    m_Localized: "when accumulated Damage reaches Damage: {0}, Probability: {1}% 
+      to explode around you and push enimies away\n Damage: {2}\n"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736969
+    m_Localized: Heavy Punch
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736970
+    m_Localized: 'when you deal a one time Damage exceeds Damage: {0}
+
+      explode
+      the exceeded damage. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736971
+    m_Localized: Mini Lotto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736972
+    m_Localized: 'When you break object in scene, Probability: {0} give you a random
+      card. This card has the same chance to be destoryed'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736973
+    m_Localized: Green Lotto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736974
+    m_Localized: 'When you break object in scene, Probability: {0} the linked card
+      grow. This card has the same chance to be destoryed
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736975
+    m_Localized: Chip Lotto
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114070736976
+    m_Localized: "When you break object in scene, Probability: {0}%  trigger a lightning
+      to Amount: {1} nearby enemies. But this card has a small chance to break. \n
+      Damage: {2}\n Mana: {3}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931200
+    m_Localized: Take Cover
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931201
+    m_Localized: "When you hit any object in scene, Probability: {0}%  to spawn a
+      crate around\n Amount: {1}\nCost Mana: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931202
+    m_Localized: Rifle
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931203
+    m_Localized: "When you hit any object in scene, Probability: {0}%  to create
+      Amount: {1} bullets towards enemies\n Damage: {2}\nCost Mana: {3}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931204
+    m_Localized: Artillery
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931205
+    m_Localized: "When you break any object in scene, Probability: {0}%  to shoot
+      Amount: {1} explosive bullets towards enemies\n Damage: {2}\nCost Mana: {3}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931206
+    m_Localized: Baseball Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931207
+    m_Localized: 'At the STAR t of level, spawn {0} Batter Ally with {1} x Health:
+      ({2}) and {3} x Damage: ({4})'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931208
+    m_Localized: Range Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931209
+    m_Localized: 'At the STAR t of level, spawn {0} Shooter Ally with {1} x Health:
+      ({2}) and {3} x Damage: ({4})'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931210
+    m_Localized: Arcane Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931211
+    m_Localized: 'At the STAR t of level, spawn {0} Mage Ally with {1} x Health:
+      ({2}) and {3} x Damage: ({4})'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931212
+    m_Localized: Vault Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931213
+    m_Localized: 'At the STAR t of level, spawn {0} Healer Ally with {1} x Health:
+      ({2}) and {3} x Damage: ({4})'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931214
+    m_Localized: Graveyard Ticket
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931215
+    m_Localized: 'At the STAR t of level, spawn {0} Skeleton Ally with {1} x Health:
+      ({2}) and {3} x Damage: ({4})'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931216
+    m_Localized: Boots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931217
+    m_Localized: 'When you move {0}m, Amount: {1} random Ally with {2} x Health:
+      ({3}) and {4} x Damage: ({5}) will help you a while
+
+      Cost  Coin: {6}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931218
+    m_Localized: Ancient Tablet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931219
+    m_Localized: 'When you Charge any Ally, Probability: {0}%  to spawn Amount: {1}
+      skeleton with {2} x Health: ({3}) and {4} x Damage: ({5}) for a while
+
+      Cost
+      Health: {6}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931220
+    m_Localized: Tomb
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931221
+    m_Localized: "When you direct kill an enemy, Probability: {0}%  to call {1} skeleton
+      to help you \nCost Health: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931222
+    m_Localized: Poisoned Knife
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931223
+    m_Localized: "When you kill an enemy with a crit hit, Probability: {0}%  to spawn
+      a poison area around\n Damage: {1}\nCost  Coin: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931224
+    m_Localized: Prime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931225
+    m_Localized: 'If your killing damage is a prime number, Probability: {0} to shoot
+      Amount: {1} copies of the pinball
+
+      cost Mana: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931226
+    m_Localized: Metabolism
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931227
+    m_Localized: 'When you take damage, Probability: {0}%  to create a bullet Accelerator
+      or Cloner
+
+      Cost: Coin {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931228
+    m_Localized: Reconstruct
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931229
+    m_Localized: 'When object in scene destoryed, Probability: {0}%  to create a
+      bullet Accelerator or Cloner
+
+      Cost Health: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931230
+    m_Localized: Smoke Bomb
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931231
+    m_Localized: 'when you dodge, Probability: {0}%  push enemies away around you
+      with Damage: {1}, each enemy hit recover Health: 2
+
+      Cost Mana: {2}
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931232
+    m_Localized: Revolver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931233
+    m_Localized: 'when you dodge, Probability: {0}%  shoot Amount: {1} additional
+      pinball
+
+      cost Health: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931234
+    m_Localized: Fire Ring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931235
+    m_Localized: 'When you dodge, Probability: {0}%  to burn enemies around you with
+      Damage: {1}
+
+      Cost Mana: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931236
+    m_Localized: Wild Fire
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931237
+    m_Localized: 'When a burning enemy dies, Probability: {0}%  to explode Damage:
+      {1} and burn enemies around
+
+      Cost:  Coin: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931238
+    m_Localized: Musketeers
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1455114074931239
+    m_Localized: 'When a burning enemy dies, Probability: {0}%  to Deal Damage: {1}
+      Along a line
+
+      Cost: Health: {2}'
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

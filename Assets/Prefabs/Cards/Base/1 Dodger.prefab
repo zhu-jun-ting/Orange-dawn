@@ -636,9 +636,9 @@ MonoBehaviour:
   card_icon: {fileID: 0}
   card_id: 1
   card_name: Dodger
-  card_cost: 0
-  card_sell_price: 0
-  card_description: "This is you! \n\nHealth: {0}\nDodge Probability: {1}% (max 70%)"
+  card_cost: 38
+  card_sell_price: 12
+  card_description: Dodger_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -659,7 +659,7 @@ MonoBehaviour:
   is_free_card: 1
   is_root: 1
   card_type: 0
-  card_rarity: 0
+  card_rarity: 2
   card_bonds: 
   card_conditions: 00000000
   damage: 0

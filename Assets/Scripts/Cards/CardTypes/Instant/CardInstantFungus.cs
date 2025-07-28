@@ -35,6 +35,6 @@ public class CardInstantFungus : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, growInterval, times));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), growInterval, times));
     }
 }

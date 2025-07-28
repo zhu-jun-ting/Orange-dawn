@@ -610,7 +610,7 @@ MonoBehaviour:
   card_name: Mana Sticker
   card_cost: 0
   card_sell_price: 0
-  card_description: 'Target an Action Card: When triggers, give you Mana: {0}'
+  card_description: ManaSticker_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -656,5 +656,5 @@ MonoBehaviour:
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   giveMana: 1
-  buffName: Mana Sticker
-  buffDescription: 'When this Action Card triggers, gain Mana: {0}'
+  manaBuffName: Mana Sticker
+  manaBuffDescription: 'When this Action Card triggers, gain Mana: {0}'

@@ -139,7 +139,7 @@ public class GameEvents : MonoBehaviour
         OnUpdateHealth?.Invoke(diffHealth);
     }
 
-    public enum MessageType { FullInfo, FullWarning, LocalInfo, Banner }
+    public enum MessageType { FullInfo, FullWarning, LocalInfo, WorldInfo, Banner }
     public event Action<string, MessageType, Vector2> OnShowMessage;
     public void ShowMessage(string message, MessageType type = MessageType.FullInfo, Vector2 position = default(Vector2))
     {
@@ -240,7 +240,7 @@ public class GameEvents : MonoBehaviour
         // Move the message position up a bit (e.g., by 1 unit on Y axis)
         Vector2 messagePosition = target.position;
         messagePosition.y += 1f;
-        GameEvents.instance.ShowMessage($"Triggered {card.card_name}", GameEvents.MessageType.LocalInfo, RectTransformUtility.WorldToScreenPoint(null, messagePosition));
+        GameEvents.instance.ShowMessage($"Triggered {card.card_name}", GameEvents.MessageType.WorldInfo, messagePosition);
     }
 
     public event Action<CardMaster, Vector2Int> OnDropCardOnBoard;

@@ -73,7 +73,7 @@ public class CardActionHeavyPunch : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, damageThreshold));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), damageThreshold));
     }
 
     public override void Reset()

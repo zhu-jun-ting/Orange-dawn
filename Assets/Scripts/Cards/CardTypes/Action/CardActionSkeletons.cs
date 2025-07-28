@@ -71,6 +71,6 @@ public class CardActionSkeletons : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, damage, health, (int)amount));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), damage, health, (int)amount));
     }
 }

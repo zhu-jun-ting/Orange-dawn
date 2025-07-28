@@ -42,14 +42,14 @@ public class CardInstantValueAdder : CardMaster
     {
         // Build a string like "Permanently give the linked card Damage: XX, Health: YY, ..." for all nonzero stats
         List<string> parts = new List<string>();
-        if (damage != 0) parts.Add($"Damage: {damage}");
-        if (health != 0) parts.Add($"Health: {health}");
-        if (probability != 0) parts.Add($"Probability: {probability}");
-        if (amount != 0) parts.Add($"Amount: {amount}");
-        if (mana != 0) parts.Add($"Mana: {mana}");
-        if (coin != 0) parts.Add($"Coin: {coin}");
+        if (damage != 0) parts.Add($"Damage: {(int)damage}");
+        if (health != 0) parts.Add($"Health: {(int)health}");
+        if (probability != 0) parts.Add($"Probability: {(int)probability}");
+        if (amount != 0) parts.Add($"Amount: {(int)amount}");
+        if (mana != 0) parts.Add($"Mana: {(int)mana}");
+        if (coin != 0) parts.Add($"Coin: {(int)coin}");
         if (parts.Count == 0) return "No permanent stat increases.";
         string joined = string.Join(", ", parts);
-        return GameSettings.AddIcon($"Permanently give linked card(s) {joined}");
+        return GameSettings.AddIcon($"{GameSettings.LocalizeText("ValueAdder_desc")} {joined}");
     }
 }

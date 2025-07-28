@@ -147,6 +147,8 @@ public class CardMaster : MonoBehaviour
     public CardRarity card_rarity = CardRarity.Common; // Rarity of the card, used for UIStars
     public List<CardBond> card_bonds = new List<CardBond>(); // List of card bonds this card has, used for UIStars
     public List<CardCondition> card_conditions = new List<CardCondition>(); // List of conditions this card has
+    public List<GameSettings.Keyword> additional_tags = new List<GameSettings.Keyword>(); // List of keywords this card has, used for UIStars
+    public List<GameSettings.Keyword> additional_mousetips = new List<GameSettings.Keyword>(); // List of keywords this card has, used for UIStars
 
     [Header("Card Values")]
     public float damage = 0f; // Damage value of the card, used for guns
@@ -354,15 +356,15 @@ public class CardMaster : MonoBehaviour
     {
         ResetUIStars();
         OnUpdateCardTexts?.Invoke();
-        var table = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetTable("Local");
-        if (table != null && !string.IsNullOrEmpty(card_name))
-        {
-            var entry = table.GetEntry(card_name);
-            if (entry != null)
-            {
-                card_name = entry.GetLocalizedString();
-            }
-        }
+        // var table = UnityEngine.Localization.Settings.LocalizationSettings.StringDatabase.GetTable("Local");
+        // if (table != null && !string.IsNullOrEmpty(card_name))
+        // {
+        //     var entry = table.GetEntry(card_name);
+        //     if (entry != null)
+        //     {
+        //         card_name = entry.GetLocalizedString();
+        //     }
+        // }
     }
 
     public virtual void OnCardEnable()
@@ -437,7 +439,7 @@ public class CardMaster : MonoBehaviour
     // if you want to use the default implementation, just return card_name
     public virtual string GetName()
     {
-        return card_name;
+        return GameSettings.LocalizeText(card_name);
     }
 
     public virtual string GetDescription()

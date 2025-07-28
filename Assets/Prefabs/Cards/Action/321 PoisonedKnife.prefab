@@ -739,15 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 321
-  card_name: Poisoned Knife
+  card_name: PoisonedKnife
   card_cost: 52
   card_sell_price: 13
-  card_description: 'When you kill an enemy with a crit hit, Probability: {0}% to
-    spawn a poison area around
-
-    Damage: {1}
-
-    Cost Coin: {2}'
+  card_description: PoisonedKnife_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

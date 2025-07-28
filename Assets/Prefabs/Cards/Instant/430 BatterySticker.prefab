@@ -610,8 +610,7 @@ MonoBehaviour:
   card_name: Battery Sticker
   card_cost: 39
   card_sell_price: 13
-  card_description: 'Target an Action Card: When trigger, Probability: {0}% to Charge
-    a Ally around'
+  card_description: BatterySticker_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

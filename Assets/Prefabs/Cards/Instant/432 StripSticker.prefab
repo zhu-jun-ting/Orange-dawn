@@ -610,8 +610,7 @@ MonoBehaviour:
   card_name: Strip Sticker
   card_cost: 48
   card_sell_price: 13
-  card_description: 'Target an Action Card: When trigger, Probability: {0}% to shoot
-    a verticle beam with Damage: {1}'
+  card_description: StripSticker_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

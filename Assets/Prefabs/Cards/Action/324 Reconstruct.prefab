@@ -742,10 +742,7 @@ MonoBehaviour:
   card_name: Reconstruct
   card_cost: 69
   card_sell_price: 19
-  card_description: 'When object in scene destoryed, Probability: {0}% to create
-    a bullet Accelerator or Cloner
-
-    Cost Health: {1}'
+  card_description: Reconstruct_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

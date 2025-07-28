@@ -739,15 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 305
-  card_name: Mass Effect
+  card_name: MassEffect
   card_cost: 42
   card_sell_price: 13
-  card_description: 'when accumulated Damage reaches Damage: {0}, Probability: {1}%
-    to explode around you and push enimies away
-
-    Damage: {2}
-
-'
+  card_description: MassEffect_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

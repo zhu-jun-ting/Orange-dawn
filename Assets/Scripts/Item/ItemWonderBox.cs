@@ -27,11 +27,11 @@ public class ItemWonderBox : ItemMaster
                 bool added = targetCard.AddCondition(condition);
                 if (added)
                 {
-                    ShowTip($"{targetCard.card_name} Inflicted {condition.ToString()}!");
+                    ShowMessageLocal($"{targetCard.card_name} Inflicted {condition.ToString()}!");
                 }
                 else
                 {
-                    ShowTip($"{targetCard.card_name} {condition.ToString()} already present.");
+                    ShowMessageLocal($"{targetCard.card_name} {condition.ToString()} already present.");
                 }
             }
         }

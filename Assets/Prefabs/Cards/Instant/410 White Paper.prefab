@@ -607,11 +607,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 410
-  card_name: White Paper
+  card_name: WhitePaper
   card_cost: 25
   card_sell_price: 6
-  card_description: Remove all tags on the linked card. Each condition removed, give
-    you {0} COIN
+  card_description: WhitePaper_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -647,6 +646,12 @@ MonoBehaviour:
   default_amount: 0
   default_mana: 0
   default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}

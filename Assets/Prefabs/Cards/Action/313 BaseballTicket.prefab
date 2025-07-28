@@ -739,11 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 313
-  card_name: Baseball Ticket
+  card_name: BaseballTicket
   card_cost: 55
   card_sell_price: 11
-  card_description: 'At the start of level, spawn {0} Batter Ally with {1} x Health:
-    ({2}) and {3} x Damage: ({4})'
+  card_description: BaseballTicket_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

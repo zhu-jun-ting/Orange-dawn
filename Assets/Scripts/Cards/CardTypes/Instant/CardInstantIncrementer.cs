@@ -51,6 +51,6 @@ public class CardInstantIncrementer : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, incrementValue));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), incrementValue));
     }
 }

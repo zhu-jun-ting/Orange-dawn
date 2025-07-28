@@ -58,10 +58,10 @@ public class CardInstantCureConditions : CardMaster
         }
         string condList = string.Join(", ", condNames);
         if (cureCount == -1)
-            return GameSettings.AddIcon(string.Format(card_description));
+            return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description)));
             // return GameSettings.AddIcon($"Remove all negative conditions ({condList}) from linked card(s)");
         else
-            return GameSettings.AddIcon(string.Format(card_description, cureCount));
+            return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), cureCount));
             // return GameSettings.AddIcon($"Remove up to {cureCount} negative conditions from linked card(s)");
     }
     

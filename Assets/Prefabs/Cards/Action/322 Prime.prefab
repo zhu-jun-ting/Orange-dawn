@@ -742,10 +742,7 @@ MonoBehaviour:
   card_name: Prime
   card_cost: 67
   card_sell_price: 18
-  card_description: 'If your killing damage is a prime number, Probability: {0} to
-    shoot Amount: {1} copies of the pinball
-
-    cost Mana: {2}'
+  card_description: Prime_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

@@ -610,8 +610,7 @@ MonoBehaviour:
   card_name: Box Sticker
   card_cost: 23
   card_sell_price: 6
-  card_description: 'Target an Action Card: When trigger, Probability: {0}% to spawn
-    a random box'
+  card_description: BoxSticker_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

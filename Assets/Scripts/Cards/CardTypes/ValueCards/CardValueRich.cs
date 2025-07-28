@@ -35,6 +35,8 @@ public class CardValueRich : CardMaster
                 default_health += healthGainAmount; // Update initial health to reflect the gain
                 CardMaster.InvokeUpdateCardTexts(); // Update card texts to reflect new health
             }
+            GameEvents.instance.TriggerActionCard(this, PlayerController.instance.transform);
+
         }
     }
 
@@ -50,6 +52,6 @@ public class CardValueRich : CardMaster
     public override string GetDescription()
     {
         return GameSettings.AddIcon(
-            string.Format(card_description, extraCoinCost, healthGainAmount, health));
+            string.Format(GameSettings.LocalizeText(card_description), extraCoinCost, healthGainAmount, health));
     }
 }

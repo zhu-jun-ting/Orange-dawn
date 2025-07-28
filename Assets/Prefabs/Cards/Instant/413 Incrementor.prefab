@@ -610,8 +610,7 @@ MonoBehaviour:
   card_name: Incrementor
   card_cost: 3
   card_sell_price: 2
-  card_description: Instantly give linked card to increase Damage value by {0} at
-    wave clears
+  card_description: Incrementor_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -647,6 +646,12 @@ MonoBehaviour:
   default_amount: 0
   default_mana: 0
   default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}

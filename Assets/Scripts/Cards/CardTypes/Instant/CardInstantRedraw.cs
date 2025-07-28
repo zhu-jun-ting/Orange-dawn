@@ -37,5 +37,5 @@ public class CardInstantRedraw : CardMaster
         }    
     }
 
-    public override string GetDescription() => GameSettings.AddIcon(string.Format(card_description));
+    public override string GetDescription() => GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description)));
 }

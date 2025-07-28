@@ -739,14 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 319
-  card_name: Ancient Tablet
+  card_name: AncientTablet
   card_cost: 62
   card_sell_price: 19
-  card_description: 'When you Charge any Ally, Probability: {0}% to spawn Amount:
-    {1} skeleton with {2} x Health: ({3}) and {4} x Damage: ({5}) for a while
-
-    Cost
-    Health: {6}'
+  card_description: AncientTablet_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

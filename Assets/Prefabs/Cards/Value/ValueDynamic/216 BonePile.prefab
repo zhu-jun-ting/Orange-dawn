@@ -159,16 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 216
-  card_name: Bone Pile
+  card_name: BonePile
   card_cost: 33
   card_sell_price: 8
-  card_description: 'Each time this card being discarded will give you back but Damage:
-    {0} Permanently (Will destory forever if Damage: <=0 )
-
-    Damage: {1}
-
-
-'
+  card_description: BonePile_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

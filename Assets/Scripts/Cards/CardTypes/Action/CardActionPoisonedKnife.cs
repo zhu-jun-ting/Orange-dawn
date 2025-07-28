@@ -87,6 +87,6 @@ public class CardActionPoisonedKnife : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, probability, (int)damage, (int)coin));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, (int)damage, (int)coin));
     }
 }

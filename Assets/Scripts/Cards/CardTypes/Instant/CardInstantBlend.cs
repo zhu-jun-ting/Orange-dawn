@@ -52,7 +52,7 @@ public class CardInstantBlend : CardMaster
         }
     }
 
-    public override string GetDescription() => GameSettings.AddIcon(string.Format(card_description));
+    public override string GetDescription() => GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description)));
 
     public override UIStar.StarType GetStarType(CardMaster cardMaster = null)
     {

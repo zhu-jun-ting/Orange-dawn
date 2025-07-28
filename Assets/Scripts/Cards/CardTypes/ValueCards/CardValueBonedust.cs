@@ -24,6 +24,6 @@ public class CardValueBonedust : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, deathrattle_times, probability));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), deathrattle_times, probability));
     }
 }

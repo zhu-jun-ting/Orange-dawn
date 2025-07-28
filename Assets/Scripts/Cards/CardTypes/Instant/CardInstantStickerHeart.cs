@@ -29,7 +29,7 @@ public class CardInstantStickerHeart : CardInstantStickerMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, recoverHealth));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), recoverHealth));
     }
 
     public override string GetBuffEntryName()

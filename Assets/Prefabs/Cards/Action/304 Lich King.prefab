@@ -739,7 +739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 304
-  card_name: Lich King
+  card_name: LichKing
   card_cost: 85
   card_sell_price: 20
   card_description: At the end of each level, give you a random Temporary card.

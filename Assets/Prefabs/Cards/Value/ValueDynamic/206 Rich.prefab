@@ -162,8 +162,7 @@ MonoBehaviour:
   card_name: Rich
   card_cost: 28
   card_sell_price: 9
-  card_description: "When you spend any coin, spend Coin: {0} more to gain Health:
-    {1} for this card \nHealth: {2}"
+  card_description: Rich_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

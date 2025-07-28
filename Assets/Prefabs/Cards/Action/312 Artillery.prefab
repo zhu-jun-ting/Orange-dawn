@@ -742,13 +742,7 @@ MonoBehaviour:
   card_name: Artillery
   card_cost: 52
   card_sell_price: 15
-  card_description: 'When you break any object in scene, Probability: {0}% to shoot
-    Amount: {1} explosive bullets towards enemies
-
-    Damage: {2}
-
-    Cost Mana:
-    {3}'
+  card_description: Artillery_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

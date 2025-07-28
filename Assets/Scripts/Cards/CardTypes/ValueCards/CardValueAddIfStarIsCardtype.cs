@@ -110,6 +110,6 @@ public class CardValueAddIfStarIsCardtype : CardMaster
         if (addCoin != 0) parts.Add($"Coin: {addCoin}");
         if (parts.Count == 0) return "No permanent stat increases.";
         string joined = string.Join(", ", parts);
-        return GameSettings.AddIcon(string.Format(card_description, joined));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), joined));
     }
 }

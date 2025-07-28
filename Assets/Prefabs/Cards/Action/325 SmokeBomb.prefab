@@ -739,15 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 325
-  card_name: Smoke Bomb
+  card_name: SmokeBomb
   card_cost: 53
   card_sell_price: 16
-  card_description: 'when you dodge, Probability: {0}% push enemies away around you
-    with Damage: {1}, each enemy hit recover Health: 2
-
-    Cost Mana: {2}
-
-'
+  card_description: SmokeBomb_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

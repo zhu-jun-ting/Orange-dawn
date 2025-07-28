@@ -739,13 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 306
-  card_name: Heavy Punch
+  card_name: HeavyPunch
   card_cost: 63
   card_sell_price: 20
-  card_description: 'when you deal a one time Damage exceeds Damage: {0}
-
-    explode
-    the exceeded damage. '
+  card_description: HeavyPunch_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

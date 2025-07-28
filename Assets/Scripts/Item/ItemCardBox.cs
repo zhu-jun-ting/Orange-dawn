@@ -27,7 +27,7 @@ public class ItemCardBox : ItemMaster
         if (idx >= 0 && idx < cardPrefabs.Count && CardManager.instance != null)
         {
             CardManager.instance.QueueAddCardObjects(new List<GameObject> { cardPrefabs[idx] });
-            ShowTip(GameSettings.AddIcon(tip));
+            ShowMessageLocal(GameSettings.AddIcon(tip));
         }
     }
 

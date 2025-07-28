@@ -607,10 +607,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 423
-  card_name: Heart Sticker
+  card_name: HeartSticker
   card_cost: 22
   card_sell_price: 7
-  card_description: 'Target an Action Card: When triggers, recover you Health: {0}'
+  card_description: HeartSticker_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -656,5 +656,5 @@ MonoBehaviour:
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
   recoverHealth: 3
-  buffName: Heart Sticker
-  buffDescription: 'When this Action Card triggers, recover your Health: {0}'
+  heartBuffName: Heart Sticker
+  heartBuffDescription: 'When this Action Card triggers, recover your Health: {0}'

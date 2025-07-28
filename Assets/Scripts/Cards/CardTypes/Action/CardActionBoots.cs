@@ -86,6 +86,6 @@ public class CardActionBoots : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, requiredDistance, (int)amount, healthModifier, health * healthModifier, damageModifier, damage * damageModifier, (int)coin));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), requiredDistance, (int)amount, healthModifier, health * healthModifier, damageModifier, damage * damageModifier, (int)coin));
     }
 }

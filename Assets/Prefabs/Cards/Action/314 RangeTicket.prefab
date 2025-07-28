@@ -739,11 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 314
-  card_name: Range Ticket
+  card_name: RangeTicket
   card_cost: 53
   card_sell_price: 10
-  card_description: 'At the start of level, spawn {0} Shooter Ally with {1} x Health:
-    ({2}) and {3} x Damage: ({4})'
+  card_description: RangeTicket_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

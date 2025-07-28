@@ -150,15 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 97
-  card_name: Water Gun
-  card_cost: 0
-  card_sell_price: 0
-  card_description: 'Waterballs can recover your mana when fired
-
-    Damage: {0}
-
-    Mana:
-    {1}'
+  card_name: WaterGun
+  card_cost: 38
+  card_sell_price: 9
+  card_description: WaterGun_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -179,7 +174,7 @@ MonoBehaviour:
   is_free_card: 1
   is_root: 1
   card_type: 0
-  card_rarity: 0
+  card_rarity: 2
   card_bonds: 
   card_conditions: 00000000
   damage: 3

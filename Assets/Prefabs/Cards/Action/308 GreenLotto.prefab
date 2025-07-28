@@ -739,7 +739,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 308
-  card_name: Green Lotto
+  card_name: GreenLotto
   card_cost: 32
   card_sell_price: 9
   card_description: 'When you break object in scene, maybe the linked card grow.

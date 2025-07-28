@@ -550,7 +550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_Name
-      value: 432 StripSticker 1
+      value: 433 TorchSticker
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_IsActive
@@ -610,8 +610,7 @@ MonoBehaviour:
   card_name: Torch Sticker
   card_cost: 40
   card_sell_price: 12
-  card_description: 'Target an Action Card: When trigger, Probability: {0}% to inflict
-    fire around'
+  card_description: TorchSticker_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

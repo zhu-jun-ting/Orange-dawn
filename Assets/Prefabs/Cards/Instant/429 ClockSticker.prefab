@@ -610,8 +610,7 @@ MonoBehaviour:
   card_name: Clock Sticker
   card_cost: 52
   card_sell_price: 13
-  card_description: 'Target an Action Card: When trigger, Probability: {0}% to trigger
-    another card on board'
+  card_description: ClockSticker_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

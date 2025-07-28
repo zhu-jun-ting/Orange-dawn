@@ -739,13 +739,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: '328 '
-  card_name: Wild Fire
+  card_name: WildFire
   card_cost: 65
   card_sell_price: 19
-  card_description: 'When a burning enemy dies, Probability: {0}% to explode Damage:
-    {1} and burn enemies around
-
-    Cost: Coin: {2}'
+  card_description: WildFire_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}

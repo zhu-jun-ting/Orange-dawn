@@ -80,7 +80,7 @@ public class CardActionMassEffect : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, requiredAccumulatedDamage, explosionRadius, explosionCentrifugalForce));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), requiredAccumulatedDamage, explosionRadius, explosionCentrifugalForce));
     }
 
     public override void Reset()

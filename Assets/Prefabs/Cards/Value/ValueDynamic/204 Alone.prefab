@@ -162,7 +162,7 @@ MonoBehaviour:
   card_name: Alone
   card_cost: 26
   card_sell_price: 8
-  card_description: "increment by {0} for each empty STAR slots\nDamage: \xD7{1}"
+  card_description: Alone_desc
   uiStarPositions:
   - {x: -1, y: 0}
   - {x: 1, y: 0}

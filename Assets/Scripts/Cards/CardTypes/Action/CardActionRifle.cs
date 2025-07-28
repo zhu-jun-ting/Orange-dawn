@@ -73,7 +73,7 @@ public class CardActionRifle : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, probability, (int)amount, damage, (int)mana));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, (int)amount, damage, (int)mana));
     }
 
     public override void Reset()

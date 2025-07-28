@@ -28,7 +28,7 @@ public class ItemClock : ItemMaster
                 }
                 else
                 {
-                    ShowTip(GameSettings.AddIcon(tipInsufficient));
+                    ShowMessageLocal(GameSettings.AddIcon(tipInsufficient));
                 }
             }
         }

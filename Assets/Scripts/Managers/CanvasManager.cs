@@ -26,6 +26,7 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	public GameObject messageEntryFullInfo;
 	public GameObject messageEntryFullWarning;
 	public GameObject messageEntryLocalInfo;
+	public GameObject messageEntryWorldInfo;
 	public GameObject messageEntryBanner;
 	public Transform popupParent; // Parent for popups
 	public float fadeTime = 0.5f; // fading in out time
@@ -107,6 +108,7 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	private static List<TipEntry> activeTips = new List<TipEntry>();
 	private static Vector2 tipsOffset = new Vector2(32, -32); // Offset from lower right of cursor
 	public static void ShowTip(string name, string description, float width = 60f, float spacing = 4f)
+
 	{
 		if (s_instance == null || s_instance.tipsPrefab == null || s_instance.canvas == null) return;
 
@@ -157,6 +159,35 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	}
 
 	/// <summary>
+	/// Shows a tooltip with the specified title.
+	/// </summary>
+	/// <param name="tipTitle"></param>
+	public static void ShowTip(string tipTitle)
+	{
+		if (GameSettings.instance == null || GameSettings.instance.keywordTips == null) return;
+		var tip = GameSettings.instance.keywordTips.Find(t => t.tipTitle == tipTitle);
+		if (tip != null)
+		{
+			ShowTip(GameSettings.LocalizeText(tip.tipTitle), GameSettings.LocalizeText(tip.tipText));
+		}
+	}
+
+	/// <summary>
+	/// Shows a tooltip with the specified keyword.
+	/// </summary>
+	/// <param name="tipKeyword"></param>
+	public static void ShowTip(GameSettings.Keyword tipKeyword)
+	{
+		if (GameSettings.instance == null || GameSettings.instance.keywordTips == null) return;
+		var tip = GameSettings.instance.keywordTips.Find(t => t.keyword == tipKeyword);
+		if (tip != null)
+		{
+			ShowTip(GameSettings.LocalizeText(tip.tipTitle), GameSettings.LocalizeText(tip.tipText));
+		}
+	}
+
+
+	/// <summary>
 	/// Fades out and destroys all active tip entries and the tips layout.
 	/// </summary>
 	public static void HideTip(float fadeOutDuration = 0.3f)
@@ -168,7 +199,8 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 			{
 				var cg = tip.GetComponent<CanvasGroup>();
 				if (cg == null) cg = tip.gameObject.AddComponent<CanvasGroup>();
-				cg.DOFade(0f, fadeOutDuration).OnComplete(() => {
+				cg.DOFade(0f, fadeOutDuration).OnComplete(() =>
+				{
 					if (tip != null) Destroy(tip.gameObject);
 				});
 			}
@@ -180,7 +212,8 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 		{
 			var cg = tipsLayoutInstance.GetComponent<CanvasGroup>();
 			if (cg == null) cg = tipsLayoutInstance.AddComponent<CanvasGroup>();
-			cg.DOFade(0f, fadeOutDuration).OnComplete(() => {
+			cg.DOFade(0f, fadeOutDuration).OnComplete(() =>
+			{
 				if (tipsLayoutInstance != null)
 				{
 					Destroy(tipsLayoutInstance);
@@ -369,6 +402,19 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 					cg.DOFade(0f, fadeOutTime).OnComplete(() => Destroy(entry));
 				});
 			});
+		}
+		else if (type == GameEvents.MessageType.WorldInfo)
+		{
+			// WorldInfo: create a world-space popup at the given world position
+			if (messageEntryWorldInfo == null) return;
+			// Instantiate at world position, no parent (user will add canvas in prefab)
+			GameObject entry = Instantiate(messageEntryWorldInfo, position, Quaternion.identity);
+			// Find UIMessageLocal in children and set text
+			var uiMsg = entry.GetComponentInChildren<UIMessageLocal>();
+			if (uiMsg != null)
+			{
+				uiMsg.SetText(message);
+			}
 		}
 	}
 

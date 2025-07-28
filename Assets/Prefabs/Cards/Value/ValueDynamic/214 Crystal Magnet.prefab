@@ -159,10 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 214
-  card_name: Crystal Magnet
+  card_name: CrystalMagnet
   card_cost: 44
   card_sell_price: 11
-  card_description: Give this card {0} for each Action Card at STAR
+  card_description: CrystalMagnet_desc
   uiStarPositions:
   - {x: 1, y: 0}
   - {x: -1, y: 0}
@@ -194,7 +194,7 @@ MonoBehaviour:
   health: 0
   probability: 0
   amount: 0
-  mana: 0
+  mana: 0.01
   coin: 0
   default_damage: 0
   default_health: 0
@@ -202,6 +202,12 @@ MonoBehaviour:
   default_amount: 0
   default_mana: 0
   default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}

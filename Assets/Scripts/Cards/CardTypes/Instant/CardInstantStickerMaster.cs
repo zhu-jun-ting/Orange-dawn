@@ -61,7 +61,7 @@ public class CardInstantStickerMaster : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(card_description, probability, mana));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, mana));
     }
 
     /// <summary>
