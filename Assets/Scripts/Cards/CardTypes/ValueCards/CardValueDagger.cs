@@ -6,7 +6,7 @@ public class CardValueDagger : CardMaster
 {
     // id: 424
     // name: Dagger
-    // desc: On turn end, discard the linked card and add half its sell price to a random stat (damage, health, probability) permanently if successfully discarded.
+    // desc: On turn end, discard the linked card and add half its sell price to a random stat (damage, (int)health, probability) permanently if successfully discarded.
 
     [Header("Dagger Settings")]
     public float sellPriceModifier = 0.5f;
@@ -69,7 +69,7 @@ public class CardValueDagger : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), damage, health, probability, sellPriceModifier));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)damage, (int)health, probability, sellPriceModifier));
     }
 
     public override UIStar.StarType GetStarType(CardMaster cardMaster = null)

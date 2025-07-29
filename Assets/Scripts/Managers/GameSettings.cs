@@ -8,6 +8,10 @@ public class GameSettings : MonoBehaviour
 {
     public static GameSettings instance;
 
+    [Header("Battle Paramters")]
+    public float enemyHealthModifier = 1f;
+    public float enemyDamageModifier = 1f;
+
     [Header("Board Settings")]
     public int boardRows = 3;
     public int boardColumns = 3;

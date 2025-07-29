@@ -40,8 +40,8 @@ public class CardValueBonePile : CardMaster
 
     public override string GetDescription()
     {
-        if (damageDiffOnDiscard != 0f) return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), damageDiffOnDiscard, damage));
-        else if (healthDiffOnDiscard != 0f) return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), healthDiffOnDiscard, health));
-        else return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), damageDiffOnDiscard, damage));
+        if (damageDiffOnDiscard != 0f) return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)damageDiffOnDiscard, (int)damage));
+        else if (healthDiffOnDiscard != 0f) return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)healthDiffOnDiscard, (int)health));
+        else return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)damageDiffOnDiscard, (int)damage));
     }
 }

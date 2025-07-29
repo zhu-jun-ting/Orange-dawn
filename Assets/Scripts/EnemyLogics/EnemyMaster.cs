@@ -24,7 +24,7 @@ public class EnemyMaster : PawnMaster
     public List<string> meleeAttackTags; // Tags to filter melee attacks, e.g., "Player", "Bullet", etc.
 
     [Header("Hurt Effects")]
-    protected SpriteRenderer sr;
+    public SpriteRenderer sr;
     public float hurtDuration = 0.5f;
     protected Color originalColor; // Store the original color
 
@@ -89,7 +89,7 @@ public class EnemyMaster : PawnMaster
         base.Start();
         curHP = maxHP;
         rb = GetComponent<Rigidbody2D>();
-        sr = GetComponent<SpriteRenderer>();
+        if (sr == null) sr = GetComponent<SpriteRenderer>();
         enemyHealthBar = health_bar.GetComponent<EnemyHealthBar>();
         originalColor = sr.color; // Store the original color
 

@@ -142,10 +142,12 @@ public class CombatManager : MonoBehaviour
             return;
         }
         InitActiveEnemiesToSpawn();
+        spawn_wait_time = currentLevel.spawnInterval;
     }
 
     public void HandleLevelStart()
     {
+        
         SetSpawnActivity(true);
         isInBattle = true;
 
@@ -154,15 +156,16 @@ public class CombatManager : MonoBehaviour
             StartCoroutine(LevelTimeLimitCoroutine(currentLevel.timeLimit));
         }
 
+        if (FloorManager.instance.playerRoom == Vector2Int.zero) return; 
+
         if (currentLevel.clearRequirement == Level.LevelClearRequirement.DefeatAllEnemies && GameEvents.instance != null)
         {
             GameEvents.instance.ShowMessage(
-                "Battle Start",
+                currentLevel.isBoss ? "Boss" : "Battle",
                 GameEvents.MessageType.Banner,
                 Vector2.zero
             );
             SoundManager.PlaySFX("DrawSword");
-
         }
         else if (currentLevel.roomType == FloorManager.RoomType.Bonefire && GameEvents.instance != null)
         {
@@ -344,9 +347,9 @@ public class CombatManager : MonoBehaviour
                     var master = enemyObj.GetComponent<EnemyMaster>();
                     if (master != null)
                     {
-                        master.maxHP = entry.health;
-                        master.curHP = entry.health;
-                        master.attackDamage = entry.attack;
+                        master.maxHP = entry.health * (GameSettings.instance != null ? GameSettings.instance.enemyHealthModifier : 1f);
+                        master.curHP = entry.health * (GameSettings.instance != null ? GameSettings.instance.enemyHealthModifier : 1f);
+                        master.attackDamage = entry.attack * (GameSettings.instance != null ? GameSettings.instance.enemyDamageModifier : 1f);
                         master.moveSpeed = entry.speed;
                         OnModifySpawnedEnemyStats?.Invoke(master);
                     }

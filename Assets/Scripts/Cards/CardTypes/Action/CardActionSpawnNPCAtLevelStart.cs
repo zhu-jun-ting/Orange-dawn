@@ -79,6 +79,6 @@ public class CardActionSpawnNPCAtLevelStart : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)amount, (int)healthModifier, (int)(health * healthModifier), (int)damageModifier, (int)(damage * damageModifier)));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)amount, healthModifier, (int)(health * healthModifier), damageModifier, (int)(damage * damageModifier)));
     }
 }

@@ -21,14 +21,14 @@ public class ShootRangeDetector : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == target.tag) {
+        if (other.gameObject.CompareTag("Player")) {
             my_parent.GetComponent<EnemyShooter>().ChangeState(EnemyShooter.State.shooting);
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag == target.tag) {
+        if (other.gameObject.CompareTag("Player")) {
             my_parent.GetComponent<EnemyShooter>().ChangeState(EnemyShooter.State.walking);
         }
     }

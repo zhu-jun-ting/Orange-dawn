@@ -65,6 +65,6 @@ public class CardActionAncientTablet : CardMaster, ICardAction
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, amount, healthModifier, health * healthModifier, damageModifier, damage * damageModifier, health));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, (int)amount, healthModifier, (int)health * healthModifier, damageModifier, (int)damage * damageModifier, (int)health));
     }
 }

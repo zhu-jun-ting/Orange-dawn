@@ -22,7 +22,7 @@ public class HealAOE : ImpulseAOE
             {
                 float damage = Mathf.Lerp(maxDamage, 0, dist / maxRadius);
                 if (damage >= 1f)
-                    onPawnDamaged.Invoke(pawn, damage);
+                    onPawnDamaged.Invoke(pawn, (int)damage);
             }
         }
     }

@@ -52,6 +52,6 @@ public class CardValueRich : CardMaster
     public override string GetDescription()
     {
         return GameSettings.AddIcon(
-            string.Format(GameSettings.LocalizeText(card_description), extraCoinCost, healthGainAmount, health));
+            string.Format(GameSettings.LocalizeText(card_description), extraCoinCost, (int)healthGainAmount, (int)health));
     }
 }

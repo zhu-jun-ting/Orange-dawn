@@ -390,15 +390,19 @@ public class CardMaster : MonoBehaviour
                     {
                         if (link != null)
                         {
+                            float finalValue = nValue;
+                            // If the link is a gun card, we should apply the buff at the very end
+                            if (card_conditions.Contains(CardCondition.IsPowerful)) finalValue *= 2;
+                            if (card_conditions.Contains(CardCondition.IsFrail)) finalValue *= 0.5f;
+
                             if (link.card_type == CardType.Gun || link.card_type == CardType.Base || link.card_type == CardType.Action)
                             {
-                                // If the link is a gun card, we should apply the buff at the very end
-                                CardMaster.OnApplyValuesToGuns += () => link.UpdateNumberValue(nType, nValue, this);
+                                CardMaster.OnApplyValuesToGuns += () => link.UpdateNumberValue(nType, finalValue, this);
                             }
                             else
                             {
                                 // If the link is a value card, we can add attack to it
-                                link.UpdateNumberValue(nType, nValue, this);
+                                link.UpdateNumberValue(nType, finalValue, this);
                             }
                         }
                     }

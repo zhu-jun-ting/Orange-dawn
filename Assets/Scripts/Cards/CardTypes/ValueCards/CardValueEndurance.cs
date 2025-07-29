@@ -51,6 +51,6 @@ public class CardValueEndurance : CardMaster
     public override string GetDescription()
     {
         return GameSettings.AddIcon(
-            string.Format(GameSettings.LocalizeText(card_description), gainHealthChance * 100, healthGainAmount, health));
+            string.Format(GameSettings.LocalizeText(card_description), gainHealthChance * 100, (int)healthGainAmount, (int)health));
     }
 }

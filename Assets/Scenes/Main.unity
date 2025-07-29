@@ -525,7 +525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &20981187
 Transform:
   m_ObjectHideFlags: 0
@@ -4523,7 +4523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &378209457
 Transform:
   m_ObjectHideFlags: 0
@@ -5223,6 +5223,10 @@ PrefabInstance:
     - target: {fileID: 3009070443102717148, guid: 04c4312b592dac94f8cd0788915fb605, type: 3}
       propertyPath: m_Name
       value: Experience
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009070443102717148, guid: 04c4312b592dac94f8cd0788915fb605, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9591,6 +9595,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 4028690415889179283, guid: 6a77567889405c04bab756a2dedd6d88, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5688019745130764630, guid: 6a77567889405c04bab756a2dedd6d88, type: 3}
       propertyPath: m_Mass
       value: 0.061575215
@@ -9699,6 +9707,10 @@ PrefabInstance:
     - target: {fileID: 1792623200094130640, guid: 8ba80b04a20692249bd8b3837f034ef8, type: 3}
       propertyPath: m_Name
       value: ItemPoisonBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792623200094130640, guid: 8ba80b04a20692249bd8b3837f034ef8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4189353230544219284, guid: 8ba80b04a20692249bd8b3837f034ef8, type: 3}
       propertyPath: m_LocalPosition.x
@@ -12151,7 +12163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &877199304
 Animator:
   serializedVersion: 7
@@ -28283,6 +28295,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511b604d02a72e64eb353e8aa98dcecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyHealthModifier: 1
+  enemyDamageModifier: 1
   boardRows: 3
   boardColumns: 3
   boardMargin: 20
@@ -28712,6 +28726,10 @@ PrefabInstance:
     - target: {fileID: 225704923, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 225704925, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
+      propertyPath: speed
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 225704925, guid: 40966265e5ef044ba810ec12f4fe7c70, type: 3}
       propertyPath: bulletPrefab
@@ -30578,6 +30596,10 @@ PrefabInstance:
     - target: {fileID: 908849239445633011, guid: 73d98238c6222ba4086d6944141e949d, type: 3}
       propertyPath: m_Name
       value: ItemCloner
+      objectReference: {fileID: 0}
+    - target: {fileID: 908849239445633011, guid: 73d98238c6222ba4086d6944141e949d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -33385,6 +33407,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OneTimeFxs
       objectReference: {fileID: 0}
+    - target: {fileID: 3395333244748247856, guid: 503d1030a0f4e6a4caf018e228254e07, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5452556740525680908, guid: 503d1030a0f4e6a4caf018e228254e07, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
@@ -33493,6 +33519,10 @@ PrefabInstance:
     - target: {fileID: 8566337620387754875, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
       propertyPath: m_Name
       value: Impulse
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566337620387754875, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9033090872348905015, guid: 3c7477f346c050944b17669a65535e5b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33716,6 +33746,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpiningAxe
       objectReference: {fileID: 0}
+    - target: {fileID: 5135470791520852269, guid: 803131e3c695d354bb3d087d6f32de38, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -33803,6 +33837,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemPoisonGround
       objectReference: {fileID: 0}
+    - target: {fileID: 593863206014399954, guid: 679987d3f40b1f3498fa9bc7a47d2747, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3098173820766029974, guid: 679987d3f40b1f3498fa9bc7a47d2747, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.8812757
@@ -33859,6 +33897,10 @@ PrefabInstance:
     - target: {fileID: 1238486118590038313, guid: 3553cf9c561a6744d8f745c8d9279372, type: 3}
       propertyPath: m_Name
       value: ItemAccelerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 1238486118590038313, guid: 3553cf9c561a6744d8f745c8d9279372, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3378635347042305571, guid: 3553cf9c561a6744d8f745c8d9279372, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34538,6 +34580,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArrowBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 2543158123180833540, guid: e475339abacf9104b8375cf80d966552, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4824012738371409742, guid: e475339abacf9104b8375cf80d966552, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.8554153
@@ -34602,6 +34648,10 @@ PrefabInstance:
     - target: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
       propertyPath: m_Name
       value: EnemyAOE
+      objectReference: {fileID: 0}
+    - target: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4915869430630913401, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34702,7 +34752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1881773748942011074, guid: d01e04caf44fc1e4f8fcd0ea0e7f9c21, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34833,6 +34883,10 @@ PrefabInstance:
     - target: {fileID: 8991057882598897126, guid: 95ee705af2f02724bbba97988310729d, type: 3}
       propertyPath: m_Name
       value: LineFxs
+      objectReference: {fileID: 0}
+    - target: {fileID: 8991057882598897126, guid: 95ee705af2f02724bbba97988310729d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -37747,6 +37801,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightningTower
       objectReference: {fileID: 0}
+    - target: {fileID: 4623675242818392211, guid: ca086e646a189e547b331ae764b46fdf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7603127662105240364, guid: ca086e646a189e547b331ae764b46fdf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.042
@@ -37803,6 +37861,10 @@ PrefabInstance:
     - target: {fileID: 5729296939652090568, guid: 67fe6b9bddc077d4da0645ff6fbec455, type: 3}
       propertyPath: m_Name
       value: LightBeam
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729296939652090568, guid: 67fe6b9bddc077d4da0645ff6fbec455, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7825877647001083160, guid: 67fe6b9bddc077d4da0645ff6fbec455, type: 3}
       propertyPath: m_LocalPosition.x
@@ -38006,6 +38068,10 @@ PrefabInstance:
     - target: {fileID: 2511808000157488133, guid: cc7f4ce5b422ba842aa32547d65539ce, type: 3}
       propertyPath: m_Name
       value: FxSmoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 2511808000157488133, guid: cc7f4ce5b422ba842aa32547d65539ce, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7706187798720246643, guid: cc7f4ce5b422ba842aa32547d65539ce, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40991,7 +41057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6570315056293636106, guid: dd2ec0ab7dc6b884ebd1020990df17ce, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6570315056293636108, guid: dd2ec0ab7dc6b884ebd1020990df17ce, type: 3}
       propertyPath: m_RootOrder
@@ -41056,7 +41122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1852975111204246664, guid: 1fc4f2c0a4335724f83ddd5bc7d9ea2c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6882332478229818171, guid: 1fc4f2c0a4335724f83ddd5bc7d9ea2c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -41176,6 +41242,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ExplodeBullet
       objectReference: {fileID: 0}
+    - target: {fileID: 2465694836919026090, guid: 7d381e0569827cb43a63c325c7fa6657, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7743876210988896605, guid: 7d381e0569827cb43a63c325c7fa6657, type: 3}
       propertyPath: m_Mass
       value: 0.061575215
@@ -41237,6 +41307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ItemLightningBox
       objectReference: {fileID: 0}
+    - target: {fileID: 1792623200094130640, guid: 61b38361621e0144eb5431e9906885c9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4189353230544219284, guid: 61b38361621e0144eb5431e9906885c9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.78
@@ -41297,6 +41371,10 @@ PrefabInstance:
     - target: {fileID: 88612802674784852, guid: 2d09d74168c5d8841827fc176962ceec, type: 3}
       propertyPath: m_Name
       value: FxCircleSmoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 88612802674784852, guid: 2d09d74168c5d8841827fc176962ceec, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2935202324038453532, guid: 2d09d74168c5d8841827fc176962ceec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -41420,6 +41498,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FxLightning
       objectReference: {fileID: 0}
+    - target: {fileID: 4802900681594525786, guid: b60eb40b23e0a314f85e8c5dd4d7bf81, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -41436,6 +41518,10 @@ PrefabInstance:
     - target: {fileID: 593863206014399954, guid: fb131f5abc1380c4096f44f49eb06f75, type: 3}
       propertyPath: m_Name
       value: ItemHealGround
+      objectReference: {fileID: 0}
+    - target: {fileID: 593863206014399954, guid: fb131f5abc1380c4096f44f49eb06f75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3098173820766029974, guid: fb131f5abc1380c4096f44f49eb06f75, type: 3}
       propertyPath: m_LocalPosition.x
@@ -41497,11 +41583,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 369824496922870110, guid: a551dc86577976a4da76bd714a906c48, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 68.259995
       objectReference: {fileID: 0}
     - target: {fileID: 2812999270461242885, guid: a551dc86577976a4da76bd714a906c48, type: 3}
       propertyPath: m_Name
       value: PopUpCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 2812999270461242885, guid: a551dc86577976a4da76bd714a906c48, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5505975447649307519, guid: a551dc86577976a4da76bd714a906c48, type: 3}
       propertyPath: m_AnchorMax.y
@@ -41734,6 +41824,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealImpulse
       objectReference: {fileID: 0}
+    - target: {fileID: 5048969975560850054, guid: e764698b28ebffc439933b15a4c51573, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5596788604354574282, guid: e764698b28ebffc439933b15a4c51573, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.79
@@ -41952,6 +42046,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Explosion
       objectReference: {fileID: 0}
+    - target: {fileID: 6178667847290294827, guid: 4ffdbed82c2357049918e3b6fa246772, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -42008,6 +42106,10 @@ PrefabInstance:
     - target: {fileID: 7366656642767326937, guid: 7b1d9b3315a71624db61b8c4dbdde16e, type: 3}
       propertyPath: m_Name
       value: LightBeamStraight
+      objectReference: {fileID: 0}
+    - target: {fileID: 7366656642767326937, guid: 7b1d9b3315a71624db61b8c4dbdde16e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

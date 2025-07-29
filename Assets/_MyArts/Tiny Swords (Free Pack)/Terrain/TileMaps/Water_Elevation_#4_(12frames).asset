@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Water_Elevation_#4_(12frames)
+  m_EditorClassIdentifier: 
+  m_AnimatedSprites:
+  - {fileID: 8297429987464815657, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: -16296878, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: -1684564826, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: 1700180096, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: -48573394, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: 1381945033, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: 1793302512, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: 1810997136, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: -1137839024, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: 1859383173, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: 310188163, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  - {fileID: -1953795385, guid: daf4adc604b5b2c40baf2103c7485a1a, type: 3}
+  m_MinSpeed: 1
+  m_MaxSpeed: 1
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 0
+  m_TileAnimationFlags: 0

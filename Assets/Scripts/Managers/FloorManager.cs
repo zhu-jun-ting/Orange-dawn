@@ -72,6 +72,7 @@ public class FloorManager : MonoBehaviour
         }
         
         CreateRoomAndNeighbors(playerRoom);
+        GetCurrentRoomGrid()?.SetSigns();
         visitedRooms.Add(playerRoom);
     }
 

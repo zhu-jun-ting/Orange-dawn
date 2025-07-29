@@ -8,13 +8,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 67581125586591583, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 774922106224715567, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 774922106224715567, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 911367386877052863, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: hitBackEnemy
@@ -23,6 +27,10 @@ PrefabInstance:
     - target: {fileID: 911367386877052863, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: hitBackBullet
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1226903263802517459, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1290342012516333051, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_LocalScale.x
@@ -40,9 +48,17 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2619173024747898407, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4181643233253159924, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_Radius
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4242500366793339289, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: maxHP
@@ -83,6 +99,38 @@ PrefabInstance:
     - target: {fileID: 4448674780496482269, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: triggerTags.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811141345438566632, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811141345438566632, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811141345438566632, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811141345438566632, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.073
+      objectReference: {fileID: 0}
+    - target: {fileID: 4811141345438566632, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.114
+      objectReference: {fileID: 0}
+    - target: {fileID: 4838551514953442483, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7de55fa8ada081b408a753bd826c1383, type: 2}
+    - target: {fileID: 5814495950363421655, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7219542275010057529, guid: 92c490469a6e72046810011fb3ea2bf9, type: 3}
+    - target: {fileID: 5814495950363421655, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7334453287249067209, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_Name
@@ -171,6 +219,10 @@ PrefabInstance:
     - target: {fileID: 8290595344550998855, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8407741259597540617, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

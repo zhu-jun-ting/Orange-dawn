@@ -25,7 +25,7 @@ public class CardActionBulletAoe : CardMaster, ICardAction
     }
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, damage, (int)mana));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, (int)damage, (int)mana));
     }
 
     public override void Reset()

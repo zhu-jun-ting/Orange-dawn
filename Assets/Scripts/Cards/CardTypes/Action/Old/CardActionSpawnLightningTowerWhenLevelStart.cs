@@ -106,7 +106,7 @@ public class CardActionSpawnLightningTowerWhenLevelStart : CardMaster, ICardActi
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), spawnCount, triggerProbability, lightningDamage, manaCost));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), spawnCount, triggerProbability, lightningDamage, (int)manaCost));
     }
 
     public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)

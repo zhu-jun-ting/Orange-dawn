@@ -29,11 +29,11 @@ public class CardInstantLogOnTrigger : CardMaster
                 CardMaster.OnUpdateCardTexts += UpdateBuffEntry;
 
                 // update parent values
-                if (damage != 0) link.UpdateNumberValue(NumberType.Damage, damage, this, true);
-                if (health != 0) link.UpdateNumberValue(NumberType.Health, health, this, true);
+                if (damage != 0) link.UpdateNumberValue(NumberType.Damage, (int)damage, this, true);
+                if (health != 0) link.UpdateNumberValue(NumberType.Health, (int)health, this, true);
                 // if (probability != 0) link.UpdateNumberValue(NumberType.Probability, probability, this, true);
-                if (amount != 0) link.UpdateNumberValue(NumberType.Amount, amount, this, true);
-                if (mana != 0) link.UpdateNumberValue(NumberType.Mana, mana, this, true);
+                if (amount != 0) link.UpdateNumberValue(NumberType.Amount, (int)amount, this, true);
+                if (mana != 0) link.UpdateNumberValue(NumberType.Mana, (int)mana, this, true);
                 if (coin != 0) link.UpdateNumberValue(NumberType.Coin, coin, this, true);
             }
         }
@@ -54,7 +54,7 @@ public class CardInstantLogOnTrigger : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, mana));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), probability, (int)mana));
     }
 
     public override string GetBuffEntryName()

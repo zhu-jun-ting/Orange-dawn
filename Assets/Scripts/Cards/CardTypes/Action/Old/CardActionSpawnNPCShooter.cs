@@ -162,7 +162,7 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
     // return the formatted description of the card
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), max_HP, attack, shoot_interval, spawn_count, max_instances, manaCost));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), max_HP, attack, shoot_interval, spawn_count, max_instances, (int)manaCost));
     }
 
     public override bool UpdateNumberValue(NumberType numberType, float value, CardMaster source = null, bool isPermanent = false, bool isMult = false)

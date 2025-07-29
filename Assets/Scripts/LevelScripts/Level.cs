@@ -12,7 +12,6 @@ public class Level : ScriptableObject
 	public FloorManager.RoomType roomType = FloorManager.RoomType.Battle;
 
 	[Header("Battle: Enemy Info")]
-	public int enemyCount;
 	public List<EnemyToSpawn> enemiesToSpawn = new List<EnemyToSpawn>();
 
 	// Enemy stats struct
@@ -26,6 +25,11 @@ public class Level : ScriptableObject
 		public float speed;
 		// Add more as needed
 	}
+
+	[Header("Battle: Setups")]
+	[Range(0, 5)] public float spawnInterval = 2f; // how often to spawn enemies
+	public bool isBoss = false; // is this a boss level?
+
 
 	public enum LevelClearRequirement
 	{

@@ -38,6 +38,6 @@ public class CardValueAttackDice : CardMaster
     {
         int min = Mathf.RoundToInt(default_damage);
         int max = min + diceRange;
-        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), damage, min, max));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), (int)damage, min, max));
     }
 }

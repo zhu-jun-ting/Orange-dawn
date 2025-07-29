@@ -21,11 +21,11 @@ public class CardInstantValueAdder : CardMaster
         {
             if (link != null)
             {
-                if (damage != 0 && link.numberTypesCanBeModified.Contains(NumberType.Damage)) link.UpdateNumberValue(NumberType.Damage, damage, this, true); modified = true;
-                if (health != 0 && link.numberTypesCanBeModified.Contains(NumberType.Health)) link.UpdateNumberValue(NumberType.Health, health, this, true); modified = true;
+                if (damage != 0 && link.numberTypesCanBeModified.Contains(NumberType.Damage)) link.UpdateNumberValue(NumberType.Damage, (int)damage, this, true); modified = true;
+                if (health != 0 && link.numberTypesCanBeModified.Contains(NumberType.Health)) link.UpdateNumberValue(NumberType.Health, (int)health, this, true); modified = true;
                 if (probability != 0 && link.numberTypesCanBeModified.Contains(NumberType.Probability)) link.UpdateNumberValue(NumberType.Probability, probability, this, true); modified = true;
-                if (amount != 0 && link.numberTypesCanBeModified.Contains(NumberType.Amount)) link.UpdateNumberValue(NumberType.Amount, amount, this, true); modified = true;
-                if (mana != 0 && link.numberTypesCanBeModified.Contains(NumberType.Mana)) link.UpdateNumberValue(NumberType.Mana, mana, this, true); modified = true;
+                if (amount != 0 && link.numberTypesCanBeModified.Contains(NumberType.Amount)) link.UpdateNumberValue(NumberType.Amount, (int)amount, this, true); modified = true;
+                if (mana != 0 && link.numberTypesCanBeModified.Contains(NumberType.Mana)) link.UpdateNumberValue(NumberType.Mana, (int)mana, this, true); modified = true;
                 if (coin != 0 && link.numberTypesCanBeModified.Contains(NumberType.Coin)) link.UpdateNumberValue(NumberType.Coin, coin, this, true); modified = true;
             }
         }
@@ -40,7 +40,7 @@ public class CardInstantValueAdder : CardMaster
 
     public override string GetDescription()
     {
-        // Build a string like "Permanently give the linked card Damage: XX, Health: YY, ..." for all nonzero stats
+        // Build a string like "Permanently give the linked card Damage: XX, (int)health: YY, ..." for all nonzero stats
         List<string> parts = new List<string>();
         if (damage != 0) parts.Add($"Damage: {(int)damage}");
         if (health != 0) parts.Add($"Health: {(int)health}");

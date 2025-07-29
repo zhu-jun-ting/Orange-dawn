@@ -109,7 +109,7 @@ public class ManaBar : MonoBehaviour
         if (manaRegenAccumulator >= 1f)
         {
             int regenAmount = Mathf.FloorToInt(manaRegenAccumulator);
-            manaCurrent = Mathf.Min(manaCurrent + regenAmount, manaMax);
+            manaCurrent = Mathf.Min(manaCurrent + regenAmount, (int)manaMax);
             manaRegenAccumulator -= regenAmount;
         }
     }

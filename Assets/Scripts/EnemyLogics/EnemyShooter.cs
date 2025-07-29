@@ -36,6 +36,7 @@ public class EnemyShooter : EnemyMaster
     public override void Start()
     {
         base.Start();
+        target = PlayerController.instance.transform;
         shoot_detector = gameObject.GetComponentInChildren<ShootRangeDetector>();
         shoot_detector.target = target;
     }

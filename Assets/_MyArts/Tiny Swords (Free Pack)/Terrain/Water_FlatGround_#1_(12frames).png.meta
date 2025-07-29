@@ -136,10 +136,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 47
-        width: 60
-        height: 17
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,10 +158,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_1
       rect:
         serializedVersion: 2
-        x: 69
-        y: 46
-        width: 60
-        height: 18
+        x: 64
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,10 +180,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_2
       rect:
         serializedVersion: 2
-        x: 133
-        y: 46
-        width: 60
-        height: 18
+        x: 128
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_3
       rect:
         serializedVersion: 2
-        x: 197
-        y: 46
-        width: 60
-        height: 18
+        x: 192
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,10 +224,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_4
       rect:
         serializedVersion: 2
-        x: 261
-        y: 47
-        width: 60
-        height: 17
+        x: 256
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,10 +246,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_5
       rect:
         serializedVersion: 2
-        x: 325
-        y: 48
-        width: 60
-        height: 16
+        x: 320
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,10 +268,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_6
       rect:
         serializedVersion: 2
-        x: 389
-        y: 50
-        width: 60
-        height: 14
+        x: 384
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,10 +290,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_7
       rect:
         serializedVersion: 2
-        x: 453
-        y: 50
-        width: 60
-        height: 14
+        x: 448
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +312,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_8
       rect:
         serializedVersion: 2
-        x: 517
-        y: 50
-        width: 60
-        height: 14
+        x: 512
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +334,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_9
       rect:
         serializedVersion: 2
-        x: 581
-        y: 50
-        width: 60
-        height: 14
+        x: 576
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,10 +356,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_10
       rect:
         serializedVersion: 2
-        x: 645
-        y: 49
-        width: 60
-        height: 15
+        x: 640
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +378,10 @@ TextureImporter:
       name: Water_FlatGround_#1_(12frames)_11
       rect:
         serializedVersion: 2
-        x: 709
-        y: 48
-        width: 59
-        height: 16
+        x: 704
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -400,7 +400,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 784338ac531d6be4c9ea1397df037d8e
     internalID: 0
     vertices: []
     indices: 
@@ -408,7 +408,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":12.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Water_FlatGround_#1_(12frames)_0: 746392283172420966
       Water_FlatGround_#1_(12frames)_1: 4818736859273601577

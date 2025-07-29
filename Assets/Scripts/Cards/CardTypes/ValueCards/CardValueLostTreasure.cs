@@ -28,6 +28,6 @@ public class CardValueLostTreasure : CardMaster
 
     public override string GetDescription()
     {
-        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), coinGain, health));
+        return GameSettings.AddIcon(string.Format(GameSettings.LocalizeText(card_description), coinGain, (int)health));
     }
 }

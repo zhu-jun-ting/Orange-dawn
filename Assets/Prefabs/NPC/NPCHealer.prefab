@@ -28,6 +28,18 @@ PrefabInstance:
       propertyPath: m_CallbackLayers.m_Bits
       value: 768
       objectReference: {fileID: 0}
+    - target: {fileID: 4838551514953442483, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cbf015d5770644f489ca6ce68cef74c9, type: 2}
+    - target: {fileID: 5814495950363421655, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -8580444238127179786, guid: 57a6843209d483c458b856a5b15fe02d, type: 3}
+    - target: {fileID: 5814495950363421655, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7334453287249067209, guid: 88009c2c168c1fc4da937b5bf752838f, type: 3}
       propertyPath: m_Name
       value: NPCHealer
@@ -158,6 +170,8 @@ MonoBehaviour:
   buff_icon_grid: {fileID: 0}
   icon_prefab: {fileID: 0}
   isPlayer: 0
+  isEnemy: 0
+  isNPC: 0
   isFullHealth: 1
   dot_stat: {fileID: 0}
   moveSpeed: 1

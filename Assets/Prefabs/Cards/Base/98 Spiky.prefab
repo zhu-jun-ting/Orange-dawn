@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.5724945
+      value: -1.1589966
       objectReference: {fileID: 0}
     - target: {fileID: 1223566657872777160, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -189,6 +189,8 @@ MonoBehaviour:
   card_rarity: 2
   card_bonds: 
   card_conditions: 00000000
+  additional_tags: 
+  additional_mousetips: 
   damage: 2
   health: 0
   probability: 5

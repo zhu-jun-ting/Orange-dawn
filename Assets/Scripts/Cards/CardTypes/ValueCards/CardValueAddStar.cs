@@ -16,18 +16,22 @@ public class CardValueAddStar : CardMaster
                 if (card != null)
                 {
                     var valuePairs = new (NumberType, float)[] {
-                        (NumberType.Damage, damage),
-                        (NumberType.Health, health),
+                        (NumberType.Damage, (int)damage),
+                        (NumberType.Health, (int)health),
                         (NumberType.Probability, probability),
-                        (NumberType.Amount, amount),
-                        (NumberType.Mana, mana),
+                        (NumberType.Amount, (int)amount),
+                        (NumberType.Mana, (int)mana),
                         (NumberType.Coin, coin)
                     };
                     foreach (var (nType, nValue) in valuePairs)
                     {
                         if (Mathf.Abs(nValue) > 0.0001f)
                         {
-                            card.UpdateNumberValue(nType, nValue, this);
+                            float finalValue = nValue;
+                            // If the link is a gun card, we should apply the buff at the very end
+                            if (card_conditions.Contains(CardCondition.IsPowerful)) finalValue *= 2;
+                            if (card_conditions.Contains(CardCondition.IsFrail)) finalValue *= 0.5f;
+                            card.UpdateNumberValue(nType, finalValue, this);
                         }
                     }
                 }
