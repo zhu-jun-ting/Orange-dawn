@@ -141,8 +141,9 @@ public class CardMaster : MonoBehaviour
 
 
     [Header("Card Properties")]
-    public bool is_free_card = false; // If true, card can be placed anywhere regardless of link restrictions
-    public bool is_root = false; // if true, this card is the root of the card tree that traverse from this card
+    public bool isFreeCard = false; // If true, card can be placed anywhere regardless of link restrictions
+    public bool isRoot = false; // if true, this card is the root of the card tree that traverse from this card
+    public bool isInternal = false; // if true, this card is for internal mechanisms and should not be used in gameplay
     public CardType card_type = CardType.Base; // if true, this card is the root of the card tree that traverse from this card
     public CardRarity card_rarity = CardRarity.Common; // Rarity of the card, used for UIStars
     public List<CardBond> card_bonds = new List<CardBond>(); // List of card bonds this card has, used for UIStars
@@ -471,7 +472,7 @@ public class CardMaster : MonoBehaviour
                 case NumberType.Mana: val = mana; break;
                 case NumberType.Coin: val = coin; break;
             }
-            sb.AppendFormat("{0}: {1}", numberTypes[i], val);
+            sb.AppendFormat("{0}: {1}", numberTypes[i], (int)val);
             if (i < numberTypes.Count - 1) sb.Append("\n");
         }
         return GameSettings.AddIcon(sb.ToString());

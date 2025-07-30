@@ -12,7 +12,7 @@ public class TipEntry : MonoBehaviour
 
     [Header("Tip Animation")]
     public float fadeDuration = 0.3f;
-    public float lifeTime = 5f;
+    public float lifeTime = 10f;
     private CanvasGroup canvasGroup;
     private bool isFadingOut = false;
 

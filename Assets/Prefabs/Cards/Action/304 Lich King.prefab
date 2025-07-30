@@ -742,7 +742,7 @@ MonoBehaviour:
   card_name: LichKing
   card_cost: 85
   card_sell_price: 20
-  card_description: At the end of each level, give you a random Temporary card.
+  card_description: LichKing_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -760,12 +760,15 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 3
   card_rarity: 4
   card_bonds: 01000000
   card_conditions: 00000000
+  additional_tags: 
+  additional_mousetips: 
   damage: 0
   health: 0
   probability: 0

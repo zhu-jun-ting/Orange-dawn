@@ -27,6 +27,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     public Transform Aoe;
     public float AoeDamage = 5f;
     public float lifetime = 10f; // how long the bullet lasts before it is destroyed
+    public float minDestoryVelocity = 0.01f; // minimum velocity to destroy the bullet, 0 means no minimum velocity
 
     public float hit_back = 5f;
     public Gun gun; // the gun that fired this bullet, used for source of damage and other effects
@@ -52,7 +53,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
         if (_collider2D != null)
         {
             _collider2D.enabled = false;
-            StartCoroutine(EnableColliderAfterDelay(0.03f));
+            StartCoroutine(EnableColliderAfterDelay(0.01f));
         }
     }
 
@@ -67,6 +68,18 @@ public class GunBullet : MonoBehaviour, IColliderHandler
     {
         SetAoe(false); // Disable AOE by default
         Destroy(gameObject, lifetime); // Destroy the bullet after 15 seconds if not used
+        if (trigger_tags.Contains("Player") || trigger_tags.Contains("NPC"))
+        {
+            var spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                Color c = spriteRenderer.color;
+                c.r = Mathf.Min(1f, c.r + 0.5f); // Increase red channel, clamp to 1
+                c.g *= 0.5f; // Optionally reduce green for more red effect
+                c.b *= 0.5f; // Optionally reduce blue for more red effect
+                spriteRenderer.color = c;
+            }
+        }
     }
 
     /// <summary>
@@ -307,7 +320,7 @@ public class GunBullet : MonoBehaviour, IColliderHandler
             rigidbody.linearVelocity *= Mathf.Clamp01(1f - inertia * Time.fixedDeltaTime);
         }
         // Destroy the bullet if it is not moving
-        if (rigidbody.linearVelocity.sqrMagnitude < 0.01f)
+        if (rigidbody.linearVelocity.sqrMagnitude < minDestoryVelocity)
         {
             Destroy(gameObject);
             if (explosionPrefab != null)

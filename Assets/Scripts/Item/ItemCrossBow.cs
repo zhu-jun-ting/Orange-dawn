@@ -93,7 +93,7 @@ public class ItemCrossBow : ItemMaster, IColliderHandler
 		// Rotate the crossbow so its +Y axis faces the target
 		transform.rotation = Quaternion.Euler(0, 0, -angle);
 
-		GameObject bullet = Instantiate(bulletPrefab, shootOrigin, Quaternion.identity);
+		GameObject bullet = ObjectPool.Instance.GetObject(bulletPrefab, shootOrigin, Quaternion.identity);
 		var normalBullet = bullet.GetComponent<NormalBullet>();
 		if (normalBullet != null)
 		{

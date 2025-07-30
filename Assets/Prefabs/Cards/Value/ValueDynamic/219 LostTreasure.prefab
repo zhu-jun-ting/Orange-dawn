@@ -159,12 +159,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
   card_id: 219
-  card_name: Lost Treasure
+  card_name: LostTreasure
   card_cost: 15
   card_sell_price: 5
-  card_description: 'When discarded, give you Coin: {0}
-
-    Health: {1}'
+  card_description: LostTreasure_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -182,12 +180,15 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 2
   card_rarity: 0
   card_bonds: 01000000
   card_conditions: 
+  additional_tags: 
+  additional_mousetips: 
   damage: 0
   health: 10
   probability: 0

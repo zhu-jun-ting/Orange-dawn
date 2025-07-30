@@ -300,6 +300,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1398895128868304335, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: keywordColors.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398895128868304335, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: keywordColors.Array.data[10].color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398895128868304335, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: keywordColors.Array.data[10].color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398895128868304335, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: keywordColors.Array.data[10].color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1398895128868304335, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
+      propertyPath: keywordColors.Array.data[10].color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1599193186177537721, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -766,6 +786,8 @@ MonoBehaviour:
   card_rarity: 1
   card_bonds: 01000000
   card_conditions: 
+  additional_tags: 
+  additional_mousetips: 
   damage: 2
   health: 50
   probability: 0

@@ -496,7 +496,7 @@ MonoBehaviour:
   enemyAOEPrefab: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
   attackScale: 8
   attackDamage: 3
-  attackDuration: 1
+  attackDuration: 0.5
   attackCooldown: 2
   meleeAttackDetector: {fileID: 4405230905769928799}
   meleeAttackTags:

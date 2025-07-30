@@ -124,7 +124,6 @@ public class Gun : MonoBehaviour
         {
             animator.SetTrigger("Shoot");
 
-            // GameObject bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
             GameObject bullet = ObjectPool.Instance.GetObject(bulletPrefab);
             bullet.transform.position = muzzlePos.position;
             var gunBullet = bullet.GetComponent<GunBullet>();

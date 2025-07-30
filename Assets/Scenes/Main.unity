@@ -240,6 +240,93 @@ RectTransform:
   m_AnchoredPosition: {x: -194.1, y: 91.9}
   m_SizeDelta: {x: 180.5818, y: 59.4025}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &9318482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9318484}
+  - component: {fileID: 9318483}
+  m_Layer: 0
+  m_Name: F33C0E3B4367E6543668ED499458FAD8_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &9318483
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9318482}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 841323991
+  m_SortingLayer: -1
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -5674078750131938561, guid: dbea63316681ef44eb4bf78ffdb60aa3, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 27.01, y: 19.04416}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &9318484
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9318482}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52, y: -1.89, z: 0}
+  m_LocalScale: {x: 0.5471817, y: 0.5471817, z: 0.5471817}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &10271515
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,8 +2803,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -4327,8 +4415,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -5023,8 +5112,9 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -6570,8 +6660,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -7148,7 +7239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 48986325752300234, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 48986325752300234, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -8144,7 +8235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377542139012363358, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 6377542139012363358, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -9467,7 +9558,7 @@ MonoBehaviour:
     volume: 1
   - key: Whoosh
     clip: {fileID: 8300000, guid: 2ebf2421dddc15a45b7fc6ae8197b1c0, type: 3}
-    volume: 1
+    volume: 0.648
   - key: Hit1
     clip: {fileID: 8300000, guid: 232ef9bca34feec47a780ef57d6b6394, type: 3}
     volume: 1
@@ -9491,10 +9582,10 @@ MonoBehaviour:
     volume: 1
   - key: DrawSword
     clip: {fileID: 8300000, guid: ad2bbb35918e9804aa52b44f01b55feb, type: 3}
-    volume: 1
+    volume: 0.951
   - key: DrumStart
     clip: {fileID: 8300000, guid: 7bb1ba7a9b191cf4cb8a20cdeaa9c66f, type: 3}
-    volume: 1
+    volume: 0.858
   - key: Card1
     clip: {fileID: 8300000, guid: 944a0454ec9d8b149ab26731363c8a2a, type: 3}
     volume: 1
@@ -9506,7 +9597,7 @@ MonoBehaviour:
     volume: 1
   - key: Cleared
     clip: {fileID: 8300000, guid: 107e03f37df44dc4092d7f6a9e46c35f, type: 3}
-    volume: 1
+    volume: 0.858
   - key: Pop
     clip: {fileID: 8300000, guid: 60f56da197f1e4f4ebfb102dac7ad11e, type: 3}
     volume: 1
@@ -9536,7 +9627,7 @@ MonoBehaviour:
     volume: 1
   - key: Miss
     clip: {fileID: 8300000, guid: 403164d7bd5470d48a5f74b172ed752d, type: 3}
-    volume: 1
+    volume: 0.697
 --- !u!224 &711324022 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 947299261203941211, guid: 83794edc173201a47aa21eae2986ebf9, type: 3}
@@ -10455,8 +10546,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -11118,7 +11210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2670440392672384404, guid: 4ade1c9907ceaba4b92569a8e2848cab, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 2670440392672384404, guid: 4ade1c9907ceaba4b92569a8e2848cab, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -12130,7 +12222,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9016438895774819072, guid: 4ade1c9907ceaba4b92569a8e2848cab, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 9016438895774819072, guid: 4ade1c9907ceaba4b92569a8e2848cab, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -13697,8 +13789,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -14796,6 +14889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d9deb42d81856c43bf3b382f7e450fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelDatabase: {fileID: 11400000, guid: 9d4ea8c7b6c037b4f90efeed8c659cbb, type: 2}
   battleRoomPrefabs:
   - prefab: {fileID: 6941025242713350881, guid: 869b12dbc8042074f85dfc2fbe4c66ee, type: 3}
     weight: 1
@@ -15480,8 +15574,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -17463,8 +17558,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -18421,8 +18517,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -19465,8 +19562,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 2
   card_rarity: 0
   card_bonds: 02000000
@@ -20734,6 +20832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec71fc981b4d95c4493a04a4710b0a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastLevelStartOrClearTime: 0
 --- !u!1 &1698827342
 GameObject:
   m_ObjectHideFlags: 0
@@ -21242,7 +21341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 48986325752300234, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 48986325752300234, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -22238,7 +22337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377542139012363358, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 6377542139012363358, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -22621,8 +22720,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -23468,8 +23568,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -24137,8 +24238,9 @@ MonoBehaviour:
   down_link_enabled: 1
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 0
   card_rarity: 0
   card_bonds: 
@@ -25162,6 +25264,110 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: coin
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: mana
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: amount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: health
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: card_cost
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: card_name
+      value: Value
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: linkCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: card_rarity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: coinRange.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: manaRange.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: probability
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: card_sell_price
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: targetCardRarity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: generateRandomBond
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: setTargetCardRarity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: card_bonds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: amountOccurrenceFactor
+      value: 0.064
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: 'card_bonds.Array.data[0]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: generateRandomConditions
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: card_conditions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: 'card_conditions.Array.data[0]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: 'card_conditions.Array.data[1]'
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: 'card_conditions.Array.data[2]'
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: 'card_conditions.Array.data[3]'
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2663746353608002717, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
+      propertyPath: 'card_conditions.Array.data[4]'
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2958813368015881534, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -25180,7 +25386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2958813368015881534, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 2958813368015881534, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -25684,7 +25890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8151600056856245162, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 8151600056856245162, guid: b4acbe1649df6404f9d61b2f0d280a36, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -26809,8 +27015,9 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 2
   card_rarity: 0
   card_bonds: 
@@ -28297,6 +28504,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyHealthModifier: 1
   enemyDamageModifier: 1
+  commonWeight: 1
+  uncommonWeightIncrement: 0.025
+  rareWeightIncrement: 0.015
+  epicWeightIncrement: 0.007
+  legendaryWeightIncrement: 0.003
+  uncommonWeightCap: 1
+  rareWeightCap: 1
+  epicWeightCap: 1
+  legendaryWeightCap: 1
+  levelUpSelectCards:
+  - {fileID: 6705360014326929814, guid: a21d92d381c5829488efe0f060468591, type: 3}
+  - {fileID: 6705360014326929814, guid: 86a56d6b062cde34da5fa6a3353b94e8, type: 3}
+  - {fileID: 6705360014326929814, guid: b05b3c1dcb66e9f4daabb4f484a7e1f5, type: 3}
+  - {fileID: 6705360014326929814, guid: 45393b3b1ba437c469ae34c9cd016640, type: 3}
+  - {fileID: 6705360014326929814, guid: eb0a4ddf835d8d7498e51050a84a6529, type: 3}
+  - {fileID: 6705360014326929814, guid: 7bfb383e3b7999549850d60802832ebf, type: 3}
+  - {fileID: 6705360014326929814, guid: e3030699400591f4484ca3d69e3cd2d7, type: 3}
+  - {fileID: 6705360014326929814, guid: cd549958b984f794dbac834166d5dc46, type: 3}
+  - {fileID: 6705360014326929814, guid: 3c01b75bbe17d874cb911ef6603bbbf5, type: 3}
+  - {fileID: 6705360014326929814, guid: 8d5330bcd21affb489200dd5ad1af4ce, type: 3}
+  - {fileID: 6705360014326929814, guid: 777faefaa5932954ba0c7a8f0102ff5c, type: 3}
+  - {fileID: 6705360014326929814, guid: f3b11e8614e725a4788f2d77bdf33e90, type: 3}
+  - {fileID: 6705360014326929814, guid: e463626e0e3f1aa4f94e61060e788113, type: 3}
+  - {fileID: 6705360014326929814, guid: debbb1ce1ee471a4ea321fd278283623, type: 3}
+  - {fileID: 6705360014326929814, guid: 22fa6970f7c34e745b369b8c47f9aee8, type: 3}
+  - {fileID: 6705360014326929814, guid: ccda19727ef0be348b998b7ff793eb4c, type: 3}
+  - {fileID: 6705360014326929814, guid: b05d43a0a3ed09149958ba5600233058, type: 3}
+  - {fileID: 6705360014326929814, guid: 8670a9b0e15cae04eacb9a5e57d2217b, type: 3}
+  - {fileID: 6705360014326929814, guid: 5a996618f925f824fb5abfc69bb7b4e9, type: 3}
+  - {fileID: 6705360014326929814, guid: 524732875c288414695acccc4751083b, type: 3}
+  - {fileID: 6705360014326929814, guid: bbc0f618f402d0d48bae1a6a9d0b41ae, type: 3}
+  - {fileID: 6705360014326929814, guid: 44215fe9700924648afc5cd362e0d88f, type: 3}
+  - {fileID: 6705360014326929814, guid: 0142ee14fc192bd4391b32a6d7cb832f, type: 3}
+  - {fileID: 6705360014326929814, guid: b9503743708d1784e8a585c892a775f5, type: 3}
+  - {fileID: 6705360014326929814, guid: 8831431e1fc5f384d9cccc86a0440748, type: 3}
+  - {fileID: 6705360014326929814, guid: b04aaf65fbfd42546a45a3e00f32934b, type: 3}
+  - {fileID: 6705360014326929814, guid: 2dd2cea03f47ab34daff5b4d4dadff10, type: 3}
+  - {fileID: 6705360014326929814, guid: 6b8c6c3d3f9b8dd49841b215003456c6, type: 3}
+  - {fileID: 6705360014326929814, guid: f02b4e60e4d581d489b8b1675a46b79b, type: 3}
+  - {fileID: 6705360014326929814, guid: 5c6333125deac724386e4498d5c1d17e, type: 3}
   boardRows: 3
   boardColumns: 3
   boardMargin: 20
@@ -28343,15 +28590,15 @@ MonoBehaviour:
   - {fileID: 927343514943960820, guid: 6769a23b78d808e4b80cc768b6de75c9, type: 3}
   roomSignSprites:
   - roomType: 0
-    signSprite: {fileID: -8942117458661244898, guid: ce9f402d5155b904e850851835d427b6, type: 3}
+    signSprite: {fileID: -1545786776251177095, guid: 513597d3ad91d0349a1d1185ed1819bc, type: 3}
   - roomType: 1
-    signSprite: {fileID: 4583763070562135145, guid: 3f6ec02197963c640afa2f7f92cb42e2, type: 3}
+    signSprite: {fileID: 5002208078831763236, guid: 1073f2d0e5eb1444a8ea6e35f6d8d23d, type: 3}
   - roomType: 2
-    signSprite: {fileID: -6834524911116659543, guid: 51dca54826534ea479d1ba7b72c99f08, type: 3}
+    signSprite: {fileID: -2899953286262746041, guid: a39ca54574119a343b570d37f07f247a, type: 3}
   - roomType: 3
-    signSprite: {fileID: 0}
+    signSprite: {fileID: 3385804489943742964, guid: 276bcad417a52d84e9a9eab0d5ce606b, type: 3}
   - roomType: 4
-    signSprite: {fileID: -3751710701730721300, guid: 24ac1f814670aa8488d861e5119d04d3, type: 3}
+    signSprite: {fileID: 1871499861123448892, guid: 59ded7be69c23b245ab47ad58a4137ed, type: 3}
   - roomType: 5
     signSprite: {fileID: 3656287693732804909, guid: 4178a9f97cfc71048814d8246b2f6ee8, type: 3}
   keywordTips:
@@ -28421,23 +28668,23 @@ MonoBehaviour:
   - 3
   - -1
   - -2
-  - 5
-  - -4
-  - 8
-  - -5
+  - -2
+  - -2
+  - 2
+  - 3
   healthGrowth:
   - 2
   - 3
   - 2
   - 1
   - 5
-  - 6
+  - 1
   - -2
   - -5
-  - 8
-  - -8
-  - 15
-  - -9
+  - 5
+  - -3
+  - 2
+  - 1
   speedGrowth:
   - 1
   - 1
@@ -28457,26 +28704,26 @@ MonoBehaviour:
   - 1
   - 2
   - 2
-  - 3
+  - 1
+  - 1
+  - 1
+  - -1
+  - -1
   - -1
   - -2
-  - 5
-  - -4
-  - 8
-  - -5
   probabilityGrowth:
-  - 5
+  - 2
   - 3
   - 2
-  - 5
-  - 3
   - 1
+  - 5
+  - 1
+  - -2
   - -5
-  - -10
-  - 6
-  - -8
-  - 15
-  - -10
+  - 5
+  - -3
+  - 2
+  - 1
   timeGrowth:
   - 1
   - 1
@@ -28491,18 +28738,18 @@ MonoBehaviour:
   - 8
   - -5
   coinGrowth:
-  - 10
-  - 10
-  - 10
-  - 20
-  - 20
-  - 30
-  - -10
-  - -20
-  - 30
-  - -40
-  - 20
-  - -50
+  - 1
+  - 1
+  - 1
+  - 2
+  - 2
+  - 1
+  - 1
+  - 1
+  - -1
+  - -1
+  - -1
+  - -2
   damageDecay:
   - -1
   - -1
@@ -28512,23 +28759,23 @@ MonoBehaviour:
   - -3
   - 1
   - 2
-  - -5
-  - 4
-  - -8
-  - 5
+  - -2
+  - 3
+  - -1
+  - 2
   healthDecay:
   - -2
   - -3
   - -2
   - -1
-  - -5
-  - -6
+  - -3
+  - -2
   - 2
   - 5
-  - -8
-  - 8
-  - -15
-  - 9
+  - -2
+  - 3
+  - -2
+  - 5
   speedDecay:
   - -1
   - -1
@@ -28548,26 +28795,26 @@ MonoBehaviour:
   - -1
   - -2
   - -2
-  - -3
+  - -2
   - 1
   - 2
-  - -5
-  - 4
-  - -8
-  - 5
+  - -1
+  - 3
+  - -1
+  - 2
   probabilityDecay:
   - -5
   - -3
   - -2
-  - -5
+  - -1
   - -3
   - -1
-  - 5
-  - 10
-  - -6
-  - 8
-  - -15
-  - 10
+  - 6
+  - 3
+  - -2
+  - 2
+  - -3
+  - 4
   timeDecay:
   - -1
   - -1
@@ -28582,18 +28829,18 @@ MonoBehaviour:
   - -8
   - 5
   coinDecay:
-  - -10
-  - -10
-  - -10
-  - -20
-  - -20
-  - -30
-  - 10
-  - 20
-  - -30
-  - 40
-  - -20
-  - 50
+  - -1
+  - -1
+  - -1
+  - -2
+  - -2
+  - -2
+  - 1
+  - 2
+  - -1
+  - 3
+  - -1
+  - 2
 --- !u!1 &2037695245
 GameObject:
   m_ObjectHideFlags: 0
@@ -29891,6 +30138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ExpText: {fileID: 118965050}
   LevelText: {fileID: 1843651046}
+  ExpIncrementPerLevel: 50
 --- !u!1 &2123306582
 GameObject:
   m_ObjectHideFlags: 0
@@ -30810,7 +31058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1563158977704218519, guid: 5f1560209f07ca641abe77095a2a6ec8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 1563158977704218519, guid: 5f1560209f07ca641abe77095a2a6ec8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -31326,7 +31574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5593163741777508611, guid: 5f1560209f07ca641abe77095a2a6ec8, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 5593163741777508611, guid: 5f1560209f07ca641abe77095a2a6ec8, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -32316,7 +32564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2670440392672384404, guid: 4ade1c9907ceaba4b92569a8e2848cab, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 2670440392672384404, guid: 4ade1c9907ceaba4b92569a8e2848cab, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -33344,7 +33592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9016438895774819072, guid: 4ade1c9907ceaba4b92569a8e2848cab, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 9016438895774819072, guid: 4ade1c9907ceaba4b92569a8e2848cab, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -35399,7 +35647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2958813368015881534, guid: cec01eb344aba2342971cca04d574b54, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 2958813368015881534, guid: cec01eb344aba2342971cca04d574b54, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -36183,7 +36431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8151600056856245162, guid: cec01eb344aba2342971cca04d574b54, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 8151600056856245162, guid: cec01eb344aba2342971cca04d574b54, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -36825,7 +37073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2911169510477637067, guid: 2ffcc3f22c8fdbb49823340a40d3ec52, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 2911169510477637067, guid: 2ffcc3f22c8fdbb49823340a40d3ec52, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -37609,7 +37857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8091017146593465183, guid: 2ffcc3f22c8fdbb49823340a40d3ec52, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 8091017146593465183, guid: 2ffcc3f22c8fdbb49823340a40d3ec52, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -38532,7 +38780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2121626441519499865, guid: 83794edc173201a47aa21eae2986ebf9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 2121626441519499865, guid: 83794edc173201a47aa21eae2986ebf9, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -38940,7 +39188,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4998454648645057741, guid: 83794edc173201a47aa21eae2986ebf9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 4998454648645057741, guid: 83794edc173201a47aa21eae2986ebf9, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -40123,7 +40371,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2704892655313359537, guid: 0cac9a36b56a8aa439b2fa0f6b664e86, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 44.041664
+      value: 40.708332
       objectReference: {fileID: 0}
     - target: {fileID: 2704892655313359537, guid: 0cac9a36b56a8aa439b2fa0f6b664e86, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -41011,7 +41259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9053969786798597157, guid: 0cac9a36b56a8aa439b2fa0f6b664e86, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 8.008333
+      value: 11.341666
       objectReference: {fileID: 0}
     - target: {fileID: 9053969786798597157, guid: 0cac9a36b56a8aa439b2fa0f6b664e86, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -42136,3 +42384,4 @@ SceneRoots:
   - {fileID: 2045018380}
   - {fileID: 1005493896}
   - {fileID: 1363540948}
+  - {fileID: 9318484}

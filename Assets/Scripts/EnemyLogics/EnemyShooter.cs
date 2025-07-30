@@ -7,13 +7,13 @@ public class EnemyShooter : EnemyMaster
 {
 
     [Header("Shooter Stats")]
-    public EnemyShooterStat shooter_stat;
-    protected float shoot_range;
-    protected float shoot_interval;
+    public float shoot_range;
+    public float shoot_interval;
+    public float attackBulletSpeed = 6f; // Speed of the bullet when shooting
 
     [Header("Game Objects")]
     private ShootRangeDetector shoot_detector;
-    protected GameObject bullet_prefab;
+    public GameObject bullet_prefab;
     
 
 
@@ -27,16 +27,12 @@ public class EnemyShooter : EnemyMaster
     public override void Awake()
     {
         base.Awake();
-
-        shoot_range = shooter_stat.shoot_range;
-        shoot_interval = shooter_stat.shoot_interval;
-        bullet_prefab = shooter_stat.bullet_prefab;
     }
 
     public override void Start()
     {
         base.Start();
-        target = PlayerController.instance.transform;
+        
         shoot_detector = gameObject.GetComponentInChildren<ShootRangeDetector>();
         shoot_detector.target = target;
     }
@@ -75,11 +71,17 @@ public class EnemyShooter : EnemyMaster
         {
             yield return new WaitForSeconds(waitTime);
             // print("WaitAndPrint " + Time.time);
-            GameObject bullet = Instantiate(bullet_prefab, transform.position, Quaternion.identity);
-            bullet.GetComponent<GunBullet>().trigger_tags.Add("Player");
-            bullet.GetComponent<GunBullet>().SetSpeed(target.transform.position - transform.position, 3f);
-            bullet.GetComponent<GunBullet>().att = 10f; // TODO: update damage
-            bullet.GetComponent<GunBullet>().SetOwner(gameObject);
+            GameObject bullet = ObjectPool.Instance.GetObject(bullet_prefab, transform.position, Quaternion.identity);
+            GunBullet gunBullet = bullet.GetComponent<GunBullet>();
+            if (gunBullet == null) {
+                Debug.LogError("Bullet prefab does not have GunBullet component!");
+                yield break;
+            }
+            gunBullet.trigger_tags = new List<string> { "Player" };
+            gunBullet.SetSpeed(target.transform.position - transform.position, attackBulletSpeed);
+            gunBullet.att = attackDamage;
+            gunBullet.SetOwner(gameObject);
+            gunBullet.AddIgnore(transform);
         }
     }
 

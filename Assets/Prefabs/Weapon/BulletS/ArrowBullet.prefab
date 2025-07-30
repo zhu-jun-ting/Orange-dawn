@@ -266,8 +266,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 10
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 0.01
+  m_AngularDamping: 1.5
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 8963758e053040745a7b95673a4a8d72, type: 2}
   m_IncludeLayers:
@@ -329,9 +329,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDirectional: 1
+  canClone: 1
   att: 3
   owner: {fileID: 0}
+  critChance: 0.05
+  critDamage: 1.5
+  penetrate: 0
   speed: 15
+  speedDamageModifier: 1
   explosionPrefab: {fileID: 3217125097851079088, guid: 2be4eb6338a97ad42bf2801937e8fb6b, type: 3}
   trigger_tags:
   - Enemy
@@ -344,11 +349,14 @@ MonoBehaviour:
   Aoe: {fileID: 8957024521976937925}
   AoeDamage: 5
   lifetime: 10
+  minDestoryVelocity: 0.01
   hit_back: 5
   gun: {fileID: 0}
   bounceLayers:
     serializedVersion: 2
     m_Bits: 2112
+  ignoreTags:
+  - Bullet
 --- !u!1001 &5417824617875505964
 PrefabInstance:
   m_ObjectHideFlags: 0

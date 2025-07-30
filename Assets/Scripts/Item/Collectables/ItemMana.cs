@@ -40,7 +40,7 @@ public class ItemMana : MonoBehaviour, IColliderHandler
             if (GameEvents.instance != null)
             {
                 GameEvents.instance.UpdateMana(1, -1); // +1 mana, don't change max
-                SoundManager.PlaySFX("GetItem");
+                SoundManager.PlaySFX("Pop");
                 Destroy(gameObject);
             }
         }

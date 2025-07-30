@@ -5,6 +5,7 @@ using System.Linq;
 public class FloorManager : MonoBehaviour
 {
     public static FloorManager instance;
+    public LevelDatabase levelDatabase;
 
     public enum RoomType { Battle, Shop, Event, Bonefire, MiniGame, None }
 
@@ -51,6 +52,9 @@ public class FloorManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+        // Ensure LevelDatabase.instance is set
+        if (levelDatabase != null)
+            LevelDatabase.instance = levelDatabase;
     }
     private void OnDisable()
     {
@@ -210,7 +214,7 @@ public class FloorManager : MonoBehaviour
         {
             Vector2Int pos = kvp.Key;
             MapGrid grid = kvp.Value;
-            if (grid.roomObject != null && Vector2Int.Distance(pos, playerRoom) >= 5f)
+            if (grid.roomObject != null && Vector2Int.Distance(pos, playerRoom) >= 3f)
             {
                 Destroy(grid.roomObject);
                 grid.roomObject = null;

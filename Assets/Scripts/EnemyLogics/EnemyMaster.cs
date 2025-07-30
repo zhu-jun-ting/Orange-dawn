@@ -92,6 +92,7 @@ public class EnemyMaster : PawnMaster
         if (sr == null) sr = GetComponent<SpriteRenderer>();
         enemyHealthBar = health_bar.GetComponent<EnemyHealthBar>();
         originalColor = sr.color; // Store the original color
+        target = PlayerController.instance.transform;
 
         // get singleton references
         combatManager = FindFirstObjectByType<CombatManager>();
@@ -161,8 +162,11 @@ public class EnemyMaster : PawnMaster
 
     protected void FollowTarget(Transform target)
     {
-        // rb.linearVelocity = Vector2.zero;
-        // transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
+        rb.linearVelocity = Vector2.zero;
+        // Add a random offset of about 2 units to the target position
+        Vector2 randomOffset = (Vector2)UnityEngine.Random.insideUnitCircle.normalized * 2f;
+        Vector2 destination = (Vector2)target.position + randomOffset;
+        transform.position = Vector2.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
     }
 
     public override bool TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)

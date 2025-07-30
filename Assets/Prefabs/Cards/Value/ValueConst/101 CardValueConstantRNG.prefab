@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
-  card_id: 
+  card_id: 101
   card_name: Random Card 773
   card_cost: 19
   card_sell_price: 4
@@ -180,12 +180,15 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 2
   card_rarity: 1
   card_bonds: 
   card_conditions: 04000000
+  additional_tags: 
+  additional_mousetips: 
   damage: 1
   health: 0
   probability: 6
@@ -236,5 +239,8 @@ MonoBehaviour:
   growingOccurrenceFactor: 0.5
   decayingOccurrenceFactor: 0.5
   eternalOccurrenceFactor: 0.5
-  generateRandomBond: 1
-  generateRandomConditions: 1
+  generateRandomBond: 0
+  generateRandomConditions: 0
+  setTargetCardRarity: 0
+  targetCardRarity: 0
+  maxIterations: 50

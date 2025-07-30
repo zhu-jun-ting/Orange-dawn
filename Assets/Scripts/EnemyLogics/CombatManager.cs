@@ -280,7 +280,7 @@ public class CombatManager : MonoBehaviour
             if (currentEnemies.Count == 0 && (activeEnemiesToSpawn == null || activeEnemiesToSpawn.Count == 0))
             {
                 // Trigger level clear event
-                GameEvents.instance?.LevelCleared();
+                if (Time.time - GameEvents.instance.lastLevelStartOrClearTime > 1f) GameEvents.instance?.LevelCleared();
             }
         }
 

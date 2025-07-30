@@ -105,8 +105,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
   m_Mass: 0.061575215
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_LinearDamping: 0.01
+  m_AngularDamping: 1.5
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 8963758e053040745a7b95673a4a8d72, type: 2}
   m_IncludeLayers:
@@ -187,6 +187,7 @@ MonoBehaviour:
   Aoe: {fileID: 0}
   AoeDamage: 5
   lifetime: 999
+  minDestoryVelocity: 0.01
   hit_back: 5
   gun: {fileID: 0}
   bounceLayers:
@@ -335,7 +336,7 @@ CircleCollider2D:
     m_Bits: 4294967295
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 128
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0

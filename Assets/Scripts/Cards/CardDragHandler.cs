@@ -102,7 +102,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (cardMaster != null)
         {
             // If this card is a root and is being removed from the board, remove from roots list
-            if (cardMaster.is_root && BoardArea.instance != null && BoardArea.instance.roots != null)
+            if (cardMaster.isRoot && BoardArea.instance != null && BoardArea.instance.roots != null)
             {
                 BoardArea.instance.roots.Remove(cardMaster);
             }
@@ -112,7 +112,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private bool CanPlaceCardAtCell(int row, int col, CardMaster card)
     {
-        if (card == null || card.is_free_card) return true;
+        if (card == null || card.isFreeCard) return true;
         var grid = BoardArea.instance.gridState;
         int rows = BoardArea.instance.rows;
         int cols = BoardArea.instance.columns;
@@ -873,7 +873,7 @@ public class CardDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             for (int c = 0; c < boardCols; c++)
             {
                 var card = gridState[r, c];
-                if (card != null && card.is_root)
+                if (card != null && card.isRoot)
                 {
                     allRoots.Add(card);
                 }

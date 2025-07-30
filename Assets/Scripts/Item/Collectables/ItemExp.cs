@@ -39,7 +39,7 @@ public class ItemExp : MonoBehaviour, IColliderHandler
         {
             hasGet = true;
             ExpBar.GainExp(10);
-            SoundManager.PlaySFX("GetItem");
+            SoundManager.PlaySFX("Pop");
             Destroy(gameObject);
         }
 

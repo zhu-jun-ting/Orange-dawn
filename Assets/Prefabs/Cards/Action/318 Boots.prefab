@@ -742,10 +742,7 @@ MonoBehaviour:
   card_name: Boots
   card_cost: 68
   card_sell_price: 18
-  card_description: 'When you move {0}m, Amount: {1} random Ally with {2} x Health:
-    ({3}) and {4} x Damage: ({5}) will help you a while
-
-    Cost Coin: {6}'
+  card_description: Boots_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -763,12 +760,15 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 3
   card_rarity: 3
   card_bonds: 
   card_conditions: 
+  additional_tags: 
+  additional_mousetips: 
   damage: 8
   health: 16
   probability: 0

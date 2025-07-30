@@ -6,7 +6,7 @@ public class LevelDatabase : ScriptableObject
 {
     public static LevelDatabase instance;
 
-    private void OnEnable()
+    private void Awake()
     {
         instance = this;
     }

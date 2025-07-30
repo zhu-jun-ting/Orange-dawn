@@ -53,7 +53,7 @@ public class ItemBulletCloner : ItemMaster
         {
             float angle = startAngle + angleStep * i;
             Vector2 dir = Quaternion.Euler(0, 0, angle) * baseDir;
-            GameObject clone = Instantiate(bullet, bullet.transform.position, bullet.transform.rotation);
+            GameObject clone = ObjectPool.Instance.GetObject(bullet, bullet.transform.position, bullet.transform.rotation);
             // Mark as cloned so it won't be cloned again
             if (clone.GetComponent<BulletClonedFlag>() == null)
                 clone.AddComponent<BulletClonedFlag>();

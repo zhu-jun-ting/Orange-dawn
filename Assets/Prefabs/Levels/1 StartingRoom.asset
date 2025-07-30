@@ -16,21 +16,21 @@ MonoBehaviour:
   roomType: 0
   enemiesToSpawn:
   - enemyPrefab: {fileID: 1012180736909545073, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
-    count: 3
-    health: 2500
+    count: 30
+    health: 15
     attack: 3
-    speed: 1
+    speed: 1.5
   - enemyPrefab: {fileID: 4321068798391446461, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
-    count: 4
-    health: 2500
+    count: 30
+    health: 15
     attack: 3
-    speed: 1
+    speed: 1.1
   - enemyPrefab: {fileID: 3235738136384544176, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
-    count: 4
-    health: 2500
+    count: 30
+    health: 15
     attack: 3
-    speed: 1
-  spawnInterval: 2
+    speed: 0.7
+  spawnInterval: 1.67
   isBoss: 0
   clearRequirement: 1
   timeLimit: 0

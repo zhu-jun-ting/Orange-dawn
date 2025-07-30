@@ -107,7 +107,7 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 	private static RectTransform tipsLayoutRect;
 	private static List<TipEntry> activeTips = new List<TipEntry>();
 	private static Vector2 tipsOffset = new Vector2(32, -32); // Offset from lower right of cursor
-	public static void ShowTip(string name, string description, float width = 60f, float spacing = 4f)
+	public static void ShowTip(string name, string description, float width = 60f, float spacing = 10f)
 
 	{
 		if (s_instance == null || s_instance.tipsPrefab == null || s_instance.canvas == null) return;
@@ -494,11 +494,16 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 					childTMP.text = prefix;
 			}
 
-			var seq = DOTween.Sequence();
-			seq.Append(damageDisplay.transform.DOJump(location_ + new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), 0), 0.3f, 3, 1.5f));
+			var cg = damageDisplay.GetComponent<CanvasGroup>();
+			if (cg == null) cg = damageDisplay.AddComponent<CanvasGroup>();
+			var jumpTween = damageDisplay.transform.DOJump(location_ + new Vector2(UnityEngine.Random.Range(-0.5f, 0.5f), 0), 0.7f, 1, 0.5f);
+			var fadeTween = cg.DOFade(0f, 0.5f);
+			DOTween.Sequence()
+				.Join(jumpTween)
+				.Join(fadeTween);
 
 			// Set lifetime of damage popup
-			Destroy(damageDisplay, 1.5f);
+			Destroy(damageDisplay, 0.5f);
 		}
 	}
 

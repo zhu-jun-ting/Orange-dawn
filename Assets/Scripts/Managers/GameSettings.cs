@@ -5,12 +5,28 @@ using UnityEngine.Rendering;
 
 public class GameSettings : MonoBehaviour
 
+
 {
     public static GameSettings instance;
 
     [Header("Battle Paramters")]
     public float enemyHealthModifier = 1f;
     public float enemyDamageModifier = 1f;
+
+    
+    [Header("Rarity Weight Settings (Normal Shop)")]
+    public float commonWeight = 1f;
+    public float uncommonWeightIncrement = 0.04f;
+    public float rareWeightIncrement = 0.03f;
+    public float epicWeightIncrement = 0.015f;
+    public float legendaryWeightIncrement = 0.007f;
+    public float uncommonWeightCap = 1f;
+    public float rareWeightCap = 1f;
+    public float epicWeightCap = 1f;
+    public float legendaryWeightCap = 1f;
+
+    [Header("Level Up Select Cards")]
+    public List<GameObject> levelUpSelectCards; 
 
     [Header("Board Settings")]
     public int boardRows = 3;

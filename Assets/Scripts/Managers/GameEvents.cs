@@ -124,6 +124,7 @@ public class GameEvents : MonoBehaviour
     public event Action OnLevelCleared;
     public void LevelCleared()
     {
+        lastLevelStartOrClearTime = Time.time;
         OnLevelCleared?.Invoke();
     }
 
@@ -152,9 +153,11 @@ public class GameEvents : MonoBehaviour
         OnHitWall?.Invoke(bullet, hitPosition, wall);
     }
 
+    public float lastLevelStartOrClearTime = 0f;
     public event Action OnLevelStart;
     public void LevelStart()
     {
+        lastLevelStartOrClearTime = Time.time;
         OnLevelStart?.Invoke();
     }
 
@@ -240,7 +243,7 @@ public class GameEvents : MonoBehaviour
         // Move the message position up a bit (e.g., by 1 unit on Y axis)
         Vector2 messagePosition = target.position;
         messagePosition.y += 1f;
-        GameEvents.instance.ShowMessage($"Triggered {card.card_name}", GameEvents.MessageType.WorldInfo, messagePosition);
+        GameEvents.instance.ShowMessage($"{GameSettings.LocalizeText(card.card_name)}", GameEvents.MessageType.WorldInfo, messagePosition);
     }
 
     public event Action<CardMaster, Vector2Int> OnDropCardOnBoard;
@@ -253,5 +256,12 @@ public class GameEvents : MonoBehaviour
     public void GameStart()
     {
         OnGameStart?.Invoke();
+    }
+
+    public event Action<int> OnLevelUp;
+    public void LevelUp(int level)
+    {
+        GameEvents.instance.ShowMessage(GameSettings.LocalizeText("Levelup"), GameEvents.MessageType.WorldInfo, Vector2.zero);
+        OnLevelUp?.Invoke(level);
     }
 }

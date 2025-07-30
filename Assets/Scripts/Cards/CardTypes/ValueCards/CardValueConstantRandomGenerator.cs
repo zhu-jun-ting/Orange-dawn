@@ -3,6 +3,7 @@ using UnityEditor.EditorTools;
 using UnityEditor;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 public class CardValueConstantRandomGenerator : CardMaster
 {
@@ -69,6 +70,11 @@ public class CardValueConstantRandomGenerator : CardMaster
     [Header("Universal Settings")]
     public bool generateRandomBond = false;
     public bool generateRandomConditions = false;
+    public bool setTargetCardRarity = false;
+    [Tooltip("If true, the card will be created to match the target rarity.")]
+    public CardMaster.CardRarity targetCardRarity = CardMaster.CardRarity.Common;
+    public int maxIterations = 50; // Number of iterations to generate the card
+    private int currentIterationCount = 0;
 
 
     private List<CardCondition> allConds = new List<CardCondition>();
@@ -325,9 +331,18 @@ public class CardValueConstantRandomGenerator : CardMaster
         }
 
         // 6. Common fields
-        card_name = $"Random Card {Random.Range(100, 999)}";
+        card_name = $"Value";
         card_type = CardType.Value;
         useRandomLinks = true;
+
+        // 7. Set target card rarity if specified
+        if (setTargetCardRarity && card_rarity != targetCardRarity && currentIterationCount < maxIterations)
+        {
+            currentIterationCount++;
+            GENERATE();
+        }
+        Debug.Log($"iteration: {currentIterationCount}");
+        currentIterationCount = 0; // Reset for next generation
     }
 
     public static float RandomWithBias(float min, float max, float bias)

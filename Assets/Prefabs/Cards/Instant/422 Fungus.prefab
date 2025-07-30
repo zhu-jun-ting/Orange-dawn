@@ -610,8 +610,7 @@ MonoBehaviour:
   card_name: Fungus
   card_cost: 43
   card_sell_price: 10
-  card_description: Make linked card Grow once per {0} cards discarded (currently
-    {1} times)
+  card_description: Fungus_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -629,12 +628,15 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 4
   card_rarity: 2
   card_bonds: 01000000
   card_conditions: 
+  additional_tags: 
+  additional_mousetips: 
   damage: 0
   health: 0
   probability: 0

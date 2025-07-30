@@ -345,7 +345,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: ad4dff4867070f045a7c1b088ab06b58, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -434,7 +434,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 138.0698, y: -50.9328}
+  m_AnchoredPosition: {x: 138.0698, y: -79.8378}
   m_SizeDelta: {x: 138.13072, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &482497072293540628

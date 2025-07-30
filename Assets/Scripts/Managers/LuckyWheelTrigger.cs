@@ -153,6 +153,6 @@ public class LuckyWheelTrigger : MonoBehaviour
             default:
                 break;
         }
-        GameEvents.instance?.LevelCleared();
+        if (Time.time - GameEvents.instance.lastLevelStartOrClearTime > 1f) GameEvents.instance?.LevelCleared();
     }
 }

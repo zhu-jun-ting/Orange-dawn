@@ -713,11 +713,11 @@ MonoBehaviour:
   isNPC: 0
   isFullHealth: 1
   dot_stat: {fileID: 0}
-  maxHP: 0
+  maxHP: 15
   moveSpeed: 1.5
   curHP: 0
   enemyAOEPrefab: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
-  attackScale: 1
+  attackScale: 8
   attackDamage: 10
   attackDuration: 1
   attackCooldown: 2
@@ -735,7 +735,10 @@ MonoBehaviour:
   collisionDamageScale: 3
   dotSpawnPoint: {fileID: 0}
   dropEntries: []
-  shooter_stat: {fileID: 11400000, guid: 22f4138a457ded646b96c23e59547f5f, type: 2}
+  shoot_range: 5.71
+  shoot_interval: 2
+  attackBulletSpeed: 6
+  bullet_prefab: {fileID: 4028690415889179283, guid: 89c645488c4c37049874c6de768a7b14, type: 3}
 --- !u!1 &3777006798558481788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1029,7 +1032,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 2
+  m_Radius: 5.26
 --- !u!114 &8655908523751691685
 MonoBehaviour:
   m_ObjectHideFlags: 0

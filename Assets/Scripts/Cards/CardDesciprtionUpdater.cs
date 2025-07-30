@@ -15,6 +15,7 @@ public class CardDesciprtionUpdater : MonoBehaviour, UnityEngine.EventSystems.IP
     public TMP_Text cardBondText;
     public TMP_Text cardModifiableValuesText;
     public TMP_Text cardRarityText;
+    public TMP_Text cardIdFooter;
     public UnityEngine.UI.Image backgroundImage;
     public List<Transform> woodVisuals; // List of card links to update
     public List<Transform> ironVisuals; // List of card links to update
@@ -50,7 +51,7 @@ public class CardDesciprtionUpdater : MonoBehaviour, UnityEngine.EventSystems.IP
     public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData)
     {
         if (hoverTipCoroutine != null) StopCoroutine(hoverTipCoroutine);
-        hoverTipCoroutine = StartCoroutine(ShowCardTipsAfterDelay(0.5f));
+        hoverTipCoroutine = StartCoroutine(ShowCardTipsAfterDelay(1f));
     }
     public void OnPointerExit(UnityEngine.EventSystems.PointerEventData eventData)
     {
@@ -108,6 +109,12 @@ public class CardDesciprtionUpdater : MonoBehaviour, UnityEngine.EventSystems.IP
     // --- Add: Mouse events for cardBondText tip ---
     private void Start()
     {
+        // Write card ID to footer if assigned
+        if (cardIdFooter != null && cardMaster != null)
+        {
+            cardIdFooter.text = "ID: " + cardMaster.card_id;
+        }
+
         // Register mouse events for cardBondText if assigned
         if (cardBondText != null)
         {
@@ -168,6 +175,8 @@ public class CardDesciprtionUpdater : MonoBehaviour, UnityEngine.EventSystems.IP
         }
         // headingText.text = cardMaster.GetName();
         // descriptionText.text = cardMaster.GetDescription();
+
+        UpdateTexts();
     }
 
     // Returns a color for a given keyword (customize as needed)
@@ -207,7 +216,7 @@ public class CardDesciprtionUpdater : MonoBehaviour, UnityEngine.EventSystems.IP
             CardMaster.OnUpdateCardTexts += UpdateAllCardTexts;
             CombatManager.is_update_card_registered = true;
         }
-        UpdateTexts();
+        
     }
 
     private void OnDisable()
@@ -312,42 +321,20 @@ public class CardDesciprtionUpdater : MonoBehaviour, UnityEngine.EventSystems.IP
             // --- Update card conditions UI ---
             if (conditionVisuals != null && _conditionPrefabDict != null && cardMaster.card_conditions != null)
             {
-                // Build a list of current drawn conditions and their GameObjects
-                var drawn = new List<(CardMaster.CardCondition, GameObject)>();
-                for (int i = 0; i < conditionVisuals.transform.childCount; i++)
+                // Remove all current condition visuals
+                for (int i = conditionVisuals.transform.childCount - 1; i >= 0; i--)
                 {
-                    var go = conditionVisuals.transform.GetChild(i).gameObject;
-                    var holder = go.GetComponent<ConditionVisualHolder>();
-                    if (holder != null)
-                        drawn.Add((holder.condition, go));
+                    Destroy(conditionVisuals.transform.GetChild(i).gameObject);
                 }
-
-                // Remove visuals not in card_conditions
-                for (int i = drawn.Count - 1; i >= 0; i--)
-                {
-                    if (!cardMaster.card_conditions.Contains(drawn[i].Item1))
-                        Destroy(drawn[i].Item2);
-                }
-
-                // Insert or move visuals for each condition in order
-                int insertIndex = 0;
+                // Recreate visuals for each condition in order
                 foreach (var cond in cardMaster.card_conditions)
                 {
-                    var existing = drawn.Find(x => x.Item1.Equals(cond));
-                    if (existing.Item2 != null)
-                    {
-                        // Move to correct order if needed
-                        if (existing.Item2.transform.GetSiblingIndex() != insertIndex)
-                            existing.Item2.transform.SetSiblingIndex(insertIndex);
-                    }
-                    else if (_conditionPrefabDict.TryGetValue(cond, out var prefab) && prefab != null)
+                    if (_conditionPrefabDict.TryGetValue(cond, out var prefab) && prefab != null)
                     {
                         var go = Instantiate(prefab, conditionVisuals.transform);
-                        go.transform.SetSiblingIndex(insertIndex);
                         var holder = go.GetComponent<ConditionVisualHolder>();
                         if (holder != null) holder.condition = cond;
                     }
-                    insertIndex++;
                 }
             }
         }

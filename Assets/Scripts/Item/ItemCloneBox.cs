@@ -15,7 +15,9 @@ public class ItemCloneBox : ItemMaster
         if (gunBullet == null || !gunBullet.canClone) return;
 
         // Clone bullet
-        GameObject clone = Instantiate(bullet, bullet.transform.position + (Vector3)GetRandomOffset(), bullet.transform.rotation);
+        GameObject clone = ObjectPool.Instance.GetObject(bullet, bullet.transform.position + (Vector3)GetRandomOffset(), bullet.transform.rotation);
+        if (clone == null) return;
+
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         Rigidbody2D cloneRb = clone.GetComponent<Rigidbody2D>();
         if (rb != null && cloneRb != null)

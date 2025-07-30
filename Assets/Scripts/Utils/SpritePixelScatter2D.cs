@@ -56,7 +56,8 @@ public class SpritePixelScatter2D : MonoBehaviour
                 Vector3 worldPos = transform.TransformPoint(localPos);
 
                 // Spawn particle
-                GameObject p = Instantiate(particlePrefab, worldPos, Quaternion.identity);
+                GameObject p = ObjectPool.Instance.GetObject(particlePrefab, worldPos, Quaternion.identity);
+
                 p.transform.localScale = Vector3.one * particleScale;
                 var sr = p.GetComponent<SpriteRenderer>();
                 if (sr != null)

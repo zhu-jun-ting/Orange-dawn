@@ -131,7 +131,8 @@ public class NPCShooter : NPCMaster, IDetectorHandler
             }
             else if (state == State.Attacking && target != null)
             {
-                GameObject bullet = Instantiate(bullet_prefab, transform.position, Quaternion.identity);
+                GameObject bullet = ObjectPool.Instance.GetObject(bullet_prefab, transform.position, Quaternion.identity);
+
                 bullet.GetComponent<GunBullet>().trigger_tags = triggerTags;
                 bullet.GetComponent<GunBullet>().SetSpeed(target.transform.position - transform.position, 3f);
                 bullet.GetComponent<GunBullet>().att = damage;
@@ -182,7 +183,7 @@ public class NPCShooter : NPCMaster, IDetectorHandler
         {
             float angle = startAngle + arcAngle * ((float)i / (bulletCount - 1));
             Vector2 dir = Quaternion.Euler(0, 0, angle) * baseDir;
-            GameObject bullet = Instantiate(bulletWhenCharge, shootOrigin, Quaternion.identity);
+            GameObject bullet = ObjectPool.Instance.GetObject(bulletWhenCharge, shootOrigin, Quaternion.identity);
             var gunBullet = bullet.GetComponent<GunBullet>();
             if (gunBullet != null)
             {

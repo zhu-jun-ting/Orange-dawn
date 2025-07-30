@@ -610,7 +610,7 @@ MonoBehaviour:
   card_name: Pill
   card_cost: 16
   card_sell_price: 4
-  card_description: Remove up to {0} negative conditions from linked card(s)
+  card_description: Pill_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
@@ -628,12 +628,15 @@ MonoBehaviour:
   down_link_enabled: 0
   down_link_type: 0
   down_link_cardmaster: {fileID: 0}
-  is_free_card: 0
-  is_root: 0
+  isFreeCard: 0
+  isRoot: 0
+  isInternal: 0
   card_type: 4
   card_rarity: 0
   card_bonds: 
   card_conditions: 
+  additional_tags: 
+  additional_mousetips: 
   damage: 0
   health: 0
   probability: 0
@@ -646,6 +649,12 @@ MonoBehaviour:
   default_amount: 0
   default_mana: 0
   default_coin: 0
+  temp_damage: 0
+  temp_health: 0
+  temp_probability: 0
+  temp_amount: 0
+  temp_mana: 0
+  temp_coin: 0
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
