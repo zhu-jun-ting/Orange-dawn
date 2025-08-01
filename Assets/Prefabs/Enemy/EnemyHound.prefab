@@ -377,7 +377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1012180735223525878
 RectTransform:
   m_ObjectHideFlags: 0
@@ -629,7 +629,7 @@ RectTransform:
   m_Father: {fileID: 1012180735389192540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -749,6 +749,7 @@ MonoBehaviour:
   target: {fileID: 0}
   collidableObjectsTags:
   - Enemy
+  - Object
   collidableObjectsLayers:
   - Wall
   minCollisionDamage: 2
@@ -756,13 +757,20 @@ MonoBehaviour:
   dotSpawnPoint: {fileID: 2299752785693964782}
   dropEntries:
   - dropItem: 1
-    chance: 0.8
+    amount: 1
+    chance: 0.647
+  - dropItem: 1
+    amount: 1
+    chance: 0.201
   - dropItem: 2
-    chance: 0.2
+    amount: 1
+    chance: 0.471
   - dropItem: 3
-    chance: 0.2
+    amount: 1
+    chance: 0.1
   - dropItem: 0
-    chance: 0.05
+    amount: 1
+    chance: 0.03
 --- !u!58 &1012180736909545083
 CircleCollider2D:
   m_ObjectHideFlags: 0

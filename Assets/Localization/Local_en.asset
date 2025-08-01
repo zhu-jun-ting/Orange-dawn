@@ -16,24 +16,14 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: f0003430d5069e847a91a4697e652747, type: 2}
   m_Metadata:
-    m_Items:
-    - rid: 7623953707741479219
+    m_Items: []
   m_TableData:
-  - m_Id: 49610964992
-    m_Localized: BBB
-    m_Metadata:
-      m_Items:
-      - rid: 7623953707741479219
   - m_Id: 10266188922880
     m_Localized: Pistol
     m_Metadata:
       m_Items: []
-  - m_Id: 260114439946240
-    m_Localized: There is a wierd-looking runestone on the ground.
-    m_Metadata:
-      m_Items: []
-  - m_Id: 795002289209344
-    m_Localized: FFF
+  - m_Id: 2847461836800000
+    m_Localized: Credits
     m_Metadata:
       m_Items: []
   - m_Id: 987634957238272
@@ -596,7 +586,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1455114070736962
-    m_Localized: "Spawn skeletons when level STAR ts. \n Damage: {0}\n Health: {1}\n
+    m_Localized: "Spawn skeletons when level Starts. \n Damage: {0}\n Health: {1}\n
       Amount: {2}"
     m_Metadata:
       m_Items: []
@@ -699,7 +689,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1455114074931207
-    m_Localized: 'At the STAR t of level, spawn {0} Batter Ally with {1} x Health:
+    m_Localized: 'At the start of level, spawn {0} Batter Ally with {1} x Health:
       ({2}) and {3} x Damage: ({4})'
     m_Metadata:
       m_Items: []
@@ -708,7 +698,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1455114074931209
-    m_Localized: 'At the STAR t of level, spawn {0} Shooter Ally with {1} x Health:
+    m_Localized: 'At the start of level, spawn {0} Shooter Ally with {1} x Health:
       ({2}) and {3} x Damage: ({4})'
     m_Metadata:
       m_Items: []
@@ -717,8 +707,8 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1455114074931211
-    m_Localized: 'At the STAR t of level, spawn {0} Mage Ally with {1} x Health:
-      ({2}) and {3} x Damage: ({4})'
+    m_Localized: 'At the start of level, spawn {0} Mage Ally with {1} x Health: ({2})
+      and {3} x Damage: ({4})'
     m_Metadata:
       m_Items: []
   - m_Id: 1455114074931212
@@ -726,7 +716,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1455114074931213
-    m_Localized: 'At the STAR t of level, spawn {0} Healer Ally with {1} x Health:
+    m_Localized: 'At the start of level, spawn {0} Healer Ally with {1} x Health:
       ({2}) and {3} x Damage: ({4})'
     m_Metadata:
       m_Items: []
@@ -735,7 +725,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1455114074931215
-    m_Localized: 'At the STAR t of level, spawn {0} Skeleton Ally with {1} x Health:
+    m_Localized: 'At the start of level, spawn {0} Skeleton Ally with {1} x Health:
       ({2}) and {3} x Damage: ({4})'
     m_Metadata:
       m_Items: []
@@ -870,12 +860,259 @@ MonoBehaviour:
       Cost: Health: {2}'
     m_Metadata:
       m_Items: []
+  - m_Id: 2846564754866176
+    m_Localized: "While this whole game was developed in a rush and all done by myself,
+      I am sorry to have all kinds of bugs flying  around. Here are some provided
+      console to prevent from stuck in any wierd bugs.\nJust write name the first
+      box and the parameters (if any) on the lower box.  \n\nAddCard(int cardId)
+      : Get any card of the cardId provided\nLevelCleared() : Clear the level \nLevelStart()
+      : Start the level\nAddCoin(int coin) : Give you any amount of coin\nAddExp(int
+      exp) : Gain any expierence points\nKillAllEnemies() : Instantly kill all enemies\nSetEnemyHealth(float
+      modifier) : Set health modifier of all enemies (e.g. 1.5 means all enemy have
+      x1.5 health)\nSetEnemyDamage(float modifier) : Set damage modifier, same as
+      health\nSetMaxHealth(float maxHealth) : Set the maxHealth of player\nLose()
+      / Win() : Instantly win or Lose the game"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564784226304
+    m_Localized: 'Main Developer: David Zhu
+
+
+      Codes: Copilot
+
+
+      Localizations:
+      ChatGPT Translator
+
+
+      Addon Packages:
+
+      Unity Localization Pack 
+      com.unity.localization
+
+      Dialouge Editor https://assetstore.unity.com/packages/p/dialogue-editor-168329
+
+      Dotween:
+      https://dotween.demigiant.com/
+
+      Odin Inspector: https://odininspector.com/
+
+
+      Art
+      and Animations:
+
+      Midjourney
+
+      Kenny: kenney.nl
+
+      craftpix.net
+
+      https://pixelfrog-assets.itch.io/tiny-swords
+
+      https://cupnooble.itch.io/sprout-lands-asset-pack
+
+      https://pixelfrog-assets.itch.io/pixel-adventure-1
+
+      https://cupnooble.itch.io/sprout-lands-ui-pack
+
+      https://shikashipx.itch.io/shikashis-fantasy-icons-pack
+
+      https://bdragon1727.itch.io/
+
+      https://monopixelart.itch.io/skeletons-pack
+
+      https://pimen.itch.io/holy-spell-effect
+
+      https://9e0.itch.io/witches-pack
+
+
+      UI
+      and Fonts:
+
+      https://www.creativefabrica.com/ref/53/
+
+      https://www.foundertype.com/index.php/FontInfo/index?id=5673
+
+      https://www.dafont.com/grapesoda-2.font
+
+
+      Audio:
+
+      Suno:
+      https://suno.com/
+
+      aigei.com
+
+      https://pixabay.com/sound-effects/
+
+      https://sfxengine.com/
+
+      https://freesound.org/'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420608
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420609
+    m_Localized: Help
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420610
+    m_Localized: A demon offers you a deal. Will you sacrifice your vitality for
+      power, or your power for vitality?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420611
+    m_Localized: Sacrifice 10 Max Health for a rare card
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420612
+    m_Localized: Sacrifice a random card to gain 10 Max Health
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420613
+    m_Localized: Leave
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420614
+    m_Localized: A mysterious box sits before you. Will you risk changing your fate?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420615
+    m_Localized: 'Box is glowing in a red light (current Coin is odd: change a random
+      card with less rarity)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420616
+    m_Localized: 'Box is glowing in a golden light (current Coin is odd: change a
+      random card with more rarity)'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420617
+    m_Localized: 'There is a wierd-looking runestone on the ground. '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420618
+    m_Localized: 'Take a gem (get a random value card) '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420619
+    m_Localized: Destory the gem (destory a random card and gain 30 Coins)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420620
+    m_Localized: This is a bonfire, you can rest here or get experiences
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420621
+    m_Localized: Recover Health (50% Health)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420622
+    m_Localized: Get some experience (20% Health and 50% Experience)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420623
+    m_Localized: Get a pocket of coins (20% Health and 20 Coins)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420624
+    m_Localized: 'Get a card (get a random value card) '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420625
+    m_Localized: Levelup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420626
+    m_Localized: Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420627
+    m_Localized: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420628
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420629
+    m_Localized: Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420630
+    m_Localized: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420631
+    m_Localized: Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420632
+    m_Localized: Endless
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420633
+    m_Localized: Return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420634
+    m_Localized: Collision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420637
+    m_Localized: Coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420638
+    m_Localized: Taken Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420639
+    m_Localized: Dealt Damage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420640
+    m_Localized: Healed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420641
+    m_Localized: Discarded Cards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420642
+    m_Localized: Acquired Cards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420643
+    m_Localized: Enemies Killed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614912
+    m_Localized: Cards Triggered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614913
+    m_Localized: Objects Destroyed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614914
+    m_Localized: Level Cleared
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614915
+    m_Localized: Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614916
+    m_Localized: End
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614917
+    m_Localized: Victory
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
-    RefIds:
-    - rid: 7623953707741479219
-      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries: 
-        m_SharedEntries:
-        - id: 49610964992
+    RefIds: []

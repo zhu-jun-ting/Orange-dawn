@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemCoin : MonoBehaviour, IColliderHandler
 {
     private GameObject Player;
-    private bool inPlayer;
+    public bool inPlayer;
     public float moveSpeed;
     // Start is called before the first frame update
     void Start()

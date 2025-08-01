@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7607790452efacd47b53e1808f95ca2a, type: 3}
+  m_Name: 19
+  m_EditorClassIdentifier: 
+  levelId: 19
+  roomType: 0
+  levelOpenedDoorNumber: -1
+  enemiesToSpawn:
+  - enemyPrefab: {fileID: 1012180736909545073, guid: c2e343dbbb3f70b4b83b87ca7068b76e, type: 3}
+    count: 25
+    health: 40
+    attack: 9
+    speed: 1.8
+  - enemyPrefab: {fileID: 4321068798391446461, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
+    count: 28
+    health: 55
+    attack: 9
+    speed: 1.3
+  - enemyPrefab: {fileID: 3235738136384544176, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
+    count: 20
+    health: 44
+    attack: 10
+    speed: 1.1
+  spawnInterval: 1.08
+  spawnCountWhenLevelStart: 10
+  spawnPrefabsWhenLevelStart:
+  - {fileID: 1792623200094130640, guid: 61b38361621e0144eb5431e9906885c9, type: 3}
+  - {fileID: 908849239445633011, guid: 73d98238c6222ba4086d6944141e949d, type: 3}
+  - {fileID: 1238486118590038313, guid: 3553cf9c561a6744d8f745c8d9279372, type: 3}
+  - {fileID: 6452647200994541434, guid: b9166ee1a04e05645be6adc5f0fbcc9e, type: 3}
+  - {fileID: 1881773748942011074, guid: d01e04caf44fc1e4f8fcd0ea0e7f9c21, type: 3}
+  - {fileID: 1792623200094130640, guid: 3b6656cf22b72b34a86e2ccd59025764, type: 3}
+  - {fileID: 1792623200094130640, guid: d5ee55e31b680e842a705ebcade50900, type: 3}
+  - {fileID: 1792623200094130640, guid: 658764039f3716f408fcbac879ee56e3, type: 3}
+  - {fileID: 4623675242818392211, guid: ca086e646a189e547b331ae764b46fdf, type: 3}
+  - {fileID: 5135470791520852269, guid: 803131e3c695d354bb3d087d6f32de38, type: 3}
+  - {fileID: 1792623200094130640, guid: 8ba80b04a20692249bd8b3837f034ef8, type: 3}
+  - {fileID: 1792623200094130640, guid: d04c329505ecd484db52d6de1a69a985, type: 3}
+  - {fileID: 3148454925020818314, guid: bc66ab2656b3ffe4eb2090da42d6a5fc, type: 3}
+  - {fileID: 1792623200094130640, guid: 61b38361621e0144eb5431e9906885c9, type: 3}
+  - {fileID: 6452647200994541434, guid: b9166ee1a04e05645be6adc5f0fbcc9e, type: 3}
+  - {fileID: 6452647200994541434, guid: b9166ee1a04e05645be6adc5f0fbcc9e, type: 3}
+  - {fileID: 1792623200094130640, guid: 8ba80b04a20692249bd8b3837f034ef8, type: 3}
+  isFinalBoss: 0
+  clearRequirement: 1
+  timeLimit: 90

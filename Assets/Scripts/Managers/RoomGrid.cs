@@ -1,7 +1,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEditor.EditorTools;
+using System.Linq;
 
 public class RoomGrid : MonoBehaviour
 {
@@ -36,8 +36,13 @@ public class RoomGrid : MonoBehaviour
     {
 
     }
-
-    public void ShutDoorsToClosedRooms()
+    /// <summary>
+    /// Shut doors to closed rooms. Optionally specify how many doors should remain open (openedDoors).
+    /// If openedDoors == -1, use random open rule (at least one open).
+    /// If openedDoors in 1~3, ensure exactly that many doors are open (if possible).
+    /// Other values are treated as -1.
+    /// </summary>
+    public void ShutDoorsToClosedRooms(int openedDoors = -1)
     {
         var fm = FloorManager.instance;
         if (fm == null) return;
@@ -47,6 +52,9 @@ public class RoomGrid : MonoBehaviour
             (GameEvents.Dir.Left, doorLeft),
             (GameEvents.Dir.Right, doorRight)
         };
+
+        // Collect all unvisited, openable doors
+        List<(GameEvents.Dir dir, FloorDoor door, Vector2Int neighborPos)> openableDoors = new List<(GameEvents.Dir, FloorDoor, Vector2Int)>();
         foreach (var (dir, door) in directions)
         {
             Vector2Int offset = Vector2Int.zero;
@@ -62,7 +70,77 @@ public class RoomGrid : MonoBehaviour
             {
                 door.alwaysActive = true;
             }
+            else
+            {
+                if (door != null) openableDoors.Add((dir, door, neighborPos));
+            }
+                
         }
+
+        // if any of the 3 doors to a boss room, then leave only that room open
+        if (openableDoors.Any(entry => GetNeighborRoomGrid(entry.dir).roomType == FloorManager.RoomType.Boss))
+        {
+            foreach (var entry in openableDoors)
+            {
+                if (GetNeighborRoomGrid(entry.dir).roomType == FloorManager.RoomType.Boss)
+                    entry.door.alwaysActive = false;
+                else
+                    entry.door.alwaysActive = true; // Ensure other doors are closed
+            }
+        }
+        else
+        {
+            // Determine how many doors to open
+            int doorsToOpen = -1;
+            if (openedDoors >= 1 && openedDoors <= 3)
+                doorsToOpen = Mathf.Min(openedDoors, openableDoors.Count);
+            // else treat as -1 (random, at least one open)
+
+            if (openableDoors.Count > 0)
+            {
+                // Reset all openable doors to closed (alwaysActive=true)
+                foreach (var entry in openableDoors)
+                    entry.door.alwaysActive = true;
+
+                if (doorsToOpen == -1)
+                {
+                    doorsToOpen = Random.Range(1, Mathf.Min(4, openableDoors.Count + 1));
+                }
+                
+                List<int> indices = new List<int>();
+                for (int i = 0; i < openableDoors.Count; i++) indices.Add(i);
+                for (int i = 0; i < doorsToOpen; i++)
+                {
+                    if (indices.Count == 0) break;
+                    int pick = Random.Range(0, indices.Count);
+                    openableDoors[indices[pick]].door.alwaysActive = false;
+                    indices.RemoveAt(pick);
+                }
+            }
+        }
+
+        // Hide all visual signs first
+        if (upSign != null) upSign.transform.parent.gameObject.SetActive(false);
+        if (downSign != null) downSign.transform.parent.gameObject.SetActive(false);
+        if (leftSign != null) leftSign.transform.parent.gameObject.SetActive(false);
+        if (rightSign != null) rightSign.transform.parent.gameObject.SetActive(false);
+
+        // Show visuals when GameEvents.LevelCleared event is triggered
+        GameEvents.instance.OnLevelCleared -= OnLevelClearedShowSigns; // Prevent duplicate subscription
+        GameEvents.instance.OnLevelCleared += OnLevelClearedShowSigns;
+    }
+
+    // Helper method to show the signs when LevelCleared is triggered
+    private void OnLevelClearedShowSigns()
+    {
+        if (FloorManager.instance.playerRoom != gridLocation) return; // Only show signs for the current room
+        if (upSign != null) upSign.transform.parent.gameObject.SetActive(!(doorUp != null && doorUp.alwaysActive));
+        if (downSign != null) downSign.transform.parent.gameObject.SetActive(!(doorDown != null && doorDown.alwaysActive));
+        if (leftSign != null) leftSign.transform.parent.gameObject.SetActive(!(doorLeft != null && doorLeft.alwaysActive));
+        if (rightSign != null) rightSign.transform.parent.gameObject.SetActive(!(doorRight != null && doorRight.alwaysActive));
+
+        // Unsubscribe after showing signs to avoid repeated calls
+        GameEvents.instance.OnLevelCleared -= OnLevelClearedShowSigns;
     }
 
     public void DestroyBackwardTrigger()
@@ -88,6 +166,7 @@ public class RoomGrid : MonoBehaviour
                 }
             }
         }
+
     }
 
     // Returns a dictionary of RoomGrid for 4 directions (Up, Down, Left, Right) from this room
@@ -153,25 +232,6 @@ public class RoomGrid : MonoBehaviour
                     break;
             }
         }
-    }
-
-    [Header("Door Link Randomization")]
-    [Tooltip("Randomly close doors in this room. Make 3 Choose 1 to 2 Choose 1. Probability be modified in parameters")]
-    public float randomCloseProbability = 0.5f;
-
-    public void RandomCloseDoors()
-    {
-        // Randomly close doors in this room
-        if (doorUp != null) doorUp.alwaysActive = Random.Range(0f, 1f) < randomCloseProbability;
-        if (doorDown != null) doorDown.alwaysActive = Random.Range(0f, 1f) < randomCloseProbability;
-        if (doorLeft != null) doorLeft.alwaysActive = Random.Range(0f, 1f) < randomCloseProbability;
-        if (doorRight != null) doorRight.alwaysActive = Random.Range(0f, 1f) < randomCloseProbability;
-
-        // clear the visual sign of the closed doors
-        if (upSign != null) upSign.transform.parent.gameObject.SetActive(false);
-        if (downSign != null) downSign.transform.parent.gameObject.SetActive(false);
-        if (leftSign != null) leftSign.transform.parent.gameObject.SetActive(false);
-        if (rightSign != null) rightSign.transform.parent.gameObject.SetActive(false);
     }
 
     public virtual void OnLevelStart()

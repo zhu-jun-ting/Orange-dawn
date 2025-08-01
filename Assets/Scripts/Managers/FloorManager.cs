@@ -6,8 +6,11 @@ public class FloorManager : MonoBehaviour
 {
     public static FloorManager instance;
     public LevelDatabase levelDatabase;
+    [Header("Database References")]
+    [Tooltip("Reference to ItemDatabase ScriptableObject. Assign in Inspector.")]
+    public ItemDatabase itemDatabase;
 
-    public enum RoomType { Battle, Shop, Event, Bonefire, MiniGame, None }
+    public enum RoomType { Battle, Boss, Shop, Event, Bonefire, MiniGame, None }
 
     [System.Serializable]
     public class MapGrid
@@ -31,6 +34,8 @@ public class FloorManager : MonoBehaviour
     public List<WeightedRoomPrefab> eventRoomPrefabs = new List<WeightedRoomPrefab>();
     public List<WeightedRoomPrefab> bonefireRoomPrefabs = new List<WeightedRoomPrefab>();
     public List<WeightedRoomPrefab> miniGameRoomPrefabs = new List<WeightedRoomPrefab>();
+    public List<WeightedRoomPrefab> bossRoomPrefabs = new List<WeightedRoomPrefab>();
+
     public Vector2 roomOffset = new Vector2(20, 0); // Offset between rooms
 
     public Dictionary<Vector2Int, MapGrid> mapGrids = new Dictionary<Vector2Int, MapGrid>();
@@ -52,9 +57,13 @@ public class FloorManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
         // Ensure LevelDatabase.instance is set
         if (levelDatabase != null)
             LevelDatabase.instance = levelDatabase;
+        // Ensure ItemDatabase.instance is set
+        if (itemDatabase != null)
+            ItemDatabase.instance = itemDatabase;
     }
     private void OnDisable()
     {
@@ -102,6 +111,7 @@ public class FloorManager : MonoBehaviour
 
     private List<int> loadedLevelIds = new List<int>();
     private int lastBattleLevelCleared = 0;
+    private int lastBossLevelCleared = 100;
     private void HandlePlayerNextRoom(GameEvents.Dir dir)
     {
         // Player can not reenter a room that previously entered so close all doors towards that room
@@ -121,7 +131,6 @@ public class FloorManager : MonoBehaviour
         {
             roomGrid.DestroyBackwardTrigger();
             roomGrid.SetSigns();
-            roomGrid.ShutDoorsToClosedRooms();
             CombatManager.instance.allowedSpawnAreas.Clear();
             CombatManager.instance.allowedSpawnAreas.AddRange(roomGrid.canSpawnAreas);
             roomGrid.OnRoomLoaded();
@@ -131,7 +140,31 @@ public class FloorManager : MonoBehaviour
             if (levelDb != null)
             {
                 int levelToLoad = -1;
-                if (grid.roomType == RoomType.Battle)
+                // --- Boss Room Logic ---
+                if (grid.roomType == RoomType.Boss)
+                {
+                    // Sequential boss levels start from LevelId = 101
+                    var bossLevels = LevelDatabase.FindLevels(l => l.roomType == RoomType.Boss)
+                        .OrderBy(l => l.levelId).ToList();
+                    int nextIdx = lastBossLevelCleared;
+                    if (nextIdx < bossLevels.Count)
+                    {
+                        var nextLevel = bossLevels[nextIdx];
+                        if (nextLevel != null && !loadedLevelIds.Contains(nextLevel.levelId))
+                        {
+                            levelToLoad = nextLevel.levelId;
+                            loadedLevelIds.Add(levelToLoad);
+                            lastBossLevelCleared++;
+                        }
+                    }
+                    else if (bossLevels.Count > 0)
+                    {
+                        var randomLevel = bossLevels[UnityEngine.Random.Range(0, bossLevels.Count)];
+                        levelToLoad = randomLevel.levelId;
+                    }
+                }
+                // --- Battle Room Logic ---
+                else if (grid.roomType == RoomType.Battle)
                 {
                     // Sequential battle levels
                     var battleLevels = LevelDatabase.FindLevels(l => l.roomType == RoomType.Battle)
@@ -148,12 +181,13 @@ public class FloorManager : MonoBehaviour
                         }
                     }
                     // If all sequential levels are loaded, pick a random one from the list
-                    else
+                    else if (battleLevels.Count > 0)
                     {
                         var randomLevel = battleLevels[UnityEngine.Random.Range(0, battleLevels.Count)];
                         levelToLoad = randomLevel.levelId;
                     }
                 }
+                // --- Other Room Types ---
                 else
                 {
                     // Random non-repeated level of this type
@@ -180,6 +214,7 @@ public class FloorManager : MonoBehaviour
                     GameEvents.instance.LoadLevel(levelToLoad);
                 }
             }
+            roomGrid.ShutDoorsToClosedRooms(openedDoors: CombatManager.instance.currentLevel?.levelOpenedDoorNumber ?? -1);
         }
     }
 
@@ -214,10 +249,14 @@ public class FloorManager : MonoBehaviour
         {
             Vector2Int pos = kvp.Key;
             MapGrid grid = kvp.Value;
-            if (grid.roomObject != null && Vector2Int.Distance(pos, playerRoom) >= 3f)
+            if (grid.roomObject != null && Vector2Int.Distance(pos, playerRoom) >= 2f)
             {
                 Destroy(grid.roomObject);
                 grid.roomObject = null;
+                // TODO: try this approach to delete near rooms for recreate when reentering
+                visitedRooms.Remove(pos);
+                closedRooms.Remove(pos);
+                kvp.Value.isCreated = false;
             }
         }
     }
@@ -255,13 +294,19 @@ public class FloorManager : MonoBehaviour
         new RoomTypeWeight { type = RoomType.Bonefire, weight = 0.2f },
         new RoomTypeWeight { type = RoomType.MiniGame, weight = 0.2f }
     };
+    
+    [Header("Boss Room frequency")]
+    [Tooltip("Every N rooms, a boss room will be created. Set to 0 to disable.")]
+    [Range(0, 10)] public int bossRoomFrequency = 5; // Every N rooms, a boss room will be created
 
     private RoomType GetRandomRoomType(Vector2Int pos)
     {
         // Always make starting room a None
         if (pos == Vector2Int.zero) return RoomType.Battle;
+        if (roomsEntered % bossRoomFrequency == 0 && bossRoomFrequency > 0 && roomsEntered != 0) return RoomType.Boss;
+
         // Weighted random selection
-        float totalWeight = 0f;
+            float totalWeight = 0f;
         foreach (var entry in roomTypeWeights) totalWeight += entry.weight;
         if (totalWeight <= 0f) return RoomType.Battle;
         float rand = Random.value * totalWeight;
@@ -285,6 +330,7 @@ public class FloorManager : MonoBehaviour
             case RoomType.Event: list = eventRoomPrefabs; break;
             case RoomType.Bonefire: list = bonefireRoomPrefabs; break;
             case RoomType.MiniGame: list = miniGameRoomPrefabs; break;
+            case RoomType.Boss: list = bossRoomPrefabs; break;
             default: return null;
         }
         if (list == null || list.Count == 0) return null;

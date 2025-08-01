@@ -16,7 +16,7 @@ public class NPCMaster : PawnMaster
     public float damage;
     public float attackInterval = 2f; // How often NPC attacks
     public float detectorRange = 3f; // Range for the detector to find targets
-    public List<string> triggerTags = new List<string> { "Player", "NPC", "Enemy", "Bullet" }; 
+    public List<string> triggerTags = new List<string> { "Player", "NPC", "Enemy", "Bullet" };
 
     [Header("Common Charge Settings")]
     public float chargeDuration = 2f; // Duration of the charge effect
@@ -38,7 +38,7 @@ public class NPCMaster : PawnMaster
     // internal vars
     protected float hitBackFactor;
     protected EnemyHealthBar enemy_health_bar;
-    protected CombatManager combat_manager; 
+    protected CombatManager combat_manager;
     protected GameObject player;
     private bool is_moving;
     private Vector2 destination;
@@ -121,7 +121,7 @@ public class NPCMaster : PawnMaster
                         destination = GetRandomLocationInCircle(player.transform.position, followRange);
                         stuckTimer = 0f;
                         lastPosition = transform.position;
-                    } 
+                    }
                 }
                 else
                 {
@@ -139,7 +139,7 @@ public class NPCMaster : PawnMaster
             }
 
             if (Vector2.Distance(transform.position, destination) < .5f) { is_moving = false; }
-            
+
         }
         // If Attacking, do not wander
     }
@@ -147,12 +147,15 @@ public class NPCMaster : PawnMaster
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (state == State.Idle) {
-            if (is_moving) {
+        if (state == State.Idle)
+        {
+            if (is_moving)
+            {
                 FollowTarget(destination);
             }
-            
-            if (Vector2.Distance(transform.position, destination) < .5f) {
+
+            if (Vector2.Distance(transform.position, destination) < .5f)
+            {
                 is_moving = false;
             }
         }
@@ -236,7 +239,7 @@ public class NPCMaster : PawnMaster
         attackInterval = originalAttackInterval;
     }
 
-    
+
     public virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Bullet"))
@@ -245,7 +248,7 @@ public class NPCMaster : PawnMaster
         }
     }
 
-    
+
     public override bool Heal(float _amount)
     {
         if (curHP + _amount >= maxHP)
@@ -270,17 +273,10 @@ public class NPCMaster : PawnMaster
 
 
 
-
-
-    protected void FollowTarget(Transform target)
-    {
-        rb.linearVelocity = Vector2.zero;
-        transform.position = Vector2.MoveTowards(transform.position, target.position, moveSpeed * Time.deltaTime);
-    }
-
     protected void FollowTarget(Vector2 position)
     {
-        rb.linearVelocity = Vector2.zero;
+        Flip();
+        // rb.linearVelocity = Vector2.zero;
         transform.position = Vector2.MoveTowards(transform.position, position, moveSpeed * Time.deltaTime);
     }
 
@@ -308,12 +304,13 @@ public class NPCMaster : PawnMaster
             Destroy(gameObject, 0.2f);
         }
 
-        
+
         isFullHealth = false; // Set to false when taking damage
         return base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source);
     }
 
-    public virtual void ChangeState(NPCMaster.State s) {
+    public virtual void ChangeState(NPCMaster.State s)
+    {
         // Debug.Log("NPC state changed from " + state + " to: " + s);
         state = s;
     }
@@ -327,16 +324,29 @@ public class NPCMaster : PawnMaster
     protected void HitBack(Transform _instigator)
     {
         Vector2 diff = (_instigator.position - transform.position) * hitBackFactor * -1;
-        transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y); 
+        transform.position = new Vector2(transform.position.x + diff.x, transform.position.y + diff.y);
     }
 
     // protected void Hurt(GameObject _pawn, float _amount) {
     //     _pawn.GetComponent<IBuffable>().TakeDamage(_amount, GameEvents.DamageType.Normal, 0f, gameObject);
     // }
 
-    private Vector2 GetRandomLocationInCircle(Vector2 initial_location, float radius) {
-        float angle = UnityEngine.Random.Range(0.0f, Mathf.PI*2);
+    private Vector2 GetRandomLocationInCircle(Vector2 initial_location, float radius)
+    {
+        float angle = UnityEngine.Random.Range(0.0f, Mathf.PI * 2);
         Vector2 offset = UnityEngine.Random.Range(0f, radius) * new Vector2(Mathf.Sin(angle), Mathf.Cos(angle));
         return initial_location + offset;
+    }
+
+    // Flips the character to always face the target (moving direction)
+    protected virtual void Flip()
+    {
+        if (destination == null) return;
+        float dx = destination.x - transform.position.x;
+        if (Mathf.Abs(dx) > 0.01f)
+        {
+            // Face right if target is to the right, else face left
+            transform.eulerAngles = dx > 0 ? new Vector3(0, 180, 0) : Vector3.zero;
+        }
     }
 }

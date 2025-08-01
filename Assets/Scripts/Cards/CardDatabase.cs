@@ -6,7 +6,7 @@ public class CardDatabase : ScriptableObject
 {
     public static CardDatabase instance;
 
-    private void OnEnable()
+    private void Awake()
     {
         instance = this;
     }

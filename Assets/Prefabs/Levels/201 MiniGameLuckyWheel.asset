@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 201 MiniGameLuckyWheel
   m_EditorClassIdentifier: 
   levelId: 201
-  roomType: 4
-  enemyCount: 0
+  roomType: 5
+  levelOpenedDoorNumber: -1
   enemiesToSpawn: []
+  spawnInterval: 2
   clearRequirement: 2
   timeLimit: 99

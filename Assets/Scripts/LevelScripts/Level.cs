@@ -10,6 +10,7 @@ public class Level : ScriptableObject
 	[Header("Level Info")]
 	public int levelId;
 	public FloorManager.RoomType roomType = FloorManager.RoomType.Battle;
+	public int levelOpenedDoorNumber = -1; // -1 means random open rule (at least one open)
 
 	[Header("Battle: Enemy Info")]
 	public List<EnemyToSpawn> enemiesToSpawn = new List<EnemyToSpawn>();
@@ -28,7 +29,9 @@ public class Level : ScriptableObject
 
 	[Header("Battle: Setups")]
 	[Range(0, 5)] public float spawnInterval = 2f; // how often to spawn enemies
-	public bool isBoss = false; // is this a boss level?
+	public int spawnCountWhenLevelStart = 5;
+	public List<GameObject> spawnPrefabsWhenLevelStart;
+	public bool isFinalBoss = false; // Is this level a final boss level?
 
 
 	public enum LevelClearRequirement

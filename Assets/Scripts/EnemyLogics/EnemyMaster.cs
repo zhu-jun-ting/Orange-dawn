@@ -44,12 +44,13 @@ public class EnemyMaster : PawnMaster
     [Header("Enemy Dots")]
     public Transform dotSpawnPoint; // Point where DOT effects spawn
     public List<DotInfo> currentDots = new List<DotInfo>(); // Store active DOTs on this enemy
-    
+
     [System.Serializable]
     public class DropEntry
     {
-        public CombatManager.DropItem dropItem;
-        public float chance;
+        public CombatManager.DropItem dropItem = CombatManager.DropItem.Exp;
+        public int amount = 1; // Amount of item to drop
+        [Range(0, 1)] public float chance = 0.5f;
     }
 
     [Header("Dropping Objects")]
@@ -76,6 +77,8 @@ public class EnemyMaster : PawnMaster
     protected float damageCooldown = 0.1f;
 
     protected bool isFlashing = false;
+    private Vector2 randomOffset = Vector2.zero; // Random offset for movement
+    private float offsetRange = 1f;
 
 
     public virtual void Awake()
@@ -93,6 +96,7 @@ public class EnemyMaster : PawnMaster
         enemyHealthBar = health_bar.GetComponent<EnemyHealthBar>();
         originalColor = sr.color; // Store the original color
         target = PlayerController.instance.transform;
+        randomOffset = (Vector2)UnityEngine.Random.insideUnitCircle.normalized * offsetRange;
 
         // get singleton references
         combatManager = FindFirstObjectByType<CombatManager>();
@@ -162,11 +166,12 @@ public class EnemyMaster : PawnMaster
 
     protected void FollowTarget(Transform target)
     {
-        rb.linearVelocity = Vector2.zero;
+        Flip();
+        // rb.linearVelocity = Vector2.zero;
         // Add a random offset of about 2 units to the target position
-        Vector2 randomOffset = (Vector2)UnityEngine.Random.insideUnitCircle.normalized * 2f;
         Vector2 destination = (Vector2)target.position + randomOffset;
         transform.position = Vector2.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
+        
     }
 
     public override bool TakeDamage(float _amount, PawnMaster reciever, GameObject instigator, GameEvents.DamageType damage_type_, Transform location, float _hit_back_factor, Gun source = null)
@@ -199,9 +204,9 @@ public class EnemyMaster : PawnMaster
             is_alive = false;
             GameEvents.instance?.PawnDie(this, _amount, instigator, damage_type_, source);
         }
-        
+
         isFullHealth = false; // Set to false when taking damage
-        return base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source); 
+        return base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source);
     }
 
     // called when the actual time of destorying this pawn
@@ -381,8 +386,8 @@ public class EnemyMaster : PawnMaster
         public float startTime;
     }
 
-    
-    
+
+
     public void AddDot(DotType _type, float _dotDamage, float _dotInterval = 0.5f, float _dotDuration = 2f, string _fxName = null, bool _isStackable = false, Action<EnemyMaster> _onBeginDot = null, Action<EnemyMaster> _onEndDot = null)
     {
         // Only allow one stack per type unless isStackable
@@ -417,7 +422,7 @@ public class EnemyMaster : PawnMaster
         // Play FX if provided
         if (string.IsNullOrEmpty(dot.fxName)) dot.fxName = GameSettings.GetDotFxName(dot.type);
         dot.fxInstance = CombatManager.PlayFx(dot.fxName, dotSpawnPoint.position, isLooping: true, parent: dotSpawnPoint);
-        
+
 
         float elapsed = 0f;
         while (elapsed < dot.dotDuration && is_alive)
@@ -455,5 +460,17 @@ public class EnemyMaster : PawnMaster
             dot.onEndDot?.Invoke(this);
         }
         currentDots.Clear();
+    }
+
+    // Flips the character to always face the target (moving direction)
+    protected virtual void Flip()
+    {
+        if (target == null) return;
+        float dx = target.position.x - transform.position.x;
+        if (Mathf.Abs(dx) > 0.01f)
+        {
+            // Face right if target is to the right, else face left
+            transform.eulerAngles = dx > 0 ? new Vector3(0, 180, 0) : Vector3.zero;
+        }
     }
 }

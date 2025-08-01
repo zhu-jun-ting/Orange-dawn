@@ -14620,6 +14620,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1991551786575481267, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4239229485162577237}
+    - targetCorrespondingSourceObject: {fileID: 1991551786575481267, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3447242178612767548}
   m_SourcePrefab: {fileID: 100100000, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
 --- !u!114 &968860047420797869 stripped
 MonoBehaviour:
@@ -14662,8 +14665,46 @@ MonoBehaviour:
   downSign: {fileID: 6082137231666023835}
   leftSign: {fileID: 3848937360515487673}
   rightSign: {fileID: 5099451769094614495}
-  randomCloseProbability: 0.5
   npcToTalkTo: {fileID: 0}
+--- !u!114 &-3447242178612767548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1143160394368515318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 7623953845191442644
+  references:
+    version: 2
+    RefIds:
+    - rid: 7623953845191442644
+      type: {class: TrackedMonoBehaviourObject, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 4239229485162577237}
+        m_TrackedProperties:
+          items:
+          - rid: 7623953845191442645
+        m_UpdateType: 0
+        m_Changed:
+          m_PersistentCalls:
+            m_Calls: []
+    - rid: 7623953845191442645
+      type: {class: EnumTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: roomType
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: 3
+        - localeIdentifier:
+            m_Code: zh-Hans
+          value: 4
 --- !u!114 &3054140062807816562 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4475530927802666039, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}

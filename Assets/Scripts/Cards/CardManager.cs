@@ -7,6 +7,9 @@ using DG.Tweening;
 public class CardManager : MonoBehaviour
 {
     public static CardManager instance;
+    [Header("Database References")]
+    [Tooltip("Reference to CardDatabase ScriptableObject. Assign in Inspector.")]
+    public CardDatabase cardDatabase;
     [Header("References")]
     public BoardArea boardArea;
     public HandArea handArea;
@@ -31,7 +34,12 @@ public class CardManager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
+        // Ensure CardDatabase.instance is set
+        if (cardDatabase != null)
+            CardDatabase.instance = cardDatabase;
     }
 
     /// <summary>
@@ -245,6 +253,7 @@ public class CardManager : MonoBehaviour
             {
                 DebriManager.ScatterUIPixels(cardRect);
                 SoundManager.PlaySFX("GetCard");
+                if (GameEvents.instance != null) GameEvents.instance.CardAcquired(cardMaster);
             }
         }
 
@@ -464,6 +473,8 @@ public class CardManager : MonoBehaviour
             selectedCard.transform.DOScale(1f, waitTime).SetEase(Ease.OutBack);
             DebriManager.ScatterUIPixels(selRect);
             SoundManager.PlaySFX("GetCard");
+            if (GameEvents.instance != null) GameEvents.instance.CardAcquired(selectedCard.GetComponent<CardMaster>());
+
             yield return new WaitForSeconds(waitTime);
         }
         // 7. Move to hand if needed

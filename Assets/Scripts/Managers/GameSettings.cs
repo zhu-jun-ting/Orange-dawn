@@ -12,8 +12,41 @@ public class GameSettings : MonoBehaviour
     [Header("Battle Paramters")]
     public float enemyHealthModifier = 1f;
     public float enemyDamageModifier = 1f;
+    public bool isEndlessMode = false; // Flag to indicate if the game is in endless mode
+    public float endlessModeEnemyStatModifier = 1.1f; // Modifier for enemy stats in endless mode
 
-    
+
+
+    void Start()
+    {
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnLevelStart += () =>
+            {
+                if (isEndlessMode)
+                {
+                    // Apply endless mode modifiers to enemy stats
+                    instance.enemyHealthModifier = enemyHealthModifier * endlessModeEnemyStatModifier;
+                    instance.enemyDamageModifier = enemyDamageModifier * endlessModeEnemyStatModifier;
+                }
+                else
+                {
+                    // Reset to normal modifiers
+                    instance.enemyHealthModifier = enemyHealthModifier;
+                    instance.enemyDamageModifier = enemyDamageModifier;
+                }
+            };
+
+            GameEvents.instance.OnGameReset += () =>
+            {
+                instance.enemyHealthModifier = 1f;
+                instance.enemyDamageModifier = 1f;
+                isEndlessMode = false; // Reset endless mode flag
+            };
+        }
+    }
+
+
     [Header("Rarity Weight Settings (Normal Shop)")]
     public float commonWeight = 1f;
     public float uncommonWeightIncrement = 0.04f;
@@ -218,8 +251,6 @@ public class GameSettings : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this.gameObject);
-
-        Debug.Log(AddIcon("Damage: 10 "));
     }
 
 

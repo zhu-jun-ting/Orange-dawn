@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eed07f63ba2b8a4a91e02cb6537629e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHits: 3
+  maxHits: 10
   lifetime: -1
   invulnerabilityDuration: 1
   breakableByTags:

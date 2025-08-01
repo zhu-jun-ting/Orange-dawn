@@ -1,9 +1,6 @@
 using UnityEngine;
-using UnityEditor.EditorTools;
 using UnityEditor;
 using System.Collections.Generic;
-using NUnit.Framework;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 
 public class CardValueConstantRandomGenerator : CardMaster
 {

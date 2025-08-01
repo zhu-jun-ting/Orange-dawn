@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.006, y: -0.076}
+  m_AnchoredPosition: {x: 0.064, y: -0.044}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &731361019899542044
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 1298699483
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3863635566180601805, guid: 4b6eb5808791d4b4dab49fae9f0da3e0, type: 3}
+  m_Sprite: {fileID: 4723107735738678597, guid: 30c27461305a905408d2c261cc36d06a, type: 3}
   m_Color: {r: 0, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,7 @@ Animator:
   m_GameObject: {fileID: 1058728565167123226}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 38379151abbdf9140a7f8793337c3338, type: 2}
+  m_Controller: {fileID: 9100000, guid: dc5187f5bb66b264e9b9285b3f4cf54e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -319,7 +319,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000000093132, y: 0.304}
+  m_AnchoredPosition: {x: 0.000000093132, y: 0.655}
   m_SizeDelta: {x: 1.2894499, y: 0.2118}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3235738134679634587
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5849056, g: 0.11311853, b: 0.29723063, a: 1}
+  m_Color: {r: 0.6603774, g: 0.24795295, b: 0.4103247, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -426,9 +426,9 @@ MonoBehaviour:
   slider: {fileID: 3235738134679634584}
   gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 0.9056532, g: 0.9339623, b: 0.2951673, a: 1}
-    key2: {r: 0.15263437, g: 0.9245283, b: 0.19020598, a: 0}
+    key0: {r: 0.9547169, g: 0.1711284, b: 0.1711284, a: 1}
+    key1: {r: 0.93333334, g: 0.4859886, b: 0.2941176, a: 1}
+    key2: {r: 0.9245283, g: 0.30031198, b: 0.095941514, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
@@ -451,7 +451,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_ColorSpace: -1
+    m_ColorSpace: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   fill: {fileID: 3235738135625849606}
@@ -604,7 +604,7 @@ GameObject:
   - component: {fileID: 3235738136384544189}
   - component: {fileID: 3235738136384544128}
   m_Layer: 7
-  m_Name: ShooterEnemy
+  m_Name: BossShooter
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -620,7 +620,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.524, y: -0.747, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.5732417, z: 0.47953966}
+  m_LocalScale: {x: 1.2, y: 1.1464834, z: 0.9590794}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3235738134715294263}
@@ -679,7 +679,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.23476046
+  m_Mass: 0.93904185
   m_LinearDamping: 10
   m_AngularDamping: 0.05
   m_GravityScale: 0
@@ -717,7 +717,7 @@ MonoBehaviour:
   moveSpeed: 1.5
   curHP: 0
   enemyAOEPrefab: {fileID: 3134260865258078223, guid: a4720886438e2f047b05d67d5aaa2ada, type: 3}
-  attackScale: 8
+  attackScale: 12
   attackDamage: 10
   attackDuration: 1
   attackCooldown: 2
@@ -729,15 +729,31 @@ MonoBehaviour:
   target: {fileID: 0}
   collidableObjectsTags:
   - Enemy
+  - Object
   collidableObjectsLayers:
   - Wall
   minCollisionDamage: 2
   collisionDamageScale: 3
-  dotSpawnPoint: {fileID: 0}
-  dropEntries: []
-  shoot_range: 5.71
-  shoot_interval: 2
-  attackBulletSpeed: 6
+  dotSpawnPoint: {fileID: 7471643745244601201}
+  dropEntries:
+  - dropItem: 1
+    amount: 22
+    chance: 1
+  - dropItem: 1
+    amount: 4
+    chance: 0.484
+  - dropItem: 1
+    amount: 3
+    chance: 0.263
+  - dropItem: 2
+    amount: 18
+    chance: 1
+  - dropItem: 2
+    amount: 6
+    chance: 0.204
+  shoot_range: 6.5
+  shoot_interval: 1
+  attackBulletSpeed: 11.8
   bullet_prefab: {fileID: 4028690415889179283, guid: 89c645488c4c37049874c6de768a7b14, type: 3}
 --- !u!1 &3777006798558481788
 GameObject:

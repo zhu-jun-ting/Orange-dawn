@@ -8,9 +8,25 @@ public class GameEvents : MonoBehaviour
 {
     public static GameEvents instance;
 
+    // Static values for statistics
+    public static int totalCoins = 0;
+    public static int totalTakenDamage = 0;
+    public static int totalDealtDamage = 0;
+    public static int totalHealed = 0;
+    public static int totalDiscardedCards = 0;
+    public static int totalAcquiredCards = 0;
+    public static int totalEnemiesKilled = 0;
+    public static int totalCardsTriggered = 0;
+    public static int totalObjectsDestroyed = 0;
+    public static int totalLevelCleared = 0;
+    public static int totalLevel = 1; // Start from level 1
+
+
     void Awake()
     {
-        instance = this;
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
     }
 
     void OnEnable()
@@ -55,6 +71,8 @@ public class GameEvents : MonoBehaviour
         if (OnHitPawn != null)
         {
             OnHitPawn(damage_, reciever_, instigator_, damage_type_, location_, hit_back_factor_, source_);
+            if (reciever_.isEnemy) totalDealtDamage += (int)damage_;
+            else if (reciever_.isPlayer) totalTakenDamage += (int)damage_;
         }
         if (onShowNumberUI != null && location_ != null)
         {
@@ -64,7 +82,6 @@ public class GameEvents : MonoBehaviour
 
     public event Action<float, PawnMaster, GameObject, Transform> OnHealPawn;
     public void HealPawn(float _health, PawnMaster _receiver, GameObject _instigator = null, Transform location_ = null, System.Action<float> modifyHealthCallback = null)
-
     {
         // Modify the health if a callback is provided
         modifyHealthCallback?.Invoke(_health);
@@ -75,6 +92,7 @@ public class GameEvents : MonoBehaviour
             if (healed)
             {
                 OnHealPawn?.Invoke(_health, _receiver, _instigator, location_);
+                if (!_receiver.isEnemy) totalHealed += (int)_health;
                 // CombatManager.instance.HandleShowDamageUI((int)_health, _receiver, GameEvents.DamageType.Heal, location_);
                 // CombatManager.instance.HandleShowDamageUI((int)_health, _receiver, GameEvents.DamageType.Heal, location_);
                 if (onShowNumberUI != null && location_ != null)
@@ -106,6 +124,7 @@ public class GameEvents : MonoBehaviour
     public event Action<PawnMaster, float, GameObject, DamageType, Gun> OnPawnDie;
     public void PawnDie(PawnMaster _pawn, float _killDamage = 0f, GameObject _instigator_ = null, DamageType _damageType = DamageType.Normal, Gun _gun = null)
     {
+        if (_pawn.isEnemy) totalEnemiesKilled++;
         OnPawnDie?.Invoke(_pawn, _killDamage, _instigator_, _damageType, _gun);
     }
 
@@ -131,6 +150,7 @@ public class GameEvents : MonoBehaviour
     public event Action<int> OnUpdateCoins;
     public void UpdateCoins(int diffCoin)
     {
+        if (diffCoin > 0) totalCoins += diffCoin;
         OnUpdateCoins?.Invoke(diffCoin);
     }
 
@@ -157,6 +177,7 @@ public class GameEvents : MonoBehaviour
     public event Action OnLevelStart;
     public void LevelStart()
     {
+        totalLevelCleared++;
         lastLevelStartOrClearTime = Time.time;
         OnLevelStart?.Invoke();
     }
@@ -167,7 +188,8 @@ public class GameEvents : MonoBehaviour
     public event Action<bool> OnToggleBoard;
     public void ToggleBoard(bool isActive)
     {
-        OnToggleBoard?.Invoke(isActive);
+        if (!CombatManager.isInBattle)
+            OnToggleBoard?.Invoke(isActive);
     }
 
 
@@ -182,12 +204,18 @@ public class GameEvents : MonoBehaviour
         OnPlayCardAnimation?.Invoke(isPlaying);
     }
 
-    public static int discardedCardsCount = 0;
     public event Action<CardMaster> OnCardDiscarded;
     public void CardDiscarded(CardMaster card)
     {
-        discardedCardsCount++;
+        totalDiscardedCards++;
         OnCardDiscarded?.Invoke(card);
+    }
+
+    public event Action<CardMaster> OnCardAcquired;
+    public void CardAcquired(CardMaster card)
+    {
+        totalAcquiredCards++;
+        OnCardAcquired?.Invoke(card);
     }
 
     public event Action<Transform> OnSpawnObject;
@@ -199,6 +227,7 @@ public class GameEvents : MonoBehaviour
     public event Action<Transform, GunBullet> OnDestroyObject;
     public void DestroyObject(Transform obj, GunBullet bullet = null)
     {
+        totalObjectsDestroyed++;
         OnDestroyObject?.Invoke(obj, bullet);
     }
 
@@ -238,6 +267,7 @@ public class GameEvents : MonoBehaviour
     public event Action<CardMaster, Transform> OnTriggerActionCard;
     public void TriggerActionCard(CardMaster card, Transform target)
     {
+        totalCardsTriggered++;
         OnTriggerActionCard?.Invoke(card, target);
         // No matter what card, always show a Popup for notify this card triggered
         // Move the message position up a bit (e.g., by 1 unit on Y axis)
@@ -258,10 +288,35 @@ public class GameEvents : MonoBehaviour
         OnGameStart?.Invoke();
     }
 
+    public event Action<bool> OnGameEnd;
+    public void GameEnd(bool isVictory = false)
+    {
+        OnGameEnd?.Invoke(isVictory);
+    }
+
     public event Action<int> OnLevelUp;
     public void LevelUp(int level)
     {
-        GameEvents.instance.ShowMessage(GameSettings.LocalizeText("Levelup"), GameEvents.MessageType.WorldInfo, Vector2.zero);
+        totalLevel++;
+        PlayerController.ShowPopup(GameSettings.LocalizeText("Levelup"));
         OnLevelUp?.Invoke(level);
+    }
+
+    public event Action OnGameReset;
+    public void GameReset()
+    {
+        totalLevel = 1;
+        totalCardsTriggered = 0;
+        totalDiscardedCards = 0;
+        totalAcquiredCards = 0;
+        totalObjectsDestroyed = 0;
+        totalCoins = 0;
+        totalTakenDamage = 0;
+        totalDealtDamage = 0;
+        totalHealed = 0;
+        totalEnemiesKilled = 0;
+        totalLevelCleared = 0;
+        lastLevelStartOrClearTime = 0f;
+        OnGameReset?.Invoke();
     }
 }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 401 Event
   m_EditorClassIdentifier: 
   levelId: 401
-  roomType: 2
-  enemyCount: 0
+  roomType: 3
+  levelOpenedDoorNumber: -1
   enemiesToSpawn: []
+  spawnInterval: 2
   clearRequirement: 2
   timeLimit: 99

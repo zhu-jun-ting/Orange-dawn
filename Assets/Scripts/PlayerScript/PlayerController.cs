@@ -151,7 +151,8 @@ public class PlayerController : PawnMaster
     public void ActivatePistol(bool isActive) => pistol.SetActive(isActive);
 
     // use the variables about fire_aoe and update the scale, damage of the AOE
-    private void UpdateFireAOE() {
+    private void UpdateFireAOE()
+    {
         fire_aoe.transform.GetChild(0).transform.localScale = new Vector3(fire_aoe_range, fire_aoe_range, fire_aoe_range);
         ContiniousAOE fire_aoe_controller = fire_aoe.GetComponentInChildren<ContiniousAOE>();
         fire_aoe_controller.damage = fire_aoe_damage;
@@ -162,7 +163,7 @@ public class PlayerController : PawnMaster
     {
         moveH = move.x * moveSpeed;
         moveV = move.y * moveSpeed;
-    }  
+    }
 
     private void HandlePause()
     {
@@ -233,7 +234,7 @@ public class PlayerController : PawnMaster
             }
         }
         // Debug.Log("isRunning: " + isRunning + " moveH: " + moveH + " moveV: " + moveV);
-    
+
         // --- Running music logic ---
         if (moving && !wasMovingLastFrame)
         {
@@ -290,11 +291,12 @@ public class PlayerController : PawnMaster
         {
             Instantiate(test, gameObject.transform.position, gameObject.transform.rotation);
             gameObject.SetActive(false);
+            GameEvents.instance?.GameEnd(false); // Notify game end with false for not winning
         }
 
-        
+
         isFullHealth = false; // Set to false when taking damage
-        return base.TakeDamage(_amount, reciever,instigator, damage_type_, location, _hit_back_factor, source); // Return true to indicate damage was taken
+        return base.TakeDamage(_amount, reciever, instigator, damage_type_, location, _hit_back_factor, source); // Return true to indicate damage was taken
     }
     private System.Collections.IEnumerator ResetHurtFlag(float delay)
     {
@@ -342,7 +344,7 @@ public class PlayerController : PawnMaster
             // next times, add the additional powerups to this AOE
             fire_aoe_range += stat.additional_aoe_range;
             fire_aoe_damage += stat.additional_aoe_damage_per_tick;
-            
+
         }
         UpdateFireAOE();
     }
@@ -352,7 +354,8 @@ public class PlayerController : PawnMaster
         // if (!use_lifesteal) use_lifesteal = true;
         lifesteal_percent += percent_;
 
-        if (lifesteal_percent >= 0.5f) {
+        if (lifesteal_percent >= 0.5f)
+        {
             Debug.LogWarning("player lifesteal exceeds 50%");
         }
 
@@ -443,22 +446,17 @@ public class PlayerController : PawnMaster
         myRender.enabled = true;
     }
 
-
-
-
-    private void Flip()
+    // Flips the character based on current horizontal velocity (works for any Rigidbody2D-based NPC)
+    protected virtual void Flip()
     {
-        if (Camera.main == null)
-            return;
-
-        float mouseWorldX = Camera.main.ScreenToWorldPoint(Input.mousePosition).x;
-        if (transform.position.x < mouseWorldX)
-        {
-            transform.eulerAngles = Vector3.zero;
-        }
-        else if (transform.position.x > mouseWorldX)
+        float velocityX = rb != null ? rb.linearVelocity.x : 0f;
+        if (velocityX > 0.01f)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+        else if (velocityX < -0.01f)
+        {
+            transform.eulerAngles = Vector3.zero;
         }
     }
 }

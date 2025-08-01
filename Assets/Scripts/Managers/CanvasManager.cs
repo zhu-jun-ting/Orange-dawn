@@ -258,6 +258,8 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 
 	private void TogglePanels()
 	{
+		if (CombatManager.isInBattle) return; // Don't toggle during combat
+		
 		if (panelsVisible)
 		{
 			// Move panels out and pause game logic (but not UI)
@@ -281,9 +283,9 @@ public class CanvasManager : MonoBehaviour, ICanvasManager {
 				handArea.DOMove(handAreaInPos, 0.5f).SetEase(Ease.InOutBack).SetUpdate(true);
 			panelsVisible = true;
 			DOTween.defaultTimeScaleIndependent = false;
-			
+
 			if (GameEvents.instance != null) GameEvents.instance.ToggleBoard(true);
-			
+
 		}
 	}
 

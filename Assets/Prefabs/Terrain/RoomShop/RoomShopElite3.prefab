@@ -10202,6 +10202,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1991551786575481267, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3795398125096546289}
+    - targetCorrespondingSourceObject: {fileID: 1991551786575481267, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -441344843411305088}
   m_SourcePrefab: {fileID: 100100000, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
 --- !u!4 &309437446069464129 stripped
 Transform:
@@ -10306,7 +10309,6 @@ MonoBehaviour:
   downSign: {fileID: 4499067725359741550}
   leftSign: {fileID: 6876396259773325388}
   rightSign: {fileID: 3225445438576613930}
-  randomCloseProbability: 0.5
   shopType: 1
   cardCount: 3
   conditionWeights:
@@ -10332,6 +10334,45 @@ MonoBehaviour:
   - {fileID: 3203590802850464924}
   - {fileID: 3526532284779162962}
   - {fileID: 4047296363790575872}
+--- !u!114 &-441344843411305088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7339358339974630147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 7623953845191442656
+  references:
+    version: 2
+    RefIds:
+    - rid: 7623953845191442656
+      type: {class: TrackedMonoBehaviourObject, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 3795398125096546289}
+        m_TrackedProperties:
+          items:
+          - rid: 7623953845191442657
+        m_UpdateType: 0
+        m_Changed:
+          m_PersistentCalls:
+            m_Calls: []
+    - rid: 7623953845191442657
+      type: {class: EnumTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: roomType
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: 1
+        - localeIdentifier:
+            m_Code: zh-Hans
+          value: 2
 --- !u!114 &7455116272897475672 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1804868722227447528, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}

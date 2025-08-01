@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHits: 3
-  lifetime: -1
+  lifetime: 10
   invulnerabilityDuration: 1
   breakableByTags:
   - Enemy

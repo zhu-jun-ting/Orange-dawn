@@ -4,31 +4,48 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ExpBar : MonoBehaviour
-
 {
     public Text ExpText;
     public Text LevelText;
+
+
     public static float ExpCurrent;
     public static float ExpMax;
     public static int Level;
 
     [Header("Exp Setups")]
+    [SerializeField] private float expCurrent = 0f;
+    [SerializeField] private float expMax = 100f;
+    [SerializeField] private int level = 1;
     public int ExpIncrementPerLevel = 50; // Amount of experience needed to level up
 
     // ...moved levelUpSelectCards to GameSettings...
 
     private Image ExperienceBar;
-    // Start is called before the first frame update
-
     public static ExpBar instance;
+
+    void Awake()
+    {
+        SyncInspectorToStatic();
+    }
+
+    void OnValidate()
+    {
+        SyncInspectorToStatic();
+    }
+
     void Start()
     {
         instance = this;
         ExperienceBar = GetComponent<Image>();
+        SyncInspectorToStatic();
+    }
 
-        ExpMax = 100;
-        ExpBar.Level = 1;
-        ExpBar.ExpCurrent = 0;
+    private void SyncInspectorToStatic()
+    {
+        ExpCurrent = expCurrent;
+        ExpMax = expMax;
+        Level = level;
     }
 
     // Update is called once per frame
@@ -37,6 +54,11 @@ public class ExpBar : MonoBehaviour
         ExperienceBar.fillAmount = (float)ExpCurrent / (float)ExpMax;
         ExpText.text = ExpCurrent.ToString() + "/" + ExpMax.ToString();
         LevelText.text = "LV. " + Level.ToString();
+
+        // Keep inspector fields in sync with static values (for live editing)
+        expCurrent = ExpCurrent;
+        expMax = ExpMax;
+        level = Level;
     }
 
     public static void GainExp(float experience)

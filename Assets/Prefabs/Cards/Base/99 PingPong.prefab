@@ -175,7 +175,7 @@ MonoBehaviour:
   isRoot: 1
   isInternal: 0
   card_type: 1
-  card_rarity: 2
+  card_rarity: 3
   card_bonds: 
   card_conditions: 00000000
   additional_tags: 

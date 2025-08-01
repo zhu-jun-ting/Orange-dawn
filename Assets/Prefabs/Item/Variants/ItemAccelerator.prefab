@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHits: 3
-  lifetime: -1
+  lifetime: 15
   invulnerabilityDuration: 1
   breakableByTags: []
   itemType: 1

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 public class CombatManager : MonoBehaviour
@@ -10,6 +11,18 @@ public class CombatManager : MonoBehaviour
 {
     private int kill_count = 0;
     [Header("Global Settings")]
+    [Tooltip("If true, all damage and healing will be randomized within a range. If false, they will be set to exact values.")]
+    public bool useDamageRandomizer = true;
+    public float damageRandomizationRange = 0.2f; // 20% range
+
+    private float HandleModifyDamage(float damage)
+    {
+        float min = damage * (1 - damageRandomizationRange);
+        float max = damage * (1 + damageRandomizationRange);
+        damage = UnityEngine.Random.Range(min, max);
+        return damage;
+    }
+
     [SerializeField] private bool _isInBattle = false;
     public static bool isInBattle
     {
@@ -19,6 +32,9 @@ public class CombatManager : MonoBehaviour
 
     [Header("Level Information")]
     public Level currentLevel; // The current level being played
+    public TextMeshProUGUI timerText;
+    public Transform timerPanel; // Optional panel to hide when not in battle
+    private bool levelIsCleared = false; // Flag to track if the level is cleared
 
     [Header("Spawn Area Checks")]
     public List<Transform> allowedSpawnAreas; // Assign in Inspector
@@ -53,6 +69,9 @@ public class CombatManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+        DontDestroyOnLoad(gameObject);
         dropPrefabDict = new Dictionary<DropItem, GameObject>();
         foreach (var item in dropPrefabs)
         {
@@ -123,14 +142,27 @@ public class CombatManager : MonoBehaviour
         {
             GameEvents.instance.OnSpawnObject -= HandlerOnSpawnObject;
             GameEvents.instance.OnSpawnObject += HandlerOnSpawnObject;
+            GameEvents.instance.OnDestroyObject += HandlerOnDestroyObject;
             GameEvents.instance.OnLoadLevel -= LoadLevel;
             GameEvents.instance.OnLoadLevel += LoadLevel;
             GameEvents.instance.OnLevelStart += HandleLevelStart;
             GameEvents.instance.OnLevelCleared += HandleLevelCleared;
-
+            if (useDamageRandomizer) GameEvents.OnModifyDamage += HandleModifyDamage;
         }
+    }
 
-        instance = this;
+
+
+    void OnDisable()
+    {
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.OnSpawnObject -= HandlerOnSpawnObject;
+            GameEvents.instance.OnLoadLevel -= LoadLevel;
+            GameEvents.instance.OnLevelStart -= HandleLevelStart;
+            GameEvents.instance.OnLevelCleared -= HandleLevelCleared;
+            if (useDamageRandomizer) GameEvents.OnModifyDamage -= HandleModifyDamage;
+        }
     }
 
     public void LoadLevel(int levelIndex)
@@ -147,11 +179,39 @@ public class CombatManager : MonoBehaviour
 
     public void HandleLevelStart()
     {
-        
+        levelIsCleared = false;
         SetSpawnActivity(true);
+        if (GameEvents.instance != null)
+        {
+            GameEvents.instance.ToggleBoard(false);
+        }
         isInBattle = true;
 
-        if (currentLevel.clearRequirement == Level.LevelClearRequirement.TimeLimit)
+        // Only spawn objects if this is a Battle or Boss room
+        if (currentLevel != null &&
+            (currentLevel.roomType == FloorManager.RoomType.Battle || currentLevel.roomType == FloorManager.RoomType.Boss))
+        {
+            int levelStartSpawnCount = currentLevel.spawnCountWhenLevelStart;
+            var prefabs = currentLevel.spawnPrefabsWhenLevelStart;
+            if (prefabs != null && prefabs.Count > 0 && levelStartSpawnCount > 0)
+            {
+                for (int i = 0; i < levelStartSpawnCount; i++)
+                {
+                    // Pick a random prefab from the list
+                    GameObject prefab = prefabs[UnityEngine.Random.Range(0, prefabs.Count)];
+                    // Try to get a valid spawn location
+                    Vector2? pos = TryGetSpawnLocation(10); // Try up to 10 times for a valid spot
+                    if (pos.HasValue && prefab != null)
+                    {
+                        GameObject obj = Instantiate(prefab, pos.Value, Quaternion.identity);
+                        AddObject(obj.transform);
+                    }
+                }
+            }
+        }
+
+        if ((currentLevel.clearRequirement == Level.LevelClearRequirement.TimeLimit && currentLevel.timeLimit > 0) || 
+            (currentLevel.clearRequirement == Level.LevelClearRequirement.DefeatAllEnemies && currentLevel.timeLimit > 0))
         {
             StartCoroutine(LevelTimeLimitCoroutine(currentLevel.timeLimit));
         }
@@ -161,7 +221,7 @@ public class CombatManager : MonoBehaviour
         if (currentLevel.clearRequirement == Level.LevelClearRequirement.DefeatAllEnemies && GameEvents.instance != null)
         {
             GameEvents.instance.ShowMessage(
-                currentLevel.isBoss ? "Boss" : "Battle",
+                currentLevel.roomType == FloorManager.RoomType.Boss ? "Boss" : "Battle",
                 GameEvents.MessageType.Banner,
                 Vector2.zero
             );
@@ -204,11 +264,34 @@ public class CombatManager : MonoBehaviour
             SoundManager.PlaySFX("DrumStart");
         }
     }
-
+    private Coroutine timerCoroutine;
     private IEnumerator LevelTimeLimitCoroutine(float timeLimit)
     {
-        yield return new WaitForSeconds(timeLimit);
-        GameEvents.instance?.LevelCleared();
+        if (timeLimit >= 5f) timerPanel?.gameObject.SetActive(true);
+        float remaining = timeLimit;
+        while (remaining > 0f)
+        {
+            if (timerText != null)
+            {
+                TimeSpan ts = TimeSpan.FromSeconds(remaining);
+                timerText.text = $"{ts.Minutes:D2}:{ts.Seconds:D2}";
+            }
+            yield return new WaitForSeconds(1f);
+            remaining -= 1f;
+        }
+        if (timerText != null)
+        {
+            timerText.text = "00:00";
+        }
+
+        if (timerPanel != null)
+        {
+            timerPanel.gameObject.SetActive(false);
+        }
+
+        if (!levelIsCleared) GameEvents.instance?.LevelCleared();
+        levelIsCleared = true; // Set the level as cleared
+        timerCoroutine = null;
     }
 
     private void HandleLevelCleared()
@@ -217,6 +300,20 @@ public class CombatManager : MonoBehaviour
         isInBattle = false;
         currentEnemies.Clear();
         if (canvas_manager != null) canvas_manager.UpdateKillCount(0);
+        // Stop timer coroutine and hide timer panel
+        if (timerCoroutine != null)
+        {
+            StopCoroutine(timerCoroutine);
+            timerCoroutine = null;
+        }
+        if (timerPanel != null)
+        {
+            timerPanel.gameObject.SetActive(false);
+        }
+        if (timerText != null)
+        {
+            timerText.text = "";
+        }
         if (currentLevel.clearRequirement == Level.LevelClearRequirement.DefeatAllEnemies && GameEvents.instance != null)
         {
             GameEvents.instance.ShowMessage(
@@ -226,18 +323,42 @@ public class CombatManager : MonoBehaviour
             );
             SoundManager.PlaySFX("Cleared");
         }
-    }
-
-    void OnDisable()
-    {
-        if (GameEvents.instance != null)
+        // Clear bullets and items
+        foreach (var obj in currentObjects)
         {
-            GameEvents.instance.OnSpawnObject -= HandlerOnSpawnObject;
-            GameEvents.instance.OnLoadLevel -= LoadLevel;
+            if (obj != null) Destroy(obj.gameObject);
+        }
+        foreach (var NPC in currentNPCs)
+        {
+            if (NPC != null) Destroy(NPC.gameObject);
+        }
+        foreach (var bullet in FindObjectsByType<GunBullet>(FindObjectsSortMode.None))
+        {
+            if (bullet != null) Destroy(bullet.gameObject);
+        }
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if (enemy != null) Destroy(enemy);
+        }
+
+        // instant collect all exp, coin, and mana items
+        foreach (var itemMana in FindObjectsByType<ItemMana>(FindObjectsSortMode.None))
+        {
+            if (itemMana != null) itemMana.inPlayer = true;
+        }
+        foreach (var itemExp in FindObjectsByType<ItemExp>(FindObjectsSortMode.None))
+        {
+            if (itemExp != null) itemExp.inPlayer = true;
+        }
+        foreach (var itemCoin in FindObjectsByType<ItemCoin>(FindObjectsSortMode.None))
+        {
+            if (itemCoin != null) itemCoin.inPlayer = true;
         }
     }
 
-    private void HandlerOnSpawnObject(Transform obj) => AddObject(obj);
+
+
+
 
     // Update is called once per frame
     void FixedUpdate()
@@ -280,7 +401,15 @@ public class CombatManager : MonoBehaviour
             if (currentEnemies.Count == 0 && (activeEnemiesToSpawn == null || activeEnemiesToSpawn.Count == 0))
             {
                 // Trigger level clear event
-                if (Time.time - GameEvents.instance.lastLevelStartOrClearTime > 1f) GameEvents.instance?.LevelCleared();
+                if (Time.time - GameEvents.instance.lastLevelStartOrClearTime > 1f)
+                {
+                    if (!levelIsCleared) GameEvents.instance?.LevelCleared();
+                    levelIsCleared = true; // Set the level as cleared
+                }
+                if (currentLevel.isFinalBoss)
+                    {
+                        GameEvents.instance?.GameEnd(true); // Notify game end with true for winning
+                    }
             }
         }
 
@@ -347,9 +476,9 @@ public class CombatManager : MonoBehaviour
                     var master = enemyObj.GetComponent<EnemyMaster>();
                     if (master != null)
                     {
-                        master.maxHP = entry.health * (GameSettings.instance != null ? GameSettings.instance.enemyHealthModifier : 1f);
-                        master.curHP = entry.health * (GameSettings.instance != null ? GameSettings.instance.enemyHealthModifier : 1f);
-                        master.attackDamage = entry.attack * (GameSettings.instance != null ? GameSettings.instance.enemyDamageModifier : 1f);
+                        master.maxHP = entry.health * (GameSettings.instance != null ? GameSettings.instance.enemyHealthModifier : 1f) * UnityEngine.Random.Range(0.8f, 1.2f);
+                        master.curHP = entry.health * (GameSettings.instance != null ? GameSettings.instance.enemyHealthModifier : 1f) * UnityEngine.Random.Range(0.8f, 1.2f);
+                        master.attackDamage = entry.attack * (GameSettings.instance != null ? GameSettings.instance.enemyDamageModifier : 1f)  * UnityEngine.Random.Range(0.8f, 1.2f);
                         master.moveSpeed = entry.speed;
                         OnModifySpawnedEnemyStats?.Invoke(master);
                     }
@@ -359,6 +488,9 @@ public class CombatManager : MonoBehaviour
                 entry.count--;
                 activeEnemiesToSpawn[idx] = entry;
             }
+
+            // Wait a bit to avoid single frame level clear detection
+            yield return new WaitForSeconds(0.5f);
 
             // Remove entries with count <= 0 again
             activeEnemiesToSpawn.RemoveAll(e => e.count <= 0);
@@ -420,7 +552,7 @@ public class CombatManager : MonoBehaviour
         {
             if (RollChance(dropEntry.chance))
             {
-                SpawnDrop(dropEntry.dropItem, enemy.transform, 1);
+                SpawnDrop(dropEntry.dropItem, enemy.transform, dropEntry.amount);
             }
         }
     }
@@ -462,6 +594,17 @@ public class CombatManager : MonoBehaviour
         if (obj != null && !currentObjects.Contains(obj))
             currentObjects.Add(obj);
 
+        // Remove any nulls from the spawnedObjects list
+        currentObjects.RemoveAll(obj => obj == null);
+    }
+
+    private void HandlerOnSpawnObject(Transform obj) => AddObject(obj);
+    public void HandlerOnDestroyObject(Transform obj, GunBullet bullet)
+    {
+        // Handle object destruction
+        if (obj != null)
+            currentObjects.Remove(obj);
+        
         // Remove any nulls from the spawnedObjects list
         currentObjects.RemoveAll(obj => obj == null);
     }

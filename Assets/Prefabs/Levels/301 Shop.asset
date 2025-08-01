@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 301 Shop
   m_EditorClassIdentifier: 
   levelId: 301
-  roomType: 1
-  enemyCount: 0
+  roomType: 2
+  levelOpenedDoorNumber: -1
   enemiesToSpawn: []
+  spawnInterval: 2
   clearRequirement: 2
-  timeLimit: 3
+  timeLimit: 1

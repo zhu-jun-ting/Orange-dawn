@@ -51,7 +51,7 @@ public class HealthBar : MonoBehaviour
             responsiveRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, responsiveFill * parentWidth);
         }
 
-        healthText.text = (HealthCurrent + HealthGlobalModifier).ToString() + "/" + (HealthMax + HealthGlobalModifier).ToString();
+        healthText.text = ((int)(HealthCurrent + HealthGlobalModifier)).ToString() + "/" + ((int)(HealthMax + HealthGlobalModifier)).ToString();
     }
     
     public static bool CanCostHealth(float diffHealth)

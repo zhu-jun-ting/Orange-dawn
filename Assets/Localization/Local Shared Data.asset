@@ -15,24 +15,16 @@ MonoBehaviour:
   m_TableCollectionName: Local
   m_TableCollectionNameGuidString: f0003430d5069e847a91a4697e652747
   m_Entries:
-  - m_Id: 49610964992
-    m_Key: TEST
+  - m_Id: 2846564754866176
+    m_Key: Lalala_Help
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564784226304
+    m_Key: Lalala_Credits
     m_Metadata:
       m_Items: []
   - m_Id: 10266188922880
     m_Key: PISTOL
-    m_Metadata:
-      m_Items: []
-  - m_Id: 260114439946240
-    m_Key: GameEventRunestone1
-    m_Metadata:
-      m_Items: []
-  - m_Id: 260270774239232
-    m_Key: GameEventRunestone2
-    m_Metadata:
-      m_Items: []
-  - m_Id: 795002289209344
-    m_Key: TTT
     m_Metadata:
       m_Items: []
   - m_Id: 987634957238272
@@ -49,6 +41,14 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 988510975377408
     m_Key: RESUME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420608
+    m_Key: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420609
+    m_Key: Help
     m_Metadata:
       m_Items: []
   - m_Id: 988513970110464
@@ -187,24 +187,168 @@ MonoBehaviour:
     m_Key: Legendary
     m_Metadata:
       m_Items: []
-  - m_Id: 1472100578312192
-    m_Key: New Entry 6
+  - m_Id: 2846564788420610
+    m_Key: Event_DemonTrade_1
     m_Metadata:
       m_Items: []
-  - m_Id: 1472100582506496
-    m_Key: New Entry 7
+  - m_Id: 2846564788420611
+    m_Key: Event_DemonTrade_2
     m_Metadata:
       m_Items: []
-  - m_Id: 1472100582506497
-    m_Key: New Entry 8
+  - m_Id: 2846564788420612
+    m_Key: Event_DemonTrade_3
     m_Metadata:
       m_Items: []
-  - m_Id: 1472100582506498
-    m_Key: New Entry 9
+  - m_Id: 2846564788420613
+    m_Key: Event_DemonTrade_4
     m_Metadata:
       m_Items: []
-  - m_Id: 1472100582506499
-    m_Key: New Entry 10
+  - m_Id: 2846564788420614
+    m_Key: Event_MystryBox_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420615
+    m_Key: Event_MystryBox_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420616
+    m_Key: Event_MystryBox_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420617
+    m_Key: Event_Runestone_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420618
+    m_Key: Event_Runestone_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420619
+    m_Key: Event_Runestone_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420620
+    m_Key: Event_Bonfire_1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420621
+    m_Key: Event_Bonfire_2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420622
+    m_Key: Event_Bonfire_3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420623
+    m_Key: Event_Bonfire_4
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420624
+    m_Key: Event_Bonfire_5
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420625
+    m_Key: Levelup
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420626
+    m_Key: Difficulty
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420627
+    m_Key: Start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420628
+    m_Key: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420629
+    m_Key: Easy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420630
+    m_Key: Normal
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420631
+    m_Key: Hard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420632
+    m_Key: Endless
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420633
+    m_Key: Return
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420634
+    m_Key: Collision
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420635
+    m_Key: New Entry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420636
+    m_Key: New Entry 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420637
+    m_Key: Stat_Coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420638
+    m_Key: Stat_TakenDamage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420639
+    m_Key: Stat_DealtDamage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420640
+    m_Key: Stat_Healed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420641
+    m_Key: Stat_DiscardedCards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420642
+    m_Key: Stat_AcquiredCards
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564788420643
+    m_Key: Stat_EnemiesKilled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614912
+    m_Key: Stat_CardsTriggered
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614913
+    m_Key: Stat_ObjectsDestroyed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614914
+    m_Key: Stat_LevelCleared
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614915
+    m_Key: Stat_Level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614916
+    m_Key: Stat_End
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614917
+    m_Key: Stat_Vicotry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2846564792614918
+    m_Key: New Entry 2
     m_Metadata:
       m_Items: []
   - m_Id: 1169767042596864
@@ -323,8 +467,8 @@ MonoBehaviour:
     m_Key: BonePile_desc
     m_Metadata:
       m_Items: []
-  - m_Id: 1472100586700800
-    m_Key: New Entry 11
+  - m_Id: 2846564792614919
+    m_Key: New Entry 3
     m_Metadata:
       m_Items: []
   - m_Id: 1455114070736896
@@ -809,6 +953,10 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1455114074931239
     m_Key: Musketeers_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2847461836800000
+    m_Key: Credits
     m_Metadata:
       m_Items: []
   m_Metadata:

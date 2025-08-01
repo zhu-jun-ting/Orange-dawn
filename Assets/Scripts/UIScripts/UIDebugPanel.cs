@@ -40,6 +40,11 @@ public class UIDebugPanel : MonoBehaviour
         GameEvents.instance.LevelCleared();
     }
 
+    public void LevelStart()
+    {
+        GameEvents.instance.LevelStart();
+    }
+
     public void LC()
     {
         GameEvents.instance.LevelCleared();
@@ -63,11 +68,15 @@ public class UIDebugPanel : MonoBehaviour
         }
     }
 
-    public void AddCoin() 
+    public void AddCoin()
     {
         if (int.TryParse(paramInputField.text, out int coinAmount))
         {
             GameEvents.instance.UpdateCoins(coinAmount);
+        }
+        else
+        {
+            GameEvents.instance.UpdateCoins(100);
         }
     }
 
@@ -165,11 +174,6 @@ public class UIDebugPanel : MonoBehaviour
         LightningTower.GetComponent<ItemLightningTower>().PerformAttack();
     }
 
-    public void LevelStart()
-    {
-        GameEvents.instance.LevelStart();
-    }
-
     public void Beam()
     {
         // Find the player GameObject by tag (make sure your player has the "Player" tag)
@@ -186,6 +190,60 @@ public class UIDebugPanel : MonoBehaviour
     public void Tip()
     {
         CanvasManager.ShowTip("Tip Title", "Tip description...");
+    }
+
+    public void Lose()
+    {
+        GameEvents.instance.GameEnd(false);
+    }
+
+    public void Win()
+    {
+        GameEvents.instance.GameEnd(true);
+    } 
+
+    public void SetEnemyHealth()
+    {
+        if (float.TryParse(paramInputField.text, out float health))
+        {
+            GameSettings.instance.enemyHealthModifier = health;
+        }
+    }
+
+    public void SetEnemyDamage()
+    {
+        if (float.TryParse(paramInputField.text, out float damage))
+        {
+            GameSettings.instance.enemyDamageModifier = damage;
+        }
+    }
+
+    public void KillAllEnemies()
+    {
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            if (enemy != null) Destroy(enemy);
+        }
+    }
+
+    public void SetMaxHealth()
+    {
+        if (int.TryParse(paramInputField.text, out int maxHealth))
+        {
+            HealthBar.HealthGlobalModifier = maxHealth;
+        }
+    }
+
+    public void AddExp()
+    {
+        if (int.TryParse(paramInputField.text, out int expAmount))
+        {
+            ExpBar.GainExp(expAmount);
+        }
+        else
+        {
+            ExpBar.GainExp(100);
+        }
     }
 
     float DoubleDamage(float dmg) => dmg * 2f;

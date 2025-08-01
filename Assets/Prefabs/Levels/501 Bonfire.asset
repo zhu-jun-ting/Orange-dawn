@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: 501 Bonfire
   m_EditorClassIdentifier: 
   levelId: 501
-  roomType: 3
-  enemyCount: 0
+  roomType: 4
+  levelOpenedDoorNumber: -1
   enemiesToSpawn: []
+  spawnInterval: 2
   clearRequirement: 2
   timeLimit: 99

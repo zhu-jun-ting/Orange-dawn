@@ -19,7 +19,7 @@ public class CardInstantFungus : CardMaster
         linked = up_link_cardmaster ?? left_link_cardmaster ?? right_link_cardmaster ?? down_link_cardmaster;
         if (linked != null)
         {
-            times = GameEvents.discardedCardsCount / growInterval;
+            times = GameEvents.totalDiscardedCards / growInterval;
             if (linked.numberTypesCanBeModified.Count > 0)
             {
                 linked.Grow(times);
