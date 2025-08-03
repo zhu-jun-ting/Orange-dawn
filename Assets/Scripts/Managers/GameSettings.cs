@@ -12,6 +12,7 @@ public class GameSettings : MonoBehaviour
     [Header("Battle Paramters")]
     public float enemyHealthModifier = 1f;
     public float enemyDamageModifier = 1f;
+    public float enemyDropRandomRate = 0.3f; // Randomize enemy drop amounts based on this rate
     public bool isEndlessMode = false; // Flag to indicate if the game is in endless mode
     public float endlessModeEnemyStatModifier = 1.1f; // Modifier for enemy stats in endless mode
 

@@ -111,7 +111,7 @@ public class FloorManager : MonoBehaviour
 
     private List<int> loadedLevelIds = new List<int>();
     private int lastBattleLevelCleared = 0;
-    private int lastBossLevelCleared = 100;
+    private int lastBossLevelCleared = 0;
     private void HandlePlayerNextRoom(GameEvents.Dir dir)
     {
         // Player can not reenter a room that previously entered so close all doors towards that room

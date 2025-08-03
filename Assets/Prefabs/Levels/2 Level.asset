@@ -21,11 +21,13 @@ MonoBehaviour:
     health: 24
     attack: 3
     speed: 1
+    dropMultiplier: 1
   - enemyPrefab: {fileID: 4321068798391446461, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
     count: 8
     health: 25
     attack: 3
     speed: 1
+    dropMultiplier: 1
   spawnInterval: 1.86
   spawnCountWhenLevelStart: 3
   spawnPrefabsWhenLevelStart:
@@ -46,6 +48,8 @@ MonoBehaviour:
   - {fileID: 6452647200994541434, guid: b9166ee1a04e05645be6adc5f0fbcc9e, type: 3}
   - {fileID: 6452647200994541434, guid: b9166ee1a04e05645be6adc5f0fbcc9e, type: 3}
   - {fileID: 1792623200094130640, guid: 8ba80b04a20692249bd8b3837f034ef8, type: 3}
+  spawnCountEachInterval: 5
+  spawnPrefabsEachInterval: []
   isFinalBoss: 0
   clearRequirement: 1
   timeLimit: 33

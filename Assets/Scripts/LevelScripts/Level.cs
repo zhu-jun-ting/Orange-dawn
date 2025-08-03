@@ -24,6 +24,7 @@ public class Level : ScriptableObject
 		public int health;
 		public int attack;
 		public float speed;
+		public float dropMultiplier; // How many items to drop based on default drop rate
 		// Add more as needed
 	}
 
@@ -31,6 +32,9 @@ public class Level : ScriptableObject
 	[Range(0, 5)] public float spawnInterval = 2f; // how often to spawn enemies
 	public int spawnCountWhenLevelStart = 5;
 	public List<GameObject> spawnPrefabsWhenLevelStart;
+
+	public int spawnCountEachInterval = 5;
+	public List<GameObject> spawnPrefabsEachInterval;
 	public bool isFinalBoss = false; // Is this level a final boss level?
 
 

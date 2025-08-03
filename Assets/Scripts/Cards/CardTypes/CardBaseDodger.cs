@@ -9,8 +9,9 @@ public class CardBaseDodger : CardMaster
 {
     private PlayerController player;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         player = PlayerController.instance;
     }
 
@@ -19,6 +20,12 @@ public class CardBaseDodger : CardMaster
         base.OnCardEnable();
         CardMaster.OnApplyValuesToGuns -= HandleOnApplyValuesToGuns;
         CardMaster.OnApplyValuesToGuns += HandleOnApplyValuesToGuns;
+
+        // // apply the value changes to player
+        // player.max_health -= (int)health;
+        // player.UpdateMaxHealth();
+
+        // player.dodge -= probability / 100f; // Convert percentage to decimal
     }
 
     public override string GetDescription()
@@ -46,6 +53,8 @@ public class CardBaseDodger : CardMaster
 
     public override void Reset()
     {
+
+        base.Reset();
         player.Reset();
         CardMaster.OnApplyValuesToGuns -= HandleOnApplyValuesToGuns;
     }

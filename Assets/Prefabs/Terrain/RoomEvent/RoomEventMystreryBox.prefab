@@ -7884,7 +7884,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   NodeID: 0
-  TMPFont: {fileID: 0}
+  TMPFont: {fileID: 11400000, guid: f3894726d65706d459c81e1c413a8aba, type: 2}
   Icon: {fileID: 0}
   Audio: {fileID: 0}
 --- !u!114 &2929689112160967899
@@ -8123,8 +8123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83189876d4d389f43b7dd2e925aa112e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentIDCounter: 4
-  json: '{"Options":[{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":536.399963,"yPos":203.800049},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Event_MystryBox_2","parentUIDs":[0],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":971.6002,"yPos":203.800049},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Event_MystryBox_3","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"coinCurrent","IntValue":0}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":771.2001,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Event_MystryBox_1","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+  CurrentIDCounter: 6
+  json: '{"Options":[{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":597.5999,"yPos":203.800079},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Event_MystryBox_2","parentUIDs":[0],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":1032.80176,"yPos":203.800079},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Event_MystryBox_3","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"coinCurrent","IntValue":0}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":832.4,"yPos":22},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Event_MystryBox_1","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
   DefaultName: Runestone
   DefaultSprite: {fileID: 21300042, guid: 29c9cded5e558164aaf8c9bf08aa1510, type: 3}
@@ -10972,11 +10972,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8805273934215900913, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.56752
+      value: 758.6942
       objectReference: {fileID: 0}
     - target: {fileID: 8805273934215900913, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.35308
+      value: 548.21735
       objectReference: {fileID: 0}
     - target: {fileID: 8805273934215900913, guid: c81d45040167cbe4e8f6833887e7369e, type: 3}
       propertyPath: m_LocalPosition.z

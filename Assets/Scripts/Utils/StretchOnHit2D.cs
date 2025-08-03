@@ -76,7 +76,18 @@ public class StretchOnHit2D : MonoBehaviour
             if (!originalPositions.ContainsKey(t))
                 originalPositions[t] = t.localPosition;
         }
-        
+
+        // --- Reset all targets to original scale and position before stretching ---
+        foreach (var t in allTargets)
+        {
+            if (activeTweens.TryGetValue(t, out Tween tween) && tween.IsActive())
+                tween.Kill();
+            if (originalScales.ContainsKey(t))
+                t.localScale = originalScales[t];
+            if (originalPositions.ContainsKey(t))
+                t.localPosition = originalPositions[t];
+        }
+
         Vector3 targetScale = originalScale;
         if (absX > absY)
         {
@@ -87,8 +98,6 @@ public class StretchOnHit2D : MonoBehaviour
                 targetScale = new Vector3(1f - shrinkStrength, 1f + stretchStrength, 1f);
                 foreach (var t in allTargets)
                 {
-                    if (activeTweens.TryGetValue(t, out Tween tween) && tween.IsActive())
-                        tween.Kill();
                     Vector3 offset = new Vector3(-shrinkStrength * 0.5f, 0f, 0f);
                     Vector3 baseScale = originalScales.ContainsKey(t) ? originalScales[t] : originalScale;
                     Vector3 basePos = originalPositions.ContainsKey(t) ? originalPositions[t] : Vector3.zero;
@@ -107,8 +116,6 @@ public class StretchOnHit2D : MonoBehaviour
                 targetScale = new Vector3(1f - shrinkStrength, 1f + stretchStrength, 1f);
                 foreach (var t in allTargets)
                 {
-                    if (activeTweens.TryGetValue(t, out Tween tween) && tween.IsActive())
-                        tween.Kill();
                     Vector3 offset = new Vector3(shrinkStrength * 0.5f, 0f, 0f);
                     Vector3 baseScale = originalScales.ContainsKey(t) ? originalScales[t] : originalScale;
                     Vector3 basePos = originalPositions.ContainsKey(t) ? originalPositions[t] : Vector3.zero;
@@ -131,8 +138,6 @@ public class StretchOnHit2D : MonoBehaviour
                 targetScale = new Vector3(1f + stretchStrength, 1f - shrinkStrength, 1f);
                 foreach (var t in allTargets)
                 {
-                    if (activeTweens.TryGetValue(t, out Tween tween) && tween.IsActive())
-                        tween.Kill();
                     Vector3 offset = new Vector3(0f, -shrinkStrength * 0.5f, 0f);
                     Vector3 baseScale = originalScales.ContainsKey(t) ? originalScales[t] : originalScale;
                     Vector3 basePos = originalPositions.ContainsKey(t) ? originalPositions[t] : Vector3.zero;
@@ -151,8 +156,6 @@ public class StretchOnHit2D : MonoBehaviour
                 targetScale = new Vector3(1f + stretchStrength, 1f - shrinkStrength, 1f);
                 foreach (var t in allTargets)
                 {
-                    if (activeTweens.TryGetValue(t, out Tween tween) && tween.IsActive())
-                        tween.Kill();
                     Vector3 offset = new Vector3(0f, shrinkStrength * 0.5f, 0f);
                     Vector3 baseScale = originalScales.ContainsKey(t) ? originalScales[t] : originalScale;
                     Vector3 basePos = originalPositions.ContainsKey(t) ? originalPositions[t] : Vector3.zero;
@@ -169,8 +172,6 @@ public class StretchOnHit2D : MonoBehaviour
         // fallback (should not hit)
         foreach (var t in allTargets)
         {
-            if (activeTweens.TryGetValue(t, out Tween tween) && tween.IsActive())
-                tween.Kill();
             Vector3 baseScale = originalScales.ContainsKey(t) ? originalScales[t] : originalScale;
             Vector3 basePos = originalPositions.ContainsKey(t) ? originalPositions[t] : Vector3.zero;
             t.DOScale(baseScale, stretchDuration).SetEase(stretchEase).OnComplete(() =>

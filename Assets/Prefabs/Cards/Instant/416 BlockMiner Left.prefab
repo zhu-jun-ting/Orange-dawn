@@ -608,8 +608,8 @@ MonoBehaviour:
   card_icon: {fileID: 0}
   card_id: 416
   card_name: Block Miner
-  card_cost: 15
-  card_sell_price: 5
+  card_cost: 45
+  card_sell_price: 15
   card_description: BlockMiner_desc
   uiStarPositions: []
   numberTypesCanBeModified: 
@@ -632,7 +632,7 @@ MonoBehaviour:
   isRoot: 1
   isInternal: 0
   card_type: 4
-  card_rarity: 0
+  card_rarity: 2
   card_bonds: 
   card_conditions: 
   additional_tags: 

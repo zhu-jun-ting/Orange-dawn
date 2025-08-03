@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7607790452efacd47b53e1808f95ca2a, type: 3}
   m_Name: 30
   m_EditorClassIdentifier: 
-  levelId: 29
+  levelId: 30
   roomType: 0
   levelOpenedDoorNumber: -1
   enemiesToSpawn:
@@ -21,16 +21,19 @@ MonoBehaviour:
     health: 116
     attack: 41
     speed: 1.8
+    dropMultiplier: 1
   - enemyPrefab: {fileID: 4321068798391446461, guid: 2d2f4c7c26c62c34f9335e02c4d45fb9, type: 3}
     count: 113
     health: 142
     attack: 41
     speed: 1.3
+    dropMultiplier: 1
   - enemyPrefab: {fileID: 3235738136384544176, guid: f42201e4320be3a4f95f163f0982d920, type: 3}
     count: 87
     health: 130
     attack: 35
     speed: 1.1
+    dropMultiplier: 1
   spawnInterval: 0.5
   spawnCountWhenLevelStart: 10
   spawnPrefabsWhenLevelStart:
@@ -51,6 +54,8 @@ MonoBehaviour:
   - {fileID: 6452647200994541434, guid: b9166ee1a04e05645be6adc5f0fbcc9e, type: 3}
   - {fileID: 6452647200994541434, guid: b9166ee1a04e05645be6adc5f0fbcc9e, type: 3}
   - {fileID: 1792623200094130640, guid: 8ba80b04a20692249bd8b3837f034ef8, type: 3}
+  spawnCountEachInterval: 5
+  spawnPrefabsEachInterval: []
   isFinalBoss: 0
   clearRequirement: 1
   timeLimit: 90

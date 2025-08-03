@@ -267,7 +267,7 @@ public class CombatManager : MonoBehaviour
     private Coroutine timerCoroutine;
     private IEnumerator LevelTimeLimitCoroutine(float timeLimit)
     {
-        if (timeLimit >= 5f) timerPanel?.gameObject.SetActive(true);
+        // if (timeLimit >= 5f) timerPanel?.gameObject.SetActive(true);
         float remaining = timeLimit;
         while (remaining > 0f)
         {
@@ -455,6 +455,8 @@ public class CombatManager : MonoBehaviour
                 yield break;
             }
 
+            
+
             int spawnCount = Mathf.Min(UnityEngine.Random.Range(1, 4), activeEnemiesToSpawn.Count);
             for (int i = 0; i < spawnCount; i++)
             {
@@ -466,6 +468,7 @@ public class CombatManager : MonoBehaviour
                 // Spawn alert animation first
                 Vector2 displacement = new Vector2(UnityEngine.Random.Range(0.1f, 0.2f), UnityEngine.Random.Range(0.1f, 0.2f));
                 var alert_obj = Instantiate(alert_prefab, location + displacement, Quaternion.identity);
+
                 yield return new WaitForSeconds(0.5f);
 
                 // Actual spawn
@@ -480,6 +483,10 @@ public class CombatManager : MonoBehaviour
                         master.curHP = entry.health * (GameSettings.instance != null ? GameSettings.instance.enemyHealthModifier : 1f) * UnityEngine.Random.Range(0.8f, 1.2f);
                         master.attackDamage = entry.attack * (GameSettings.instance != null ? GameSettings.instance.enemyDamageModifier : 1f)  * UnityEngine.Random.Range(0.8f, 1.2f);
                         master.moveSpeed = entry.speed;
+                        foreach (var item in master.dropEntries)
+                        {
+                            item.amount = Mathf.RoundToInt(item.amount * (GameSettings.instance != null ? UnityEngine.Random.Range(1 + GameSettings.instance.enemyDropRandomRate, 1 - GameSettings.instance.enemyDropRandomRate) : 1f) * entry.dropMultiplier);
+                        }
                         OnModifySpawnedEnemyStats?.Invoke(master);
                     }
                     currentEnemies.Add(enemyObj);
@@ -487,6 +494,26 @@ public class CombatManager : MonoBehaviour
                 // Decrement count
                 entry.count--;
                 activeEnemiesToSpawn[idx] = entry;
+            }
+
+            // --- Spawn items on the battleground based on Level.spawnPrefabsEachInterval ---
+            if (currentLevel != null && currentLevel.spawnPrefabsEachInterval != null && currentLevel.spawnPrefabsEachInterval.Count > 0 && currentLevel.spawnCountEachInterval > 0)
+            {
+                for (int i = 0; i < currentLevel.spawnCountEachInterval; i++)
+                {
+                    // Pick a random prefab from the list
+                    var prefab = currentLevel.spawnPrefabsEachInterval[UnityEngine.Random.Range(0, currentLevel.spawnPrefabsEachInterval.Count)];
+                    if (prefab != null)
+                    {
+                        // Pick a random spawn location (reuse GetRandomSpawnLocation or similar logic)
+                        Vector2? itemLocationNullable = TryGetSpawnLocation();
+                        if (itemLocationNullable.HasValue)
+                        {
+                            Vector2 itemLocation = itemLocationNullable.Value;
+                            Instantiate(prefab, itemLocation, Quaternion.identity);
+                        }
+                    }
+                }
             }
 
             // Wait a bit to avoid single frame level clear detection

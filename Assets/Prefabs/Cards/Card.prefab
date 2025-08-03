@@ -3409,7 +3409,6 @@ MonoBehaviour:
   showDelay: 0.1
   fadeInDuration: 0.3
   transformsToShowOnHover:
-  - {fileID: 4154211086607315838}
   - {fileID: 8480285631180192622}
   UIStarPrefab: {fileID: 2859820186635487710, guid: c6752646afd71cf4c9636a4f3363a8e8, type: 3}
   UIStarParent: {fileID: 5796574409100440457}

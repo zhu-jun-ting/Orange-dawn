@@ -14,10 +14,10 @@ public class PlayerController : PawnMaster
     public float initial_move_speed = 3f;
     public float initial_dash_speed_multiplier = 3f;
     public float initial_dash_duration = 0.1f;
-    public float initial_dodge = 0.05f;
+    public float initial_dodge = 0.01f;
     public float max_health = 50000f;
     public float moveSpeed = 3f;
-    public float dodge = 0.05f;
+    public float dodge = 0.01f;
 
 
     [Header("Player Components")]

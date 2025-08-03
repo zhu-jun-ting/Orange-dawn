@@ -7,7 +7,7 @@ using UnityEngine;
 public class CardInstantStickerHeart : CardInstantStickerMaster
 {
     [Header("Sticker Heart Settings")]
-    public int recoverHealth = 3;
+    public int recoverHealth = 1;
 
     [Header("Buff Entry Text")]
     public string heartBuffName = "Heart Sticker";

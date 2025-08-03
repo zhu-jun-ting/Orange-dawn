@@ -9,8 +9,9 @@ public class CardBaseMana : CardMaster
 {
     private PlayerController player;
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         player = PlayerController.instance;
     }
 
@@ -40,6 +41,7 @@ public class CardBaseMana : CardMaster
 
     public override void Reset()
     {
+        base.Reset();
         ManaBar.Reset();
         CardMaster.OnApplyValuesToGuns -= HandleOnApplyValuesToGuns;
     }

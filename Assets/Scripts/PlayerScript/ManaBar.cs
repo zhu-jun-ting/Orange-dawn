@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class ManaBar : MonoBehaviour
 {
+    [SerializeField] private int manaCurrentInspector = 10;
+    [SerializeField] private int manaMaxInspector = 10;
+    [SerializeField] private float manaRegenInspector = 0.5f;
+
     public static int manaCurrent = 10;
     public static int manaMax = 10;
     private static float _manaRegen = 0.5f; // Backing field for manaRegen 
-
 
     public TMPro.TextMeshProUGUI manaText;
 
@@ -19,7 +22,6 @@ public class ManaBar : MonoBehaviour
     private float responsiveFill = 1f;
 
     public Transform maxWidth;
-
 
     public static float manaRegen
     {
@@ -33,6 +35,11 @@ public class ManaBar : MonoBehaviour
 
     void Awake()
     {
+        // Sync static fields with inspector values on Awake
+        manaCurrent = manaCurrentInspector;
+        manaMax = manaMaxInspector;
+        _manaRegen = manaRegenInspector;
+
         initialManaMax = manaMax;
         initialManaRegen = manaRegen;
     }
