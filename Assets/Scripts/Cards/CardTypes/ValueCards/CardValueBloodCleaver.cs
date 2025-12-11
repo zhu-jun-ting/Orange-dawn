@@ -9,8 +9,6 @@ public class CardValueBloodCleaver : CardMaster
     // desc: Each time you kill an enemy with crit, Probability: 20% to add Health: 2 to this card.
 
     [Header("Blood Cleaver Settings")]
-    [Tooltip("Chance (0-100) to add health on critical kill")] 
-    public float critKillHealthChance = 20f;
     [Tooltip("Amount of health to add on trigger")] 
     public int healthAddAmount = 2;
 
@@ -32,7 +30,7 @@ public class CardValueBloodCleaver : CardMaster
 
         // Check probability to add health
         float roll = UnityEngine.Random.Range(0f, 100f);
-        if (roll > critKillHealthChance) return;
+        if (roll > probability) return;
 
         // Add health to this card
         health += healthAddAmount;
@@ -52,6 +50,6 @@ public class CardValueBloodCleaver : CardMaster
     public override string GetDescription()
     {
         return GameSettings.AddIcon(
-            string.Format(GameSettings.LocalizeText(card_description), critKillHealthChance, (int)healthAddAmount, (int)health));
+            string.Format(GameSettings.LocalizeText(card_description), probability, (int)healthAddAmount, (int)health));
     }
 }

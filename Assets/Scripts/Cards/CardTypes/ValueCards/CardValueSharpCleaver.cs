@@ -9,8 +9,6 @@ public class CardValueSharpCleaver : CardMaster
     // desc: Each time you kill an enemy with crit, Probability: 20% to add Damage: 1 to this card.
 
     [Header("Sharp Cleaver Settings")]
-    [Tooltip("Chance (0-100) to add damage on critical kill")] 
-    public float critKillDamageChance = 20f;
     [Tooltip("Amount of damage to add on trigger")] 
     public int damageAddAmount = 1;
 
@@ -32,7 +30,7 @@ public class CardValueSharpCleaver : CardMaster
 
         // Check probability to add damage
         float roll = UnityEngine.Random.Range(0f, 100f);
-        if (roll > critKillDamageChance) return;
+        if (roll > probability) return;
 
         // Add damage to this card
         damage += damageAddAmount;
@@ -52,6 +50,6 @@ public class CardValueSharpCleaver : CardMaster
     public override string GetDescription()
     {
         return GameSettings.AddIcon(
-            string.Format(GameSettings.LocalizeText(card_description), critKillDamageChance, (int)damageAddAmount, (int)damage));
+            string.Format(GameSettings.LocalizeText(card_description), probability, (int)damageAddAmount, (int)damage));
     }
 }
