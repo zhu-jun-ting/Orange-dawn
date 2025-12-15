@@ -11,6 +11,12 @@ public class LightBeam : MonoBehaviour, IDetectorHandler
     public List<string> targetTags; // Tags to damage
     public Detector detector; // Assign in inspector or via script
 
+    [Header("Debuff Settings")]
+    public List<EnemyMaster.DotType> appliedDebuffs = new List<EnemyMaster.DotType>(); // Debuffs to apply on hit
+    public float debuffDamage = 3f; // Damage per debuff tick
+    public float debuffInterval = 0.5f; // Interval between debuff ticks
+    public float debuffDuration = 0.5f; // Duration of debuff
+
     private HashSet<GameObject> hitObjects = new HashSet<GameObject>();
     private List<GameObject> detectedTargets = new List<GameObject>();
     private Vector2 beamStart;
@@ -105,6 +111,16 @@ public class LightBeam : MonoBehaviour, IDetectorHandler
                     {
                         if (damage >= 1f) GameEvents.instance.HitPawn(damage, pawn, gameObject, GameEvents.DamageType.Normal, go.transform, 0f, null);
                         hitObjects.Add(go);
+
+                        // Apply debuffs to enemies
+                        EnemyMaster enemy = pawn as EnemyMaster;
+                        if (enemy != null && appliedDebuffs.Count > 0)
+                        {
+                            foreach (var debuffType in appliedDebuffs)
+                            {
+                                enemy.AddDot(debuffType, debuffDamage, debuffInterval, debuffDuration);
+                            }
+                        }
                     }
                 }
             }

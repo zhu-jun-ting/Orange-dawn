@@ -108,7 +108,10 @@ public class CardGunGoldenGun : CardMaster
         if (roll > probability) return;
 
         // Drop additional gold at enemy position
-        CombatManager.SpawnDrop(CombatManager.DropItem.Coin, goldDropAmount, enemy.transform.position);
+        if (CombatManager.instance != null)
+        {
+            CombatManager.instance.SpawnDrop(CombatManager.DropItem.Coin, enemy.transform, goldDropAmount);
+        }
     }
 
     public override void Reset()

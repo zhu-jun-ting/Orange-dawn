@@ -130,7 +130,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       propertyPath: m_Name
-      value: 220 Dagger
+      value: 221 Sharp Cleaver
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -138,14 +138,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 845962131158370181}
+      addedObject: {fileID: 5883729429600971911}
   m_SourcePrefab: {fileID: 100100000, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
 --- !u!1 &6658401908579154275 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8486677922683715223, guid: 63d217ca0f3f54f4eb2873cc6f8a56f6, type: 3}
   m_PrefabInstance: {fileID: 2999918353576019956}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &845962131158370181
+--- !u!114 &5883729429600971911
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,21 +154,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 6658401908579154275}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f04e0cf7f4ff1e4ca9d2463b1275d69, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e2d1385472a5f74995b6bdf693ddd80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   card_icon: {fileID: 0}
-  card_id: 220
-  card_name: Dagger
-  card_cost: 68
+  card_id: 221
+  card_name: SharpCleaver
+  card_cost: 54
   card_sell_price: 14
-  card_description: Dagger_desc
-  uiStarPositions:
-  - {x: 0, y: 1}
+  card_description: SharpCleaver_desc
+  uiStarPositions: []
   numberTypesCanBeModified: 
   current_gun: {fileID: 0}
   useRandomLinks: 1
-  linkCount: 1
+  linkCount: 3
   up_link_enabled: 0
   up_link_type: 0
   up_link_cardmaster: {fileID: 0}
@@ -184,15 +183,15 @@ MonoBehaviour:
   isFreeCard: 0
   isRoot: 0
   isInternal: 0
-  card_type: 0
+  card_type: 2
   card_rarity: 2
-  card_bonds: 01000000
-  card_conditions: 00000000
+  card_bonds: 
+  card_conditions: 
   additional_tags: 
   additional_mousetips: 
-  damage: 1
-  health: 1
-  probability: 1
+  damage: 2
+  health: 0
+  probability: 20
   amount: 0
   mana: 0
   coin: 0
@@ -211,4 +210,4 @@ MonoBehaviour:
   myNumTypes: 
   gridLocation: {x: -1, y: -1}
   instance: {fileID: 0}
-  sellPriceModifier: 0.5
+  damageAddAmount: 2
