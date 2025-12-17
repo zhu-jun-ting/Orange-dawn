@@ -13,6 +13,7 @@ public class LightBeam : MonoBehaviour, IDetectorHandler
 
     [Header("Debuff Settings")]
     public List<EnemyMaster.DotType> appliedDebuffs = new List<EnemyMaster.DotType>(); // Debuffs to apply on hit
+    public float debuffApplyChance = 100f; // Probability (0-100) to apply debuff
     public float debuffDamage = 3f; // Damage per debuff tick
     public float debuffInterval = 0.5f; // Interval between debuff ticks
     public float debuffDuration = 0.5f; // Duration of debuff
@@ -112,13 +113,17 @@ public class LightBeam : MonoBehaviour, IDetectorHandler
                         if (damage >= 1f) GameEvents.instance.HitPawn(damage, pawn, gameObject, GameEvents.DamageType.Normal, go.transform, 0f, null);
                         hitObjects.Add(go);
 
-                        // Apply debuffs to enemies
+                        // Apply debuffs to enemies based on probability
                         EnemyMaster enemy = pawn as EnemyMaster;
                         if (enemy != null && appliedDebuffs.Count > 0)
                         {
-                            foreach (var debuffType in appliedDebuffs)
+                            float roll = UnityEngine.Random.Range(0f, 100f);
+                            if (roll <= debuffApplyChance)
                             {
-                                enemy.AddDot(debuffType, debuffDamage, debuffInterval, debuffDuration);
+                                foreach (var debuffType in appliedDebuffs)
+                                {
+                                    enemy.AddDot(debuffType, debuffDamage, debuffInterval, debuffDuration);
+                                }
                             }
                         }
                     }

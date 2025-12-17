@@ -19,6 +19,10 @@ MonoBehaviour:
     cardPrefab: {fileID: 4104569939620857182, guid: 6de3c9a2003acc54c887c9d178308f67, type: 3}
   - cardId: 3
     cardPrefab: {fileID: 4104569939620857182, guid: 53c604152fb554d4f90dc9fc33a4870d, type: 3}
+  - cardId: 95
+    cardPrefab: {fileID: 596840412527419229, guid: 21ecc20a842a09d4da0fddac3d4a5c50, type: 3}
+  - cardId: 96
+    cardPrefab: {fileID: 596840412527419229, guid: 7138331837becb242b284eb0914aed60, type: 3}
   - cardId: 97
     cardPrefab: {fileID: 596840412527419229, guid: a1fe4ad6ba8d1e64e80fc9273118855e, type: 3}
   - cardId: 98
@@ -85,6 +89,16 @@ MonoBehaviour:
     cardPrefab: {fileID: 6658401908579154275, guid: ef4c8608befee9546af3dc3614a51767, type: 3}
   - cardId: 130
     cardPrefab: {fileID: 6658401908579154275, guid: ef4c8608befee9546af3dc3614a51767, type: 3}
+  - cardId: 131
+    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
+  - cardId: 132
+    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
+  - cardId: 133
+    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
+  - cardId: 134
+    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
+  - cardId: 135
+    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
   - cardId: 201
     cardPrefab: {fileID: 6658401908579154275, guid: cec01eb344aba2342971cca04d574b54, type: 3}
   - cardId: 202
@@ -123,6 +137,10 @@ MonoBehaviour:
     cardPrefab: {fileID: 6658401908579154275, guid: be3840b645385de448eee1ad20a8eb2f, type: 3}
   - cardId: 220
     cardPrefab: {fileID: 6658401908579154275, guid: 7e4377eaeb9aa5f42b3400b626a6ecca, type: 3}
+  - cardId: 221
+    cardPrefab: {fileID: 6658401908579154275, guid: fb2a82d3826aaef418445bcb95ac98a9, type: 3}
+  - cardId: 222
+    cardPrefab: {fileID: 6658401908579154275, guid: f4de6049c20da634fbe82054af427e9e, type: 3}
   - cardId: 302
     cardPrefab: {fileID: 5827941450257739500, guid: aa226c2647966a24b835f0d5113889ab, type: 3}
   - cardId: 303
@@ -179,6 +197,8 @@ MonoBehaviour:
     cardPrefab: {fileID: 5827941450257739500, guid: e7839dfc3caf8564e9e23494972407f9, type: 3}
   - cardId: 329
     cardPrefab: {fileID: 5827941450257739500, guid: fe78e772751d47042ae5ebaac53b6f87, type: 3}
+  - cardId: 330
+    cardPrefab: {fileID: 5827941450257739500, guid: 8aed0ef385b64a84bbffbce1556dbb41, type: 3}
   - cardId: 401
     cardPrefab: {fileID: 6705360014326929814, guid: 2ffcc3f22c8fdbb49823340a40d3ec52, type: 3}
   - cardId: 402
@@ -299,13 +319,7 @@ MonoBehaviour:
     cardPrefab: {fileID: 6705360014326929814, guid: f02b4e60e4d581d489b8b1675a46b79b, type: 3}
   - cardId: 930
     cardPrefab: {fileID: 6705360014326929814, guid: 5c6333125deac724386e4498d5c1d17e, type: 3}
-  - cardId: 131
-    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
-  - cardId: 132
-    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
-  - cardId: 133
-    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
-  - cardId: 134
-    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
-  - cardId: 135
-    cardPrefab: {fileID: 6658401908579154275, guid: 0432930b256332b4cb8852574ad5d62f, type: 3}
+  - cardId: 331
+    cardPrefab: {fileID: 5827941450257739500, guid: f56297042ef81b141a70c1c8a8b02df5, type: 3}
+  - cardId: 332
+    cardPrefab: {fileID: 5827941450257739500, guid: 612f8f860548b624bbc1cfacbc59b0a0, type: 3}

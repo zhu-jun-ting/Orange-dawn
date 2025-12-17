@@ -1006,8 +1006,10 @@ public class CombatManager : MonoBehaviour
     private int maxChain = 2;
     private string[] enemyTags = new string[] { "Enemy" };
     private float lightningDamage = 5f; // Default damage for the lightning chain
+    private List<EnemyMaster.DotType> lightningDotTypes = new List<EnemyMaster.DotType>(); // DOT types to apply
+    private float lightningDotProbability = 1f; // Probability (0-1) to apply DOT
 
-    public void ShootLightningChain(Transform origin, float _damage = 5f, float _retriggerChance = 0.3f, int _maxChain = 2, string[] _enemyTags = null)
+    public void ShootLightningChain(Transform origin, float _damage = 5f, float _retriggerChance = 0.3f, int _maxChain = 2, string[] _enemyTags = null, List<EnemyMaster.DotType> dotTypes = null, float dotProbability = 1f)
     {
         if (_retriggerChance < 0 || _retriggerChance > 1)
         {
@@ -1018,6 +1020,8 @@ public class CombatManager : MonoBehaviour
         maxChain = _maxChain;
         lightningDamage = _damage;
         enemyTags = _enemyTags ?? new string[] { "Enemy" };
+        lightningDotTypes = dotTypes ?? new List<EnemyMaster.DotType>(); // Store the dot types
+        lightningDotProbability = Mathf.Clamp01(dotProbability); // Store and clamp probability between 0 and 1
         ShootLightningChain(origin.position, 0);
     }
 
@@ -1030,8 +1034,10 @@ public class CombatManager : MonoBehaviour
             beamScript.targetTags = new System.Collections.Generic.List<string>(enemyTags);
             beamScript.useMaxLength = false; // Use actual target position
             beamScript.damage = lightningDamage; // Set the damage for the beam
+            beamScript.appliedDebuffs = new System.Collections.Generic.List<EnemyMaster.DotType>(lightningDotTypes); // Set the debuffs
+            beamScript.debuffApplyChance = lightningDotProbability * 100f; // Convert 0-1 range to 0-100 range
             // Wait for the beam to fire, then possibly retrigger
-            beamScript.StartCoroutine(RetriggerAfterBeam(beamScript, chainCount));
+            beamScript.StartCoroutine(RetriggerAfterBeam(beamScript, chainCount)); 
         }
     }
 
