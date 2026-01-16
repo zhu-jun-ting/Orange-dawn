@@ -287,12 +287,12 @@ MonoBehaviour:
     m_Key: Collision
     m_Metadata:
       m_Items: []
-  - m_Id: 2846564788420635
-    m_Key: New Entry
+  - m_Id: 2847461836800000
+    m_Key: Credits
     m_Metadata:
       m_Items: []
-  - m_Id: 2846564788420636
-    m_Key: New Entry 1
+  - m_Id: 63742820978802688
+    m_Key: New Entry
     m_Metadata:
       m_Items: []
   - m_Id: 2846564788420637
@@ -347,8 +347,16 @@ MonoBehaviour:
     m_Key: Stat_Vicotry
     m_Metadata:
       m_Items: []
-  - m_Id: 2846564792614918
-    m_Key: New Entry 2
+  - m_Id: 63741535588204544
+    m_Key: Windowed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535588204545
+    m_Key: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63742820982996992
+    m_Key: New Entry 1
     m_Metadata:
       m_Items: []
   - m_Id: 1169767042596864
@@ -467,8 +475,8 @@ MonoBehaviour:
     m_Key: BonePile_desc
     m_Metadata:
       m_Items: []
-  - m_Id: 2846564792614919
-    m_Key: New Entry 3
+  - m_Id: 63742820982996993
+    m_Key: New Entry 2
     m_Metadata:
       m_Items: []
   - m_Id: 1455114070736896
@@ -927,8 +935,8 @@ MonoBehaviour:
     m_Key: Revolver
     m_Metadata:
       m_Items: []
-  - m_Id: 1455114074931233
-    m_Key: Revolver-desc
+  - m_Id: 63741535604981760
+    m_Key: Revolver_desc
     m_Metadata:
       m_Items: []
   - m_Id: 1455114074931234
@@ -955,8 +963,116 @@ MonoBehaviour:
     m_Key: Musketeers_desc
     m_Metadata:
       m_Items: []
-  - m_Id: 2847461836800000
-    m_Key: Credits
+  - m_Id: 63741535604981761
+    m_Key: Bonedust
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981762
+    m_Key: Bonedust_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981763
+    m_Key: GoldenGun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981764
+    m_Key: GoldenGun_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981765
+    m_Key: GlueGun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981766
+    m_Key: GlueGun_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981767
+    m_Key: StaticElectro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981768
+    m_Key: StaticElectro_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981769
+    m_Key: SharpCleaver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981770
+    m_Key: SharpCleaver_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981771
+    m_Key: BloodCleaver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981772
+    m_Key: BloodCleaver_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981773
+    m_Key: Womb
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981774
+    m_Key: Womb_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981775
+    m_Key: Conversion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981776
+    m_Key: Conversion_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981777
+    m_Key: HugeClub
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981778
+    m_Key: HugeClub_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981779
+    m_Key: RiskInvest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981780
+    m_Key: RiskInvest_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981781
+    m_Key: Capitalist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176064
+    m_Key: Capitalist_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176065
+    m_Key: GoldVault
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176066
+    m_Key: GoldVault_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176067
+    m_Key: ExpVault
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176068
+    m_Key: ExpVault_desc
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176069
+    m_Key: ManaSpring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176070
+    m_Key: ManaSpring_desc
     m_Metadata:
       m_Items: []
   m_Metadata:

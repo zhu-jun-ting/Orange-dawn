@@ -523,7 +523,7 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 1455114070736948
     m_Localized: 'Target an Action Card: When trigger, Probability: {0}%  to inflict
-      fire around'
+      fire around Damage: {1}'
     m_Metadata:
       m_Items: []
   - m_Id: 1455114070736949
@@ -820,13 +820,6 @@ MonoBehaviour:
     m_Localized: Revolver
     m_Metadata:
       m_Items: []
-  - m_Id: 1455114074931233
-    m_Localized: 'when you dodge, Probability: {0}%  shoot Amount: {1} additional
-      pinball
-
-      cost Health: {2}'
-    m_Metadata:
-      m_Items: []
   - m_Id: 1455114074931234
     m_Localized: Fire Ring
     m_Metadata:
@@ -861,7 +854,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2846564754866176
-    m_Localized: "While this whole game was developed in a rush and all done by myself,
+    m_Localized: "Thank you for playing my game. Pinball Rouge is a Top-Down Shooter
+      game with pinball like bullets and all kinds of power-ups with costomizable
+      builds. While this whole game was developed in a rush and all done by myself,
       I am sorry to have all kinds of bugs flying  around. Here are some provided
       console to prevent from stuck in any wierd bugs.\nJust write name the first
       box and the parameters (if any) on the lower box.  \n\nAddCard(int cardId)
@@ -1111,6 +1106,164 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 2846564792614917
     m_Localized: Victory
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535588204544
+    m_Localized: Windowed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535588204545
+    m_Localized: Fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981760
+    m_Localized: 'when you dodge, Probability: {0}%  shoot Amount: {1} additional
+      pinball
+
+      cost Health: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981761
+    m_Localized: Bonedust
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981762
+    m_Localized: When discarded, Grow all cards on board 1 time (if applicable)
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981763
+    m_Localized: Golden Gun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981764
+    m_Localized: 'may drop additional gold Probability: {0} when kill enemy with
+      this gun
+
+      Damage: {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981765
+    m_Localized: Glue Gun
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981766
+    m_Localized: 'may apply slow Probability: {0} to the enemy hit
+
+      Damage:
+      {1}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981767
+    m_Localized: Static Electro
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981768
+    m_Localized: 'When you destory an item, shoot a chain lightning and Probability:
+      {0}% stun the targets with Damage: {1}
+
+      Cost: Mana: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981769
+    m_Localized: Sharp Cleaver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981770
+    m_Localized: 'Each time you kill an enemy with crit, Probability: {0}% to add
+      Damage: {1} to this card.
+
+      Damage: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981771
+    m_Localized: Blood Cleaver
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981772
+    m_Localized: 'Each time you kill an enemy with crit, Probability: {0}% to add
+      Health: {1} to this card.
+
+      Health: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981773
+    m_Localized: Womb
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981774
+    m_Localized: 'When an enemy dies, Probability: {0}% shoot an additional pinball
+      to a random target deal Damage: {1}
+
+      Cost: Mana: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981775
+    m_Localized: Conversion
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981776
+    m_Localized: 'When you kill an enemy with a crit hit, Probability: {0}% to heal
+      you with Damage:  {1}
+
+      Cost: Mana: {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981777
+    m_Localized: Huge Club
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981778
+    m_Localized: 'Give Amount: +{1} if this card has Damage: >={0}
+
+      Amount:
+      {2}
+
+      Damage: {3}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981779
+    m_Localized: Risk Invest
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981780
+    m_Localized: "While this card is active on board, when level clear, it has fixed
+      {0}% chance to get Amount: +{1} and lose that ability. \nAmount: {2}"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535604981781
+    m_Localized: Capitalist
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176064
+    m_Localized: 'Give this card Health: +{0} for each {1} coin you have spent.
+
+      Health:
+      {2}'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176065
+    m_Localized: Gold Vault
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176066
+    m_Localized: 'When an enemy dies, Probability: {0}% to drop {1} additional coin'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176067
+    m_Localized: Exp Vault
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176068
+    m_Localized: 'When an enemy dies, Probability: {0}% to drop {1} additional exp'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176069
+    m_Localized: Mana Spring
+    m_Metadata:
+      m_Items: []
+  - m_Id: 63741535609176070
+    m_Localized: 'When an enemy dies, Probability: {0}% to recover you {1} - {2}
+      mana'
     m_Metadata:
       m_Items: []
   references:
