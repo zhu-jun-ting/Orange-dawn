@@ -78,6 +78,7 @@ public class CardMaster : MonoBehaviour
         Value,
         Action,
         Instant, 
+        Relic,
         Internal // internal cards are only for internal machanisms and should not be used in gameplay
     }
 
