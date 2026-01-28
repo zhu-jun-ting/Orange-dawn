@@ -43,6 +43,7 @@ public class CardActionSpawnCrossBowWhenHitWall : CardMaster, ICardAction
     private float lastSpawnTime = -10f;
     public void TriggerAction(CardMaster source = null, Transform location = null)
     {
+        GameEvents.instance.TriggerActionCard(source, location);
         if (crossBowPrefab == null || location == null) return;
         if (!ManaBar.CanCostMana(-manaCost)) return;
 

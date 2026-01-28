@@ -48,6 +48,7 @@ public class CardActionSpawnNPCShooter : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster source, Transform location)
     {
+        GameEvents.instance.TriggerActionCard(source, location);
         if (npcShooterPrefab == null || location == null) return;
 
         // Calculate mana cost

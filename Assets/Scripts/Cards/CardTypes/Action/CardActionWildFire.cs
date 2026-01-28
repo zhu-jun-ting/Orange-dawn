@@ -79,6 +79,7 @@ public class CardActionWildFire : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform enemyTransform)
     {
+        GameEvents.instance.TriggerActionCard(card, enemyTransform);
         if (burnAOEPrefab == null || enemyTransform == null) return;
         SpawnObjects(
             _prefab: burnAOEPrefab,

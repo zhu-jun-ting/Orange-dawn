@@ -33,6 +33,7 @@ public class CardActionSpawnLightningTowerWhenLevelStart : CardMaster, ICardActi
 
     public void TriggerAction(CardMaster source = null, Transform location = null)
     {
+        GameEvents.instance.TriggerActionCard(source, location);
         if (lightningTowerPrefab == null || location == null) return;
         if (!ManaBar.CanCostMana(-manaCost)) return;
 

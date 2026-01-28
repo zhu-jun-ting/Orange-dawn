@@ -65,6 +65,7 @@ public class CardActionCircularBulletOnHitWall : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (circularBulletPrefab == null || target == null) return;
         if (!ManaBar.CanCostMana(-ManaCost)) return;
 

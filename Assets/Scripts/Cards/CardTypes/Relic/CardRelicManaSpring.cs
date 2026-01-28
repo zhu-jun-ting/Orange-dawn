@@ -51,6 +51,7 @@ public class CardRelicManaSpring : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform deadEnemyTransform)
     {
+        GameEvents.instance.TriggerActionCard(card, deadEnemyTransform);
         if (deadEnemyTransform == null) return;
         if (GameEvents.instance == null) return;
 

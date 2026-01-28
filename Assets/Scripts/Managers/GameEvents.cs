@@ -252,10 +252,10 @@ public class GameEvents : MonoBehaviour
     }
 
     public enum Dir { Up, Down, Left, Right }
-    public event Action<Dir> OnPlayerChoseNextRoom;
-    public void PlayerChoseNextRoom(Dir direction)
+    public event Action<Dir, FloorManager.RoomType> OnPlayerChoseNextRoom;
+    public void PlayerChoseNextRoom(Dir direction, FloorManager.RoomType roomType)
     {
-        OnPlayerChoseNextRoom?.Invoke(direction);
+        OnPlayerChoseNextRoom?.Invoke(direction, roomType);
     }
 
     public event Action<int> OnLoadLevel;

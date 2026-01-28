@@ -64,6 +64,7 @@ public class CardActionStaticElectro : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform destroyLocation)
     {
+        GameEvents.instance.TriggerActionCard(card, destroyLocation);
         if (destroyLocation == null || CombatManager.instance == null) return;
         
         // Create a list with Shock DOT type to apply stun

@@ -78,6 +78,7 @@ public class CardActionMusketeers : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform enemyTransform)
     {
+        GameEvents.instance.TriggerActionCard(card, enemyTransform);
         if (lightBeamStraightPrefab == null || enemyTransform == null) return;
         SpawnObjects(
             _prefab: lightBeamStraightPrefab,

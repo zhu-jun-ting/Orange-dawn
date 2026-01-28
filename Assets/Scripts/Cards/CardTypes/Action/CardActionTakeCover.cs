@@ -24,6 +24,7 @@ public class CardActionTakeCover : CardMaster, ICardAction
     private float lastWallSpawnTime = -10f;
     public void TriggerAction(CardMaster source = null, Transform location = null)
     {
+        GameEvents.instance.TriggerActionCard(source, location);
         // location: where to spawn the walls (center)
         if (fragileWallPrefab == null || location == null) return;
         lastWallSpawnTime = Time.time;

@@ -47,6 +47,7 @@ public class CardActionAncientTablet : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform npcTransform)
     {
+        GameEvents.instance.TriggerActionCard(card, npcTransform);
         Vector3 center = npcTransform != null ? npcTransform.position : Vector3.zero;
         for (int i = 0; i < amount; i++)
         {

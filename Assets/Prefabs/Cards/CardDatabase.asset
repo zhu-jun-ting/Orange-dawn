@@ -335,3 +335,5 @@ MonoBehaviour:
     cardPrefab: {fileID: 6705360014326929814, guid: f02b4e60e4d581d489b8b1675a46b79b, type: 3}
   - cardId: 930
     cardPrefab: {fileID: 6705360014326929814, guid: 5c6333125deac724386e4498d5c1d17e, type: 3}
+  - cardId: 434
+    cardPrefab: {fileID: 6705360014326929814, guid: 0279c099d86e35e43841ecb8103a69ce, type: 3}

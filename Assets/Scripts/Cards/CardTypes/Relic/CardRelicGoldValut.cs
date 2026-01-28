@@ -59,6 +59,7 @@ public class CardRelicGoldValut : CardMaster
 
     public void TriggerAction(CardMaster card, Transform target)
     {
+        GameEvents.instance.TriggerActionCard(card, target);
         if (target == null) return;
         if (CombatManager.instance != null)
         {

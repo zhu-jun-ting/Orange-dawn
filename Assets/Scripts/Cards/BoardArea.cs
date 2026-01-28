@@ -393,6 +393,55 @@ public class BoardArea : MonoBehaviour
         UpdateGridSize(newRows, newCols);
     }
 
+    /// <summary>
+    /// Activates a random closed cell adjacent to an open cell.
+    /// Returns true if a cell was activated, false otherwise.
+    /// </summary>
+    public bool ActivateRandomSlot()
+    {
+        if (gridOpenState == null) return false;
+
+        HashSet<Vector2Int> candidates = new HashSet<Vector2Int>();
+        
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < columns; c++)
+            {
+                // Only look for neighbors of OPEN cells
+                if (IsCellOpen(r, c))
+                {
+                    // Check 4 neighbors
+                    AddCandidateIfValid(r + 1, c, candidates);
+                    AddCandidateIfValid(r - 1, c, candidates);
+                    AddCandidateIfValid(r, c + 1, candidates);
+                    AddCandidateIfValid(r, c - 1, candidates);
+                }
+            }
+        }
+        
+        if (candidates.Count > 0)
+        {
+            // Pick a random candidate
+            List<Vector2Int> candidateList = new List<Vector2Int>(candidates);
+            Vector2Int target = candidateList[UnityEngine.Random.Range(0, candidateList.Count)];
+            
+            ActivateCell(target.x, target.y);
+            return true;
+        }
+        return false;
+    }
+
+    private void AddCandidateIfValid(int r, int c, HashSet<Vector2Int> candidates)
+    {
+        // Negative indices are not supported by BoardArea.ActivateCell (it only expands positive)
+        if (r < 0 || c < 0) return; 
+
+        // If cell is already open, it's not a candidate
+        if (IsCellOpen(r, c)) return;
+        
+        candidates.Add(new Vector2Int(r, c));
+    }
+
     public void DeactivateCell(int row, int col)
     {
         if (gridOpenState == null) return;

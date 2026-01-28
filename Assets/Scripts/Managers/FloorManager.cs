@@ -112,7 +112,7 @@ public class FloorManager : MonoBehaviour
     private List<int> loadedLevelIds = new List<int>();
     private int lastBattleLevelCleared = 0;
     private int lastBossLevelCleared = 0;
-    private void HandlePlayerNextRoom(GameEvents.Dir dir)
+    private void HandlePlayerNextRoom(GameEvents.Dir dir, RoomType roomType)
     {
         // Player can not reenter a room that previously entered so close all doors towards that room
         closedRooms.Add(playerRoom);
@@ -216,6 +216,17 @@ public class FloorManager : MonoBehaviour
             }
             roomGrid.ShutDoorsToClosedRooms(openedDoors: CombatManager.instance.currentLevel?.levelOpenedDoorNumber ?? -1);
         }
+    }
+
+    public RoomType GetRoomTypeInDirection(GameEvents.Dir dir)
+    {
+        Vector2Int offset = DirToOffset(dir);
+        Vector2Int nextPos = playerRoom + offset;
+        if (mapGrids.ContainsKey(nextPos))
+        {
+            return mapGrids[nextPos].roomType;
+        }
+        return RoomType.None;
     }
 
     private Vector2Int DirToOffset(GameEvents.Dir dir)

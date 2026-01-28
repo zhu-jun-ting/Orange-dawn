@@ -50,6 +50,7 @@ public class CardRelicExpVault : CardMaster, ICardAction
 
     public void TriggerAction(CardMaster card, Transform deadEnemyTransform)
     {
+        GameEvents.instance.TriggerActionCard(card, deadEnemyTransform);
         if (deadEnemyTransform == null) return;
         if (CombatManager.instance == null) return;
 

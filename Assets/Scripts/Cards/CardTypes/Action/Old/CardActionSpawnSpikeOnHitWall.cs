@@ -43,6 +43,7 @@ public class CardActionSpawnSpikeOnHitWall : CardMaster, ICardAction
     private float lastSpikeSpawnTime = -10f;
     public void TriggerAction(CardMaster source = null, Transform location = null)
     {
+        GameEvents.instance.TriggerActionCard(source, location);
         if (spikePrefab == null || location == null) return;
         if (!ManaBar.CanCostMana(-manaCost)) return;
 

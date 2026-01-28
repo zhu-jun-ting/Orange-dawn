@@ -58,6 +58,11 @@ public class PlayerChoice : MonoBehaviour
                 floorDoor.alwaysActive = true;
         }
         // Notify game event
-        GameEvents.instance.PlayerChoseNextRoom(direction);
+        FloorManager.RoomType roomType = FloorManager.RoomType.None;
+        if (FloorManager.instance != null)
+        {
+            roomType = FloorManager.instance.GetRoomTypeInDirection(direction);
+        }
+        GameEvents.instance.PlayerChoseNextRoom(direction, roomType);
     }
 }
