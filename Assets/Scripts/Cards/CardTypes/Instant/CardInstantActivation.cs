@@ -13,7 +13,6 @@ public class CardInstantActivation : CardMaster
         
         if (BoardArea.instance.ActivateRandomSlot())
         {
-            SoundManager.PlaySFX("GetCard");
             OnCardDestroyed();
         }
     }

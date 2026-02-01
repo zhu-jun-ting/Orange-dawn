@@ -289,6 +289,12 @@ public class PlayerController : PawnMaster
         // Actual Death Logic here
         if (HealthBar.HealthCurrent <= 0)
         {
+            // Check for death prevention
+            if (GameEvents.instance != null && GameEvents.instance.RequestDeathPrevention(this))
+            {
+                return true; // Damage taken, but death prevented
+            }
+
             Instantiate(test, gameObject.transform.position, gameObject.transform.rotation);
             gameObject.SetActive(false);
             GameEvents.instance?.GameEnd(false); // Notify game end with false for not winning

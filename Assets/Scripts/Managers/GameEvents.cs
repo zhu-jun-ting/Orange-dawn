@@ -288,6 +288,23 @@ public class GameEvents : MonoBehaviour
         OnGameStart?.Invoke();
     }
 
+    public delegate void DeathPreventionHandler(PawnMaster pawn, ref bool prevented);
+    public event DeathPreventionHandler OnCheckDeathPrevention;
+
+    public bool RequestDeathPrevention(PawnMaster pawn)
+    {
+        bool prevented = false;
+        if (OnCheckDeathPrevention != null)
+        {
+            foreach (DeathPreventionHandler handler in OnCheckDeathPrevention.GetInvocationList())
+            {
+                handler(pawn, ref prevented);
+                if (prevented) break;
+            }
+        }
+        return prevented;
+    }
+
     public event Action<bool> OnGameEnd;
     public void GameEnd(bool isVictory = false)
     {
