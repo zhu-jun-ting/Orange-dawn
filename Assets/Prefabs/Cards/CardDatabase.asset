@@ -337,3 +337,11 @@ MonoBehaviour:
     cardPrefab: {fileID: 6705360014326929814, guid: 5c6333125deac724386e4498d5c1d17e, type: 3}
   - cardId: 434
     cardPrefab: {fileID: 6705360014326929814, guid: 0279c099d86e35e43841ecb8103a69ce, type: 3}
+  - cardId: 333
+    cardPrefab: {fileID: 5827941450257739500, guid: 2d19aed8fd34af94a9243ad8c3be359a, type: 3}
+  - cardId: 334
+    cardPrefab: {fileID: 5827941450257739500, guid: 66882150d344d8c4d96bdc495dd4e775, type: 3}
+  - cardId: 335
+    cardPrefab: {fileID: 5827941450257739500, guid: 484e508efe3dc004da24e83ad33dd7d5, type: 3}
+  - cardId: 336
+    cardPrefab: {fileID: 5827941450257739500, guid: f43ce9e3c14179b45a07d41da4677352, type: 3}

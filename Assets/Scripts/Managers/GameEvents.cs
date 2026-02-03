@@ -46,6 +46,9 @@ public class GameEvents : MonoBehaviour
 
     public event Action<float, PawnMaster, GameObject, DamageType, Transform, float, Gun> OnHitPawn;
     public static Func<float, float> OnModifyDamage;
+    public delegate void ModifyDamageHandler(ref float damage, PawnMaster receiver);
+    public event ModifyDamageHandler OnIncomingDamage;
+
     public void HitPawn(float damage_, PawnMaster reciever_, GameObject instigator_ = null, DamageType damage_type_ = DamageType.Normal, Transform location_ = null, float hit_back_factor_ = 0f, Gun source_ = null, string prefix = "", System.Action<float> modifyDamageCallback = null)
     {
         // Modify the damage if a callback is provided
@@ -53,6 +56,12 @@ public class GameEvents : MonoBehaviour
         {
             damage_ = OnModifyDamage(damage_);
             modifyDamageCallback?.Invoke(damage_);
+        }
+
+        // Allow modification of incoming damage
+        if (OnIncomingDamage != null && reciever_ != null)
+        {
+            OnIncomingDamage(ref damage_, reciever_);
         }
 
         bool isTaken = false;

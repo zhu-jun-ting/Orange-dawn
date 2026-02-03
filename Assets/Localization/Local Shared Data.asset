@@ -291,8 +291,8 @@ MonoBehaviour:
     m_Key: Credits
     m_Metadata:
       m_Items: []
-  - m_Id: 63742820978802688
-    m_Key: New Entry
+  - m_Id: 70182095651880960
+    m_Key: New Entry 6
     m_Metadata:
       m_Items: []
   - m_Id: 2846564788420637
@@ -355,8 +355,8 @@ MonoBehaviour:
     m_Key: Fullscreen
     m_Metadata:
       m_Items: []
-  - m_Id: 63742820982996992
-    m_Key: New Entry 1
+  - m_Id: 70182095651880961
+    m_Key: New Entry 7
     m_Metadata:
       m_Items: []
   - m_Id: 1169767042596864
@@ -475,8 +475,8 @@ MonoBehaviour:
     m_Key: BonePile_desc
     m_Metadata:
       m_Items: []
-  - m_Id: 63742820982996993
-    m_Key: New Entry 2
+  - m_Id: 70182095656075264
+    m_Key: New Entry 8
     m_Metadata:
       m_Items: []
   - m_Id: 1455114070736896
