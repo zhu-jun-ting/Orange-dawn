@@ -751,6 +751,12 @@ MonoBehaviour:
   - dropItem: 2
     amount: 1
     chance: 0.78
+  - dropItem: 2
+    amount: 1
+    chance: 0.5
+  - dropItem: 2
+    amount: 1
+    chance: 0.214
   shoot_range: 5.62
   shoot_interval: 2
   attackBulletSpeed: 8.62

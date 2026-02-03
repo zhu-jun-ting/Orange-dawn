@@ -517,16 +517,22 @@ MonoBehaviour:
   dropEntries:
   - dropItem: 1
     amount: 1
-    chance: 0.587
+    chance: 0.872
   - dropItem: 1
     amount: 1
     chance: 0.592
   - dropItem: 2
     amount: 1
+    chance: 0.903
+  - dropItem: 2
+    amount: 1
+    chance: 0.585
+  - dropItem: 2
+    amount: 1
     chance: 0.394
   - dropItem: 3
     amount: 1
-    chance: 0.05
+    chance: 0.278
 --- !u!58 &4321068798391446455
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -764,7 +764,13 @@ MonoBehaviour:
     chance: 0.201
   - dropItem: 2
     amount: 1
-    chance: 0.471
+    chance: 0.889
+  - dropItem: 2
+    amount: 1
+    chance: 0.632
+  - dropItem: 2
+    amount: 1
+    chance: 0.487
   - dropItem: 3
     amount: 1
     chance: 0.1
